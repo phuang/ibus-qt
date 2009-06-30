@@ -10,7 +10,7 @@ class QIBusSerializable : public QIBusObject
     Q_OBJECT
 
 public:
-    QIBusSerializable ();
+    Q_INVOKABLE QIBusSerializable ();
     void setAttachment (const QString &key, QIBusSerializable *value);
     QIBusSerializable *getAttachment (const QString &key);
 
@@ -20,7 +20,6 @@ public:
     virtual QIBusSerializable *copy ();
 
 protected:
-
 
 };
 
