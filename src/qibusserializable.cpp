@@ -2,6 +2,7 @@
 
 QIBusSerializable::QIBusSerializable ()
 {
+    qDebug ("new QIBusSerializable (%p)", this);
 }
 
 bool
