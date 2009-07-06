@@ -8,7 +8,7 @@ class QIBusObject : public QObject
     Q_OBJECT
 
 public:
-    QIBusObject ();
+    Q_INVOKABLE QIBusObject ();
 };
 
 #endif

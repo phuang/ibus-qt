@@ -7,12 +7,14 @@ set(
     ibus.cpp
     qibusobject.cpp
     qibusserializable.cpp
+    qibustext.cpp
 )
 
 set(
     ibus_qt_MOC_HDRS
     qibusobject.h
     qibusserializable.h
+    qibustext.h
 )
 
 qt4_automoc(${ibus_qt_SRCS})

@@ -3,15 +3,20 @@
 
 int main()
 {
-    QIBusSerializable *obj = new QIBusSerializable ();
     QDBusArgument arg;
+    QIBusSerializable *obj;
 
+    obj = new QIBusSerializable ();
     obj->serialize(arg);
     delete obj;
     
-    obj = (QIBusSerializable *) QIBusSerializable::staticMetaObject.newInstance();
+    obj = QIBusSerializable::newFromName ("IBusSerializable");
     obj->deserialize(arg);
-
     delete obj;
+
+    obj = QIBusSerializable::newFromName ("IBusText");
+    obj->deserialize(arg);
+    delete obj;
+
     return 0;
 }
