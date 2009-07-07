@@ -1,6 +1,6 @@
 #include "qibusserializable.h"
 
-QHash <const QString, const QMetaObject*> QIBusSerializable::type_table INIT_PRIO_HIGH;
+QHash <const QString, QIBusSerializable::NEW_FUNC*> QIBusSerializable::type_table INIT_PRIO_HIGH;
 
 IBUS_DECLARE_SERIALIZABLE(QIBusSerializable, IBusSerializable);
 
@@ -33,7 +33,7 @@ QIBusSerializable *
 QIBusSerializable::newFromName(const QString &name)
 {
     if (type_table.contains (name)) {
-        return qobject_cast <QIBusSerializable *> (type_table[name]->newInstance ());
+        return type_table[name] ();
     }
     return NULL;    
 }
@@ -45,16 +45,25 @@ QIBusSerializable::newFromDBusArgument (QDBusArgument &argument)
 }
 
 void
-QIBusSerializable::registerObject (const QString &name, const QMetaObject *metaobject)
+QIBusSerializable::registerObject (const QString &name, NEW_FUNC newfn)
 {
     if (type_table.contains (name)) {
         qFatal ("registerObject failed! name %s has been registered", name.data ());
     }
 
-    if (metaobject == NULL) {
-        qFatal ("registerObject failed! name = %s, metaobject should not be NULL", name.data ());
+    if (newfn == NULL) {
+        qFatal ("registerObject failed! name = %s, newfn should not be NULL", name.data ());
     }
 
-    QIBusSerializable::type_table[name] = metaobject;
+    QIBusSerializable::type_table[name] = newfn;
+}
+
+void
+QIBusSerializable::unregisterObject (const QString &name)
+{
+    if (!type_table.contains (name)) {
+        qFatal ("unregisterObject failed! name %s has not been registered", name.data ());
+    }
+    QIBusSerializable::type_table.remove(name);
 }
 
