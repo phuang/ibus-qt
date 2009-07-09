@@ -6,6 +6,8 @@ set(
     ibus_qt_SRCS
     ibus.cpp
     qibusobject.cpp
+    qibusconnection.cpp
+    qibusbus.cpp
     qibusserializable.cpp
     qibustext.cpp
 )
@@ -13,8 +15,8 @@ set(
 set(
     ibus_qt_MOC_HDRS
     qibusobject.h
-    qibusserializable.h
-    qibustext.h
+    qibusconnection.h
+    qibusbus.h
 )
 
 qt4_automoc(${ibus_qt_SRCS})
