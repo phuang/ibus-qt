@@ -33,7 +33,7 @@ int main (int argc, char **argv)
 
     QDBusPendingReply<QDBusVariant> ret = bus.Ping (QDBusVariant (QVariant::fromValue (arg)));
 
-    QDBusArgument argout = ret.value().variant().value<QDBusArgument> ();
+    QDBusArgument argout = ret.argumentAt<0>().variant().value<QDBusArgument>();
 
     QIBusSerializable::deserializeObject (obj2, argout);
 
