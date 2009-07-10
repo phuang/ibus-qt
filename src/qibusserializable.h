@@ -72,6 +72,10 @@ public:
     static QIBusSerializable *newFromDBusArgument (QDBusArgument &argument);
     static bool serializeObject (const QIBusSerializable *obj, QDBusArgument &argument);
     static bool deserializeObject (QIBusSerializable *&obj, const QDBusArgument &argument);
+    
+    QDBusVariant toVariant (const QIBusSerializable &obj, bool *ok = NULL);
+    QIBusSerializable *toObject (const QDBusVariant &variant);
+    QIBusSerializable *toObject (const QVariant &variant);
 
 protected:
     static void registerObject (const QString &name, NEW_FUNC newfn);
