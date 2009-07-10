@@ -8,27 +8,27 @@
   </interface>
   <interface name="org.freedesktop.IBus">
     <method name="GetAddress">
-      <arg direction="out" type="s"/>
+      <arg name="address" direction="out" type="s"/>
     </method>
     <method name="CreateInputContext">
-      <arg direction="in" type="s" name="name" />
-      <arg direction="out" type="o"/>
+      <arg name="name" direction="in" type="s"/>
+      <arg name="context" direction="out" type="o"/>
     </method>
     <method name="RegisterComponent">
-      <arg direction="in" type="av" name="components"/>
+      <arg name="components" direction="in" type="av"/>
     </method>
     <method name="ListEngines">
-      <arg direction="out" type="av"/>
+      <arg name="engines" direction="out" type="av"/>
     </method>
     <method name="ListActiveEngines">
-      <arg direction="out" type="av"/>
+      <arg name="engines" direction="out" type="av"/>
     </method>
     <method name="Exit">
-      <arg direction="in" type="b" name="restart"/>
+      <arg name="restart" direction="in" type="b"/>
     </method>
     <method name="Ping">
-      <arg direction="in" type="v" name="data"/>
-      <arg direction="out" type="v"/>
+      <arg name="data" direction="in" type="v"/>
+      <arg name="data" direction="out" type="v"/>
     </method>
   </interface>
 </node>

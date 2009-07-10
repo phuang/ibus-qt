@@ -8,8 +8,8 @@
  * Do not edit! All changes made to it will be lost.
  */
 
-#ifndef QIBUSBUS_H_1247132177
-#define QIBUSBUS_H_1247132177
+#ifndef QIBUSBUS_H_1247194313
+#define QIBUSBUS_H_1247194313
 
 #include <QtCore/QObject>
 #include <QtCore/QByteArray>

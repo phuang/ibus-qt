@@ -8,6 +8,7 @@ set(
     qibusobject.cpp
     qibusconnection.cpp
     qibusbus.cpp
+    qibusinputcontext.cpp
     qibusserializable.cpp
     qibustext.cpp
 )
@@ -17,6 +18,7 @@ set(
     qibusobject.h
     qibusconnection.h
     qibusbus.h
+    qibusinputcontext.h
 )
 
 qt4_automoc(${ibus_qt_SRCS})
