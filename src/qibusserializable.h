@@ -35,6 +35,7 @@ class QIBusSerializable /*  : public QIBusObject */
 
     // Q_OBJECT
     typedef QIBusSerializable *(NEW_FUNC)(void);
+    class PrivateData;
 
 protected:
     class MetaTypeInfo
@@ -64,6 +65,7 @@ public:
     virtual QIBusSerializable *copy (const QIBusSerializable *src);
 
 private:
+    PrivateData *d;
     QMap<QString, QIBusSerializable *> attachments;
 
 /* static */
@@ -73,9 +75,9 @@ public:
     static bool serializeObject (const QIBusSerializable *obj, QDBusArgument &argument);
     static bool deserializeObject (QIBusSerializable *&obj, const QDBusArgument &argument);
     
-    QDBusVariant toVariant (const QIBusSerializable &obj, bool *ok = NULL);
-    QIBusSerializable *toObject (const QDBusVariant &variant);
-    QIBusSerializable *toObject (const QVariant &variant);
+    static QDBusVariant toVariant (const QIBusSerializable &obj);
+    static QIBusSerializable toObject (const QDBusVariant &variant, bool *ok = NULL);
+    static QIBusSerializable toObject (const QVariant &variant, bool *ok = NULL);
 
 protected:
     static void registerObject (const QString &name, NEW_FUNC newfn);
@@ -88,7 +90,5 @@ private:
 };
 
 Q_DECLARE_METATYPE(QIBusSerializable)
-
-QDBusArgument& operator<<(QDBusArgument&, const QIBusSerializable &);
 
 #endif

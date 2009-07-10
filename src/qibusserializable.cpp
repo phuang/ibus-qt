@@ -87,13 +87,6 @@ QIBusSerializable::serializeObject (const QIBusSerializable *obj, QDBusArgument 
     return true;
 }
 
-QDBusArgument&
-operator<<(QDBusArgument &argument, const QIBusSerializable &obj)
-{
-    QIBusSerializable::serializeObject (&obj, argument);
-    return argument;
-}
-
 bool
 QIBusSerializable::deserializeObject (QIBusSerializable *&obj, const QDBusArgument &argument)
 {
@@ -106,6 +99,23 @@ QIBusSerializable::deserializeObject (QIBusSerializable *&obj, const QDBusArgume
     argument.endStructure ();
     return true;
 }
+
+
+QDBusVariant  
+QIBusSerializable::toVariant (const QIBusSerializable *obj, bool *ok)
+{
+    QDBusArgument argument;
+    
+    argument.beginStructure ();
+    argument << obj->getMetaInfo ()->getName ();
+    obj->serialize (argument);
+    argument.endStructure ();
+
+    return QDBusVariant (QVariant::fromValue (argument));
+
+}
+    static QIBusSerializable *toObject (const QDBusVariant *variant);
+    static QIBusSerializable *toObject (const QVariant *variant);
 
 void
 QIBusSerializable::registerObject (const QString &name, NEW_FUNC newfn)

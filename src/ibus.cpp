@@ -47,7 +47,6 @@ const QDBusArgument &operator>> (const QDBusArgument &argument, MyStructure &m)
     return argument;
 }
 
-
 int main (int argc, char **argv)
 {
     App app(argc, argv);
@@ -59,27 +58,21 @@ int main (int argc, char **argv)
                   connection.getConnection ());
 
 
-    QDBusArgument arg;
     QIBusSerializable *obj1, *obj2;
+    QDBusArgument arg;
 
     obj1 = new QIBusSerializable ();
+
     QIBusSerializable::serializeObject (obj1, arg);
     delete obj1;
 
-    QDBusPendingReply<QDBusVariant> ret = bus.Ping (QDBusVariant (QVariant::fromValue (arg)));
+    QVariant a = QVariant::fromValue(arg);
+
+    QDBusPendingReply<QDBusVariant> ret = bus.Ping (QDBusVariant (a));
 
     QDBusArgument argout = ret.argumentAt<0>().variant().value<QDBusArgument>();
 
     QIBusSerializable::deserializeObject (obj2, argout);
-    
-    qDBusRegisterMetaType<MyStructure>();
-    MyStructure s (QString ("Hello"), 99);
-
-
-    ret = bus.Ping (QDBusVariant(QVariant::fromValue (s)));
-    
-    MyStructure ss (QString ("zzz"), 99);
-    ret.reply() >> ss;
 
     return 0;
 }
