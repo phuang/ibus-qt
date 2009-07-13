@@ -32,10 +32,7 @@ public:                                                 \
 
 class QIBusSerializable /*  : public QIBusObject */
 {
-
-    // Q_OBJECT
     typedef QIBusSerializable *(NEW_FUNC)(void);
-    class PrivateData;
 
 protected:
     class MetaTypeInfo
@@ -56,8 +53,8 @@ protected:
 
 public:
     QIBusSerializable ();
-    void setAttachment (const QString &key, QIBusSerializable *value);
-    QIBusSerializable *getAttachment (const QString &key);
+    void setAttachment (const QString &key, const QVariant &value);
+    QVariant getAttachment (const QString &key);
 
 public:
     virtual bool serialize (QDBusArgument &argument) const;
@@ -65,8 +62,13 @@ public:
     virtual QIBusSerializable *copy (const QIBusSerializable *src);
 
 private:
-    PrivateData *d;
-    QMap<QString, QIBusSerializable *> attachments;
+    class PrivateShared {
+    public:
+        PrivateShared () : ref(1) {}
+        QMap<QString, QVariant> attachments;
+        QAtomicInt ref;
+    };
+    PrivateShared *d;
 
 /* static */
 public:
@@ -75,7 +77,7 @@ public:
     static bool serializeObject (const QIBusSerializable *obj, QDBusArgument &argument);
     static bool deserializeObject (QIBusSerializable *&obj, const QDBusArgument &argument);
     
-    static QDBusVariant toVariant (const QIBusSerializable &obj);
+    static QDBusVariant toVariant (const QIBusSerializable &obj, bool *ok = NULL);
     static QIBusSerializable toObject (const QDBusVariant &variant, bool *ok = NULL);
     static QIBusSerializable toObject (const QVariant &variant, bool *ok = NULL);
 
@@ -90,5 +92,6 @@ private:
 };
 
 Q_DECLARE_METATYPE(QIBusSerializable)
+Q_DECLARE_METATYPE(QIBusSerializable *)
 
 #endif

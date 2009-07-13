@@ -7,31 +7,35 @@ IBUS_DECLARE_SERIALIZABLE(QIBusSerializable, IBusSerializable);
 
 QIBusSerializable::QIBusSerializable ()
 {
-    qDebug ("new QIBusSerializable (%p)", this);
+    d = new PrivateShared ();
 }
 
 void
-QIBusSerializable::setAttachment (const QString &key, QIBusSerializable *value)
+QIBusSerializable::setAttachment (const QString &key, const QVariant &value)
 {
-    attachments[key] = value;
+    d->attachments[key] = value;
 }
 
-QIBusSerializable *
+QVariant
 QIBusSerializable::getAttachment (const QString &key)
 {
-    return attachments.value (key, NULL);
+    if (d->attachments.contains (key)) {
+        return d->attachments.value (key);
+    }
+
+    return QVariant ();
 }
 
 bool
 QIBusSerializable::serialize (QDBusArgument &argument) const
 {
-    QMap<QString, QIBusSerializable *>::const_iterator i;
+    QMap<QString, QVariant>::const_iterator i;
 
     argument.beginMap (QVariant::String, QDBusArgument::VariantType);
-    for (i = attachments.begin (); i != attachments.end (); i++) {
+    for (i = d->attachments.begin (); i != d->attachments.end (); i++) {
         argument.beginMapEntry ();
         argument << i.key ();
-        QIBusSerializable::serializeObject (i.value (), argument);
+        argument << QDBusVariant (i.value ());
         argument.endMapEntry ();
     }
     argument.endMap ();
@@ -49,7 +53,8 @@ QIBusSerializable::deserialize (const QDBusArgument &argument)
         argument >> key;
         QIBusSerializable::deserializeObject (obj, argument);
         argument.endMapEntry ();
-        attachments[key] = obj;
+        d->attachments[key] = qVariantFromValue (obj);
+        delete obj;
     }
     argument.endMap ();
     return true;
@@ -102,20 +107,30 @@ QIBusSerializable::deserializeObject (QIBusSerializable *&obj, const QDBusArgume
 
 
 QDBusVariant  
-QIBusSerializable::toVariant (const QIBusSerializable *obj, bool *ok)
+QIBusSerializable::toVariant (const QIBusSerializable & obj, bool *ok)
 {
     QDBusArgument argument;
     
     argument.beginStructure ();
-    argument << obj->getMetaInfo ()->getName ();
-    obj->serialize (argument);
+    argument << obj.getMetaInfo ()->getName ();
+    obj.serialize (argument);
     argument.endStructure ();
 
     return QDBusVariant (QVariant::fromValue (argument));
 
 }
-    static QIBusSerializable *toObject (const QDBusVariant *variant);
-    static QIBusSerializable *toObject (const QVariant *variant);
+
+QIBusSerializable
+QIBusSerializable::toObject (const QDBusVariant & variant, bool *ok)
+{
+    return QIBusSerializable();
+}
+
+QIBusSerializable
+QIBusSerializable::toObject (const QVariant & variant, bool *ok)
+{
+    return QIBusSerializable();
+}
 
 void
 QIBusSerializable::registerObject (const QString &name, NEW_FUNC newfn)

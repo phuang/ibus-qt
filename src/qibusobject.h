@@ -3,12 +3,17 @@
 
 #include <QObject>
 
+
 class QIBusObject : public QObject
 {
     Q_OBJECT
 
 public:
-    QIBusObject ();
+    QIBusObject () : ref(0) {};
+    
+
+private:
+    QAtomicInt ref;
 };
 
 #endif
