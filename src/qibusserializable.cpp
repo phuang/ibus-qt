@@ -1,23 +1,25 @@
 #include "qibusserializable.h"
 
-QHash<QString, QIBusSerializable::NEW_FUNC*> QIBusSerializable::type_table INIT_PRIO_HIGH;
+namespace IBus {
 
-IBUS_DECLARE_SERIALIZABLE(QIBusSerializable, IBusSerializable);
+QHash<QString, Serializable::NEW_FUNC*> Serializable::type_table INIT_PRIO_HIGH;
+
+IBUS_DECLARE_SERIALIZABLE(Serializable, IBusSerializable);
 
 
-QIBusSerializable::QIBusSerializable ()
+Serializable::Serializable ()
 {
     d = new PrivateShared ();
 }
 
 void
-QIBusSerializable::setAttachment (const QString &key, const QVariant &value)
+Serializable::setAttachment (const QString &key, const QVariant &value)
 {
     d->attachments[key] = value;
 }
 
 QVariant
-QIBusSerializable::getAttachment (const QString &key)
+Serializable::getAttachment (const QString &key)
 {
     if (d->attachments.contains (key)) {
         return d->attachments.value (key);
@@ -27,7 +29,7 @@ QIBusSerializable::getAttachment (const QString &key)
 }
 
 bool
-QIBusSerializable::serialize (QDBusArgument &argument) const
+Serializable::serialize (QDBusArgument &argument) const
 {
     QMap<QString, QVariant>::const_iterator i;
 
@@ -43,15 +45,15 @@ QIBusSerializable::serialize (QDBusArgument &argument) const
 }
 
 bool
-QIBusSerializable::deserialize (const QDBusArgument &argument)
+Serializable::deserialize (const QDBusArgument &argument)
 {
     argument.beginMap ();
     while (!argument.atEnd()) {
         QString key;
-        QIBusSerializable *obj;
+        Serializable *obj;
         argument.beginMapEntry ();
         argument >> key;
-        QIBusSerializable::deserializeObject (obj, argument);
+        Serializable::deserializeObject (obj, argument);
         argument.endMapEntry ();
         d->attachments[key] = qVariantFromValue (obj);
         delete obj;
@@ -61,14 +63,14 @@ QIBusSerializable::deserialize (const QDBusArgument &argument)
 }
 
 
-QIBusSerializable *
-QIBusSerializable::copy (const QIBusSerializable *src)
+Serializable *
+Serializable::copy (const Serializable *src)
 {
     return NULL;
 }
 
-QIBusSerializable *
-QIBusSerializable::newFromName(const QString &name)
+Serializable *
+Serializable::newFromName(const QString &name)
 {
     if (type_table.contains (name)) {
         return type_table[name] ();
@@ -76,14 +78,14 @@ QIBusSerializable::newFromName(const QString &name)
     return NULL;
 }
 
-QIBusSerializable *
-QIBusSerializable::newFromDBusArgument (QDBusArgument &argument)
+Serializable *
+Serializable::newFromDBusArgument (QDBusArgument &argument)
 {
 
 }
 
 bool
-QIBusSerializable::serializeObject (const QIBusSerializable *obj, QDBusArgument &argument)
+Serializable::serializeObject (const Serializable *obj, QDBusArgument &argument)
 {
     argument.beginStructure ();
     argument << obj->getMetaInfo ()->getName ();
@@ -93,13 +95,13 @@ QIBusSerializable::serializeObject (const QIBusSerializable *obj, QDBusArgument 
 }
 
 bool
-QIBusSerializable::deserializeObject (QIBusSerializable *&obj, const QDBusArgument &argument)
+Serializable::deserializeObject (Serializable *&obj, const QDBusArgument &argument)
 {
     QString name;
 
     argument.beginStructure ();
     argument >> name;
-    obj = QIBusSerializable::newFromName (name);
+    obj = Serializable::newFromName (name);
     obj->deserialize (argument);
     argument.endStructure ();
     return true;
@@ -107,7 +109,7 @@ QIBusSerializable::deserializeObject (QIBusSerializable *&obj, const QDBusArgume
 
 
 QDBusVariant  
-QIBusSerializable::toVariant (const QIBusSerializable & obj, bool *ok)
+Serializable::toVariant (const Serializable & obj, bool *ok)
 {
     QDBusArgument argument;
     
@@ -120,20 +122,20 @@ QIBusSerializable::toVariant (const QIBusSerializable & obj, bool *ok)
 
 }
 
-QIBusSerializable
-QIBusSerializable::toObject (const QDBusVariant & variant, bool *ok)
+Serializable
+Serializable::toObject (const QDBusVariant & variant, bool *ok)
 {
-    return QIBusSerializable();
+    return Serializable();
 }
 
-QIBusSerializable
-QIBusSerializable::toObject (const QVariant & variant, bool *ok)
+Serializable
+Serializable::toObject (const QVariant & variant, bool *ok)
 {
-    return QIBusSerializable();
+    return Serializable();
 }
 
 void
-QIBusSerializable::registerObject (const QString &name, NEW_FUNC newfn)
+Serializable::registerObject (const QString &name, NEW_FUNC newfn)
 {
     if (type_table.contains (name)) {
         qFatal ("registerObject failed! name %s has been registered", name.data ());
@@ -143,15 +145,16 @@ QIBusSerializable::registerObject (const QString &name, NEW_FUNC newfn)
         qFatal ("registerObject failed! name = %s, newfn should not be NULL", name.data ());
     }
 
-    QIBusSerializable::type_table[name] = newfn;
+    Serializable::type_table[name] = newfn;
 }
 
 void
-QIBusSerializable::unregisterObject (const QString &name)
+Serializable::unregisterObject (const QString &name)
 {
     if (!type_table.contains (name)) {
         qFatal ("unregisterObject failed! name %s has not been registered", name.data ());
     }
-    QIBusSerializable::type_table.remove(name);
+    Serializable::type_table.remove(name);
 }
 
+};

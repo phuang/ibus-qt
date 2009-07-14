@@ -3,19 +3,23 @@
 
 #include "qibusserializable.h"
 
-class QIBusText : public QIBusSerializable
+namespace IBus {
+
+class Text : public Serializable
 {
 protected:
 
 public:
-    QIBusText ();
+    Text ();
 
 public:
     virtual bool serialize (QDBusArgument &argument);
     virtual bool deserialize (QDBusArgument &argument);
-    virtual QIBusText *copy ();
+    virtual Text *copy ();
 
     IBUS_SERIALIZABLE
+};
+
 };
 
 #endif

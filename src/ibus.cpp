@@ -9,6 +9,8 @@
 #include "qibusconnection.h"
 #include "qibusbus.h"
 
+using namespace IBus;
+
 class App : QCoreApplication {
 public:
     App (int &argc, char **argv ) : QCoreApplication (argc, argv) {
@@ -51,19 +53,19 @@ int main (int argc, char **argv)
 {
     App app(argc, argv);
 
-    QIBusConnection connection (QString ("unix:path=/tmp/ibus-phuang/ibus-unix-0"));
+    Connection connection (QString ("unix:path=/tmp/ibus-phuang/ibus-unix-0"));
 
-    QIBusBus bus (QString ("org.freedesktop.IBus"),
+    org::freedesktop::IBus bus (QString ("org.freedesktop.IBus"),
                   QString ("/org/freedesktop/IBus"),
                   connection.getConnection ());
 
 
-    QIBusSerializable *obj1, *obj2;
+    Serializable *obj1, *obj2;
     QDBusArgument arg;
 
-    obj1 = new QIBusSerializable ();
+    obj1 = new Serializable ();
 
-    QIBusSerializable::serializeObject (obj1, arg);
+    Serializable::serializeObject (obj1, arg);
     delete obj1;
 
     QVariant a = QVariant::fromValue(arg);
@@ -72,7 +74,7 @@ int main (int argc, char **argv)
 
     QDBusArgument argout = ret.argumentAt<0>().variant().value<QDBusArgument>();
 
-    QIBusSerializable::deserializeObject (obj2, argout);
+    Serializable::deserializeObject (obj2, argout);
 
     return 0;
 }

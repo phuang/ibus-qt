@@ -1,32 +1,35 @@
 #include "qibustext.h"
 
-#pragma priority(4000)
-IBUS_DECLARE_SERIALIZABLE(QIBusText, IBusText);
+namespace IBus {
 
-QIBusText::QIBusText ()
+IBUS_DECLARE_SERIALIZABLE(Text, IBusText);
+
+Text::Text ()
 {
-    qDebug ("new QIBusText (%p)", this);
+    qDebug ("new Text (%p)", this);
 }
 
 bool
-QIBusText::serialize (QDBusArgument &argument)
+Text::serialize (QDBusArgument &argument)
 {
-    if (!QIBusSerializable::serialize (argument))
+    if (!Serializable::serialize (argument))
         return false;
     return true;
 }
 
 bool
-QIBusText::deserialize (QDBusArgument &argument)
+Text::deserialize (QDBusArgument &argument)
 {
-    if (!QIBusSerializable::deserialize (argument))
+    if (!Serializable::deserialize (argument))
         return false;
     return true;
 }
 
 
-QIBusText *
-QIBusText::copy ()
+Text *
+Text::copy ()
 {
     return NULL;
 }
+
+};

@@ -11,38 +11,39 @@
 
 #define IBUS_SERIALIZABLE                               \
 public:                                                 \
-    static QIBusSerializable *newInstance (void);       \
+    static Serializable *newInstance (void);       \
     static MetaTypeInfo _info;       \
     virtual const MetaTypeInfo *getMetaInfo (void) const;
 
 #define IBUS_DECLARE_SERIALIZABLE(classname, name)      \
-    QIBusSerializable *                                 \
+    Serializable *                                 \
     classname::newInstance (void)                       \
     {                                                   \
-        return (QIBusSerializable *) new classname ();  \
+        return (Serializable *) new classname ();  \
     }                                                   \
-    const QIBusSerializable::MetaTypeInfo *             \
+    const Serializable::MetaTypeInfo *             \
     classname::getMetaInfo (void) const                 \
     {                                                   \
         return & (classname::_info);                    \
     }                                                   \
-    QIBusSerializable::MetaTypeInfo                     \
+    Serializable::MetaTypeInfo                     \
     classname::_info INIT_PRIO_LOW (QString(#name), classname::newInstance);
 
+namespace IBus {
 
-class QIBusSerializable /*  : public QIBusObject */
+class Serializable /*  : public Object */
 {
-    typedef QIBusSerializable *(NEW_FUNC)(void);
+    typedef Serializable *(NEW_FUNC)(void);
 
 protected:
     class MetaTypeInfo
     {
     public:
         MetaTypeInfo(const QString &name, NEW_FUNC newfn) : classname (name) {
-            QIBusSerializable::registerObject (classname, newfn);
+            Serializable::registerObject (classname, newfn);
         }
         ~MetaTypeInfo (void) {
-           QIBusSerializable::unregisterObject (classname); 
+           Serializable::unregisterObject (classname); 
         }
         const QString &getName (void) const {
             return classname;
@@ -52,14 +53,14 @@ protected:
     };
 
 public:
-    QIBusSerializable ();
+    Serializable ();
     void setAttachment (const QString &key, const QVariant &value);
     QVariant getAttachment (const QString &key);
 
 public:
     virtual bool serialize (QDBusArgument &argument) const;
     virtual bool deserialize (const QDBusArgument &argument);
-    virtual QIBusSerializable *copy (const QIBusSerializable *src);
+    virtual Serializable *copy (const Serializable *src);
 
 private:
     class PrivateShared {
@@ -72,14 +73,14 @@ private:
 
 /* static */
 public:
-    static QIBusSerializable *newFromName (const QString &name);
-    static QIBusSerializable *newFromDBusArgument (QDBusArgument &argument);
-    static bool serializeObject (const QIBusSerializable *obj, QDBusArgument &argument);
-    static bool deserializeObject (QIBusSerializable *&obj, const QDBusArgument &argument);
+    static Serializable *newFromName (const QString &name);
+    static Serializable *newFromDBusArgument (QDBusArgument &argument);
+    static bool serializeObject (const Serializable *obj, QDBusArgument &argument);
+    static bool deserializeObject (Serializable *&obj, const QDBusArgument &argument);
     
-    static QDBusVariant toVariant (const QIBusSerializable &obj, bool *ok = NULL);
-    static QIBusSerializable toObject (const QDBusVariant &variant, bool *ok = NULL);
-    static QIBusSerializable toObject (const QVariant &variant, bool *ok = NULL);
+    static QDBusVariant toVariant (const Serializable &obj, bool *ok = NULL);
+    static Serializable toObject (const QDBusVariant &variant, bool *ok = NULL);
+    static Serializable toObject (const QVariant &variant, bool *ok = NULL);
 
 protected:
     static void registerObject (const QString &name, NEW_FUNC newfn);
@@ -91,7 +92,9 @@ private:
     IBUS_SERIALIZABLE
 };
 
-Q_DECLARE_METATYPE(QIBusSerializable)
-Q_DECLARE_METATYPE(QIBusSerializable *)
+};
+
+Q_DECLARE_METATYPE(IBus::Serializable)
+Q_DECLARE_METATYPE(IBus::Serializable *)
 
 #endif

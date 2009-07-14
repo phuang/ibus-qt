@@ -4,13 +4,15 @@
 #include "qibusobject.h"
 #include <QDBusConnection>
 
-class QIBusConnection : public QIBusObject
+namespace IBus {
+
+class Connection : public Object
 {
     Q_OBJECT
 
 public:
-    QIBusConnection (const QString &address);
-    virtual ~QIBusConnection ();
+    Connection (const QString &address);
+    virtual ~Connection ();
 
     const QDBusConnection & getConnection () {
         return connection;
@@ -20,4 +22,5 @@ private:
     QDBusConnection connection;
 };
 
+};
 #endif

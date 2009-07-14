@@ -1,10 +1,14 @@
 #include "qibusconnection.h"
 
-QIBusConnection::QIBusConnection (const QString &address)
+namespace IBus {
+
+Connection::Connection (const QString &address)
     : connection (QDBusConnection::connectToBus (address, QString ("IBus")))
 {
 }
 
-QIBusConnection::~QIBusConnection ()
+Connection::~Connection ()
 {
 }
+
+};
