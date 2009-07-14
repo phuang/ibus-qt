@@ -7,6 +7,7 @@ set(
     ibus.cpp
     qibusobject.cpp
     qibusserializable.cpp
+    qibusattribute.cpp
     qibustext.cpp
     qibusconnection.cpp
     qibusbus.cpp
@@ -17,6 +18,7 @@ set(
     ibus_qt_MOC_HDRS
     qibusobject.h
     qibusserializable.h
+    qibusattribute.h
     qibustext.h
     qibusconnection.h
     qibusbus.h
