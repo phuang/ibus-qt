@@ -1,22 +1,20 @@
 #ifndef __Q_IBUS_OBJECT_H__
 #define __Q_IBUS_OBJECT_H__
 
+
+#include "qibuspointer.h"
 #include <QObject>
-#include <QAtomicInt>
+#include <QMetaType>
+
+#ifdef QT_USE_NAMESPACE
+#  undef QT_USE_NAMESPACE
+#  define QT_USE_NAMESPACE IBus
+#endif
 
 namespace IBus {
 
-template <typename T>
-class Pointer
-{
-    T *p;
-
-    void set (T *object) {
-        if (object) {
-            
-        }
-    }
-};
+class Object;
+typedef Pointer <Object> ObjectPointer;
 
 class Object : public QObject
 {
@@ -24,17 +22,17 @@ class Object : public QObject
     template <typename T> friend class Pointer;
 
 public:
-    Object () : m_refcount(0), m_referenced(false) {}
-    virtual ~Object () {
-        if (m_referenced && m_refcount != 0) {
-            qWarning ("Delete an object with refcount != 0");
-        }
-    }
-
+    Object () : m_refcount(1), m_referenced (false) {}
+    virtual ~Object ();
 
 private:
     Object * ref () {
-        m_refcount.ref ();
+        if (m_referenced) {
+            m_refcount.ref ();
+        }
+        else {
+            m_referenced = true;
+        }
         return this;
     }
 
@@ -44,9 +42,16 @@ private:
         }
     }
 
+    bool is_referenced () const {
+        return m_referenced;
+    }
+
     bool m_referenced;
     QAtomicInt m_refcount;
 };
 
 };
+
+Q_DECLARE_METATYPE(IBus::ObjectPointer)
+
 #endif

@@ -6,16 +6,18 @@ set(
     ibus_qt_SRCS
     ibus.cpp
     qibusobject.cpp
+    qibusserializable.cpp
+    qibustext.cpp
     qibusconnection.cpp
     qibusbus.cpp
     qibusinputcontext.cpp
-    qibusserializable.cpp
-    qibustext.cpp
 )
 
 set(
     ibus_qt_MOC_HDRS
     qibusobject.h
+    qibusserializable.h
+    qibustext.h
     qibusconnection.h
     qibusbus.h
     qibusinputcontext.h

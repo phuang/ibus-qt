@@ -71,7 +71,7 @@ public Q_SLOTS: // METHODS
     inline QDBusPendingReply<QDBusVariant> Ping(const QDBusVariant &data)
     {
         QList<QVariant> argumentList;
-        argumentList << qVariantFromValue(data);
+        argumentList << QVariant::fromValue (data);
         return asyncCallWithArgumentList(QLatin1String("Ping"), argumentList);
     }
 

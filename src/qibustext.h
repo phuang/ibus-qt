@@ -7,15 +7,16 @@ namespace IBus {
 
 class Text : public Serializable
 {
+    Q_OBJECT;
+
 protected:
 
 public:
     Text ();
 
 public:
-    virtual bool serialize (QDBusArgument &argument);
-    virtual bool deserialize (QDBusArgument &argument);
-    virtual Text *copy ();
+    virtual bool serialize (QDBusArgument &argument) const;
+    virtual bool deserialize (const QDBusArgument &argument);
 
     IBUS_SERIALIZABLE
 };

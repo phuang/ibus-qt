@@ -10,7 +10,7 @@ Text::Text ()
 }
 
 bool
-Text::serialize (QDBusArgument &argument)
+Text::serialize (QDBusArgument &argument) const
 {
     if (!Serializable::serialize (argument))
         return false;
@@ -18,18 +18,11 @@ Text::serialize (QDBusArgument &argument)
 }
 
 bool
-Text::deserialize (QDBusArgument &argument)
+Text::deserialize (const QDBusArgument &argument)
 {
     if (!Serializable::deserialize (argument))
         return false;
     return true;
-}
-
-
-Text *
-Text::copy ()
-{
-    return NULL;
 }
 
 };
