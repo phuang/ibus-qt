@@ -115,12 +115,13 @@ operator<< (QDBusArgument& argument, const SerializablePointer &p)
 const QDBusArgument&
 operator>> (const QDBusArgument& argument, SerializablePointer &p)
 {
-    QString name = "AAA";
+    QString name;
 
     argument.beginStructure ();
     argument >> name;
     p = Serializable::createInstance (name);
-    p->deserialize (argument);
+    if (!p->deserialize (argument))
+        p = NULL;
     argument.endStructure ();
 
     return argument;
