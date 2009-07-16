@@ -12,7 +12,13 @@ class Attribute : public Serializable
 protected:
 
 public:
-    Attribute () {}
+    Attribute () {
+	m_text ="";
+	m_type =0;
+	m_value =0;
+	m_start_index =0;
+	m_end_index =0;
+	}
     Attribute (const QString &text) : m_text (text) {}
 
 public:
@@ -21,6 +27,10 @@ public:
 
 private:
     QString m_text;
+	uint m_type;
+	uint m_value;
+	uint m_start_index;
+	uint m_end_index;
 
     IBUS_SERIALIZABLE
 };
