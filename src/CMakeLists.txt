@@ -4,15 +4,16 @@ include(${QT_USE_FILE})
 
 set(
     ibus_qt_SRCS
-    ibus.cpp
     qibusobject.cpp
     qibusserializable.cpp
     qibusattribute.cpp
     qibustext.cpp
     qibusconnection.cpp
-    qibusibus_adaptor.cpp
-    qibusdbus_adaptor.cpp
+    qibusibusadaptor.cpp
+    qibusdbusadaptor.cpp
+    qibusbus.cpp
     qibusinputcontext.cpp
+    ibus.cpp
 )
 
 set(
@@ -22,8 +23,9 @@ set(
     qibusattribute.h
     qibustext.h
     qibusconnection.h
-    qibusibus_adaptor.h
-    qibusdbus_adaptor.h
+    qibusibusadaptor.h
+    qibusdbusadaptor.h
+    qibusbus.h
     qibusinputcontext.h
 )
 
