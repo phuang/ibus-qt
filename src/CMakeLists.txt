@@ -10,7 +10,8 @@ set(
     qibusattribute.cpp
     qibustext.cpp
     qibusconnection.cpp
-    qibusbus.cpp
+    qibusibus_adaptor.cpp
+    qibusdbus_adaptor.cpp
     qibusinputcontext.cpp
 )
 
@@ -21,7 +22,8 @@ set(
     qibusattribute.h
     qibustext.h
     qibusconnection.h
-    qibusbus.h
+    qibusibus_adaptor.h
+    qibusdbus_adaptor.h
     qibusinputcontext.h
 )
 
