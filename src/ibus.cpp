@@ -9,6 +9,9 @@
 #include "qibustext.h"
 #include "qibusconnection.h"
 #include "qibusbus.h"
+#include "qibusattribute.h"
+
+#include <iostream>
 
 using namespace IBus;
 
@@ -50,8 +53,17 @@ const QDBusArgument &operator>> (const QDBusArgument &argument, MyStructure &m)
     return argument;
 }
 
+
+
+
 int main (int argc, char **argv)
 {
+    App app(argc, argv);
+    Bus bus;
+    QCoreApplication::exec ();
+
+
+#if 0
     qDBusRegisterMetaType<SerializablePointer>();
 
     QDBusArgument arg;
@@ -68,20 +80,22 @@ int main (int argc, char **argv)
 
 
     App app(argc, argv);
-    Connection connection (QString ("unix:path=/tmp/ibus-phuang/ibus-unix-0"));
+    Connection connection (QString ("unix:path=/tmp/ibus-liudl/ibus-unix-0"));
 
     org::freedesktop::IBus bus (QString ("org.freedesktop.IBus"),
                   QString ("/org/freedesktop/IBus"),
                   connection.getConnection ());
 
 
-    SerializablePointer p = /* (Serializable *) */ new Text ();
+    SerializablePointer p = /* (Serializable *) */ new Attribute();
     QVariant v = qVariantFromValue (p);
+
+	std::cout << v.toInt();
 
     QDBusPendingReply<QDBusVariant> ret = bus.Ping (qDBusVariantFromSerializable (p));
 
     SerializablePointer p1 = qDBusVariantToSerializable (ret);
-
+#endif
 #if 0
 
 

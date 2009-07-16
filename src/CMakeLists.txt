@@ -4,14 +4,17 @@ include(${QT_USE_FILE})
 
 set(
     ibus_qt_SRCS
-    ibus.cpp
     qibusobject.cpp
     qibusserializable.cpp
     qibusattribute.cpp
+    qibusattrlist.cpp
     qibustext.cpp
     qibusconnection.cpp
+    qibusibusadaptor.cpp
+    qibusdbusadaptor.cpp
     qibusbus.cpp
     qibusinputcontext.cpp
+    ibus.cpp
 )
 
 set(
@@ -19,8 +22,11 @@ set(
     qibusobject.h
     qibusserializable.h
     qibusattribute.h
+    qibusattrlist.h
     qibustext.h
     qibusconnection.h
+    qibusibusadaptor.h
+    qibusdbusadaptor.h
     qibusbus.h
     qibusinputcontext.h
 )
@@ -40,10 +46,12 @@ add_executable(
 include_directories(
     ${QT_INCLUDE_DIR}
     ${QT_QTDBUS_INCLUDE_DIR}
+    ${DBUS_INCLUDE_DIRS}
 )
 
 target_link_libraries(
     ibus-qt
     ${QT_LIBRARIES}
     ${QT_QTDBUS_LIBRARIES}
+    ${DBUS_LIBRARIES}
 )
