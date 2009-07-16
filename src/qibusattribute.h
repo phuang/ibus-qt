@@ -5,6 +5,9 @@
 
 namespace IBus {
 
+class Attribute;
+typedef Pointer<Attribute> AttributePointer;
+
 class Attribute : public Serializable
 {
     Q_OBJECT;
@@ -12,21 +15,14 @@ class Attribute : public Serializable
 protected:
 
 public:
-    Attribute () {
-	m_text ="";
-	m_type =0;
-	m_value =0;
-	m_start_index =0;
-	m_end_index =0;
-	}
-    Attribute (const QString &text) : m_text (text) {}
+    Attribute (uint type = 0, uint value = 0, uint start = 0, uint end = 0) :
+    m_type (type), m_value (value),m_start_index (start), m_end_index (end) {}
 
 public:
     virtual bool serialize (QDBusArgument &argument) const;
     virtual bool deserialize (const QDBusArgument &argument);
 
 private:
-    QString m_text;
 	uint m_type;
 	uint m_value;
 	uint m_start_index;

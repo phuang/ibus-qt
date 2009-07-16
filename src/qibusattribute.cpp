@@ -9,7 +9,6 @@ Attribute::serialize (QDBusArgument &argument) const
 {
     if (!Serializable::serialize (argument))
         return false;
-    argument << m_text;
 	argument << m_type;
 	argument << m_value;
 	argument << m_start_index;
@@ -22,7 +21,6 @@ Attribute::deserialize (const QDBusArgument &argument)
 {
     if (!Serializable::deserialize (argument))
         return false;
-    argument >> m_text;
 	argument >> m_type;
 	argument >> m_value;
 	argument >> m_start_index;
