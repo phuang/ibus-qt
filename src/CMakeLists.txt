@@ -44,10 +44,12 @@ add_executable(
 include_directories(
     ${QT_INCLUDE_DIR}
     ${QT_QTDBUS_INCLUDE_DIR}
+    ${DBUS_INCLUDE_DIRS}
 )
 
 target_link_libraries(
     ibus-qt
     ${QT_LIBRARIES}
     ${QT_QTDBUS_LIBRARIES}
+    ${DBUS_LIBRARIES}
 )
