@@ -1,21 +1,48 @@
 #include "qibusattrlist.h"
 
 namespace IBus {
-Attribute* 
-Attrlist::get(QVector<Attribute> *attrlist, uint index)
+
+IBUS_DECLARE_SERIALIZABLE(AttrList, IBusAttrList);
+
+AttrList::~AttrList ()
 {
-    if (*attrlist.size <index) {
-    	return NULL;
+}
+
+AttributePointer AttrList::get (uint index)
+{
+    if (index >= m_attrs.size ())
+        return NULL;
+    return m_attrs[index];
+}
+
+void AttrList::append(const AttributePointer &attr)
+{
+    if (attr.isNull ())
+        return;
+
+    m_attrs.append (attr);
+}
+
+bool AttrList::serialize (QDBusArgument &argument) const
+{
+    argument.beginArray (QDBusArgument::VariantType);
+    for (int i = 0; i < m_attrs.size(); i++) {
+        argument << (SerializablePointer) m_attrs[i];
     }
-    return  &attrlist[index];
-
+    argument.endArray ();
+    return true;
 }
 
-void
-append( QVector<Attribute> *attrlist, Attribute *attr)
+bool AttrList::deserialize (const QDBusArgument &argument)
 {
-    *attrlist.append(*attr);
+    argument.beginArray ();
+    while (!argument.atEnd ()) {
+        SerializablePointer attr;
+        argument >> attr;
+        append (attr);
+    }
+    argument.endArray ();
+    return true;
 }
-
 
 } /* IBus */
