@@ -27,10 +27,10 @@ public:
 
 private:
     QString m_text;
-	uint m_type;
-	uint m_value;
-	uint m_start_index;
-	uint m_end_index;
+    uint m_type;
+    uint m_value;
+    uint m_start_index;
+    uint m_end_index;
 
     IBUS_SERIALIZABLE
 };
