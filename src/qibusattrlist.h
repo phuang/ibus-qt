@@ -2,21 +2,23 @@
 #define __Q_IBUS_ATTRLIST_H_
 
 #include "qibusattribute.h"
-#include "QVector"
+#include <QVector>
 
-namespace IBUS {
+namespace IBus {
 
-class Attrlist {
+class AttrList : public Serializable {
     Q_OBJECT;
 public:
-    Attrlist (int size): m_attrlist(size){};
-    virtual ~Attrlist ();
-    Attribute * get(QVector<Attribute> *attrlist, uint index);
-    void append(QVector<Attribute> *attrlist, Attribute *attr);
+    AttrList () {}
+    AttrList (int size): m_attrs(size) {};
+    virtual ~AttrList ();
+    AttributePointer get(uint index);
+    void append(const AttributePointer &attr);
 
-    virtual bool serialize( QVector<Attribute> *attrlist, )
+    virtual bool serialize (QDBusArgument &argument) const;
+    virtual bool deserialize (const QDBusArgument &argument);
 private:
-    QVector<Attribute> m_attrlist;
+    QVector<AttributePointer> m_attrs;
 
     IBUS_SERIALIZABLE
 };

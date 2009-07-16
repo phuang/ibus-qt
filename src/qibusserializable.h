@@ -33,12 +33,6 @@ public:                                                 \
 namespace IBus {
 
 class Serializable;
-/*
-class SerializablePointer : public Pointer <Serializable>
-{
-};
-*/
-
 typedef Pointer<Serializable> SerializablePointer;
 
 QDBusArgument& operator<< (QDBusArgument& argument, const SerializablePointer &p);

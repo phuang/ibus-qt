@@ -19,7 +19,7 @@ public:
 
     template <typename T1>
     Pointer (const Pointer<T1> &src): p (0) {
-        set (src.get ());
+        set ((T *)src.get ());
     }
 
     ~Pointer () {
