@@ -144,6 +144,26 @@ bool Bus::isConnected (void)
     return ((m_connection != NULL) && m_connection->isConnected ());
 }
 
+SerializablePointer
+Bus::ping (const SerializablePointer &data)
+{
+    SerializablePointer retval;
+
+    if (!data)
+        return retval;
+
+    QDBusArgument argument;
+    argument << data;
+
+    QDBusVariant v(QVariant::fromValue (argument));
+
+    v = m_ibus->Ping (v);
+    argument = v.variant().value<QDBusArgument> ();
+    argument >> retval;
+
+    return retval;
+}
+
 void Bus::slotAddressChanged (const QString &path)
 {
     if (! isConnected ()) {

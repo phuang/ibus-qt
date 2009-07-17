@@ -2,6 +2,7 @@
 #define __Q_IBUS_BUS_H_
 
 #include "qibusobject.h"
+#include "qibusserializable.h"
 
 class QFileSystemWatcher;
 class QDBusConnection;
@@ -9,6 +10,9 @@ class IBusAdaptor;
 class DBusAdaptor;
 
 namespace IBus {
+
+class Bus;
+typedef Pointer<Bus> BusPointer;
 
 class Bus : public Object
 {
@@ -20,6 +24,7 @@ public:
     Bus (void);
     ~Bus (void);
     bool isConnected (void);
+    SerializablePointer ping (const SerializablePointer &data);
 
 private:
     bool open (void);

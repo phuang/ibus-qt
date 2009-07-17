@@ -60,6 +60,8 @@ int main (int argc, char **argv)
 {
     App app(argc, argv);
     Bus bus;
+    SerializablePointer p = new Serializable ();
+    p = bus.ping (p);
     QCoreApplication::exec ();
 
 
