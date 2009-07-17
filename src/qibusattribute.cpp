@@ -28,31 +28,4 @@ Attribute::deserialize (const QDBusArgument &argument)
     return true;
 }
 
-void
-Attribute::attribute_underline( uint type, uint start, uint end)
-{
-    m_type = 1;
-    m_value = type;
-    m_start_index = start;
-    m_end_index = end;
-}
-
-void
-Attribute::attribute_foreground( uint color, uint start, uint end)
-{
-    m_type = 2;
-    m_value = color;
-    m_start_index = start;
-    m_end_index = end;
-}
-
-void
-Attribute::attribute_foreground( uint color, uint start, uint end)
-{
-    m_type = 3;
-    m_value = color;
-    m_start_index = start;
-    m_end_index = end;
-}
-
 };
