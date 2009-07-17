@@ -1,5 +1,7 @@
 Makefile
 *.cmake
 CMakeFiles
+_CPack_Packages
+install_manifest.txt
 CMakeCache.txt
 .*.swp
