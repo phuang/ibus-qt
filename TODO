@@ -1,0 +1,11 @@
+
+
+== data struct == 
+    IBusText           phuang
+    IBusAttribute      liudl
+    IBusAttrList       liudl
+    IBusProperty
+    IBusPropList
+    IBusLookupTable    luoxs
+    IBusEngineDesc
+    IBusComponent
