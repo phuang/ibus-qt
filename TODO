@@ -1,6 +1,7 @@
 
 
 == data struct == 
+    IBusSerializable   phuang
     IBusText           phuang
     IBusAttribute      liudl
     IBusAttrList       liudl
