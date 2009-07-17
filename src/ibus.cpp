@@ -7,7 +7,6 @@
 #include <QMetaType>
 #include "qibusserializable.h"
 #include "qibustext.h"
-#include "qibusconnection.h"
 #include "qibusbus.h"
 #include "qibusattribute.h"
 
