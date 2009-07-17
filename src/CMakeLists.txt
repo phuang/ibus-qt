@@ -18,7 +18,6 @@ set(
     qibusinputcontextproxy.cpp
     qibusbus.cpp
     qibusinputcontext.cpp
-    ibus.cpp
 )
 
 set(
@@ -45,10 +44,16 @@ qt4_wrap_cpp(
     ${ibus_qt_MOC_HDRS}
 )
 
-add_executable(
+add_library(
     ibus-qt
+    SHARED
     ${ibus_qt_SRCS}
     ${ibus_qt_MOC_SRCS}
+)
+
+add_executable(
+    ibus-test
+    ibus.cpp
 )
 
 include_directories(
@@ -62,4 +67,10 @@ target_link_libraries(
     ${QT_LIBRARIES}
     ${QT_QTDBUS_LIBRARIES}
     ${DBUS_LIBRARIES}
+)
+
+
+target_link_libraries(
+    ibus-test
+    ibus-qt
 )
