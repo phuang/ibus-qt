@@ -9,7 +9,7 @@ namespace IBus {
 class AttrList : public Serializable {
     Q_OBJECT;
 public:
-    AttrList () {}
+    AttrList (): m_attrs(0) {}
     AttrList (int size): m_attrs(size) {};
     virtual ~AttrList ();
     AttributePointer get(uint index);
