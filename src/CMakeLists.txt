@@ -10,6 +10,7 @@ set(
     qibusattrlist.cpp
     qibustext.cpp
     qibusenginedesc.cpp
+    qibuscomponent.cpp
     qibusconnection.cpp
     qibusibusadaptor.cpp
     qibusdbusadaptor.cpp
@@ -26,6 +27,7 @@ set(
     qibusattrlist.h
     qibustext.h
     qibusenginedesc.h
+    qibuscomponent.h
     qibusconnection.h
     qibusibusadaptor.h
     qibusdbusadaptor.h
