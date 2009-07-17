@@ -6,8 +6,8 @@
 
 class QFileSystemWatcher;
 class QDBusConnection;
-class IBusAdaptor;
-class DBusAdaptor;
+class IBusProxy;
+class DBusProxy;
 
 namespace IBus {
 
@@ -44,8 +44,8 @@ private slots:
 private:
     QFileSystemWatcher *m_watcher;
     QDBusConnection *m_connection;
-    DBusAdaptor *m_dbus;
-    IBusAdaptor *m_ibus;
+    DBusProxy *m_dbus;
+    IBusProxy *m_ibus;
 };
 
 };

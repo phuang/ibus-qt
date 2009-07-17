@@ -6,8 +6,8 @@
 #include <QDebug>
 #include <dbus/dbus.h>
 #include "qibusbus.h"
-#include "qibusibusadaptor.h"
-#include "qibusdbusadaptor.h"
+#include "qibusibusproxy.h"
+#include "qibusdbusproxy.h"
 
 
 namespace IBus {
@@ -81,11 +81,11 @@ Bus::open (void)
         return false;
     }
 
-    m_dbus = new DBusAdaptor ("org.freedesktop.DBus",
+    m_dbus = new DBusProxy ("org.freedesktop.DBus",
                               "/org/freedesktop/DBus",
                               *m_connection);
 
-    m_ibus = new IBusAdaptor ("org.freedesktop.IBus",
+    m_ibus = new IBusProxy ("org.freedesktop.IBus",
                               "/org/freedesktop/IBus",
                               *m_connection);
 
