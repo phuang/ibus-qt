@@ -13,11 +13,9 @@ set(
     qibustext.cpp
     qibusenginedesc.cpp
     qibuscomponent.cpp
-    
     qibusibusproxy.cpp
     qibusdbusproxy.cpp
     qibusinputcontextproxy.cpp
-    
     qibusbus.cpp
     qibusinputcontext.cpp
     ibus.cpp
@@ -34,11 +32,9 @@ set(
     qibustext.h
     qibusenginedesc.h
     qibuscomponent.h
-
     qibusibusproxy.h
     qibusdbusproxy.h
     qibusinputcontextproxy.h
-
     qibusbus.h
     qibusinputcontext.h
 )
