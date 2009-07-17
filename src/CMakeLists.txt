@@ -8,6 +8,8 @@ set(
     qibusserializable.cpp
     qibusattribute.cpp
     qibusattrlist.cpp
+    qibusproperty.cpp
+    qibusproplist.cpp
     qibustext.cpp
     qibusenginedesc.cpp
     qibuscomponent.cpp
@@ -25,6 +27,8 @@ set(
     qibusserializable.h
     qibusattribute.h
     qibusattrlist.h
+    qibusproperty.h
+    qibusproplist.h
     qibustext.h
     qibusenginedesc.h
     qibuscomponent.h
