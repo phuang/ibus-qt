@@ -15,11 +15,14 @@ public:
     virtual ~Connection ();
 
     const QDBusConnection & getConnection () {
-        return connection;
+        return m_connection;
+    }
+
+    bool isConnected () {
     }
 
 private:
-    QDBusConnection connection;
+    QDBusConnection m_connection;
 };
 
 };

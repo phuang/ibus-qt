@@ -3,7 +3,7 @@
 namespace IBus {
 
 Connection::Connection (const QString &address)
-    : connection (QDBusConnection::connectToBus (address, QString ("IBus")))
+    : m_connection (QDBusConnection::connectToBus (address, QString ("IBus")))
 {
 }
 

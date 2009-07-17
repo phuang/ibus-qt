@@ -19,23 +19,27 @@ protected:
 public:
     Bus (void);
     ~Bus (void);
-    bool connect (void);
     bool isConnected (void);
 
 private:
-    void init (void);
+    bool open (void);
     void reset (void);
     QString getSocketPath (void);
     QString getAddress (void);
 
+signals:
+    void disconnected (void);
+    void connected (void);
+
 private slots:
-    void addressChanged (const QString &path);
+    void slotAddressChanged (const QString &path);
+    void slotIBusDisconnected (void);
 
 private:
     QFileSystemWatcher *m_watcher;
     QDBusConnection *m_connection;
-    IBusAdaptor *m_dbus;
-    DBusAdaptor *m_ibus;
+    DBusAdaptor *m_dbus;
+    IBusAdaptor *m_ibus;
 };
 
 };

@@ -14,7 +14,7 @@ namespace IBus {
 
 Bus::Bus (void)
 : m_watcher (NULL),
-  m_connection (NULL), 
+  m_connection (NULL),
   m_dbus (NULL),
   m_ibus (NULL)
 {
@@ -24,7 +24,9 @@ Bus::Bus (void)
    m_watcher->addPath (path);
 
    QObject::connect (m_watcher, SIGNAL (fileChanged (const QString &)),
-            this, SLOT (addressChanged (const QString &)));
+            this, SLOT (slotAddressChanged (const QString &)));
+
+   open ();
 }
 
 Bus::~Bus (void)
@@ -38,6 +40,9 @@ Bus::~Bus (void)
 
 void Bus::reset (void)
 {
+
+    QDBusConnection::disconnectFromBus ("IBus");
+
     if (m_connection) {
         delete m_connection;
         m_connection = NULL;
@@ -52,8 +57,44 @@ void Bus::reset (void)
     }
 }
 
-bool Bus::connect (void)
+bool Bus::open (void)
 {
+    Q_ASSERT (!isConnected ());
+
+    reset ();
+
+    QString address = getAddress ();
+    if (address.isEmpty ()) {
+        qWarning ("Can not get ibus-daemon's address.");
+        return false;
+    }
+
+    m_connection = new QDBusConnection (
+        QDBusConnection::connectToBus (address, "IBus"));
+
+    if (!isConnected ()) {
+        qWarning ("Connect ibus failed!");
+        delete m_connection;
+        m_connection = NULL;
+        return false;
+    }
+
+    m_dbus = new DBusAdaptor ("org.freedesktop.DBus",
+                              "/org/freedesktop/DBus",
+                              *m_connection);
+
+    m_ibus = new IBusAdaptor ("org.freedesktop.IBus",
+                              "/org/freedesktop/IBus",
+                              *m_connection);
+
+    m_connection->connect ("org.freedesktop.DBus.Local",
+                           "/org/freedesktop/DBus/Local",
+                           "org.freedesktop.DBus.Local",
+                           "Disconnected",
+                           this,
+                           SLOT (slotIBusDisconnected (void)));
+
+    connected ();
     return false;
 }
 
@@ -61,7 +102,7 @@ QString Bus::getSocketPath (void)
 {
     QString display = getenv ("DISPLAY");
 
-    QString path = 
+    QString path =
         QDir::homePath() +
         QDir::separator() + ".config" +
         QDir::separator() + "ibus" +
@@ -103,9 +144,17 @@ bool Bus::isConnected (void)
     return ((m_connection != NULL) && m_connection->isConnected ());
 }
 
-void Bus::addressChanged (const QString &path)
+void Bus::slotAddressChanged (const QString &path)
 {
-    qDebug () << "address changed" << path << "address = " << getAddress ();
+    if (! isConnected ()) {
+        open ();
+    }
+}
+
+void Bus::slotIBusDisconnected (void)
+{
+    disconnected ();
+    reset ();
 }
 
 };
