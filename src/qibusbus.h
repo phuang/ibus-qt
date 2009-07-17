@@ -24,6 +24,7 @@ public:
     Bus (void);
     ~Bus (void);
     bool isConnected (void);
+    QString createInputContext (const QString &name);
     SerializablePointer ping (const SerializablePointer &data);
 
 private:

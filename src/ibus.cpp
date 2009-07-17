@@ -62,6 +62,8 @@ int main (int argc, char **argv)
     Bus bus;
     SerializablePointer p = new Serializable ();
     p = bus.ping (p);
+
+    bus.createInputContext ("Test");
     QCoreApplication::exec ();
 
 

@@ -38,7 +38,8 @@ Bus::~Bus (void)
     reset ();
 }
 
-void Bus::reset (void)
+void
+Bus::reset (void)
 {
 
     QDBusConnection::disconnectFromBus ("IBus");
@@ -57,7 +58,8 @@ void Bus::reset (void)
     }
 }
 
-bool Bus::open (void)
+bool
+Bus::open (void)
 {
     Q_ASSERT (!isConnected ());
 
@@ -98,7 +100,8 @@ bool Bus::open (void)
     return false;
 }
 
-QString Bus::getSocketPath (void)
+QString
+Bus::getSocketPath (void)
 {
     QString display = getenv ("DISPLAY");
 
@@ -114,7 +117,8 @@ QString Bus::getSocketPath (void)
     return path;
 }
 
-QString Bus::getAddress (void)
+QString
+Bus::getAddress (void)
 {
     QString address;
     QString path = getSocketPath ();
@@ -139,9 +143,25 @@ QString Bus::getAddress (void)
     return address;
 }
 
-bool Bus::isConnected (void)
+bool
+Bus::isConnected (void)
 {
     return ((m_connection != NULL) && m_connection->isConnected ());
+}
+
+QString
+Bus::createInputContext (const QString &name)
+{
+    if (!isConnected ()) {
+        qWarning ("IBus is not connected!");
+        return NULL;
+    }
+
+    QDBusObjectPath path = m_ibus->CreateInputContext (name);
+
+    qDebug () << "CreateInputContext () -> " << path.path ();
+
+    return path.path ();
 }
 
 SerializablePointer
@@ -167,14 +187,16 @@ Bus::ping (const SerializablePointer &data)
     return retval;
 }
 
-void Bus::slotAddressChanged (const QString &path)
+void
+Bus::slotAddressChanged (const QString &path)
 {
     if (! isConnected ()) {
         open ();
     }
 }
 
-void Bus::slotIBusDisconnected (void)
+void
+Bus::slotIBusDisconnected (void)
 {
     disconnected ();
     reset ();
