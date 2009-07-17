@@ -74,3 +74,6 @@ target_link_libraries(
     ibus-test
     ibus-qt
 )
+
+install(TARGETS ibus-test DESTINATION bin)
+install(TARGETS ibus-qt DESTINATION lib)

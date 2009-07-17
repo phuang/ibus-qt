@@ -15,7 +15,7 @@
       <arg name="context" direction="out" type="o"/>
     </method>
     <method name="RegisterComponent">
-      <arg name="components" direction="in" type="av"/>
+      <arg name="components" direction="in" type="v"/>
     </method>
     <method name="ListEngines">
       <arg name="engines" direction="out" type="av"/>

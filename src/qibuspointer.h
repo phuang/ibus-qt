@@ -31,12 +31,12 @@ public:
         set (object);
         return *this;
     }
-    
+
     Pointer &operator= (const Pointer &src) {
         set (src.get ());
         return *this;
     }
-    
+
     template <typename T1>
     Pointer &operator= (const Pointer<T1> &src) {
         set (dynamic_cast<T *> (src.get ()));

@@ -8,8 +8,8 @@
  * Do not edit! All changes made to it will be lost.
  */
 
-#ifndef QIBUSIBUSPROXY_H_1247800423
-#define QIBUSIBUSPROXY_H_1247800423
+#ifndef QIBUSIBUSPROXY_H_1247809580
+#define QIBUSIBUSPROXY_H_1247809580
 
 #include <QtCore/QObject>
 #include <QtCore/QByteArray>
@@ -75,7 +75,7 @@ public Q_SLOTS: // METHODS
         return asyncCallWithArgumentList(QLatin1String("Ping"), argumentList);
     }
 
-    inline QDBusPendingReply<> RegisterComponent(const QVariantList &components)
+    inline QDBusPendingReply<> RegisterComponent(const QDBusVariant &components)
     {
         QList<QVariant> argumentList;
         argumentList << qVariantFromValue(components);

@@ -3,6 +3,8 @@
 
 #include "qibusobject.h"
 #include "qibusserializable.h"
+#include "qibusenginedesc.h"
+#include "qibuscomponent.h"
 
 class QFileSystemWatcher;
 class QDBusConnection;
@@ -25,6 +27,10 @@ public:
     ~Bus (void);
     bool isConnected (void);
     QString createInputContext (const QString &name);
+    void registerComponent (const ComponentPointer &component);
+    QList<EngineDescPointer> listEngines (void);
+    QList<EngineDescPointer> listActiveEngines (void);
+    void exit (bool restart = false);
     SerializablePointer ping (const SerializablePointer &data);
 
 private:

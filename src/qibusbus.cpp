@@ -1,9 +1,10 @@
 #include <stdlib.h>
+#include <QDebug>
 #include <QFile>
 #include <QDir>
+#include <QList>
 #include <QFileSystemWatcher>
 #include <QDBusConnection>
-#include <QDebug>
 #include <dbus/dbus.h>
 #include "qibusbus.h"
 #include "qibusibusproxy.h"
@@ -162,6 +163,73 @@ Bus::createInputContext (const QString &name)
     qDebug () << "CreateInputContext () -> " << path.path ();
 
     return path.path ();
+}
+
+void
+Bus::registerComponent (const ComponentPointer &component)
+{
+    Q_ASSERT (!component.isNull ());
+
+    if (!isConnected ()) {
+        qWarning ("IBus is not connected!");
+        return;
+    }
+
+    QDBusArgument argument;
+    argument << (SerializablePointer) component;
+
+    QDBusVariant v(QVariant::fromValue (argument));
+
+    m_ibus->RegisterComponent (v);
+}
+
+QList<EngineDescPointer>
+Bus::listEngines (void)
+{
+    if (!isConnected ()) {
+        qWarning ("IBus is not connected!");
+        return QList<EngineDescPointer> ();
+    }
+
+    QList<EngineDescPointer> engines;
+    QVariantList ret = m_ibus->ListEngines ();
+
+    for (int i = 0; i < ret.size (); i++) {
+        SerializablePointer e;
+        ret.at(i).value<QDBusArgument>() >> e;
+        engines << e;
+    }
+    return engines;
+}
+
+QList<EngineDescPointer>
+Bus::listActiveEngines (void)
+{
+    if (!isConnected ()) {
+        qWarning ("IBus is not connected!");
+        return QList<EngineDescPointer> ();
+    }
+
+    QList<EngineDescPointer> engines;
+    QVariantList ret = m_ibus->ListActiveEngines ();
+
+    for (int i = 0; i < ret.size (); i++) {
+        SerializablePointer e;
+        ret.at(i).value<QDBusArgument>() >> e;
+        engines << e;
+    }
+    return engines;
+
+}
+
+void
+Bus::exit (bool restart)
+{
+    if (!isConnected ()) {
+        qWarning ("IBus is not connected!");
+        return;
+    }
+    m_ibus->Exit (restart);
 }
 
 SerializablePointer
