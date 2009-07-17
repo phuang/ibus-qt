@@ -11,6 +11,7 @@ set(
     qibusproperty.cpp
     qibusproplist.cpp
     qibustext.cpp
+    qibuslookuptable.cpp
     qibusenginedesc.cpp
     qibuscomponent.cpp
     qibusibusproxy.cpp
@@ -29,6 +30,7 @@ set(
     qibusproperty.h
     qibusproplist.h
     qibustext.h
+    qibuslookuptable.h
     qibusenginedesc.h
     qibuscomponent.h
     qibusibusproxy.h
