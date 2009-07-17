@@ -147,11 +147,14 @@ bool Bus::isConnected (void)
 SerializablePointer
 Bus::ping (const SerializablePointer &data)
 {
+    Q_ASSERT (!data.isNull ());
+
+    if (!isConnected ()) {
+        qWarning ("IBus is not connected!");
+        return NULL;
+    }
+
     SerializablePointer retval;
-
-    if (!data)
-        return retval;
-
     QDBusArgument argument;
     argument << data;
 
