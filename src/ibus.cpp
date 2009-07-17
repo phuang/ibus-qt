@@ -53,8 +53,21 @@ const QDBusArgument &operator>> (const QDBusArgument &argument, MyStructure &m)
     return argument;
 }
 
+
+
+
 int main (int argc, char **argv)
 {
+    App app(argc, argv);
+    Bus bus;
+    SerializablePointer p = new Serializable ();
+    p = bus.ping (p);
+
+    bus.createInputContext ("Test");
+    QCoreApplication::exec ();
+
+
+#if 0
     qDBusRegisterMetaType<SerializablePointer>();
 
     QDBusArgument arg;
@@ -86,7 +99,7 @@ int main (int argc, char **argv)
     QDBusPendingReply<QDBusVariant> ret = bus.Ping (qDBusVariantFromSerializable (p));
 
     SerializablePointer p1 = qDBusVariantToSerializable (ret);
-
+#endif
 #if 0
 
 

@@ -1,6 +1,7 @@
 #ifndef __Q_IBUS_POINTER_H__
 #define __Q_IBUS_POINTER_H__
 
+#include <QObject>
 #include <QAtomicInt>
 
 namespace IBus {
@@ -19,7 +20,7 @@ public:
 
     template <typename T1>
     Pointer (const Pointer<T1> &src): p (0) {
-        set ((T *)src.get ());
+        set (dynamic_cast<T *> (src.get ()));
     }
 
     ~Pointer () {
@@ -38,7 +39,7 @@ public:
     
     template <typename T1>
     Pointer &operator= (const Pointer<T1> &src) {
-        set (src.get ());
+        set (dynamic_cast<T *> (src.get ()));
         return *this;
     }
 
@@ -50,8 +51,12 @@ public:
         return get ();
     }
 
-    operator T*() const {
+    operator T *() const {
         return get ();
+    }
+
+    operator bool () const {
+        return !isNull ();
     }
 
     T *get () const {
