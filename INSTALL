@@ -1,4 +1,4 @@
 # how to build
-cmake -DCMAKE_INSTALL_PREFIX=/usr
+cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Debug
 make VERBOSE=1
 make install # DESTDIR=
