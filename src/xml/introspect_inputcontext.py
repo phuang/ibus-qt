@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import ibus
 bus = ibus.Bus()
 ic = bus.create_input_context ("aa")
