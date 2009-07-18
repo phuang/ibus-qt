@@ -60,7 +60,26 @@ Q_SIGNALS:
     void registerProperties (const QList<PropertyPointer> &props);
     void updateProperty (const PropertyPointer &property);
 
-private:
+private Q_SLOTS:
+    void slotCommitText (const QDBusVariant &text);
+    void slotCursorDownLookupTable();
+    void slotCursorUpLookupTable();
+    void slotDisabled();
+    void slotEnabled();
+    void slotForwardKeyEvent(uint keyval, uint keycode, uint state);
+    void slotHideAuxiliaryText();
+    void slotHideLookupTable();
+    void slotHidePreeditText();
+    void slotPageDownLookupTable();
+    void slotPageUpLookupTable();
+    void slotRegisterProperties(const QDBusVariant &props);
+    void slotShowAuxiliaryText();
+    void slotShowLookupTable();
+    void slotShowPreeditText();
+    void slotUpdateAuxiliaryText(const QDBusVariant &text, bool visible);
+    void slotUpdateLookupTable(const QDBusVariant &table, bool visible);
+    void slotUpdatePreeditText(const QDBusVariant &text, uint cursor_pos, bool visible);
+    void slotUpdateProperty(const QDBusVariant &prop);
 
 /*
 signals:

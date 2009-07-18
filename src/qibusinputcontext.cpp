@@ -119,4 +119,100 @@ InputContext::setEngine (const QString &name)
     m_context->SetEngine (name);
 }
 
+/* slots */
+void
+InputContext::slotCommitText (const QDBusVariant &text)
+{
+}
+
+void
+InputContext::slotCursorDownLookupTable ()
+{
+}
+
+void
+InputContext::slotCursorUpLookupTable ()
+{
+}
+
+void
+InputContext::slotDisabled ()
+{
+}
+
+void
+InputContext::slotEnabled ()
+{
+}
+
+void
+InputContext::slotForwardKeyEvent (uint keyval, uint keycode, uint state)
+{
+}
+
+void
+InputContext::slotHideAuxiliaryText ()
+{
+}
+
+void
+InputContext::slotHideLookupTable ()
+{
+}
+
+void
+InputContext::slotHidePreeditText ()
+{
+}
+
+void
+InputContext::slotPageDownLookupTable ()
+{
+}
+
+void
+InputContext::slotPageUpLookupTable ()
+{
+}
+
+void
+InputContext::slotRegisterProperties (const QDBusVariant &props)
+{
+}
+
+void
+InputContext::slotShowAuxiliaryText ()
+{
+}
+
+void
+InputContext::slotShowLookupTable ()
+{
+}
+
+void
+InputContext::slotShowPreeditText ()
+{
+}
+
+void
+InputContext::slotUpdateAuxiliaryText (const QDBusVariant &text, bool visible)
+{
+}
+
+void
+InputContext::slotUpdateLookupTable (const QDBusVariant &table, bool visible)
+{
+}
+
+void
+InputContext::slotUpdatePreeditText (const QDBusVariant &text, uint cursor_pos, bool visible)
+{
+}
+
+void
+InputContext::slotUpdateProperty (const QDBusVariant &prop)
+{
+}
+
 };
