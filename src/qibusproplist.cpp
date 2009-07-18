@@ -13,7 +13,6 @@ PropList::serialize (QDBusArgument &argument) const
 {
     if (!Serializable::serialize (argument))
         return false;
-    argument << m_text;
     return true;
 }
 
@@ -22,7 +21,6 @@ PropList::deserialize (const QDBusArgument &argument)
 {
     if (!Serializable::deserialize (argument))
         return false;
-    argument >> m_text;
     return true;
 }
 

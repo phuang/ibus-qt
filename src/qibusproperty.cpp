@@ -13,7 +13,16 @@ Property::serialize (QDBusArgument &argument) const
 {
     if (!Serializable::serialize (argument))
         return false;
-    argument << m_text;
+
+    argument << m_key;
+    argument << m_icon;
+    argument << m_label;
+    argument << m_tooltip;
+    argument << m_sensitive;
+    argument << m_visible;
+    argument << m_type;
+    argument << m_state;
+
     return true;
 }
 
@@ -22,7 +31,16 @@ Property::deserialize (const QDBusArgument &argument)
 {
     if (!Serializable::deserialize (argument))
         return false;
-    argument >> m_text;
+
+    argument >> m_key;
+    argument >> m_icon;
+    argument >> m_label;
+    argument >> m_tooltip;
+    argument >> m_sensitive;
+    argument >> m_visible;
+    argument >> m_type;
+    argument >> m_state;
+
     return true;
 }
 
