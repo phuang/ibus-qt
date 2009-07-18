@@ -1,6 +1,12 @@
 project(ibus-qt)
 
+# check qt
+find_package(Qt4 COMPONENTS QtCore QtDBus REQUIRED)
 include(${QT_USE_FILE})
+
+# check dbus
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(DBUS REQUIRED dbus-1)
 
 set(
     ibus_qt_SRCS
@@ -40,8 +46,8 @@ set(
     qibusinputcontext.h
 )
 
-qt4_automoc(${ibus_qt_SRCS})
-qt4_wrap_cpp(
+QT4_AUTOMOC(${ibus_qt_SRCS})
+QT4_WRAP_CPP(
     ibus_qt_MOC_SRCS
     ${ibus_qt_MOC_HDRS}
 )
@@ -60,14 +66,12 @@ add_executable(
 
 include_directories(
     ${QT_INCLUDE_DIR}
-    ${QT_QTDBUS_INCLUDE_DIR}
     ${DBUS_INCLUDE_DIRS}
 )
 
 target_link_libraries(
     ibus-qt
     ${QT_LIBRARIES}
-    ${QT_QTDBUS_LIBRARIES}
     ${DBUS_LIBRARIES}
 )
 
