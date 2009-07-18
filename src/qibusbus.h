@@ -32,6 +32,7 @@ public:
     QList<EngineDescPointer> listActiveEngines (void);
     void exit (bool restart = false);
     SerializablePointer ping (const SerializablePointer &data);
+    const QDBusConnection &getConnection (void) { return *m_connection; }
 
 private:
     bool open (void);

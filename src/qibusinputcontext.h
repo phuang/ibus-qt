@@ -6,11 +6,10 @@
 #include "qibusproperty.h"
 #include "qibuslookuptable.h"
 
-class InputContextAdaptor;
+class InputContextProxy;
 
 namespace IBus {
 
-class InputContextProxy;
 class InputContext;
 typedef Pointer<InputContext> InputContextPointer;
 
@@ -21,10 +20,10 @@ class InputContext : public Object
 protected:
 
 public:
-    InputContext (void);
+    InputContext (const BusPointer &bus, const QString &path);
     ~InputContext (void);
 
-    void reste (void);
+    void reset (void);
     void destroy (void);
     void enable (void);
     void disable (void);
@@ -38,7 +37,7 @@ public:
     void setEngine (const QString &name);
 
 public:
-    static InputContextPointer create (const BusPointer &bus);
+    static InputContextPointer create (const BusPointer &bus, const QString &name);
 
 Q_SIGNALS:
     void commitText (const TextPointer &text);
@@ -73,6 +72,7 @@ private slots:
     void slotIBusDisconnected (void);
 */
 private:
+    BusPointer m_bus;
     InputContextProxy *m_context;
 };
 

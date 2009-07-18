@@ -72,10 +72,10 @@ public Q_SLOTS: // METHODS
         return asyncCallWithArgumentList(QLatin1String("GetEngine"), argumentList);
     }
 
-    inline QDBusPendingReply<bool> IsEnable()
+    inline QDBusPendingReply<bool> IsEnabled()
     {
         QList<QVariant> argumentList;
-        return asyncCallWithArgumentList(QLatin1String("IsEnable"), argumentList);
+        return asyncCallWithArgumentList(QLatin1String("IsEnabled"), argumentList);
     }
 
     inline QDBusPendingReply<bool> ProcessKeyEvent(uint keyval, uint keycode, uint state)
