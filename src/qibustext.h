@@ -2,6 +2,8 @@
 #define __Q_IBUS_TEXT_H_
 
 #include "qibusserializable.h"
+#include "qibusattribute.h"
+#include "qibusattrlist.h"
 
 namespace IBus {
 
@@ -24,6 +26,7 @@ public:
 
 private:
     QString m_text;
+    AttrListPointer m_attrs;
 
     IBUS_SERIALIZABLE
 };

@@ -6,6 +6,9 @@
 
 namespace IBus {
 
+class AttrList;
+typedef Pointer<AttrList> AttrListPointer;
+
 class AttrList : public Serializable {
     Q_OBJECT;
 public:
