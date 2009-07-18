@@ -28,6 +28,18 @@ public:
     bool isConnected (void);
     const QDBusConnection &getConnection (void) { return *m_connection; }
 
+    /* org.freedesktop.DBus methods */
+    QString hello (void);
+    void addMatch (const QString &rule);
+    void removeMatch (const QString &rule);
+    QString getId (void);
+    QString getNameOwner (const QString &name);
+    QStringList listNames (void);
+    bool nameHasOwner (const QString &name);
+    uint requestName (const QString &name, uint flag);
+    uint releaseName (const QString &name);
+
+    /* org.freedesktop.IBus methods */
     QString createInputContext (const QString &name);
     bool registerComponent (const ComponentPointer &component);
     QList<EngineDescPointer> listEngines (void);

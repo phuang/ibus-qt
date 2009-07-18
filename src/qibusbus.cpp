@@ -153,6 +153,174 @@ Bus::isConnected (void)
 }
 
 QString
+Bus::hello (void)
+{
+    if (!isConnected ()) {
+        qWarning () << "Bus::hello:" << "IBus is not connected!";
+        return NULL;
+    }
+
+    QDBusPendingReply<QString> reply = m_dbus->Hello ();
+    reply.waitForFinished ();
+
+    if (reply.isError ()) {
+        qWarning () << "Bus::hello:" << reply.error ();
+        return NULL;
+    }
+
+    return reply;
+}
+
+void
+Bus::addMatch (const QString &rule)
+{
+    if (!isConnected ()) {
+        qWarning () << "Bus::addMatch:" << "IBus is not connected!";
+        return;
+    }
+
+    QDBusPendingReply<> reply = m_dbus->AddMatch (rule);
+    reply.waitForFinished ();
+
+    if (reply.isError ()) {
+        qWarning () << "Bus::addMatch:" << reply.error ();
+        return;
+    }
+}
+
+void
+Bus::removeMatch (const QString &rule)
+{
+    if (!isConnected ()) {
+        qWarning () << "Bus::removeMatch:" << "IBus is not connected!";
+        return;
+    }
+
+    QDBusPendingReply<> reply = m_dbus->RemoveMatch (rule);
+    reply.waitForFinished ();
+
+    if (reply.isError ()) {
+        qWarning () << "Bus::removeMatch:" << reply.error ();
+        return;
+    }
+}
+
+QString
+Bus::getId (void)
+{
+    if (!isConnected ()) {
+        qWarning () << "Bus::getId:" << "IBus is not connected!";
+        return NULL;
+    }
+
+    QDBusPendingReply<QString> reply = m_dbus->GetId ();
+    reply.waitForFinished ();
+
+    if (reply.isError ()) {
+        qWarning () << "Bus::getId:" << reply.error ();
+        return NULL;
+    }
+
+    return reply;
+}
+
+QString
+Bus::getNameOwner (const QString &name)
+{
+    if (!isConnected ()) {
+        qWarning () << "Bus::getNameOwner:" << "IBus is not connected!";
+        return NULL;
+    }
+
+    QDBusPendingReply<QString> reply = m_dbus->GetNameOwner (name);
+    reply.waitForFinished ();
+
+    if (reply.isError ()) {
+        qWarning () << "Bus::getNameOwner:" << reply.error ();
+        return NULL;
+    }
+
+    return reply;
+}
+
+QStringList
+Bus::listNames (void)
+{
+    if (!isConnected ()) {
+        qWarning () << "Bus::listNames:" << "IBus is not connected!";
+        return QStringList ();
+    }
+
+    QDBusPendingReply<QStringList> reply = m_dbus->ListNames ();
+    reply.waitForFinished ();
+
+    if (reply.isError ()) {
+        qWarning () << "Bus::listNames:" << reply.error ();
+        return QStringList ();
+    }
+
+    return reply;
+}
+
+bool
+Bus::nameHasOwner (const QString &name)
+{
+    if (!isConnected ()) {
+        qWarning () << "Bus::nameHasOwner:" << "IBus is not connected!";
+        return false;
+    }
+
+    QDBusPendingReply<bool> reply = m_dbus->NameHasOwner (name);
+    reply.waitForFinished ();
+
+    if (reply.isError ()) {
+        qWarning () << "Bus::nameHasOwner:" << reply.error ();
+        return false;
+    }
+
+    return reply;
+}
+
+uint
+Bus::requestName (const QString &name, uint flag)
+{
+    if (!isConnected ()) {
+        qWarning () << "Bus::requestName:" << "IBus is not connected!";
+        return 0;
+    }
+
+    QDBusPendingReply<uint> reply = m_dbus->RequestName (name, flag);
+    reply.waitForFinished ();
+
+    if (reply.isError ()) {
+        qWarning () << "Bus::requestName:" << reply.error ();
+        return 0;
+    }
+
+    return reply;
+}
+
+uint
+Bus::releaseName (const QString &name)
+{
+    if (!isConnected ()) {
+        qWarning () << "Bus::releaseName:" << "IBus is not connected!";
+        return 0;
+    }
+
+    QDBusPendingReply<uint> reply = m_dbus->ReleaseName (name);
+    reply.waitForFinished ();
+
+    if (reply.isError ()) {
+        qWarning () << "Bus::releaseName:" << reply.error ();
+        return 0;
+    }
+
+    return reply;
+}
+
+/* org.freedesktop.IBus methods */
+QString
 Bus::createInputContext (const QString &name)
 {
     if (!isConnected ()) {
