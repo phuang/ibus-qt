@@ -5,3 +5,4 @@ _CPack_Packages
 install_manifest.txt
 CMakeCache.txt
 .*.swp
+tags
