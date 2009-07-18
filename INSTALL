@@ -1,8 +1,4 @@
 # how to build
 cmake -DCMAKE_INSTALL_PREFIX=/usr
 make VERBOSE=1
-<<<<<<< HEAD:INSTALL
 make install # DESTDIR=
-=======
-
->>>>>>> luoxs/master:INSTALL
