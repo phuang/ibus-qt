@@ -26,13 +26,14 @@ public:
     Bus (void);
     ~Bus (void);
     bool isConnected (void);
+    const QDBusConnection &getConnection (void) { return *m_connection; }
+
     QString createInputContext (const QString &name);
-    void registerComponent (const ComponentPointer &component);
+    bool registerComponent (const ComponentPointer &component);
     QList<EngineDescPointer> listEngines (void);
     QList<EngineDescPointer> listActiveEngines (void);
-    void exit (bool restart = false);
+    bool exit (bool restart = false);
     SerializablePointer ping (const SerializablePointer &data);
-    const QDBusConnection &getConnection (void) { return *m_connection; }
 
 private:
     bool open (void);

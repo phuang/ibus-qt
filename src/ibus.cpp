@@ -20,41 +20,6 @@ public:
     }
 };
 
-class MyStructure {
-    friend QDBusArgument &operator<< (QDBusArgument &argument, const MyStructure &m);
-    friend const QDBusArgument &operator>> (const QDBusArgument &argument, MyStructure &m);
-
-public:
-    MyStructure ()  { }
-    MyStructure (const QString &name, int value) : name (name), value (value) { }
-
-    QString name;
-    int value;
-};
-
-Q_DECLARE_METATYPE(MyStructure)
-
-QDBusArgument &operator<< (QDBusArgument &argument, const MyStructure &m)
-{
-    qDebug ("<<");
-    argument.beginStructure();
-    argument << m.name << m.value;
-    argument.endStructure();
-    return argument;
-}
-
-const QDBusArgument &operator>> (const QDBusArgument &argument, MyStructure &m)
-{
-    qDebug (">>");
-    argument.beginStructure();
-    argument >> m.name >> m.value;
-    argument.endStructure();
-    return argument;
-}
-
-
-
-
 int main (int argc, char **argv)
 {
     App app(argc, argv);

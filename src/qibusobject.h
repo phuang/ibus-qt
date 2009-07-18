@@ -1,10 +1,9 @@
 #ifndef __Q_IBUS_OBJECT_H__
 #define __Q_IBUS_OBJECT_H__
 
-
-#include "qibuspointer.h"
 #include <QObject>
 #include <QMetaType>
+#include "qibuspointer.h"
 
 #ifdef QT_USE_NAMESPACE
 #  undef QT_USE_NAMESPACE

@@ -23,7 +23,7 @@ InputContext::create (const BusPointer &bus, const QString &name)
     Q_ASSERT (!bus.isNull ());
     
     if (!bus->isConnected ()) {
-        qWarning ("Bus does not connect!");
+        qWarning () << "InputContext::create:" << "Bus does not connect!";
         return NULL;
     }
 

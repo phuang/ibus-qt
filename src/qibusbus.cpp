@@ -68,7 +68,7 @@ Bus::open (void)
 
     QString address = getAddress ();
     if (address.isEmpty ()) {
-        qWarning ("Can not get ibus-daemon's address.");
+        qWarning () << "Bus::open:" << "Can not get ibus-daemon's address.";
         return false;
     }
 
@@ -76,7 +76,7 @@ Bus::open (void)
         QDBusConnection::connectToBus (address, "IBus"));
 
     if (!isConnected ()) {
-        qWarning ("Connect ibus failed!");
+        qWarning () << "Bus::open:" << "Connect ibus failed!";
         delete m_connection;
         m_connection = NULL;
         return false;
@@ -121,6 +121,8 @@ Bus::getSocketPath (void)
 QString
 Bus::getAddress (void)
 {
+    return "unix:path=/tmp/ibus-phuang/ibus-unix-0";
+
     QString address;
     QString path = getSocketPath ();
 
@@ -154,82 +156,115 @@ QString
 Bus::createInputContext (const QString &name)
 {
     if (!isConnected ()) {
-        qWarning ("IBus is not connected!");
+        qWarning () << "Bus::createInputContext:" << "IBus is not connected!";
         return NULL;
     }
 
-    QDBusObjectPath path = m_ibus->CreateInputContext (name);
+    QDBusPendingReply<QDBusObjectPath> reply = m_ibus->CreateInputContext (name);
+    reply.waitForFinished ();
 
-    qDebug () << "CreateInputContext () -> " << path.path ();
+    if (reply.isError ()) {
+        qWarning () << "Bus::createInputContext:" << reply.error ();
+        return NULL;
+    }
 
-    return path.path ();
+    return reply.value ().path ();
 }
 
-void
+bool
 Bus::registerComponent (const ComponentPointer &component)
 {
     Q_ASSERT (!component.isNull ());
 
     if (!isConnected ()) {
-        qWarning ("IBus is not connected!");
-        return;
+        qWarning () << "Bus::registerComponent:" << "IBus is not connected!";
+        return false;
     }
 
-    QDBusArgument argument;
-    argument << (SerializablePointer) component;
+    QDBusPendingReply<> reply = m_ibus->RegisterComponent (qDBusVariantFromSerializable (component));
+    reply.waitForFinished ();
 
-    QDBusVariant v(QVariant::fromValue (argument));
+    if (reply.isError ()) {
+        qWarning () << "Bus::registerComponent:" << reply.error ();
+        return false;
+    }
 
-    m_ibus->RegisterComponent (v);
+    return true;
 }
 
 QList<EngineDescPointer>
 Bus::listEngines (void)
 {
+    QList<EngineDescPointer> engines;
+
     if (!isConnected ()) {
-        qWarning ("IBus is not connected!");
-        return QList<EngineDescPointer> ();
+        qWarning () << "Bus::listEngines:" <<  "IBus is not connected!";
+        return engines;
     }
 
-    QList<EngineDescPointer> engines;
-    QVariantList ret = m_ibus->ListEngines ();
+    QDBusPendingReply<QVariantList> reply = m_ibus->ListEngines ();
+    reply.waitForFinished ();
 
+    if (reply.isError ()) {
+        qWarning () << "Bus::listEngines:" << reply.error ();
+        return engines;
+    }
+
+    QVariantList ret = reply.value ();
     for (int i = 0; i < ret.size (); i++) {
         SerializablePointer e;
         ret.at(i).value<QDBusArgument>() >> e;
         engines << e;
     }
+
     return engines;
 }
 
 QList<EngineDescPointer>
 Bus::listActiveEngines (void)
 {
+    QList<EngineDescPointer> engines;
+
     if (!isConnected ()) {
-        qWarning ("IBus is not connected!");
-        return QList<EngineDescPointer> ();
+        qWarning () << "Bus::listActiveEngines:" <<  "IBus is not connected!";
+        return engines;
     }
 
-    QList<EngineDescPointer> engines;
-    QVariantList ret = m_ibus->ListActiveEngines ();
+    QDBusPendingReply<QVariantList> reply = m_ibus->ListActiveEngines ();
+    reply.waitForFinished ();
 
+    if (reply.isError ()) {
+        qWarning () << "Bus::listActiveEngines:" << reply.error ();
+        return engines;
+    }
+
+    QVariantList ret = reply.value ();
     for (int i = 0; i < ret.size (); i++) {
         SerializablePointer e;
         ret.at(i).value<QDBusArgument>() >> e;
         engines << e;
     }
-    return engines;
 
+    return engines;
 }
 
-void
+bool
 Bus::exit (bool restart)
 {
     if (!isConnected ()) {
-        qWarning ("IBus is not connected!");
-        return;
+        qWarning () << "Bus::exit:" << "IBus is not connected!";
+        return false;
     }
-    m_ibus->Exit (restart);
+
+    QDBusPendingReply<> reply = m_ibus->Exit (restart);
+    reply.waitForFinished ();
+
+    if (reply.isError ()) {
+        qWarning () << "Bus::exit:" << reply.error ();
+        return false;
+    }
+
+    return true;
 }
 
 SerializablePointer
@@ -238,21 +273,19 @@ Bus::ping (const SerializablePointer &data)
     Q_ASSERT (!data.isNull ());
 
     if (!isConnected ()) {
-        qWarning ("IBus is not connected!");
+        qWarning () << "Bus::ping:" <<  "IBus is not connected!";
         return NULL;
     }
 
-    SerializablePointer retval;
-    QDBusArgument argument;
-    argument << data;
+    QDBusPendingReply<QDBusVariant> reply = m_ibus->Ping (qDBusVariantFromSerializable (data));
+    reply.waitForFinished ();
 
-    QDBusVariant v(QVariant::fromValue (argument));
+    if (reply.isError ()) {
+        qWarning () << "Bus::ping:" << reply.error ();
+        return NULL;
+    }
 
-    v = m_ibus->Ping (v);
-    argument = v.variant().value<QDBusArgument> ();
-    argument >> retval;
-
-    return retval;
+    return qDBusVariantToSerializable (reply.value ());
 }
 
 void
