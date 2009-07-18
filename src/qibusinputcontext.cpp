@@ -123,26 +123,32 @@ InputContext::setEngine (const QString &name)
 void
 InputContext::slotCommitText (const QDBusVariant &text)
 {
+    TextPointer v;
+    // text.variant().value<QDBusArgument>() >> (SerializablePointer) v;
 }
 
 void
 InputContext::slotCursorDownLookupTable ()
 {
+    cursorDownLookupTable ();
 }
 
 void
 InputContext::slotCursorUpLookupTable ()
 {
+    cursorUpLookupTable ();
 }
 
 void
 InputContext::slotDisabled ()
 {
+    disabled ();
 }
 
 void
 InputContext::slotEnabled ()
 {
+    enabled ();
 }
 
 void
@@ -153,26 +159,31 @@ InputContext::slotForwardKeyEvent (uint keyval, uint keycode, uint state)
 void
 InputContext::slotHideAuxiliaryText ()
 {
+    hideAuxiliaryText ();
 }
 
 void
 InputContext::slotHideLookupTable ()
 {
+    hideLookupTable ();
 }
 
 void
 InputContext::slotHidePreeditText ()
 {
+    hidePreeditText ();
 }
 
 void
 InputContext::slotPageDownLookupTable ()
 {
+    pageDownLookupTable ();
 }
 
 void
 InputContext::slotPageUpLookupTable ()
 {
+    pageUpLookupTable ();
 }
 
 void
@@ -183,16 +194,19 @@ InputContext::slotRegisterProperties (const QDBusVariant &props)
 void
 InputContext::slotShowAuxiliaryText ()
 {
+    showAuxiliaryText ();
 }
 
 void
 InputContext::slotShowLookupTable ()
 {
+    showLookupTable ();
 }
 
 void
 InputContext::slotShowPreeditText ()
 {
+    showPreeditText ();
 }
 
 void
