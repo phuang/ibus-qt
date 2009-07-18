@@ -4,6 +4,7 @@
 #include "qibusbus.h"
 #include "qibustext.h"
 #include "qibusproperty.h"
+#include "qibusproplist.h"
 #include "qibuslookuptable.h"
 
 class InputContextProxy;
@@ -57,7 +58,7 @@ Q_SIGNALS:
     void cursorDownLookupTable (void);
     void pageUpLookupTable (void);
     void pageDownLookupTable (void);
-    void registerProperties (const QList<PropertyPointer> &props);
+    void registerProperties (const PropListPointer &props);
     void updateProperty (const PropertyPointer &property);
 
 private Q_SLOTS:

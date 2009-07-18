@@ -123,8 +123,7 @@ InputContext::setEngine (const QString &name)
 void
 InputContext::slotCommitText (const QDBusVariant &text)
 {
-    TextPointer v;
-    // text.variant().value<QDBusArgument>() >> (SerializablePointer) v;
+    commitText (qDBusVariantToSerializable (text));
 }
 
 void
@@ -154,6 +153,7 @@ InputContext::slotEnabled ()
 void
 InputContext::slotForwardKeyEvent (uint keyval, uint keycode, uint state)
 {
+    forwardKeyEvent (keyval, keycode, state);
 }
 
 void
@@ -189,6 +189,7 @@ InputContext::slotPageUpLookupTable ()
 void
 InputContext::slotRegisterProperties (const QDBusVariant &props)
 {
+    registerProperties (qDBusVariantToSerializable (props));
 }
 
 void
@@ -212,21 +213,25 @@ InputContext::slotShowPreeditText ()
 void
 InputContext::slotUpdateAuxiliaryText (const QDBusVariant &text, bool visible)
 {
+    updateAuxiliaryText (qDBusVariantToSerializable (text), visible);
 }
 
 void
 InputContext::slotUpdateLookupTable (const QDBusVariant &table, bool visible)
 {
+    updateLookupTable (qDBusVariantToSerializable (table), visible);
 }
 
 void
 InputContext::slotUpdatePreeditText (const QDBusVariant &text, uint cursor_pos, bool visible)
 {
+    updatePreeditText (qDBusVariantToSerializable(text), cursor_pos, visible);
 }
 
 void
 InputContext::slotUpdateProperty (const QDBusVariant &prop)
 {
+    updateProperty (qDBusVariantToSerializable (prop));
 }
 
 };
