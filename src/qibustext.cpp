@@ -10,7 +10,7 @@ Text::serialize (QDBusArgument &argument) const
     if (!Serializable::serialize (argument))
         return false;
     argument << m_text;
-    argument << (SerializablePointer) m_attrs;
+    argument << m_attrs;
     return true;
 }
 
@@ -20,9 +20,7 @@ Text::deserialize (const QDBusArgument &argument)
     if (!Serializable::deserialize (argument))
         return false;
     argument >> m_text;
-    SerializablePointer v;
-    argument >> v;
-    m_attrs = v;
+    argument >> m_attrs;
     return true;
 }
 

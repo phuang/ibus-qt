@@ -101,6 +101,7 @@ Serializable::unregisterObject (const QString &name)
     Serializable::type_table.remove(name);
 }
 
+#if 0
 QDBusArgument&
 operator<< (QDBusArgument& argument, const SerializablePointer &p)
 {
@@ -126,6 +127,7 @@ operator>> (const QDBusArgument& argument, SerializablePointer &p)
 
     return argument;
 }
+#endif
 
 
 QDBusVariant

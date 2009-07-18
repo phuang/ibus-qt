@@ -35,8 +35,6 @@ namespace IBus {
 class Serializable;
 typedef Pointer<Serializable> SerializablePointer;
 
-QDBusArgument& operator<< (QDBusArgument& argument, const SerializablePointer &p);
-const QDBusArgument& operator>> (const QDBusArgument& argument, SerializablePointer &p);
 QDBusVariant qDBusVariantFromSerializable (const SerializablePointer &p);
 SerializablePointer qDBusVariantToSerializable (const QDBusVariant &variant);
 
@@ -44,8 +42,8 @@ class Serializable : public Object
 {
     Q_OBJECT;
 
-    friend QDBusArgument& operator<< (QDBusArgument& argument, const SerializablePointer &p);
-    friend const QDBusArgument& operator>> (const QDBusArgument& argument, SerializablePointer &p);
+    template<typename T> friend QDBusArgument& operator<< (QDBusArgument& argument, const Pointer<T> &p);
+    template<typename T> friend const QDBusArgument& operator>> (const QDBusArgument& argument, Pointer<T> &p);
 
     typedef Serializable * (NewInstanceFunc) (void);
 
@@ -90,6 +88,32 @@ private:
 
     IBUS_SERIALIZABLE
 };
+
+template<typename T>
+QDBusArgument& operator<< (QDBusArgument& argument, const Pointer<T> &p)
+{
+    argument.beginStructure ();
+    argument << p->getMetaInfo ()->getName ();
+    p->serialize (argument);
+    argument.endStructure ();
+
+    return argument;
+}
+
+template<typename T>
+const QDBusArgument& operator>> (const QDBusArgument& argument, Pointer<T> &p)
+{
+    QString name;
+
+    argument.beginStructure ();
+    argument >> name;
+    p = Serializable::createInstance (name);
+    if (!p->deserialize (argument))
+        p = NULL;
+    argument.endStructure ();
+
+    return argument;
+}
 
 };
 

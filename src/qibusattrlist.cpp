@@ -27,7 +27,7 @@ bool AttrList::serialize (QDBusArgument &argument) const
 {
     argument.beginArray (QDBusArgument::VariantType);
     for (int i = 0; i < m_attrs.size(); i++) {
-        argument << (SerializablePointer) m_attrs[i];
+        argument << m_attrs[i];
     }
     argument.endArray ();
     return true;
@@ -37,7 +37,7 @@ bool AttrList::deserialize (const QDBusArgument &argument)
 {
     argument.beginArray ();
     while (!argument.atEnd ()) {
-        SerializablePointer attr;
+        AttributePointer attr;
         argument >> attr;
         append (attr);
     }

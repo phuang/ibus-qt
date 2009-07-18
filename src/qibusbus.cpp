@@ -212,7 +212,7 @@ Bus::listEngines (void)
 
     QVariantList ret = reply.value ();
     for (int i = 0; i < ret.size (); i++) {
-        SerializablePointer e;
+        EngineDescPointer e;
         ret.at(i).value<QDBusArgument>() >> e;
         engines << e;
     }
@@ -240,7 +240,7 @@ Bus::listActiveEngines (void)
 
     QVariantList ret = reply.value ();
     for (int i = 0; i < ret.size (); i++) {
-        SerializablePointer e;
+        EngineDescPointer e;
         ret.at(i).value<QDBusArgument>() >> e;
         engines << e;
     }
