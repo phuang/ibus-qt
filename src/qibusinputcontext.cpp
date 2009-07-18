@@ -95,7 +95,16 @@ bool
 InputContext::processKeyEvent (uint keyval, uint keycode, uint state)
 {
     Q_ASSERT (m_context);
-    return m_context->ProcessKeyEvent (keyval, keycode, state);
+
+    QDBusPendingReply<bool> reply = m_context->ProcessKeyEvent (keyval, keycode, state);
+    reply.waitForFinished ();
+
+    if (reply.isError ()) {
+        qWarning () << "InputContext::processKeyEvent:" << reply.error ();
+        return false;
+    }
+
+    return reply;
 }
 
 void
