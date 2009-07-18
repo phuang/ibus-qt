@@ -59,6 +59,12 @@ add_library(
     ${ibus_qt_MOC_SRCS}
 )
 
+add_library(
+    qtim-ibus
+    MODULE
+    ibus.cpp
+)
+
 add_executable(
     ibus-test
     ibus.cpp
@@ -75,11 +81,19 @@ target_link_libraries(
     ${DBUS_LIBRARIES}
 )
 
+target_link_libraries(
+    qtim-ibus
+    ibus-qt
+)
 
 target_link_libraries(
     ibus-test
     ibus-qt
 )
 
-install(TARGETS ibus-test DESTINATION bin)
-install(TARGETS ibus-qt DESTINATION lib)
+install(TARGETS ibus-qt
+    LIBRARY DESTINATION lib)
+install(TARGETS qtim-ibus
+    LIBRARY DESTINATION ${QT_PLUGINS_DIR}/inputmethods)
+install(TARGETS ibus-test
+    RUNTIME DESTINATION bin)

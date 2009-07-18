@@ -1,3 +1,3 @@
 moc_*.cxx
 ibus-test
-libibus-qt.so
+*.so
