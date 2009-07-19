@@ -1,7 +1,7 @@
 # project(ibus-qt)
 # 
 # check qt
-find_package(Qt4 COMPONENTS QtCore QtDBus REQUIRED)
+find_package(Qt4 COMPONENTS QtGui REQUIRED)
 include(${QT_USE_FILE})
 
 set(
