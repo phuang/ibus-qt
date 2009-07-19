@@ -7,3 +7,4 @@ if(COMMAND cmake_policy)
 endif(COMMAND cmake_policy)
 
 add_subdirectory(src)
+add_subdirectory(qtim)
