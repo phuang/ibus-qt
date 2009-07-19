@@ -27,135 +27,136 @@
 typedef QInputMethodEvent::Attribute QAttribute;
 
 IBusInputContext::IBusInputContext (QObject *parent)
-	: QInputContext (parent),
-	  preedit_visible (false),
-	  has_focus (false)
-	  // caps (IBUS_CAP_PREEDIT | IBUS_CAP_FOCUS)
+    : QInputContext (parent),
+      m_preedit (NULL),
+      m_preedit_visible (false),
+      m_has_focus (false)
+      // caps (IBUS_CAP_PREEDIT | IBUS_CAP_FOCUS)
 {
 }
 
 IBusInputContext::~IBusInputContext ()
 {
-	// client->releaseInputContext (this);
+    // client->releaseInputContext (this);
 }
 
 bool
 IBusInputContext::filterEvent (const QEvent *event)
 {
 #ifndef Q_WS_X11
-	if (client->filterEvent (this, event)) {
-		return true;
-	}
-	return QInputContext::filterEvent (event);
+    if (client->filterEvent (this, event)) {
+        return true;
+    }
+    return QInputContext::filterEvent (event);
 #else
-	return QInputContext::filterEvent (event);
+    return QInputContext::filterEvent (event);
 #endif
 }
 
 QFont
 IBusInputContext::font () const
 {
-	return QInputContext::font ();
+    return QInputContext::font ();
 }
 
 QString
 IBusInputContext::identifierName ()
 {
-	return QString ("ibus");
+    return QString ("ibus");
 }
 
 QString
 IBusInputContext::language()
 {
-	return QString ("");
+    return QString ("");
 }
 
 void
 IBusInputContext::mouseHandler (int x, QMouseEvent *event)
 {
-	// client->mouseHandler (this, x, event);
-	QInputContext::mouseHandler (x, event);
+    // client->mouseHandler (this, x, event);
+    QInputContext::mouseHandler (x, event);
 }
 
 void
 IBusInputContext::reset()
 {
-	// client->reset (this);
+    // client->reset (this);
 }
 
 void
 IBusInputContext::update ()
 {
-	QWidget *widget = focusWidget ();
+    QWidget *widget = focusWidget ();
 
-	if (widget == NULL) {
-		return;
-	}
+    if (widget == NULL) {
+        return;
+    }
 
-	QRect rect = widget->inputMethodQuery(Qt::ImMicroFocus).toRect ();
+    QRect rect = widget->inputMethodQuery(Qt::ImMicroFocus).toRect ();
 
-	QPoint topleft = widget->mapToGlobal(QPoint(0,0));
-	rect.translate (topleft);
+    QPoint topleft = widget->mapToGlobal(QPoint(0,0));
+    rect.translate (topleft);
 
-	// client->setCursorLocation (this, rect);
+    // client->setCursorLocation (this, rect);
 
 #if 0
-	QVariant value;
-	qDebug () << "== update == ";
-	value = widget->inputMethodQuery(Qt::ImMicroFocus);
-	qDebug () << "Qt::ImMicroFocus " << value;
-	value = widget->inputMethodQuery(Qt::ImFont);
-	qDebug () << "Qt::ImFont " <<value;
-	value = widget->inputMethodQuery(Qt::ImCursorPosition);
-	qDebug () << "Qt::ImCursorPosition " << value;
-	value = widget->inputMethodQuery(Qt::ImSurroundingText);
-	qDebug () << "Qt::ImSurroundingText " << value;
-	value = widget->inputMethodQuery(Qt::ImCurrentSelection);
-	qDebug () << "Qt::ImCurrentSelection " << value;
+    QVariant value;
+    qDebug () << "== update == ";
+    value = widget->inputMethodQuery(Qt::ImMicroFocus);
+    qDebug () << "Qt::ImMicroFocus " << value;
+    value = widget->inputMethodQuery(Qt::ImFont);
+    qDebug () << "Qt::ImFont " <<value;
+    value = widget->inputMethodQuery(Qt::ImCursorPosition);
+    qDebug () << "Qt::ImCursorPosition " << value;
+    value = widget->inputMethodQuery(Qt::ImSurroundingText);
+    qDebug () << "Qt::ImSurroundingText " << value;
+    value = widget->inputMethodQuery(Qt::ImCurrentSelection);
+    qDebug () << "Qt::ImCurrentSelection " << value;
 #endif
 }
 
 bool
 IBusInputContext::isComposing() const
 {
-	return preedit_visible && !preedit_string.isEmpty ();
+    return m_preedit_visible && !m_preedit;
 }
 
 void
 IBusInputContext::setFocusWidget (QWidget *widget)
 {
-	QInputContext::setFocusWidget (widget);
+    QInputContext::setFocusWidget (widget);
 
-	if (widget == NULL) {
-		has_focus = false;
-		// client->focusOut (this);
-	}
-	else {
-		/* KateView can not support preedit well. */
-		if (widget->inherits("KateViewInternal")) {
-			// caps &= ~IBUS_CAP_PREEDIT;
-		}
-		else {
-			// caps |= IBUS_CAP_PREEDIT;
-		}
-		// client->setCapabilities (this, caps);
+    if (widget == NULL) {
+        m_has_focus = false;
+        // client->focusOut (this);
+    }
+    else {
+        /* KateView can not support preedit well. */
+        if (widget->inherits("KateViewInternal")) {
+            // caps &= ~IBUS_CAP_PREEDIT;
+        }
+        else {
+            // caps |= IBUS_CAP_PREEDIT;
+        }
+        // client->setCapabilities (this, caps);
 
-		has_focus = true;
-		// client->focusIn (this);
-		update ();
-	}
+        m_has_focus = true;
+        // client->focusIn (this);
+        update ();
+    }
 }
 
 void
 IBusInputContext::widgetDestroyed (QWidget *widget)
 {
-	QInputContext::widgetDestroyed (widget);
+    QInputContext::widgetDestroyed (widget);
 
-	if (has_focus) {
-		setFocusWidget (NULL);
-	}
+    if (m_has_focus) {
+        setFocusWidget (NULL);
+    }
 
-	update ();
+    update ();
 }
 
 #ifdef Q_WS_X11
@@ -163,88 +164,90 @@ bool
 IBusInputContext::x11FilterEvent (QWidget *keywidget, XEvent *xevent)
 {
 #if 0
-	if (client->x11FilterEvent (this, keywidget, xevent)) {
-			return true;
-	}
+    if (client->x11FilterEvent (this, keywidget, xevent)) {
+            return true;
+    }
 #endif
-	return QInputContext::x11FilterEvent (keywidget, xevent);
+    return QInputContext::x11FilterEvent (keywidget, xevent);
 }
 #endif
 
 void
-IBusInputContext::commitString (QString text)
+IBusInputContext::commitText (const TextPointer &text)
 {
-	QInputMethodEvent event;
-	event.setCommitString (text);
-	sendEvent (event);
-	update ();
+    QInputMethodEvent event;
+    // event.setCommitString (text);
+    sendEvent (event);
+    update ();
 }
 
 void
-IBusInputContext::updatePreedit (QString text, QList <QList <quint32> > attr_list, int cursor_pos, bool visible)
+IBusInputContext::updatePreedit (const TextPointer &text, uint cursor_pos, bool visible)
 {
-	// qDebug () << text << cursor_pos << show;
-	QList <QAttribute> qattrs;
+#if 0
+    // qDebug () << text << cursor_pos << show;
+    QList <QAttribute> qattrs;
 
-	if (visible) {
-		// append cursor pos
-		qattrs.append (QAttribute (QInputMethodEvent::Cursor, cursor_pos, true, 0));
+    if (visible) {
+        // append cursor pos
+        qattrs.append (QAttribute (QInputMethodEvent::Cursor, cursor_pos, true, 0));
 
-		// append attributes
-		for (QList <QList <quint32> >::iterator it = attr_list.begin (); it != attr_list.end(); ++ it) {
+        // append attributes
+        for (QList <QList <quint32> >::iterator it = attr_list.begin (); it != attr_list.end(); ++ it) {
 
-			QList <quint32> attr = *it;
-			QTextCharFormat format;
+            QList <quint32> attr = *it;
+            QTextCharFormat format;
 
-			switch (attr[0]) {
-			case 1: // underline
-				format.setUnderlineStyle (QTextCharFormat::SingleUnderline);
-				break;
-			case 2: // foreground
-				format.setForeground (QBrush (QColor (attr[1])));
-				break;
-			case 3: // background
-				format.setBackground (QBrush (QColor (attr[1])));
-				break;
-			default:
-				break;
-			}
+            switch (attr[0]) {
+            case 1: // underline
+                format.setUnderlineStyle (QTextCharFormat::SingleUnderline);
+                break;
+            case 2: // foreground
+                format.setForeground (QBrush (QColor (attr[1])));
+                break;
+            case 3: // background
+                format.setBackground (QBrush (QColor (attr[1])));
+                break;
+            default:
+                break;
+            }
 
-			qattrs.append (QAttribute (QInputMethodEvent::TextFormat, attr[2], attr[3] - attr[2], QVariant (format)));
-			// qDebug () << attr[0] << attr[2] << attr[3] - attr[2];
-		}
-	}
-	else {
-		qattrs.append (QAttribute (QInputMethodEvent::Cursor, 0, true, 0));
-		text = "";
-		cursor_pos = 0;
-	}
+            qattrs.append (QAttribute (QInputMethodEvent::TextFormat, attr[2], attr[3] - attr[2], QVariant (format)));
+            // qDebug () << attr[0] << attr[2] << attr[3] - attr[2];
+        }
+    }
+    else {
+        qattrs.append (QAttribute (QInputMethodEvent::Cursor, 0, true, 0));
+        text = "";
+        cursor_pos = 0;
+    }
 
-	preedit_string = text;
-	preedit_visible = visible;
-	preedit_attrs = attr_list;
-	preedit_cursor_pos = cursor_pos;
+    preedit_string = text;
+    preedit_visible = visible;
+    preedit_attrs = attr_list;
+    preedit_cursor_pos = cursor_pos;
 
-	QInputMethodEvent event (text, qattrs);
-	sendEvent (event);
-	update ();
+    QInputMethodEvent event (text, qattrs);
+    sendEvent (event);
+    update ();
+#endif
 }
 
 void
 IBusInputContext::showPreedit ()
 {
-	if (preedit_visible)
-		return;
+    if (m_preedit_visible)
+        return;
 
-	updatePreedit (preedit_string, preedit_attrs, preedit_cursor_pos, TRUE);
+    // updatePreedit (preedit_string, preedit_attrs, preedit_cursor_pos, TRUE);
 }
 
 void
 IBusInputContext::hidePreedit ()
 {
-	if (!preedit_visible)
-		return;
+    if (!m_preedit_visible)
+        return;
 
-	updatePreedit (preedit_string, preedit_attrs, preedit_cursor_pos, FALSE);
+    // updatePreedit (preedit_string, preedit_attrs, preedit_cursor_pos, FALSE);
 }
 

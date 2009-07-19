@@ -89,9 +89,7 @@ IBusPlugin::languages (const QString & key)
     }
 
     if (ibus_languages.empty ()) {
-        ibus_languages.push_back ("zh_CN");
-        ibus_languages.push_back ("zh_TW");
-        ibus_languages.push_back ("zh_HK");
+        ibus_languages.push_back ("zh");
         ibus_languages.push_back ("ja");
         ibus_languages.push_back ("ko");
     }

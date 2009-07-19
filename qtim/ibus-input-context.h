@@ -23,6 +23,9 @@
 #define __IBUS_INPUT_CONTEXT_H_
 #include <QInputContext>
 #include <QList>
+#include <qibusinputcontext.h>
+
+using namespace IBus;
 
 class IBusInputContext : public QInputContext  {
 	Q_OBJECT
@@ -44,24 +47,20 @@ public:
 #ifdef Q_WS_X11
 	bool x11FilterEvent (QWidget *keywidget, XEvent *event);
 #endif
-	void setIC (QString ic);
-	QString getIC ();
 
-	void commitString (QString text);
-	void updatePreedit (QString text, QList <QList <quint32> > attr_list, int cursor_pos, bool visible);
+	void commitText (const TextPointer &text);
+	void updatePreedit (const TextPointer &text, uint cursor_pos, bool visible);
 	void showPreedit ();
 	void hidePreedit ();
 
 private slots:
 
 private:
-	QString ic;
-	QString preedit_string;
-	bool preedit_visible;
-	int preedit_cursor_pos;
-	bool has_focus;
-	int caps;
-	QList <QList <quint32> > preedit_attrs;
+	TextPointer m_preedit;
+	uint m_preedit_cursor_pos;
+	bool m_preedit_visible;
+	uint m_caps;
+	bool m_has_focus;
 };
 
 #endif //__IBUS_INPUT_CONTEXT_H_
