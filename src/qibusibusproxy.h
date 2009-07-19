@@ -40,7 +40,7 @@ public Q_SLOTS: // METHODS
     {
         QList<QVariant> argumentList;
         argumentList << qVariantFromValue(name);
-        return asyncCallWithArgumentList(QLatin1String("CreateInputContexta"), argumentList);
+        return asyncCallWithArgumentList(QLatin1String("CreateInputContext"), argumentList);
     }
 
     inline QDBusPendingReply<> Exit(bool restart)

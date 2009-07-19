@@ -121,8 +121,6 @@ Bus::getSocketPath (void)
 QString
 Bus::getAddress (void)
 {
-    return "unix:path=/tmp/ibus-phuang/ibus-unix-0";
-
     QString address;
     QString path = getSocketPath ();
 
