@@ -1,4 +1,4 @@
-/* vim:set noet ts=4: */
+/* vim:set et ts=4 sts=4 : */
 /*
  * ibus - The Input Bus
  *
