@@ -1,7 +1,7 @@
 # project(ibus-qt)
 # 
 # check qt
-find_package(Qt4 COMPONENTS QtGui REQUIRED)
+find_package(Qt4 COMPONENTS QtCore QtGui QtDBus REQUIRED)
 include(${QT_USE_FILE})
 
 set(
@@ -27,7 +27,7 @@ include_directories(
 add_library(
     qtim-ibus
     MODULE
-    ibus.cpp
+    ibus-plugin.cpp
 )
 
 target_link_libraries(

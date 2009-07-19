@@ -1,4 +1,4 @@
-/* vim:set noet ts=4: */
+/* vim:set et ts=4 sts=4 : */
 /*
  * ibus - The Input Bus
  *
@@ -20,12 +20,14 @@
  * Boston, MA  02111-1307  USA
  */
 #include <QInputContextPlugin>
+#include <qibusbus.h>
 
 #define IBUS_IDENTIFIER_NAME "ibus"
 
+using namespace IBus;
 
 /* The class Definition */
-class IBusInputContextPlugin: public QInputContextPlugin
+class IBusPlugin: public QInputContextPlugin
 {
 
 private:
@@ -36,9 +38,9 @@ private:
 
 public:
 
-    IBusInputContextPlugin (QObject *parent = 0);
+    IBusPlugin (QObject *parent = 0);
 
-    ~IBusInputContextPlugin ();
+    ~IBusPlugin ();
 
     QStringList keys () const;
 
@@ -50,25 +52,28 @@ public:
 
     QString displayName (const QString &key);
 
+private:
+    BusPointer m_bus;
+
 };
 
 
 /* Implementations */
-QStringList IBusInputContextPlugin::ibus_languages;
+QStringList IBusPlugin::ibus_languages;
 
 
-IBusInputContextPlugin::IBusInputContextPlugin (QObject *parent)
+IBusPlugin::IBusPlugin (QObject *parent)
     :QInputContextPlugin (parent)
 {
 }
 
 
-IBusInputContextPlugin::~IBusInputContextPlugin ()
+IBusPlugin::~IBusPlugin ()
 {
 }
 
 QStringList
-IBusInputContextPlugin::keys () const
+IBusPlugin::keys () const
 {
     QStringList identifiers;
     identifiers.push_back (IBUS_IDENTIFIER_NAME);
@@ -77,7 +82,7 @@ IBusInputContextPlugin::keys () const
 
 
 QStringList
-IBusInputContextPlugin::languages (const QString & key)
+IBusPlugin::languages (const QString & key)
 {
     if (key.toLower () != IBUS_IDENTIFIER_NAME) {
         return QStringList ();
@@ -95,7 +100,7 @@ IBusInputContextPlugin::languages (const QString & key)
 
 
 QString
-IBusInputContextPlugin::description (const QString &key)
+IBusPlugin::description (const QString &key)
 {
     if (key.toLower () != IBUS_IDENTIFIER_NAME) {
         return QString ("");
@@ -106,20 +111,23 @@ IBusInputContextPlugin::description (const QString &key)
 
 
 QInputContext *
-IBusInputContextPlugin::create (const QString &key)
+IBusPlugin::create (const QString &key)
 {
     if (key.toLower () != IBUS_IDENTIFIER_NAME) {
         return NULL;
     } else {
+        if (m_bus.isNull ()) {
+            m_bus = new Bus ();
+        }
         /* create input context */
         return NULL;
     }
 }
 
 
-QString IBusInputContextPlugin::displayName (const QString &key)
+QString IBusPlugin::displayName (const QString &key)
 {
     return key;
 }
 
-Q_EXPORT_PLUGIN2 (IBusInputContextPlugin, IBusInputContextPlugin)
+Q_EXPORT_PLUGIN2 (IBusPlugin, IBusPlugin)
