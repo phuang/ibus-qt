@@ -23,7 +23,7 @@ QT4_WRAP_CPP(
 include_directories(
     ${QT_INCLUDE_DIR}
     ${DBUS_INCLUDE_DIRS}
-    ../src
+    ${CMAKE_CURRENT_SOURCE_DIR}/../src
 )
 
 add_library(

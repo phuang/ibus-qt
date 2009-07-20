@@ -6,6 +6,7 @@ include(${QT_USE_FILE})
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(DBUS REQUIRED dbus-1)
 
+
 set(
     ibus_qt_SRCS
     qibusobject.cpp
@@ -44,7 +45,13 @@ set(
     qibusinputcontext.h
 )
 
-QT4_AUTOMOC(${ibus_qt_SRCS})
+# QT4_ADD_DBUS_INTERFACE(
+#     ibus_qt_SRCS
+#     ${CMAKE_CURRENT_SOURCE_DIR}/interfaces/org.freedesktop.IBus.xml
+#     basename
+# )
+# 
+# QT4_AUTOMOC(${ibus_qt_SRCS})
 QT4_WRAP_CPP(
     ibus_qt_MOC_SRCS
     ${ibus_qt_MOC_HDRS}
