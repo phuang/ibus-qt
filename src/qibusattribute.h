@@ -9,7 +9,7 @@ typedef enum {
     IBUS_ATTR_TYPE_UNDERLINE  =1,
     IBUS_ATTR_TYPE_FOREGROUND =2,
     IBUS_ATTR_TYPE_BACKGROUND =3,
-} IBusAttrType;    
+} IBusAttrType;
 
 class Attribute;
 typedef Pointer<Attribute> AttributePointer;
@@ -17,7 +17,6 @@ typedef Pointer<Attribute> AttributePointer;
 class Attribute : public Serializable
 {
     Q_OBJECT;
-
 
 public:
     Attribute (uint type = 0, uint value = 0, uint start = 0, uint end = 0) :
@@ -37,55 +36,25 @@ protected:
     IBUS_SERIALIZABLE
 };
 
-class AttributeUnderline : public Attribute 
+class AttributeUnderline : public Attribute
 {
-    Q_OBJECT;
-
-
 public:
-    AttributeUnderline (uint type= 0, uint start = 0, uint end = 0) { 
-        m_type          = IBUS_ATTR_TYPE_UNDERLINE;
-        m_value         = type;
-        m_start_index   = start;
-        m_end_index     = end;
-    }
-
-
-    IBUS_SERIALIZABLE
+    AttributeUnderline (uint underline_type = 0, uint start = 0, uint end = 0)
+        : Attribute (IBUS_ATTR_TYPE_UNDERLINE, underline_type, start, end) {}
 };
 
-class AttributeForeground: public Attribute 
+class AttributeForeground: public Attribute
 {
-    Q_OBJECT;
-
-
 public:
-    AttributeUnderline (uint color= 0, uint start = 0, uint end = 0) { 
-        m_type          = IBUS_ATTR_TYPE_FOREGROUND;
-        m_value         = color;
-        m_start_index   = start;
-        m_end_index     = end;
-    }
-
-
-    IBUS_SERIALIZABLE
+    AttributeForeground (uint color = 0, uint start = 0, uint end = 0)
+        : Attribute (IBUS_ATTR_TYPE_FOREGROUND, color, start, end) {}
 };
 
-class AttributeBackground: public Attribute 
+class AttributeBackground: public Attribute
 {
-    Q_OBJECT;
-
-
 public:
-    AttributeUnderline (uint color= 0, uint start = 0, uint end = 0) { 
-        m_type          = IBUS_ATTR_TYPE_BACKGROUND;
-        m_value         = color;
-        m_start_index   = start;
-        m_end_index     = end;
-    }
-
-
-    IBUS_SERIALIZABLE
+    AttributeBackground (uint color = 0, uint start = 0, uint end = 0)
+        : Attribute (IBUS_ATTR_TYPE_BACKGROUND, color, start, end) {}
 };
 
 };
