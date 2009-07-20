@@ -12,11 +12,11 @@ typedef Pointer<AttrList> AttrListPointer;
 class AttrList : public Serializable {
     Q_OBJECT;
 public:
-    AttrList (): m_attrs(0) {}
-    AttrList (int size): m_attrs(size) {};
+    AttrList (): m_attrs (0) {}
     virtual ~AttrList ();
     AttributePointer get(uint index);
-    void append(const AttributePointer &attr);
+    void append (const AttributePointer &attr);
+    void clear (void);
 
     virtual bool serialize (QDBusArgument &argument) const;
     virtual bool deserialize (const QDBusArgument &argument);

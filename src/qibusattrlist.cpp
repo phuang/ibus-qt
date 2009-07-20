@@ -16,12 +16,17 @@ AttributePointer AttrList::get (uint index)
     return m_attrs[index];
 }
 
-void AttrList::append(const AttributePointer &attr)
+void AttrList::append (const AttributePointer &attr)
 {
     if (attr.isNull ())
         return;
 
     m_attrs.append (attr);
+}
+
+void AttrList::clear (void)
+{
+    m_attrs.clear ();
 }
 
 bool AttrList::serialize (QDBusArgument &argument) const
@@ -36,6 +41,7 @@ bool AttrList::serialize (QDBusArgument &argument) const
 
 bool AttrList::deserialize (const QDBusArgument &argument)
 {
+    clear ();
     argument.beginArray ();
     while (!argument.atEnd ()) {
         AttributePointer attr;
