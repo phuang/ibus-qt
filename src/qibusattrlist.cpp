@@ -6,6 +6,7 @@ IBUS_DECLARE_SERIALIZABLE(AttrList, IBusAttrList);
 
 AttrList::~AttrList ()
 {
+    m_attrs.clear();
 }
 
 AttributePointer AttrList::get (uint index)
