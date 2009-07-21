@@ -21,6 +21,7 @@
  */
 #include <QInputContextPlugin>
 #include <qibusbus.h>
+#include "ibus-input-context.h"
 
 #define IBUS_IDENTIFIER_NAME "ibus"
 
@@ -113,13 +114,12 @@ IBusPlugin::create (const QString &key)
 {
     if (key.toLower () != IBUS_IDENTIFIER_NAME) {
         return NULL;
-    } else {
-        if (m_bus.isNull ()) {
-            m_bus = new Bus ();
-        }
-        /* create input context */
-        return NULL;
     }
+
+    if (m_bus.isNull ()) {
+        m_bus = new Bus ();
+    }
+    return static_cast<QInputContext *> (new IBusInputContext (m_bus));
 }
 
 

@@ -30,18 +30,18 @@ using namespace IBus;
 class IBusInputContext : public QInputContext  {
 	Q_OBJECT
 public:
-	IBusInputContext (QObject *parent = 0);
+	IBusInputContext (const BusPointer &bus);
 	~IBusInputContext ();
 
 public:
 	bool filterEvent (const QEvent *event);
-	QFont font () const;
-	QString identifierName ();
-	bool isComposing() const;
-	QString language();
+	QFont font (void) const;
+	QString identifierName (void);
+	bool isComposing (void) const;
+	QString language (void);
 	void mouseHandler (int x, QMouseEvent *event);
-	void reset();
-	void update ();
+	void reset (void);
+	void update (void);
 	void setFocusWidget (QWidget *widget );
 	void widgetDestroyed (QWidget *widget);
 #ifdef Q_WS_X11
@@ -49,13 +49,14 @@ public:
 #endif
 
 	void commitText (const TextPointer &text);
-	void updatePreedit (const TextPointer &text, uint cursor_pos, bool visible);
-	void showPreedit ();
-	void hidePreedit ();
+	void updatePreeditText (const TextPointer &text, uint cursor_pos, bool visible);
+	void showPreeditText (void);
+	void hidePreeditText (void);
 
 private slots:
 
 private:
+	BusPointer m_bus;
 	TextPointer m_preedit;
 	uint m_preedit_cursor_pos;
 	bool m_preedit_visible;

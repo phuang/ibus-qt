@@ -22,22 +22,25 @@
 #include <QtDebug>
 #include <QInputMethodEvent>
 #include <QTextCharFormat>
+#include <qibus.h>
 #include "ibus-input-context.h"
 
 typedef QInputMethodEvent::Attribute QAttribute;
 
-IBusInputContext::IBusInputContext (QObject *parent)
-    : QInputContext (parent),
+IBusInputContext::IBusInputContext (const BusPointer &bus)
+    : m_bus (bus),
       m_preedit (NULL),
       m_preedit_visible (false),
-      m_has_focus (false)
-      // caps (IBUS_CAP_PREEDIT | IBUS_CAP_FOCUS)
+      m_has_focus (false),
+      m_caps (CapPreeditText | CapFocus)
 {
 }
 
-IBusInputContext::~IBusInputContext ()
+IBusInputContext::~IBusInputContext (void)
 {
     // client->releaseInputContext (this);
+    m_preedit = NULL;
+    m_bus = NULL;
 }
 
 bool
@@ -54,19 +57,19 @@ IBusInputContext::filterEvent (const QEvent *event)
 }
 
 QFont
-IBusInputContext::font () const
+IBusInputContext::font (void) const
 {
     return QInputContext::font ();
 }
 
 QString
-IBusInputContext::identifierName ()
+IBusInputContext::identifierName (void)
 {
     return QString ("ibus");
 }
 
 QString
-IBusInputContext::language()
+IBusInputContext::language (void)
 {
     return QString ("");
 }
@@ -74,18 +77,16 @@ IBusInputContext::language()
 void
 IBusInputContext::mouseHandler (int x, QMouseEvent *event)
 {
-    // client->mouseHandler (this, x, event);
     QInputContext::mouseHandler (x, event);
 }
 
 void
-IBusInputContext::reset()
+IBusInputContext::reset (void)
 {
-    // client->reset (this);
 }
 
 void
-IBusInputContext::update ()
+IBusInputContext::update (void)
 {
     QWidget *widget = focusWidget ();
 
@@ -117,7 +118,7 @@ IBusInputContext::update ()
 }
 
 bool
-IBusInputContext::isComposing() const
+IBusInputContext::isComposing (void) const
 {
     return m_preedit_visible && !m_preedit;
 }
@@ -182,7 +183,7 @@ IBusInputContext::commitText (const TextPointer &text)
 }
 
 void
-IBusInputContext::updatePreedit (const TextPointer &text, uint cursor_pos, bool visible)
+IBusInputContext::updatePreeditText (const TextPointer &text, uint cursor_pos, bool visible)
 {
 #if 0
     // qDebug () << text << cursor_pos << show;
@@ -234,7 +235,7 @@ IBusInputContext::updatePreedit (const TextPointer &text, uint cursor_pos, bool 
 }
 
 void
-IBusInputContext::showPreedit ()
+IBusInputContext::showPreeditText (void)
 {
     if (m_preedit_visible)
         return;
@@ -243,7 +244,7 @@ IBusInputContext::showPreedit ()
 }
 
 void
-IBusInputContext::hidePreedit ()
+IBusInputContext::hidePreeditText (void)
 {
     if (!m_preedit_visible)
         return;
