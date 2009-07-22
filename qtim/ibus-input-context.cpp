@@ -293,33 +293,31 @@ IBusInputContext::displayPreeditText (const TextPointer &text, uint cursor_pos, 
     if (visible) {
         // append cursor pos
         qattrs.append (QAttribute (QInputMethodEvent::Cursor, cursor_pos, true, 0));
-        QInputMethodEvent event (text->text (), qattrs);
-        sendEvent (event);
-    #if 0
-        // append attributes
-        for (QList <QList <quint32> >::iterator it = attr_list.begin (); it != attr_list.end(); ++ it) {
 
-            QList <quint32> attr = *it;
+        AttrListPointer attrs = text->attrs ();
+        for (uint i = 0; i < attrs->size (); i++) {
             QTextCharFormat format;
-
-            switch (attr[0]) {
-            case 1: // underline
+            AttributePointer attr = attrs->get (i);
+            switch (attr->type ()) {
+            case Attribute::TypeUnderline:
                 format.setUnderlineStyle (QTextCharFormat::SingleUnderline);
                 break;
-            case 2: // foreground
-                format.setForeground (QBrush (QColor (attr[1])));
+            case Attribute::TypeForeground:
+                format.setForeground (QBrush (QColor (attr->value ())));
                 break;
-            case 3: // background
-                format.setBackground (QBrush (QColor (attr[1])));
+            case Attribute::TypeBackground:
+                format.setForeground (QBrush (QColor (attr->value ())));
                 break;
             default:
-                break;
+                qWarning () << "IBusInputContext::displayPreeditText:"
+                            << "unknow Attribute type" << attr->type ();
+                continue;
             }
-
-            qattrs.append (QAttribute (QInputMethodEvent::TextFormat, attr[2], attr[3] - attr[2], QVariant (format)));
-            // qDebug () << attr[0] << attr[2] << attr[3] - attr[2];
+            qattrs.append (QAttribute (QInputMethodEvent::TextFormat,
+                                       attr->start (), attr->length (), QVariant (format)));
         }
-    #endif
+        QInputMethodEvent event (text->text (), qattrs);
+        sendEvent (event);
     }
     else {
         qattrs.append (QAttribute (QInputMethodEvent::Cursor, 0, true, 0));

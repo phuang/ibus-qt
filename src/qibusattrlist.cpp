@@ -9,7 +9,7 @@ AttrList::~AttrList ()
     m_attrs.clear();
 }
 
-AttributePointer AttrList::get (uint index)
+AttributePointer AttrList::get (uint index) const
 {
     if (index >= m_attrs.size ())
         return NULL;
@@ -31,17 +31,27 @@ void AttrList::clear (void)
 
 bool AttrList::serialize (QDBusArgument &argument) const
 {
+    if (!Serializable::serialize (argument)) {
+        return false;
+    }
+
     argument.beginArray (QDBusArgument::VariantType);
     for (int i = 0; i < m_attrs.size(); i++) {
         argument << m_attrs[i];
     }
     argument.endArray ();
+
     return true;
 }
 
 bool AttrList::deserialize (const QDBusArgument &argument)
 {
     clear ();
+
+    if (!Serializable::deserialize (argument)) {
+        return false;
+    }
+
     argument.beginArray ();
     while (!argument.atEnd ()) {
         AttributePointer attr;
@@ -49,6 +59,7 @@ bool AttrList::deserialize (const QDBusArgument &argument)
         append (attr);
     }
     argument.endArray ();
+
     return true;
 }
 

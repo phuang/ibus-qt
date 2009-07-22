@@ -14,9 +14,12 @@ class AttrList : public Serializable {
 public:
     AttrList (): m_attrs (0) {}
     virtual ~AttrList ();
-    AttributePointer get(uint index);
+    AttributePointer get(uint index) const;
     void append (const AttributePointer &attr);
     void clear (void);
+    uint size (void) const { return m_attrs.size (); }
+
+    AttributePointer operator[] (int index) const { return get (index); }
 
     virtual bool serialize (QDBusArgument &argument) const;
     virtual bool deserialize (const QDBusArgument &argument);

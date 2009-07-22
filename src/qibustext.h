@@ -24,7 +24,8 @@ public:
     virtual bool serialize (QDBusArgument &argument) const;
     virtual bool deserialize (const QDBusArgument &argument);
 
-    const QString &text (void) { return m_text; };
+    const QString &text (void) { return m_text; }
+    const AttrListPointer &attrs (void) { return m_attrs; }
 
 private:
     QString m_text;
