@@ -1,3 +1,4 @@
+#include <QDebug>
 #include "qibustext.h"
 
 namespace IBus {

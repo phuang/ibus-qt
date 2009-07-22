@@ -10,6 +10,14 @@ InputContext::InputContext (const BusPointer &bus, const QString &path)
     m_context = new InputContextProxy ("org.freedesktop.IBus",
                                        path,
                                        m_bus->getConnection ());
+    QObject::connect (m_context, SIGNAL (CommitText (const QDBusVariant &)),
+                      this, SLOT (slotCommitText (const QDBusVariant &)));
+    QObject::connect (m_context, SIGNAL (UpdatePreeditText (const QDBusVariant &, uint, bool)),
+                      this, SLOT (slotUpdatePreeditText (const QDBusVariant &, uint, bool)));
+    QObject::connect (m_context, SIGNAL (ShowPreeditText (void)),
+                      this, SLOT (slotShowPreeditText (void)));
+    QObject::connect (m_context, SIGNAL (HidePreeditText (void)),
+                      this, SLOT (slotHidePreeditText (void)));
 }
 
 InputContext::~InputContext (void)
@@ -220,6 +228,12 @@ InputContext::slotShowPreeditText ()
 }
 
 void
+InputContext::slotUpdatePreeditText (const QDBusVariant &text, uint cursor_pos, bool visible)
+{
+    updatePreeditText (qDBusVariantToSerializable(text), cursor_pos, visible);
+}
+
+void
 InputContext::slotUpdateAuxiliaryText (const QDBusVariant &text, bool visible)
 {
     updateAuxiliaryText (qDBusVariantToSerializable (text), visible);
@@ -229,12 +243,6 @@ void
 InputContext::slotUpdateLookupTable (const QDBusVariant &table, bool visible)
 {
     updateLookupTable (qDBusVariantToSerializable (table), visible);
-}
-
-void
-InputContext::slotUpdatePreeditText (const QDBusVariant &text, uint cursor_pos, bool visible)
-{
-    updatePreeditText (qDBusVariantToSerializable(text), cursor_pos, visible);
 }
 
 void

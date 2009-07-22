@@ -11,14 +11,15 @@ class InputContextProxy;
 
 namespace IBus {
 
+class Bus;
+typedef Pointer<Bus> BusPointer;
+
 class InputContext;
 typedef Pointer<InputContext> InputContextPointer;
 
 class InputContext : public Object
 {
     Q_OBJECT;
-
-protected:
 
 public:
     InputContext (const BusPointer &bus, const QString &path);

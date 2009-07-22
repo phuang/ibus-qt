@@ -47,16 +47,20 @@ public:
 #ifdef Q_WS_X11
 	bool x11FilterEvent (QWidget *keywidget, XEvent *event);
 #endif
+private Q_SLOTS:
+	void slotCommitText (const TextPointer &text);
+	void slotUpdatePreeditText (const TextPointer &text, uint cursor_pos, bool visible);
+	void slotShowPreeditText (void);
+	void slotHidePreeditText (void);
 
-	void commitText (const TextPointer &text);
-	void updatePreeditText (const TextPointer &text, uint cursor_pos, bool visible);
-	void showPreeditText (void);
-	void hidePreeditText (void);
-
-private slots:
+private:
+	void createInputContext (void);
+	void deleteInputContext (void);
+	void displayPreeditText (const TextPointer &text, uint cursor_pos, bool visible);
 
 private:
 	BusPointer m_bus;
+	InputContextPointer m_context;
 	TextPointer m_preedit;
 	uint m_preedit_cursor_pos;
 	bool m_preedit_visible;

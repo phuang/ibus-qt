@@ -103,16 +103,27 @@ QDBusArgument& operator<< (QDBusArgument& argument, const Pointer<T> &p)
 template<typename T>
 const QDBusArgument& operator>> (const QDBusArgument& argument, Pointer<T> &p)
 {
-    QString name;
+    Q_ASSERT ((argument.currentType () == QDBusArgument::VariantType) ||
+              (argument.currentType () == QDBusArgument::StructureType));
 
-    argument.beginStructure ();
-    argument >> name;
-    p = Serializable::createInstance (name);
-    if (!p->deserialize (argument))
-        p = NULL;
-    argument.endStructure ();
+    if (argument.currentType () == QDBusArgument::VariantType) {
+        QDBusVariant v;
+        argument >> v;
+        p = qDBusVariantToSerializable (v);
+        return argument;
+    }
 
-    return argument;
+    if (argument.currentType () == QDBusArgument::StructureType) {
+        QString name;
+        argument.beginStructure ();
+        argument >> name;
+        p = Serializable::createInstance (name);
+        if (!p.isNull () && !p->deserialize (argument)) {
+            p = NULL;
+        }
+        argument.endStructure ();
+        return argument;
+    }
 }
 
 };

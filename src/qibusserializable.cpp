@@ -75,6 +75,9 @@ Serializable::createInstance(const QString &name)
     if (type_table.contains (name)) {
         p = type_table[name]();
     }
+    else {
+        qWarning () << "Serializable::createInstance:" << "create" << name << "failed";
+    }
     return p;
 }
 

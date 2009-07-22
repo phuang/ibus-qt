@@ -51,7 +51,7 @@ public:
         return get ();
     }
 
-    operator T *() const {
+    operator T* () const {
         return get ();
     }
 
