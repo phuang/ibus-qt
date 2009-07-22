@@ -52,6 +52,8 @@ private Q_SLOTS:
 	void slotUpdatePreeditText (const TextPointer &text, uint cursor_pos, bool visible);
 	void slotShowPreeditText (void);
 	void slotHidePreeditText (void);
+	void slotConnected (void);
+	void slotDisconnected (void);
 
 private:
 	void createInputContext (void);

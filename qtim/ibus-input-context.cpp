@@ -50,7 +50,14 @@ IBusInputContext::IBusInputContext (const BusPointer &bus)
       m_caps (CapPreeditText | CapFocus)
 {
     Q_ASSERT (!m_bus.isNull ());
+
     createInputContext ();
+
+    connect (m_bus, SIGNAL (connected (void)),
+             this, SLOT (slotConnected (void)));
+    connect (m_bus, SIGNAL (disConnected (void)),
+             this, SLOT (slotDisconnected (void)));
+
 }
 
 IBusInputContext::~IBusInputContext (void)
@@ -355,3 +362,17 @@ IBusInputContext::slotHidePreeditText (void)
     displayPreeditText (m_preedit, m_preedit_cursor_pos, m_preedit_visible);
 }
 
+void
+IBusInputContext::slotConnected (void)
+{
+    displayPreeditText (m_preedit, m_preedit_cursor_pos, false);
+    createInputContext ();
+}
+
+
+void
+IBusInputContext::slotDisconnected (void)
+{
+    displayPreeditText (m_preedit, m_preedit_cursor_pos, false);
+    deleteInputContext ();
+}
