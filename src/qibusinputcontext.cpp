@@ -10,14 +10,57 @@ InputContext::InputContext (const BusPointer &bus, const QString &path)
     m_context = new InputContextProxy ("org.freedesktop.IBus",
                                        path,
                                        m_bus->getConnection ());
+
+    /* commit text */
     QObject::connect (m_context, SIGNAL (CommitText (const QDBusVariant &)),
                       this, SLOT (slotCommitText (const QDBusVariant &)));
+
+    /* preedit text */
     QObject::connect (m_context, SIGNAL (UpdatePreeditText (const QDBusVariant &, uint, bool)),
                       this, SLOT (slotUpdatePreeditText (const QDBusVariant &, uint, bool)));
     QObject::connect (m_context, SIGNAL (ShowPreeditText (void)),
                       this, SLOT (slotShowPreeditText (void)));
     QObject::connect (m_context, SIGNAL (HidePreeditText (void)),
                       this, SLOT (slotHidePreeditText (void)));
+
+    /* auxiliary text */
+    QObject::connect (m_context, SIGNAL (UpdateAuxiliaryText (const QDBusVariant &, bool)),
+                      this, SLOT (slotUpdateAuxiliaryText (const QDBusVariant &, bool)));
+    QObject::connect (m_context, SIGNAL (ShowAuxiliaryText (void)),
+                      this, SLOT (slotShowAuxiliaryText (void)));
+    QObject::connect (m_context, SIGNAL (HideAuxiliaryText (void)),
+                      this, SLOT (slotHideAuxiliaryText (void)));
+
+    /*lookup table */
+    QObject::connect (m_context, SIGNAL (UpdateLookupTable (const QDBusVariant &, bool)),
+                      this, SLOT (slotUpdateLookupTable (const QDBusVariant &, bool)));
+    QObject::connect (m_context, SIGNAL (ShowLookupTable (void)),
+                      this, SLOT (slotShowLookupTable (void)));
+    QObject::connect (m_context, SIGNAL (HideLookupTable (void)),
+                      this, SLOT (slotHideLookupTable (void)));
+    QObject::connect (m_context, SIGNAL (CursorUpLookupTable (void)),
+                      this, SLOT (slotCursorUpLookupTable (void)));
+    QObject::connect (m_context, SIGNAL (CursorDownLookupTable (void)),
+                      this, SLOT (slotCursorDownLookupTable (void)));
+    QObject::connect (m_context, SIGNAL (PageUpLookupTable (void)),
+                      this, SLOT (slotPageUpLookupTable (void)));
+    QObject::connect (m_context, SIGNAL (PageDownLookupTable (void)),
+                      this, SLOT (slotPageDownLookupTable (void)));
+
+    /* property */
+    QObject::connect (m_context, SIGNAL (RegisterProperties (const QDBusVariant &)),
+                      this, SLOT (slotRegisterProperties (const QDBusVariant &)));
+    QObject::connect (m_context, SIGNAL (UpdateProperty (const QDBusVariant &)),
+                      this, SLOT (slotUpdateProperty (const QDBusVariant &)));
+
+    /* others */
+    QObject::connect (m_context, SIGNAL (ForwardKeyEvent (uint, uint, uint)),
+                      this, SLOT (slotForwardKeyEvent (uint, uint, uint)));
+    QObject::connect (m_context, SIGNAL (Enabled (void)),
+                      this, SLOT (slotEnabled (void)));
+    QObject::connect (m_context, SIGNAL (Disabled (void)),
+                      this, SLOT (slotDisabled (void)));
+
 }
 
 InputContext::~InputContext (void)
@@ -29,7 +72,7 @@ InputContextPointer
 InputContext::create (const BusPointer &bus, const QString &name)
 {
     Q_ASSERT (!bus.isNull ());
-    
+
     if (!bus->isConnected ()) {
         qWarning () << "InputContext::create:" << "Bus does not connect!";
         return NULL;
@@ -143,82 +186,11 @@ InputContext::slotCommitText (const QDBusVariant &text)
     commitText (qDBusVariantToSerializable (text));
 }
 
+/* preedit text */
 void
-InputContext::slotCursorDownLookupTable ()
+InputContext::slotUpdatePreeditText (const QDBusVariant &text, uint cursor_pos, bool visible)
 {
-    cursorDownLookupTable ();
-}
-
-void
-InputContext::slotCursorUpLookupTable ()
-{
-    cursorUpLookupTable ();
-}
-
-void
-InputContext::slotDisabled ()
-{
-    disabled ();
-}
-
-void
-InputContext::slotEnabled ()
-{
-    enabled ();
-}
-
-void
-InputContext::slotForwardKeyEvent (uint keyval, uint keycode, uint state)
-{
-    forwardKeyEvent (keyval, keycode, state);
-}
-
-void
-InputContext::slotHideAuxiliaryText ()
-{
-    hideAuxiliaryText ();
-}
-
-void
-InputContext::slotHideLookupTable ()
-{
-    hideLookupTable ();
-}
-
-void
-InputContext::slotHidePreeditText ()
-{
-    hidePreeditText ();
-}
-
-void
-InputContext::slotPageDownLookupTable ()
-{
-    pageDownLookupTable ();
-}
-
-void
-InputContext::slotPageUpLookupTable ()
-{
-    pageUpLookupTable ();
-}
-
-void
-InputContext::slotRegisterProperties (const QDBusVariant &props)
-{
-    registerProperties (qDBusVariantToSerializable (props));
-}
-
-void
-InputContext::slotShowAuxiliaryText ()
-{
-    showAuxiliaryText ();
-}
-
-void
-InputContext::slotShowLookupTable ()
-{
-    showLookupTable ();
+    updatePreeditText (qDBusVariantToSerializable(text), cursor_pos, visible);
 }
 
 void
@@ -228,11 +200,12 @@ InputContext::slotShowPreeditText ()
 }
 
 void
-InputContext::slotUpdatePreeditText (const QDBusVariant &text, uint cursor_pos, bool visible)
+InputContext::slotHidePreeditText ()
 {
-    updatePreeditText (qDBusVariantToSerializable(text), cursor_pos, visible);
+    hidePreeditText ();
 }
 
+/* auxiliary text */
 void
 InputContext::slotUpdateAuxiliaryText (const QDBusVariant &text, bool visible)
 {
@@ -240,9 +213,82 @@ InputContext::slotUpdateAuxiliaryText (const QDBusVariant &text, bool visible)
 }
 
 void
+InputContext::slotShowAuxiliaryText ()
+{
+    showAuxiliaryText ();
+}
+
+void
+InputContext::slotHideAuxiliaryText ()
+{
+    hideAuxiliaryText ();
+}
+
+/* lookup table */
+void
 InputContext::slotUpdateLookupTable (const QDBusVariant &table, bool visible)
 {
     updateLookupTable (qDBusVariantToSerializable (table), visible);
+}
+
+void
+InputContext::slotShowLookupTable ()
+{
+    showLookupTable ();
+}
+
+void
+InputContext::slotHideLookupTable ()
+{
+    hideLookupTable ();
+}
+
+void
+InputContext::slotPageUpLookupTable ()
+{
+    pageUpLookupTable ();
+}
+
+void
+InputContext::slotPageDownLookupTable ()
+{
+    pageDownLookupTable ();
+}
+
+void
+InputContext::slotCursorUpLookupTable ()
+{
+    cursorUpLookupTable ();
+}
+
+void
+InputContext::slotCursorDownLookupTable ()
+{
+    cursorDownLookupTable ();
+}
+
+void
+InputContext::slotEnabled ()
+{
+    enabled ();
+}
+
+void
+InputContext::slotDisabled ()
+{
+    disabled ();
+}
+
+void
+InputContext::slotForwardKeyEvent (uint keyval, uint keycode, uint state)
+{
+    forwardKeyEvent (keyval, keycode, state);
+}
+
+void
+InputContext::slotRegisterProperties (const QDBusVariant &props)
+{
+    registerProperties (qDBusVariantToSerializable (props));
 }
 
 void

@@ -43,15 +43,15 @@ public:
 
 Q_SIGNALS:
     void commitText (const TextPointer &text);
-    void enabled (void);
-    void disabled (void);
-    void forwardKeyEvent (uint keyval, uint keycode, uint state);
+
     void updatePreeditText (const TextPointer &text, uint cursor_pos, bool visible);
     void showPreeditText (void);
     void hidePreeditText (void);
+
     void updateAuxiliaryText (const TextPointer &text, bool visible);
     void showAuxiliaryText (void);
     void hideAuxiliaryText (void);
+
     void updateLookupTable (const LookupTablePointer &table, bool visible);
     void showLookupTable (void);
     void hideLookupTable (void);
@@ -59,29 +59,41 @@ Q_SIGNALS:
     void cursorDownLookupTable (void);
     void pageUpLookupTable (void);
     void pageDownLookupTable (void);
+
     void registerProperties (const PropListPointer &props);
     void updateProperty (const PropertyPointer &property);
 
+    void enabled (void);
+    void disabled (void);
+
+    void forwardKeyEvent (uint keyval, uint keycode, uint state);
+
 private Q_SLOTS:
     void slotCommitText (const QDBusVariant &text);
-    void slotCursorDownLookupTable();
-    void slotCursorUpLookupTable();
-    void slotDisabled();
-    void slotEnabled();
-    void slotForwardKeyEvent(uint keyval, uint keycode, uint state);
-    void slotHideAuxiliaryText();
-    void slotHideLookupTable();
-    void slotHidePreeditText();
-    void slotPageDownLookupTable();
-    void slotPageUpLookupTable();
-    void slotRegisterProperties(const QDBusVariant &props);
-    void slotShowAuxiliaryText();
-    void slotShowLookupTable();
-    void slotShowPreeditText();
-    void slotUpdateAuxiliaryText(const QDBusVariant &text, bool visible);
-    void slotUpdateLookupTable(const QDBusVariant &table, bool visible);
+
     void slotUpdatePreeditText(const QDBusVariant &text, uint cursor_pos, bool visible);
+    void slotHidePreeditText();
+    void slotShowPreeditText();
+
+    void slotUpdateAuxiliaryText(const QDBusVariant &text, bool visible);
+    void slotShowAuxiliaryText();
+    void slotHideAuxiliaryText();
+
+    void slotUpdateLookupTable(const QDBusVariant &table, bool visible);
+    void slotShowLookupTable();
+    void slotHideLookupTable();
+    void slotCursorUpLookupTable();
+    void slotCursorDownLookupTable();
+    void slotPageUpLookupTable();
+    void slotPageDownLookupTable();
+
+    void slotRegisterProperties(const QDBusVariant &props);
     void slotUpdateProperty(const QDBusVariant &prop);
+
+    void slotEnabled();
+    void slotDisabled();
+
+    void slotForwardKeyEvent(uint keyval, uint keycode, uint state);
 
 /*
 signals:
