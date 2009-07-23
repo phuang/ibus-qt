@@ -55,7 +55,7 @@ IBusInputContext::IBusInputContext (const BusPointer &bus)
 
     connect (m_bus, SIGNAL (connected (void)),
              this, SLOT (slotConnected (void)));
-    connect (m_bus, SIGNAL (disConnected (void)),
+    connect (m_bus, SIGNAL (disconnected (void)),
              this, SLOT (slotDisconnected (void)));
 
 }
