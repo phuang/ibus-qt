@@ -6,6 +6,15 @@ include(${QT_USE_FILE})
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(DBUS REQUIRED dbus-1)
 
+include_directories(
+    ${QT_INCLUDE_DIRS}
+    ${DBUS_INCLUDE_DIRS}
+)
+
+link_directories(
+    ${QT_LIBRARY_DIRS}
+    ${DBUS_LIBRARY_DIRS}
+)
 
 set(
     ibus_qt_SRCS
@@ -67,11 +76,6 @@ add_library(
 add_executable(
     ibus-test
     ibus.cpp
-)
-
-include_directories(
-    ${QT_INCLUDE_DIR}
-    ${DBUS_INCLUDE_DIRS}
 )
 
 target_link_libraries(
