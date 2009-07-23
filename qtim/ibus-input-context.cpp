@@ -39,8 +39,6 @@
 
 typedef QInputMethodEvent::Attribute QAttribute;
 
-
-
 IBusInputContext::IBusInputContext (const BusPointer &bus)
     : m_bus (bus),
       m_context (NULL),
@@ -232,7 +230,6 @@ IBusInputContext::x11FilterEvent (QWidget *keywidget, XEvent *xevent)
 }
 #endif
 
-
 void
 IBusInputContext::createInputContext (void)
 {
@@ -275,7 +272,6 @@ IBusInputContext::deleteInputContext (void)
     /* release context */
     m_context = NULL;
 }
-
 
 void
 IBusInputContext::slotCommitText (const TextPointer &text)
@@ -368,7 +364,6 @@ IBusInputContext::slotConnected (void)
     displayPreeditText (m_preedit, m_preedit_cursor_pos, false);
     createInputContext ();
 }
-
 
 void
 IBusInputContext::slotDisconnected (void)
