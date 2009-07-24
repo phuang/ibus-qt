@@ -39,5 +39,7 @@ target_link_libraries(
     ibus-qt
 )
 
-install(TARGETS qtim-ibus
-    LIBRARY DESTINATION ${QT_PLUGINS_DIR}/inputmethods)
+install(
+    TARGETS qtim-ibus
+    LIBRARY DESTINATION
+    "${QT_PLUGINS_DIR}/inputmethods")

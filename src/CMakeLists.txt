@@ -65,11 +65,6 @@ add_library(
     ${ibus_qt_MOC_SRCS}
 )
 
-add_executable(
-    ibus-test
-    ibus.cpp
-)
-
 target_link_libraries(
     ibus-qt
     debug ${QT_QTCORE_LIBRARY_DEBUG}
@@ -79,12 +74,18 @@ target_link_libraries(
     ${DBUS_LIBRARIES}
 )
 
-target_link_libraries(
-    ibus-test
-    ibus-qt
-)
-
 install(TARGETS ibus-qt
     LIBRARY DESTINATION lib)
-install(TARGETS ibus-test
-    RUNTIME DESTINATION bin)
+
+# add_executable(
+#     ibus-test
+#     ibus.cpp
+# )
+
+# target_link_libraries(
+#     ibus-test
+#     ibus-qt
+# )
+
+# install(TARGETS ibus-test
+#     RUNTIME DESTINATION bin)
