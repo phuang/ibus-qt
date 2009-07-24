@@ -6,6 +6,23 @@ if(COMMAND cmake_policy)
     cmake_policy(SET CMP0003 NEW)
 endif(COMMAND cmake_policy)
 
+set(SO_VER_MAJOR "1")
+set(SO_VER_MINOR "0")
+set(AUTHORS "Peng Huang")
+set(MAINTAINER "Peng Huang <shawn.p.huang at gmail dot com>")
+
+# Requires
+
+# check qt
+find_package(Qt4 COMPONENTS QtCore QtGui QtDBus REQUIRED)
+include(${QT_USE_FILE})
+
+# check dbus
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(DBUS REQUIRED dbus-1)
+
+
+
 # CPack configure
 set(CPACK_GENERATOR "TGZ")
 set(CPACK_SOURCE_GENERATOR "TGZ")
@@ -27,8 +44,8 @@ set(CPACK_SOURCE_IGNORE_FILES
     "\\\\.so$"
     "ibus-test$"
 )
-
 include(CPack)
+
 
 # sub dirs
 add_subdirectory(src)

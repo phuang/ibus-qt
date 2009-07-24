@@ -1,18 +1,10 @@
-# check qt
-find_package(Qt4 COMPONENTS QtCore QtDBus REQUIRED)
-include(${QT_USE_FILE})
-
-# check dbus
-find_package(PkgConfig REQUIRED)
-pkg_check_modules(DBUS REQUIRED dbus-1)
-
 include_directories(
-    ${QT_INCLUDE_DIRS}
+    ${QT_QTCORE_INCLUDE_DIR}
+    ${QT_QTDBUS_INCLUDE_DIR}
     ${DBUS_INCLUDE_DIRS}
 )
 
 link_directories(
-    ${QT_LIBRARY_DIRS}
     ${DBUS_LIBRARY_DIRS}
 )
 
@@ -80,7 +72,10 @@ add_executable(
 
 target_link_libraries(
     ibus-qt
-    ${QT_LIBRARIES}
+    debug ${QT_QTCORE_LIBRARY_DEBUG}
+    debug ${QT_QTDBUS_LIBRARY_DEBUG}
+    optimized ${QT_QTCORE_LIBRARY_RELEASE}
+    optimized ${QT_QTDBUS_LIBRARY_RELEASE}
     ${DBUS_LIBRARIES}
 )
 

@@ -1,8 +1,13 @@
-# project(ibus-qt)
-# 
-# check qt
-find_package(Qt4 COMPONENTS QtCore QtGui QtDBus REQUIRED)
-include(${QT_USE_FILE})
+include_directories(
+    ${QT_QTCORE_INCLUDE_DIR}
+    ${QT_QTDBUS_INCLUDE_DIR}
+    ${DBUS_INCLUDE_DIRS}
+    ${CMAKE_CURRENT_SOURCE_DIR}/../src
+)
+
+link_directories(
+    ${DBUS_LIBRARY_DIRS}
+)
 
 set(
     qtim_ibus_SRCS
@@ -20,15 +25,8 @@ QT4_WRAP_CPP(
     ${qtim_ibus_MOC_HDRS}
 )
 
-include_directories(
-    ${QT_INCLUDE_DIR}
-    ${DBUS_INCLUDE_DIRS}
-    ${CMAKE_CURRENT_SOURCE_DIR}/../src
-)
-
 add_library(
-    qtim-ibus
-    MODULE
+    qtim-ibus MODULE
     ibus-plugin.cpp
     ${qtim_ibus_SRCS}
     ${qtim_ibus_MOC_SRCS}
@@ -36,6 +34,8 @@ add_library(
 
 target_link_libraries(
     qtim-ibus
+    debug ${QT_QTGUI_LIBRARY_DEBUG}
+    optimized ${QT_QTGUI_LIBRARY_RELEASE}
     ibus-qt
 )
 
