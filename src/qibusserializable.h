@@ -13,8 +13,8 @@
 #define IBUS_SERIALIZABLE                               \
 public:                                                 \
     static Serializable *newInstance (void);            \
-    static MetaTypeInfo _info;                          \
-    virtual const MetaTypeInfo *getMetaInfo (void) const;
+    static MetaTypeInfo staticMetaTypeInfo;             \
+    virtual const MetaTypeInfo *metaTypeInfo (void) const;
 
 #define IBUS_DECLARE_SERIALIZABLE(classname, name)      \
     Serializable *                                      \
@@ -23,12 +23,12 @@ public:                                                 \
         return (Serializable *) new classname ();       \
     }                                                   \
     const Serializable::MetaTypeInfo *                  \
-    classname::getMetaInfo (void) const                 \
+    classname::metaTypeInfo (void) const                \
     {                                                   \
-        return & (classname::_info);                    \
+        return & (classname::staticMetaTypeInfo);       \
     }                                                   \
     Serializable::MetaTypeInfo                          \
-    classname::_info INIT_PRIO_LOW (QString(#name), classname::newInstance);
+    classname::staticMetaTypeInfo INIT_PRIO_LOW (QString(#name), classname::newInstance);
 
 namespace IBus {
 
@@ -57,7 +57,7 @@ protected:
         ~MetaTypeInfo (void) {
            Serializable::unregisterObject (m_className);
         }
-        const QString &getName (void) const {
+        const QString &className (void) const {
             return m_className;
         }
     private:
@@ -93,7 +93,7 @@ template<typename T>
 QDBusArgument& operator<< (QDBusArgument& argument, const Pointer<T> &p)
 {
     argument.beginStructure ();
-    argument << p->getMetaInfo ()->getName ();
+    argument << p->metaTypeInfo ()->className ();
     p->serialize (argument);
     argument.endStructure ();
 
