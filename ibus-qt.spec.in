@@ -1,5 +1,5 @@
-Name:       ibus-qt
-Version:    1.2.0.20090727
+Name:       @CPACK_PACKAGE_NAME@
+Version:    @CPACK_PACKAGE_VERSION@
 Release:    1%{?dist}
 Summary:    Qt IBus library and Qt input method plugin
 License:    GPLv2+
@@ -50,5 +50,5 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/qt4/plugins/inputmethods/libqtim-ibus.so
 
 %changelog
-* Mon Jul 27 2009 Peng Huang <shawn.p.huang@gmail.com> - 1.2.0.20090727
+* Mon Jul 27 2009 Peng Huang <shawn.p.huang@gmail.com> - @CPACK_PACKAGE_VERSION@
 - The first version.

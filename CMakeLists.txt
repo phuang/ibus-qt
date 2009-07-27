@@ -63,8 +63,10 @@ set(CPACK_SOURCE_IGNORE_FILES
     "\\\\.so$"
     "ibus-test$"
     "/rpm/"
+    "ibus-qt\\\\.spec$"
 )
 include(CPack)
+configure_file(ibus-qt.spec.in ibus-qt.spec)
 
 # ======
 # sub dirs
@@ -83,7 +85,7 @@ add_custom_target(rpm
     --define "_srcrpmdir ${CMAKE_CURRENT_SOURCE_DIR}/rpm"
     --define "_rpmdir ${CMAKE_CURRENT_SOURCE_DIR}/rpm"
     --define "_specdir ${CMAKE_CURRENT_SOURCE_DIR}/rpm"
-    rpm/ibus-qt.spec
+    ibus-qt.spec
     )
 add_custom_target(srpm
     COMMAND make package_source
@@ -93,5 +95,5 @@ add_custom_target(srpm
     --define "_srcrpmdir ${CMAKE_CURRENT_SOURCE_DIR}/rpm"
     --define "_rpmdir ${CMAKE_CURRENT_SOURCE_DIR}/rpm"
     --define "_specdir ${CMAKE_CURRENT_SOURCE_DIR}/rpm"
-    rpm/ibus-qt.spec
+    ibus-qt.spec
     )
