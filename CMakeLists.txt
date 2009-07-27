@@ -59,3 +59,8 @@ include(CPack)
 # sub dirs
 add_subdirectory(src)
 add_subdirectory(qtim)
+
+# ======
+# targets
+add_custom_target(version echo ${CPACK_PACKAGE_VERSION})
+add_custom_target(gitclean git clean -f -d -X)
