@@ -62,8 +62,7 @@ set(CPACK_SOURCE_IGNORE_FILES
     "moc_.*\\\\.cxx$"
     "\\\\.so$"
     "ibus-test$"
-    "ibus\\\\.spec$"
-    "\\\\.rpm$"
+    "/rpm/"
 )
 include(CPack)
 
