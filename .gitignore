@@ -9,3 +9,4 @@ CMakeCache.txt
 moc_*.cxx
 tags
 *.gz
+*.rpm
