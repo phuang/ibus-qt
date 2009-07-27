@@ -44,6 +44,7 @@ IBusInputContext::IBusInputContext (const BusPointer &bus)
       m_context (NULL),
       m_preedit (NULL),
       m_preedit_visible (false),
+      m_preedit_cursor_pos (0),
       m_has_focus (false),
       m_caps (CapPreeditText | CapFocus)
 {
@@ -216,9 +217,9 @@ IBusInputContext::x11FilterEvent (QWidget *keywidget, XEvent *xevent)
 #endif
 
     if (!m_context.isNull ()) {
-        uint keyval;
-        uint keycode;
-        uint state;
+        uint keyval = 0;
+        uint keycode = 0;
+        uint state = 0;
 
         translate_x_key_event (xevent, &keyval, &keycode, &state);
         keycode -= 8;

@@ -85,7 +85,7 @@ void
 Serializable::registerObject (const QString &name, NewInstanceFunc _new)
 {
     if (type_table.contains (name)) {
-        qFatal ("registerObject failed! name %s has been registered", name.data ());
+        qFatal ("registerObject failed! name %s has been registered", (char *)name.data ());
     }
 
     if (_new == NULL) {
@@ -99,7 +99,7 @@ void
 Serializable::unregisterObject (const QString &name)
 {
     if (!type_table.contains (name)) {
-        qFatal ("unregisterObject failed! name %s has not been registered", name.data ());
+        qFatal ("unregisterObject failed! name %s has not been registered", (char *)name.data ());
     }
     Serializable::type_table.remove(name);
 }

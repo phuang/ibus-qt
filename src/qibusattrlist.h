@@ -14,7 +14,7 @@ class AttrList : public Serializable {
 public:
     AttrList (): m_attrs (0) {}
     virtual ~AttrList ();
-    AttributePointer get(uint index) const;
+    AttributePointer get(int index) const;
     void append (const AttributePointer &attr);
     void clear (void);
     uint size (void) const { return m_attrs.size (); }

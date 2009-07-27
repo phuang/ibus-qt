@@ -64,10 +64,10 @@ private:
 	BusPointer m_bus;
 	InputContextPointer m_context;
 	TextPointer m_preedit;
-	uint m_preedit_cursor_pos;
 	bool m_preedit_visible;
-	uint m_caps;
+	uint m_preedit_cursor_pos;
 	bool m_has_focus;
+	uint m_caps;
 };
 
 #endif //__IBUS_INPUT_CONTEXT_H_

@@ -9,7 +9,7 @@ AttrList::~AttrList ()
     m_attrs.clear();
 }
 
-AttributePointer AttrList::get (uint index) const
+AttributePointer AttrList::get (int index) const
 {
     if (index >= m_attrs.size ())
         return NULL;

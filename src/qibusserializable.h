@@ -124,6 +124,8 @@ const QDBusArgument& operator>> (const QDBusArgument& argument, Pointer<T> &p)
         argument.endStructure ();
         return argument;
     }
+
+    return argument;
 }
 
 };

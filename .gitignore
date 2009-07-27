@@ -10,3 +10,4 @@ moc_*.cxx
 tags
 *.gz
 *.rpm
+ibus-qt.spec
