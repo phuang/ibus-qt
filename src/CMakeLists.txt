@@ -75,7 +75,7 @@ target_link_libraries(
 )
 
 install(TARGETS ibus-qt
-    LIBRARY DESTINATION lib)
+    LIBRARY DESTINATION ${LIBDIR})
 
 # add_executable(
 #     ibus-test
