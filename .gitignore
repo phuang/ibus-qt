@@ -6,6 +6,7 @@ install_manifest.txt
 CMakeCache.txt
 .*.swp
 *.so
+*.so.*
 moc_*.cxx
 tags
 *.gz
