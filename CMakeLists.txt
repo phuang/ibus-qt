@@ -29,7 +29,7 @@ if(NOT DEFINED LIBDIR)
     if( $ENV{MACHTYPE} MATCHES "64")
         set(LIBDIR lib64)
     else()
-        set(LIBDIR lib64)
+        set(LIBDIR lib)
     endif()
 endif(NOT DEFINED LIBDIR)
 
