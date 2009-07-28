@@ -45,14 +45,18 @@ bool LookupTable::deserialize (const QDBusArgument &argument)
     argument.beginArray();
     while ( !argument.atEnd() );
     {
-        argument >> m_candidates;
+        TextPointer tp;
+        argument >> tp;
+        m_candidates.append(tp);
     }
     argument.endArray();
 
     argument.beginArray();
     while ( !argument.atEnd() );
     {
-        argument >> m_lable;
+        TextPointer tp;
+        argument >> tp;
+        m_lable.append(tp);
     }
     argument.endArray();
 
