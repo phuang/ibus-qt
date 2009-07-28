@@ -26,8 +26,6 @@ public:
         m_cursorPos = cursorPos;
         m_cursorVisible = cursorVisible;
         m_round = round;
-        m_candidates = candidates;
-        m_lable = lable;
     }
 
     ~LookupTable() {}
@@ -43,10 +41,6 @@ private:
     bool        m_round;
     QVector<TextPointer>   m_candidates;
     QVector<TextPointer>   m_lable;
-    /*
-    QVector<LookupTablePointer>   *   m_candidates;
-    QVector<LookupTablePointer>   *   m_lable;
-    */
 
     IBUS_SERIALIZABLE
 };

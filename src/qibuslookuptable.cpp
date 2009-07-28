@@ -9,13 +9,13 @@ bool LookupTable::serialize(QDBusArgument & argument) const
     if ( !Serializable::serialize(argument) )
         return false;
 
-    // read variables of basic type(non-container).
+    // read variables of basic type into argument
     argument << m_pagesize;
     argument << m_cursorPos;
     argument << m_cursorVisible;
     argument << m_round;
 
-    // read variables of container type
+    // read variables of container type into argument
     argument.beginArray(QDBusArgument::VariantType);
     for ( int i=0; i < m_candidates.size(); ++i )
     {
@@ -37,6 +37,10 @@ bool LookupTable::deserialize (const QDBusArgument &argument)
 {
     if ( !Serializable::deserialize(argument) )
         return false;
+
+    // clear vector
+    m_candidates.clear();
+    m_lable.clear();
 
     argument >> m_pagesize;
     argument >> m_cursorPos;
