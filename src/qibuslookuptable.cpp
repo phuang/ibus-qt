@@ -68,4 +68,30 @@ bool LookupTable::deserialize (const QDBusArgument &argument)
     return true;
 }
 
+void LookupTable::appendCandidate(const TextPointer & e)
+{
+    m_candidates.append(e);
+}
+
+void LookupTable::appendLable(const TextPointer & e)
+{
+    m_lable.append(e);
+}
+
+TextPointer LookupTable::getCandidate(const uint index) const
+{
+    if ( index >= m_candidates.size() )
+        return NULL;
+
+    return m_candidates[index];
+}
+
+TextPointer LookupTable::getLable(const uint index) const
+{
+    if ( index >= m_lable.size() )
+        return NULL;
+
+    return m_lable[index];
+}
+
 };

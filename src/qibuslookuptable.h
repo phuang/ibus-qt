@@ -28,19 +28,54 @@ public:
         m_round = round;
     }
 
+    // copy constructor function
+    LookupTable(const LookupTable & other)
+    {
+        m_pagesize = other.m_pagesize;
+        m_cursorPos = other.m_cursorPos;
+        m_cursorVisible = other.m_cursorVisible;
+        m_round = other.m_round;
+        m_candidates = other.m_candidates;
+        m_lable = other.m_lable;
+    }
+
+    LookupTable & operator=(const LookupTable & other)
+    {
+        if ( this == &other )
+            return *this;
+
+        m_pagesize = other.m_pagesize;
+        m_cursorPos = other.m_cursorPos;
+        m_cursorVisible = other.m_cursorVisible;
+        m_round = other.m_round;
+        m_candidates = other.m_candidates;
+        m_lable = other.m_lable;
+
+        return *this;
+    }
+
     ~LookupTable() {}
 
 private:
     virtual bool serialize(QDBusArgument & argument) const;
     virtual bool deserialize(const QDBusArgument &argument);
 
+    void appendCandidate(const TextPointer & e);
+    void appendLable(const TextPointer & e);
+    TextPointer getCandidate(const uint index) const;
+    TextPointer getLable(const uint index)const ;
+
+    // void initialize() {}     // no need to implement
+    // void destroy() {}        // no need to implement
+
 private:
     uint        m_pagesize;
     uint        m_cursorPos;
     bool        m_cursorVisible;
     bool        m_round;
-    QVector<TextPointer>   m_candidates;
-    QVector<TextPointer>   m_lable;
+
+    QVector<TextPointer>    m_candidates;
+    QVector<TextPointer>    m_lable;
 
     IBUS_SERIALIZABLE
 };
