@@ -15,25 +15,6 @@ set(VERSION_PATCH "0")
 set(VERSION_SNAPDATE "20090728")
 
 # ======
-# Requires
-# check qt
-find_package(Qt4 COMPONENTS QtCore QtGui QtDBus REQUIRED)
-include(${QT_USE_FILE})
-# check dbus
-find_package(PkgConfig REQUIRED)
-pkg_check_modules(DBUS REQUIRED dbus-1)
-
-# =====
-# Define variables
-if(NOT DEFINED LIBDIR)
-    if( $ENV{MACHTYPE} MATCHES "64")
-        set(LIBDIR lib64)
-    else()
-        set(LIBDIR lib)
-    endif()
-endif(NOT DEFINED LIBDIR)
-
-# ======
 # CPack configure
 set(CPACK_PACKAGE_VERSION_MAJOR ${VERSION_MAJOR})
 set(CPACK_PACKAGE_VERSION_MINOR ${VERSION_MINOR})
@@ -67,6 +48,39 @@ set(CPACK_SOURCE_IGNORE_FILES
 )
 include(CPack)
 configure_file(ibus-qt.spec.in ibus-qt.spec)
+
+# ======
+# Requires
+# check qt
+find_package(Qt4 COMPONENTS QtCore QtGui QtDBus REQUIRED)
+include(${QT_USE_FILE})
+# check dbus
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(DBUS REQUIRED dbus-1)
+
+# =====
+# Define variables
+if(NOT DEFINED LIBDIR)
+    if( $ENV{MACHTYPE} MATCHES "64")
+        set(LIBDIR lib64)
+    else()
+        set(LIBDIR lib)
+    endif()
+endif(NOT DEFINED LIBDIR)
+if(NOT DEFINED DOCDIR)
+    set(DOCDIR "share/doc/ibus-qt-${CPACK_PACKAGE_VERSION}")
+endif(NOT DEFINED DOCDIR)
+
+# =====
+# install
+set(MAIN_DOCS
+    AUTHORS
+    README
+    INSTALL)
+install(FILES ${MAIN_DOCS}
+    DESTINATION ${DOCDIR})
+
+
 
 # ======
 # sub dirs

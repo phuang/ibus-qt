@@ -21,20 +21,22 @@ Qt IBus library and Qt input method plugin.
 %setup -q -n %{name}-%{version}-Source
 
 %build
-%cmake -DCMAKE_INSTALL_PREFIX=%{_usr} -DLIBDIR=%{_libdir}
-make VERBOSE=1 C_DEFINES="$RPM_OPT_FLAGS" CXX_DEFINES="$RPM_OPT_FLAGS" %{?_smp_mflags}
+%cmake \
+    -DCMAKE_INSTALL_PREFIX=%{_usr} \
+    -DLIBDIR=%{_libdir}
+make \
+    VERBOSE=1 \
+    C_DEFINES="$RPM_OPT_FLAGS" \
+    CXX_DEFINES="$RPM_OPT_FLAGS" \
+    %{?_smp_mflags}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT
 # %find_lang %{name}
 
-%pre
-
 %post
 /sbin/ldconfig
-
-%preun
 
 %postun
 /sbin/ldconfig
@@ -45,7 +47,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 # -f %{name}.lang
 %defattr(-,root,root,-)
-%doc
+%doc AUTHORS README INSTALL
 %{_libdir}/libibus-qt.so
 %{_libdir}/qt4/plugins/inputmethods/libqtim-ibus.so
 
