@@ -65,6 +65,12 @@ add_library(
     ${ibus_qt_MOC_SRCS}
 )
 
+set_target_properties(
+    ibus-qt PROPERTIES
+    VERSION ${LIB_VERSION}
+    SOVERSION ${LIB_SOVERSION}
+)
+
 target_link_libraries(
     ibus-qt
     debug ${QT_QTCORE_LIBRARY_DEBUG}

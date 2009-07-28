@@ -17,6 +17,14 @@ Requires:   ibus >= 1.2
 %description
 Qt IBus library and Qt input method plugin.
 
+%package devel
+Summary:    Development tools for ibus qt
+Group:      Development/Libraries
+Requires:   %{name} = %{version}-%{release}
+
+%description devel
+The ibus-qt-devel package contains the header files for ibus qt library.
+
 %prep
 %setup -q -n %{name}-%{version}-Source
 
@@ -48,9 +56,13 @@ rm -rf $RPM_BUILD_ROOT
 # -f %{name}.lang
 %defattr(-,root,root,-)
 %doc AUTHORS README INSTALL
-%{_libdir}/libibus-qt.so
+%{_libdir}/libibus-qt.so.*
 %{_libdir}/qt4/plugins/inputmethods/libqtim-ibus.so
 
+%files devel
+%defattr(-,root,root,-)
+%{_libdir}/libibus-qt.so
+
 %changelog
-* Mon Jul 27 2009 Peng Huang <shawn.p.huang@gmail.com> - @CPACK_PACKAGE_VERSION@
+* Mon Jul 27 2009 Peng Huang <shawn.p.huang@gmail.com> - @CPACK_PACKAGE_VERSION@-1
 - The first version.

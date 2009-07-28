@@ -13,6 +13,8 @@ set(VERSION_MAJOR "1")
 set(VERSION_MINOR "2")
 set(VERSION_PATCH "0")
 set(VERSION_SNAPDATE "20090728")
+set(LIB_VERSION "0.0.0")
+set(LIB_SOVERSION "0")
 
 # ======
 # CPack configure
