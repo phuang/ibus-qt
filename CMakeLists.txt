@@ -44,6 +44,7 @@ set(CPACK_SOURCE_IGNORE_FILES
     "Linux\\\\.tar\\\\.gz$"
     "moc_.*\\\\.cxx$"
     "\\\\.so$"
+    "\\\\.so\\\\.*"
     "ibus-test$"
     "/rpm/"
     "ibus-qt\\\\.spec$"
