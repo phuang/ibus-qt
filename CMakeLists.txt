@@ -12,7 +12,7 @@ set(MAINTAINER "Peng Huang <shawn.p.huang at gmail dot com>")
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "2")
 set(VERSION_PATCH "0")
-set(VERSION_SNAPDATE "20090727")
+set(VERSION_SNAPDATE "20090728")
 
 # ======
 # Requires
