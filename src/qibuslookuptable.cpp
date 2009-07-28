@@ -9,8 +9,6 @@ bool LookupTable::serialize(QDBusArgument & argument) const
     if ( !Serializable::serialize(argument) )
         return false;
 
-    argument.beginStructure();
-
     // read variables of basic type(non-container).
     argument << m_pagesize;
     argument << m_cursorPos;
@@ -30,8 +28,6 @@ bool LookupTable::serialize(QDBusArgument & argument) const
         argument << m_lable[i];
     }
     argument.endArray();
-
-    argument.endStructure();
 
     return true;
 }
