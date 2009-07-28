@@ -77,9 +77,6 @@ private:
     bool cursorUp();
     bool cursorDown();
 
-    // void initialize() {}     // no need to implement
-    // void destroy() {}        // no need to implement
-
 private:
     uint        m_pagesize;
     uint        m_cursorPos;

@@ -131,7 +131,7 @@ uint LookupTable::getPageSize() const
 
 bool LookupTable::pageUp()
 {
-    if ( m_cursorPos > m_pagesize )
+    if ( m_cursorPos >= m_pagesize )
     {
         m_cursorPos -= m_pagesize;
         return true;
@@ -141,12 +141,13 @@ bool LookupTable::pageUp()
     if ( !m_round )
         return false;
 
-    uint pageNum = m_candidates.size() / m_pagesize;
-    if ( getCursorPosInPage() != 0 )
-        m_cursorPos = pageNum * m_pagesize + getCursorPosInPage();
+    // set the right position of cursor  
+    uint tmpCursorPos = (m_candidates.size() / m_pagesize) * m_pagesize + getCursorPosInPage();
+    if ( tmpCursorPos >= m_candidates.size() )
+        m_cursorPos = m_candidates.size() - 1;
     else
-        m_cursorPos = (pageNum - 1) * m_pagesize + 1;
-
+        m_cursorPos = tmpCursorPos;
+        
     return true;
 }
 
@@ -154,10 +155,10 @@ bool LookupTable::pageDown()
 {
     if ( (m_candidates.size() / m_pagesize) > (m_cursorPos / m_pagesize) )
     {
-        if ( (m_cursorPos + m_pagesize) <= m_candidates.size() )
+        if ( (m_cursorPos + m_pagesize) < m_candidates.size() )
             m_cursorPos = m_cursorPos + m_pagesize;
         else
-            m_cursorPos = ((m_cursorPos / m_pagesize) * m_pagesize) + 1;
+            m_cursorPos = ((m_cursorPos / m_pagesize) * m_pagesize) + getCursorPosInPage();
 
         return true;
     }
