@@ -170,4 +170,36 @@ bool LookupTable::pageDown()
     return true;
 }
 
+bool LookupTable::cursorUp()
+{
+    if ( m_cursorPos == 0 )
+    {
+        // cursor points to the first candidate of first page
+        if ( !m_round )
+            return false;
+
+        m_cursorPos = m_candidates.size() - 1;
+        return true;
+    }
+
+    --m_cursorPos;
+    return true;
+}
+
+bool LookupTable::cursorDown()
+{
+    if ( m_cursorPos == (m_candidates.size() - 1) )
+    {
+        // cursor points to the last candidate of last page
+        if ( !m_round )
+            return false;
+
+        m_cursorPos = 0;
+        return true;
+    }
+
+    ++m_cursorPos;
+    return true;
+}
+
 };

@@ -74,6 +74,8 @@ private:
 
     bool pageUp();
     bool pageDown();
+    bool cursorUp();
+    bool cursorDown();
 
     // void initialize() {}     // no need to implement
     // void destroy() {}        // no need to implement
