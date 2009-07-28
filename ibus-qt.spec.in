@@ -61,6 +61,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(-,root,root,-)
+%{_includedir}/*
 %{_libdir}/libibus-qt.so
 
 %changelog

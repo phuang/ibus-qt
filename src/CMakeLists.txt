@@ -28,7 +28,7 @@ set(
 )
 
 set(
-    ibus_qt_MOC_HDRS
+    ibus_qt_HDRS
     qibusobject.h
     qibusserializable.h
     qibusattribute.h
@@ -55,7 +55,7 @@ set(
 # QT4_AUTOMOC(${ibus_qt_SRCS})
 QT4_WRAP_CPP(
     ibus_qt_MOC_SRCS
-    ${ibus_qt_MOC_HDRS}
+    ${ibus_qt_HDRS}
 )
 
 add_library(
@@ -82,6 +82,8 @@ target_link_libraries(
 
 install(TARGETS ibus-qt
     LIBRARY DESTINATION ${LIBDIR})
+install(FILES ${ibus_qt_HDRS}
+    DESTINATION include/ibus-qt COMPONENT Devel)
 
 # add_executable(
 #     ibus-test
