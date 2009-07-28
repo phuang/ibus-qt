@@ -63,7 +63,17 @@ private:
     void appendCandidate(const TextPointer & e);
     void appendLable(const TextPointer & e);
     TextPointer getCandidate(const uint index) const;
-    TextPointer getLable(const uint index)const ;
+    TextPointer getLable(const uint index) const;
+    void setCursorPos(const uint cursorPos);
+    uint getCursorPos() const;
+    uint getCursorPosInPage() const;
+    void setCursorVisible(bool visible);
+    bool isCursorVisible() const;
+    void setPageSize(uint pagesize);
+    uint getPageSize() const;
+
+    bool pageUp();
+    bool pageDown();
 
     // void initialize() {}     // no need to implement
     // void destroy() {}        // no need to implement

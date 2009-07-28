@@ -94,4 +94,80 @@ TextPointer LookupTable::getLable(const uint index) const
     return m_lable[index];
 }
 
+void LookupTable::setCursorPos(const uint cursorPos)
+{
+    m_cursorPos = cursorPos;
+}
+
+uint LookupTable::getCursorPos() const
+{
+    return m_cursorPos;
+}
+
+uint LookupTable::getCursorPosInPage() const
+{
+    return (m_cursorPos % m_pagesize);
+}
+
+void LookupTable::setCursorVisible(bool visible)
+{
+    m_cursorVisible = visible;
+}
+
+bool LookupTable::isCursorVisible() const
+{
+    return m_cursorVisible;
+}
+
+void LookupTable::setPageSize(const uint pagesize)
+{
+    m_pagesize = pagesize;
+}
+
+uint LookupTable::getPageSize() const
+{
+    return m_pagesize;
+}
+
+bool LookupTable::pageUp()
+{
+    if ( m_cursorPos > m_pagesize )
+    {
+        m_cursorPos -= m_pagesize;
+        return true;
+    }
+
+    // here, cursor points to first page
+    if ( !m_round )
+        return false;
+
+    uint pageNum = m_candidates.size() / m_pagesize;
+    if ( getCursorPosInPage() != 0 )
+        m_cursorPos = pageNum * m_pagesize + getCursorPosInPage();
+    else
+        m_cursorPos = (pageNum - 1) * m_pagesize + 1;
+
+    return true;
+}
+
+bool LookupTable::pageDown()
+{
+    if ( (m_candidates.size() / m_pagesize) > (m_cursorPos / m_pagesize) )
+    {
+        if ( (m_cursorPos + m_pagesize) <= m_candidates.size() )
+            m_cursorPos = m_cursorPos + m_pagesize;
+        else
+            m_cursorPos = ((m_cursorPos / m_pagesize) * m_pagesize) + 1;
+
+        return true;
+    }
+
+    // curosr points to last page
+    if ( !m_round )
+        return false;
+
+    m_cursorPos = m_cursorPos % m_pagesize;
+    return true;
+}
+
 };
