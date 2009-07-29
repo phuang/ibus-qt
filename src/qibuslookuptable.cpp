@@ -33,7 +33,7 @@ bool LookupTable::serialize(QDBusArgument & argument) const
     return true;
 }
 
-bool LookupTable::deserialize (const QDBusArgument &argument)
+bool LookupTable::deserialize (const QDBusArgument & argument)
 {
     if ( !Serializable::deserialize(argument) )
         return false;
