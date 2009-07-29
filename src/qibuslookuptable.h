@@ -56,7 +56,7 @@ public:
 
     ~LookupTable() {}
 
-private:
+public:
     virtual bool serialize(QDBusArgument & argument) const;
     virtual bool deserialize(const QDBusArgument &argument);
 
