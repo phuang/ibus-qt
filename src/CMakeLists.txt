@@ -85,15 +85,15 @@ install(TARGETS ibus-qt
 install(FILES ${ibus_qt_HDRS}
     DESTINATION include/ibus-qt COMPONENT Devel)
 
-# add_executable(
-#     ibus-test
-#     ibus.cpp
-# )
+add_executable(
+    ibus-test
+    ibus.cpp
+)
 
-# target_link_libraries(
-#     ibus-test
-#     ibus-qt
-# )
+target_link_libraries(
+    ibus-test
+    ibus-qt
+)
 
 # install(TARGETS ibus-test
 #     RUNTIME DESTINATION bin)
