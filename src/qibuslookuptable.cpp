@@ -4,29 +4,30 @@ namespace IBus {
 
 IBUS_DECLARE_SERIALIZABLE(LookupTable, IBusLookupTable);
 
-bool LookupTable::serialize(QDBusArgument & argument) const
+bool
+LookupTable::serialize (QDBusArgument & argument) const
 {
     if ( !Serializable::serialize(argument) )
         return false;
 
     // read variables of basic type into argument
-    argument << m_pagesize;
+    argument << m_pageSize;
     argument << m_cursorPos;
     argument << m_cursorVisible;
     argument << m_round;
 
     // read variables of container type into argument
     argument.beginArray(QDBusArgument::VariantType);
-    for ( int i=0; i < m_candidates.size(); ++i )
+    for ( int i = 0; i < m_candidates.size(); ++i )
     {
         argument << m_candidates[i];
     }
     argument.endArray();
 
     argument.beginArray(QDBusArgument::VariantType);
-    for ( int i=0; i < m_lable.size(); ++i )
+    for ( int i = 0; i < m_labels.size(); ++i )
     {
-        argument << m_lable[i];
+        argument << m_labels[i];
     }
     argument.endArray();
 
@@ -40,9 +41,9 @@ bool LookupTable::deserialize (const QDBusArgument & argument)
 
     // clear vector
     m_candidates.clear();
-    m_lable.clear();
+    m_labels.clear();
 
-    argument >> m_pagesize;
+    argument >> m_pageSize;
     argument >> m_cursorPos;
     argument >> m_cursorVisible;
     argument >> m_round;
@@ -61,7 +62,7 @@ bool LookupTable::deserialize (const QDBusArgument & argument)
     {
         TextPointer tp;
         argument >> tp;
-        m_lable.append(tp);
+        m_labels.append(tp);
     }
     argument.endArray();
 
@@ -73,9 +74,9 @@ void LookupTable::appendCandidate(const TextPointer & e)
     m_candidates.append(e);
 }
 
-void LookupTable::appendLable(const TextPointer & e)
+void LookupTable::appendLabel(const TextPointer & e)
 {
-    m_lable.append(e);
+    m_labels.append(e);
 }
 
 TextPointer LookupTable::getCandidate(const uint index) const
@@ -86,12 +87,12 @@ TextPointer LookupTable::getCandidate(const uint index) const
     return m_candidates[index];
 }
 
-TextPointer LookupTable::getLable(const uint index) const
+TextPointer LookupTable::getLabel(const uint index) const
 {
-    if ( index >= m_lable.size() )
+    if ( index >= m_labels.size() )
         return NULL;
 
-    return m_lable[index];
+    return m_labels[index];
 }
 
 void LookupTable::setCursorPos(const uint cursorPos)
@@ -99,14 +100,9 @@ void LookupTable::setCursorPos(const uint cursorPos)
     m_cursorPos = cursorPos;
 }
 
-uint LookupTable::getCursorPos() const
+uint LookupTable::cursorPosInPage() const
 {
-    return m_cursorPos;
-}
-
-uint LookupTable::getCursorPosInPage() const
-{
-    return (m_cursorPos % m_pagesize);
+    return (m_cursorPos % m_pageSize);
 }
 
 void LookupTable::setCursorVisible(bool visible)
@@ -114,26 +110,16 @@ void LookupTable::setCursorVisible(bool visible)
     m_cursorVisible = visible;
 }
 
-bool LookupTable::isCursorVisible() const
+void LookupTable::setPageSize(const uint pageSize)
 {
-    return m_cursorVisible;
-}
-
-void LookupTable::setPageSize(const uint pagesize)
-{
-    m_pagesize = pagesize;
-}
-
-uint LookupTable::getPageSize() const
-{
-    return m_pagesize;
+    m_pageSize = pageSize;
 }
 
 bool LookupTable::pageUp()
 {
-    if ( m_cursorPos >= m_pagesize )
+    if ( m_cursorPos >= m_pageSize )
     {
-        m_cursorPos -= m_pagesize;
+        m_cursorPos -= m_pageSize;
         return true;
     }
 
@@ -142,7 +128,7 @@ bool LookupTable::pageUp()
         return false;
 
     // set the right position of cursor  
-    uint tmpCursorPos = (m_candidates.size() / m_pagesize) * m_pagesize + getCursorPosInPage();
+    uint tmpCursorPos = (m_candidates.size() / m_pageSize) * m_pageSize + cursorPosInPage();
     if ( tmpCursorPos >= m_candidates.size() )
         m_cursorPos = m_candidates.size() - 1;
     else
@@ -153,12 +139,12 @@ bool LookupTable::pageUp()
 
 bool LookupTable::pageDown()
 {
-    if ( (m_candidates.size() / m_pagesize) > (m_cursorPos / m_pagesize) )
+    if ( (m_candidates.size() / m_pageSize) > (m_cursorPos / m_pageSize) )
     {
-        if ( (m_cursorPos + m_pagesize) < m_candidates.size() )
-            m_cursorPos = m_cursorPos + m_pagesize;
+        if ( (m_cursorPos + m_pageSize) < m_candidates.size() )
+            m_cursorPos = m_cursorPos + m_pageSize;
         else
-            m_cursorPos = ((m_cursorPos / m_pagesize) * m_pagesize) + getCursorPosInPage();
+            m_cursorPos = ((m_cursorPos / m_pageSize) * m_pageSize) + cursorPosInPage();
 
         return true;
     }
@@ -167,7 +153,7 @@ bool LookupTable::pageDown()
     if ( !m_round )
         return false;
 
-    m_cursorPos = m_cursorPos % m_pagesize;
+    m_cursorPos = m_cursorPos % m_pageSize;
     return true;
 }
 
