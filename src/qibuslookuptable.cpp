@@ -188,7 +188,7 @@ LookupTable::cursorUp()
 bool
 LookupTable::cursorDown()
 {
-    if ( m_cursorPos == (static_cast<uint>(m_candidates.size()) - 1) )
+    if ( (m_cursorPos + 1) == static_cast<uint>(m_candidates.size()) )
     {
         // cursor points to the last candidate of last page
         if ( !m_round )

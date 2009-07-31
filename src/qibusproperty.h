@@ -23,7 +23,7 @@ public:
     virtual bool deserialize (const QDBusArgument &argument);
 
 public:
-    void setLable(TextPointer lable);
+    void setLabel(const TextPointer & lable);
     void setVisible(bool visible);
 
 private:
