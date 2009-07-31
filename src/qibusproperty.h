@@ -2,6 +2,7 @@
 #define __Q_IBUS_PROPERTY_H_
 
 #include "qibusserializable.h"
+#include "qibusproplist.h"
 #include "qibustext.h"
 
 namespace IBus {
@@ -13,12 +14,31 @@ class Property : public Serializable
 {
     Q_OBJECT;
 
-protected:
+/* type of QIBusProperty */
+typedef enum
+{
+    PROP_TYPE_NORMAL = 0,
+    PROP_TYPE_TOGGLE = 1,
+    PROP_TYPE_RADIO = 2,
+    PROP_TYPE_MENU = 3,
+    PROP_TYPE_SEPARATOR = 4,
+}IBusPropType;
+
+/*
+ * State of IBusProperty. The actual effect
+ * depends on #IBusPropType of the IBusProperty.
+ */
+typedef enum
+{
+    PROP_STATE_UNCHECKED = 0,
+    PROP_STATE_CHECKED = 1,
+    PROP_STATE_INCONSISTENT = 2,
+}IBusPropState;
 
 public:
     Property () {}
-    Property (QString key,
-              QString icon,
+    Property (const QString key,
+              const QString icon,
               TextPointer label,
               TextPointer tooltip,
               bool sensitive,
@@ -45,8 +65,11 @@ public:
 public:
     void setLabel (const TextPointer & lable);
     void setVisible (bool visible);
+    void setSubProps (const PropListPointer & subProps);
+    bool update (const Property & propUpdate);
 
 private:
+
     QString m_key;
     QString m_icon;
     TextPointer m_label;
@@ -56,7 +79,7 @@ private:
     uint m_type;
     uint m_state;
 
-    // PropListPointer m_subProp;
+    PropListPointer m_subProps;
 
     IBUS_SERIALIZABLE
 };
