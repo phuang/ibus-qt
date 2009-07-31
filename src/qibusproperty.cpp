@@ -4,10 +4,6 @@ namespace IBus {
 
 IBUS_DECLARE_SERIALIZABLE(Property, IBusProperty);
 
-Property::Property (void)
-{
-}
-
 bool
 Property::serialize (QDBusArgument &argument) const
 {
@@ -58,7 +54,5 @@ Property::setVisible (bool visible)
 {
     m_visible = visible;
 }
-
-
 
 };
