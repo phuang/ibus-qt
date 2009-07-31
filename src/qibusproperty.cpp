@@ -44,4 +44,21 @@ Property::deserialize (const QDBusArgument &argument)
     return true;
 }
 
+void
+Property::setLable (TextPointer lable)
+{
+    if ( !lable )
+        return ;
+
+    m_label = lable;
+}
+
+void
+Property::setVisible (bool visible)
+{
+    m_visible = visible;
+}
+
+
+
 };

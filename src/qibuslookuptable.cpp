@@ -85,7 +85,7 @@ LookupTable::appendLabel(const TextPointer & e)
 TextPointer
 LookupTable::getCandidate(const uint index) const
 {
-    if ( index >= m_candidates.size() )
+    if ( index >= static_cast<uint>(m_candidates.size()) )
         return NULL;
 
     return m_candidates[index];
@@ -94,7 +94,7 @@ LookupTable::getCandidate(const uint index) const
 TextPointer
 LookupTable::getLabel(const uint index) const
 {
-    if ( index >= m_labels.size() )
+    if ( index >= static_cast<uint>(m_labels.size()) )
         return NULL;
 
     return m_labels[index];
@@ -139,7 +139,7 @@ LookupTable::pageUp()
 
     // set the right position of cursor  
     uint tmpCursorPos = (m_candidates.size() / m_pageSize) * m_pageSize + cursorPosInPage();
-    if ( tmpCursorPos >= m_candidates.size() )
+    if ( tmpCursorPos >= static_cast<uint>(m_candidates.size()) )
         m_cursorPos = m_candidates.size() - 1;
     else
         m_cursorPos = tmpCursorPos;
@@ -152,7 +152,7 @@ LookupTable::pageDown()
 {
     if ( (m_candidates.size() / m_pageSize) > (m_cursorPos / m_pageSize) )
     {
-        if ( (m_cursorPos + m_pageSize) < m_candidates.size() )
+        if ( (m_cursorPos + m_pageSize) < static_cast<uint>(m_candidates.size()) )
             m_cursorPos = m_cursorPos + m_pageSize;
         else
             m_cursorPos = ((m_cursorPos / m_pageSize) * m_pageSize) + cursorPosInPage();
@@ -188,7 +188,7 @@ LookupTable::cursorUp()
 bool
 LookupTable::cursorDown()
 {
-    if ( m_cursorPos == (m_candidates.size() - 1) )
+    if ( m_cursorPos == (static_cast<uint>(m_candidates.size()) - 1) )
     {
         // cursor points to the last candidate of last page
         if ( !m_round )

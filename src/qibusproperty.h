@@ -22,6 +22,10 @@ public:
     virtual bool serialize (QDBusArgument &argument) const;
     virtual bool deserialize (const QDBusArgument &argument);
 
+public:
+    void setLable(TextPointer lable);
+    void setVisible(bool visible);
+
 private:
     QString m_key;
     QString m_icon;
