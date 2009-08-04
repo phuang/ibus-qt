@@ -10,7 +10,7 @@ namespace IBus {
 class Property;
 class PropList;
 typedef Pointer<PropList> PropListPointer;
-typedef Pointer<Property> PropPointer;
+typedef Pointer<Property> PropertyPointer;
 
 class PropList: public Serializable
 {
@@ -19,7 +19,7 @@ class PropList: public Serializable
 public:
     PropList ()
     {}
-    PropList (const QVector<PropPointer> & props): m_props(props)
+    PropList (const QVector<PropertyPointer> & props): m_props(props)
     {}
 
     ~PropList ()
@@ -32,7 +32,7 @@ public:
     bool updateProperty (const Property & prop);
 
 private:
-    QVector<PropPointer> m_props;
+    QVector<PropertyPointer> m_props;
 
     IBUS_SERIALIZABLE
 };
