@@ -67,7 +67,7 @@ public:
 public:
     void setLabel (const TextPointer & lable);
     void setVisible (bool visible);
-    void setSubProps (const PropListPointer & subProps);
+    void setSubProps (const PropListPointer & props);
     bool update (const Property & prop);
 
 private:

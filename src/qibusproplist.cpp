@@ -42,9 +42,11 @@ PropList::updateProperty (const Property & prop)
 {
     for ( int i = 0; i < m_props.size(); ++i )
     {
-        m_props[i]->update(prop);
+        if ( m_props[i]->update(prop) )
+            return true;
     }
 
-    return true;
+    return false;
 }
+
 };
