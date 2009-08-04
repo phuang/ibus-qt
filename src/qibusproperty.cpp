@@ -7,8 +7,9 @@ IBUS_DECLARE_SERIALIZABLE(Property, IBusProperty);
 bool
 Property::serialize (QDBusArgument &argument) const
 {
-    if (!Serializable::serialize (argument))
+    if (!Serializable::serialize (argument)) {
         return false;
+    }
 
     argument << m_key;
     argument << m_icon;
@@ -25,8 +26,9 @@ Property::serialize (QDBusArgument &argument) const
 bool
 Property::deserialize (const QDBusArgument &argument)
 {
-    if (!Serializable::deserialize (argument))
+    if (!Serializable::deserialize (argument)) {
         return false;
+    }
 
     argument >> m_key;
     argument >> m_icon;
@@ -43,8 +45,7 @@ Property::deserialize (const QDBusArgument &argument)
 void
 Property::setLabel (const TextPointer & lable)
 {
-    if ( !lable )
-    {
+    if ( !lable ) {
         m_label = new Text;
         return ;
     }
@@ -61,8 +62,7 @@ Property::setVisible (bool visible)
 void
 Property::setSubProps(const PropListPointer & props)
 {
-    if ( !props )
-    {
+    if ( !props ) {
         m_subProps = new PropList;
         return ;
     }
@@ -71,24 +71,23 @@ Property::setSubProps(const PropListPointer & props)
 }
 
 bool
-Property::update (const Property & prop)
+Property::update (const PropertyPointer prop)
 {
-    if ( m_key != prop.m_key )
-    {
-        if ( !m_subProps )
-            return false;
+    if ( m_key == prop->m_key ) {
+        m_icon = prop->m_icon;
+        m_label = prop->m_label;
+        m_tooltip = prop->m_tooltip;
+        m_visible = prop->m_visible;
+        m_sensitive = prop->m_sensitive;
+        m_state = prop->m_state;
 
-        return m_subProps->updateProperty(prop);
+        return true;
     }
 
-    m_icon = prop.m_icon;
-    m_label = prop.m_label;
-    m_tooltip = prop.m_tooltip;
-    m_visible = prop.m_visible;
-    m_sensitive = prop.m_sensitive;
-    m_state = prop.m_state;
+    if ( !m_subProps.isNull() )
+        return m_subProps->updateProperty(prop);
 
-    return true;
+    return false;
 }
 
 };
