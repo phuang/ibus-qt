@@ -2,6 +2,7 @@
 #define __Q_IBUS_PROP_LIST_H_
 
 #include "qibusserializable.h"
+#include "qibusproperty.h"
 #include "qibustext.h"
 
 namespace IBus {
@@ -9,6 +10,7 @@ namespace IBus {
 class Property;
 class PropList;
 typedef Pointer<PropList> PropListPointer;
+typedef Pointer<Property> PropPointer;
 
 class PropList: public Serializable
 {
@@ -17,20 +19,20 @@ class PropList: public Serializable
 public:
     PropList ()
     {}
-    PropList (const QVector<Property *> & props): m_props(props)
+    PropList (const QVector<PropPointer> & props): m_props(props)
     {}
 
-    ~PropList ();
+    ~PropList ()
+    {}
 
 public:
     virtual bool serialize (QDBusArgument &argument) const;
     virtual bool deserialize (const QDBusArgument &argument);
 
-    bool updateProperty (const Property & propUpdate);
+    bool updateProperty (const Property & prop);
 
 private:
-    // QVector<PropertyPointer> m_props;
-    QVector<Property *> m_props;
+    QVector<PropPointer> m_props;
 
     IBUS_SERIALIZABLE
 };

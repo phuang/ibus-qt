@@ -71,17 +71,17 @@ Property::setSubProps(const PropListPointer & subProps)
 }
 
 bool
-Property::update (const Property & propUpdate)
+Property::update (const Property & prop)
 {
-    if ( m_key != propUpdate.m_key )
-        return m_subProps->updateProperty(propUpdate);
+    if ( m_key != prop.m_key )
+        return m_subProps->updateProperty(prop);
 
-    m_icon = propUpdate.m_icon;
-    m_label = propUpdate.m_label;
-    m_tooltip = propUpdate.m_tooltip;
-    m_visible = propUpdate.m_visible;
-    m_sensitive = propUpdate.m_sensitive;
-    m_state = propUpdate.m_state;
+    m_icon = prop.m_icon;
+    m_label = prop.m_label;
+    m_tooltip = prop.m_tooltip;
+    m_visible = prop.m_visible;
+    m_sensitive = prop.m_sensitive;
+    m_state = prop.m_state;
 
     return true;
 }

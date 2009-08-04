@@ -8,6 +8,8 @@
 namespace IBus {
 
 class Property;
+class PropList;
+typedef Pointer<PropList> PropListPointer;
 typedef Pointer<Property> PropertyPointer;
 
 class Property : public Serializable
@@ -17,12 +19,12 @@ class Property : public Serializable
 /* type of QIBusProperty */
 typedef enum
 {
-    PROP_TYPE_NORMAL = 0,
-    PROP_TYPE_TOGGLE = 1,
-    PROP_TYPE_RADIO = 2,
-    PROP_TYPE_MENU = 3,
-    PROP_TYPE_SEPARATOR = 4,
-}IBusPropType;
+    TypeNormal = 0,
+    TypeToggle = 1,
+    TypeRadio = 2,
+    TypeMenu = 3,
+    TypeSeparator = 4,
+}PropType;
 
 /*
  * State of QIBusProperty. The actual effect
@@ -30,10 +32,10 @@ typedef enum
  */
 typedef enum
 {
-    PROP_STATE_UNCHECKED = 0,
-    PROP_STATE_CHECKED = 1,
-    PROP_STATE_INCONSISTENT = 2,
-}IBusPropState;
+    StateUnchecked = 0,
+    StateChecked = 1,
+    StateInconsistent = 2,
+}PropState;
 
 public:
     Property () {}
@@ -66,7 +68,7 @@ public:
     void setLabel (const TextPointer & lable);
     void setVisible (bool visible);
     void setSubProps (const PropListPointer & subProps);
-    bool update (const Property & propUpdate);
+    bool update (const Property & prop);
 
 private:
 

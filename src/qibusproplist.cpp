@@ -5,16 +5,6 @@ namespace IBus {
 
 IBUS_DECLARE_SERIALIZABLE(PropList, IBusPropList);
 
-PropList::~PropList ()
-{   
-    int i = 0;
-    for ( ; i < m_props.size(); ++i )
-    {
-        if ( m_props[i] )
-            delete m_props[i];
-    }
-}  
-
 bool
 PropList::serialize (QDBusArgument & argument) const
 {
@@ -48,11 +38,11 @@ PropList::deserialize (const QDBusArgument & argument)
 }
 
 bool
-PropList::updateProperty (const Property & propUpdate)
+PropList::updateProperty (const Property & prop)
 {
     for ( int i = 0; i < m_props.size(); ++i )
     {
-        m_props[i]->update(propUpdate);
+        m_props[i]->update(prop);
     }
 
     return true;
