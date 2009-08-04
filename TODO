@@ -5,8 +5,8 @@
     IBusText           phuang
     IBusAttribute      liudl
     IBusAttrList       liudl
-    IBusProperty
-    IBusPropList
+    IBusProperty       luoxs
+    IBusPropList       luoxs
     IBusLookupTable    luoxs
-    IBusEngineDesc
-    IBusComponent
+    IBusEngineDesc     luoxs
+    IBusComponent      luoxs
