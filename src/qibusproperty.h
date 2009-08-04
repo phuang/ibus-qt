@@ -38,7 +38,8 @@ typedef enum
 }PropState;
 
 public:
-    Property () {}
+    Property ()
+    {}
     Property (const QString key,
               const QString icon,
               TextPointer label,
