@@ -48,11 +48,11 @@ PropList::deserialize (const QDBusArgument & argument)
 }
 
 bool
-PropList::updateProperty (const PropList & propUpdate)
+PropList::updateProperty (const Property & propUpdate)
 {
     for ( int i = 0; i < m_props.size(); ++i )
     {
-        m_props[i]->update(*(m_props[i]));
+        m_props[i]->update(propUpdate);
     }
 
     return true;

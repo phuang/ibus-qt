@@ -74,7 +74,7 @@ bool
 Property::update (const Property & propUpdate)
 {
     if ( m_key != propUpdate.m_key )
-        return false;
+        return m_subProps->updateProperty(propUpdate);
 
     m_icon = propUpdate.m_icon;
     m_label = propUpdate.m_label;

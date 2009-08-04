@@ -25,8 +25,8 @@ typedef enum
 }IBusPropType;
 
 /*
- * State of IBusProperty. The actual effect
- * depends on #IBusPropType of the IBusProperty.
+ * State of QIBusProperty. The actual effect
+ * depends on #QIBusPropType of the QIBusProperty.
  */
 typedef enum
 {
