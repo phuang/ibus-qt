@@ -62,7 +62,7 @@ Property::setVisible (bool visible)
 void
 Property::setSubProps(const PropListPointer & props)
 {
-    if ( !props.isNull () ) {
+    if ( !props ) {
         m_subProps = new PropList;
         return ;
     }
@@ -71,22 +71,22 @@ Property::setSubProps(const PropListPointer & props)
 }
 
 bool
-Property::update (const Property & prop)
+Property::update (const PropertyPointer prop)
 {
-    if (m_key == prop->m_key) {
-        m_icon = prop.m_icon;
-        m_label = prop.m_label;
-        m_tooltip = prop.m_tooltip;
-        m_visible = prop.m_visible;
-        m_sensitive = prop.m_sensitive;
-        m_state = prop.m_state;
+    if ( m_key == prop->m_key ) {
+        m_icon = prop->m_icon;
+        m_label = prop->m_label;
+        m_tooltip = prop->m_tooltip;
+        m_visible = prop->m_visible;
+        m_sensitive = prop->m_sensitive;
+        m_state = prop->m_state;
+
         return true;
     }
 
-    if (! m_subProps.isNull ()) {
+    if ( !m_subProps.isNull() )
         return m_subProps->updateProperty(prop);
-    }
-    
+
     return false;
 }
 

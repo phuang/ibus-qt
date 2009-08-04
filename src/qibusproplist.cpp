@@ -8,8 +8,9 @@ IBUS_DECLARE_SERIALIZABLE(PropList, IBusPropList);
 bool
 PropList::serialize (QDBusArgument & argument) const
 {
-    if (!Serializable::serialize (argument))
+    if (!Serializable::serialize (argument)) {
         return false;
+    }
 
     argument.beginArray(QDBusArgument::VariantType);
     for ( int i = 0; i < m_props.size(); ++i )
@@ -22,8 +23,9 @@ PropList::serialize (QDBusArgument & argument) const
 bool
 PropList::deserialize (const QDBusArgument & argument)
 {
-    if (!Serializable::deserialize (argument))
+    if (!Serializable::deserialize (argument)) {
         return false;
+    }
 
     argument.beginArray();
     while ( !argument.atEnd() )
@@ -38,12 +40,12 @@ PropList::deserialize (const QDBusArgument & argument)
 }
 
 bool
-PropList::updateProperty (const Property & prop)
+PropList::updateProperty (const PropertyPointer prop)
 {
-    for ( int i = 0; i < m_props.size(); ++i )
-    {
-        if ( m_props[i]->update(prop) )
+    for ( int i = 0; i < m_props.size(); ++i ) {
+        if ( m_props[i]->update(prop) ) {
             return true;
+        }
     }
 
     return false;

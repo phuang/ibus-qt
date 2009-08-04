@@ -29,7 +29,7 @@ public:
     virtual bool serialize (QDBusArgument &argument) const;
     virtual bool deserialize (const QDBusArgument &argument);
 
-    bool updateProperty (const Property & prop);
+    bool updateProperty (const PropertyPointer prop);
 
 private:
     QVector<PropertyPointer> m_props;
