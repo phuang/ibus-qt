@@ -45,7 +45,7 @@ Property::deserialize (const QDBusArgument &argument)
 void
 Property::setLabel (const TextPointer & lable)
 {
-    if ( !lable ) {
+    if ( !lable.isNull() ) {
         m_label = new Text;
         return ;
     }
