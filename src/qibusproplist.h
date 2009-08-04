@@ -20,7 +20,7 @@ public:
     PropList (const QVector<Property *> & props): m_props(props)
     {}
 
-    virtual ~PropList ();
+    ~PropList ();
 
 public:
     virtual bool serialize (QDBusArgument &argument) const;
@@ -29,8 +29,8 @@ public:
     bool updateProperty (const Property & propUpdate);
 
 private:
-    QVector<Property *> m_props;
     // QVector<PropertyPointer> m_props;
+    QVector<Property *> m_props;
 
     IBUS_SERIALIZABLE
 };

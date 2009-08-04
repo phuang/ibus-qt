@@ -5,15 +5,15 @@ namespace IBus {
 
 IBUS_DECLARE_SERIALIZABLE(PropList, IBusPropList);
 
-PropList::~PropList()
-{
+PropList::~PropList ()
+{   
     int i = 0;
     for ( ; i < m_props.size(); ++i )
     {
         if ( m_props[i] )
             delete m_props[i];
     }
-}
+}  
 
 bool
 PropList::serialize (QDBusArgument & argument) const
