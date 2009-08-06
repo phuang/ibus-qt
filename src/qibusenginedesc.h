@@ -15,6 +15,24 @@ class EngineDesc : public Serializable
 
 public:
     EngineDesc (): m_rank(0) {}
+    EngineDesc (QString name,
+                QString lname,
+                QString desc,
+                QString lang,
+                QString lics,
+                QString auth,
+                QString icon,
+                QString layout):
+                m_name(name),
+                m_longname(lname),
+                m_description(desc),
+                m_language(lang),
+                m_license(lics),
+                m_author(auth),
+                m_icon(icon),
+                m_layout(layout) {}
+
+    virtual ~EngineDesc() {}
 
 public:
     virtual bool serialize (QDBusArgument &argument) const;
