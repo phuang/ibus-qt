@@ -20,6 +20,8 @@ Property::serialize (QDBusArgument &argument) const
     argument << m_type;
     argument << m_state;
 
+    argument << m_subProps;
+
     return true;
 }
 
@@ -38,6 +40,7 @@ Property::deserialize (const QDBusArgument &argument)
     argument >> m_visible;
     argument >> m_type;
     argument >> m_state;
+    argument >> m_subProps;
 
     return true;
 }

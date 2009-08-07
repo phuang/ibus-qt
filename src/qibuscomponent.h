@@ -1,12 +1,14 @@
 #ifndef __Q_IBUS_COMPONENT_H_
 #define __Q_IBUS_COMPONENT_H_
 
+#include <QtXml/QDomNode>
 #include "qibusserializable.h"
 
 namespace IBus {
 
 class Component;
 typedef Pointer<Component> ComponentPointer;
+typedef Pointer<QDomNode> QDomNodePointer;
 
 class Component : public Serializable
 {
@@ -21,7 +23,9 @@ public:
                QString auth,
                QString hmpg,
                QString exec,
-               QString textdomain):
+               QString textdomain,
+               QDomNode * engineNode,
+               QDomNode * observedPathNode):
                m_name(name),
                m_description(desc),
                m_version(vers),
@@ -29,9 +33,13 @@ public:
                m_author(auth),
                m_homepage(hmpg),
                m_exec(exec),
-               m_textdomain(textdomain) {}
+               m_textdomain(textdomain),
+               m_observedPathNode(observedPathNode),
+               m_engineNode(engineNode)
+    {}
 
-    virtual ~Component () {}
+    virtual ~Component ()
+    {}
 
 public:
     virtual bool serialize (QDBusArgument &argument) const;
@@ -47,8 +55,9 @@ private:
     QString m_exec;
     QString m_textdomain;
 
-    // QLinkedList<ComponentPointer> m_engine;
-    // QLinkedList<ComponentPointer> m_observedPaths;
+    // QVector<QDomNode *> m_observedPathNode;
+    QDomNode * m_observedPathNode;
+    QDomNode * m_engineNode;
 
     uint    m_pid;
 
