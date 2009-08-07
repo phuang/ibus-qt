@@ -82,46 +82,47 @@ EngineDesc::parseXmlNode (const QDomNodePointer node)
     for ( ; !child.isNull() ; child = child.nextSibling() ) {
         if ( child.nodeName().compare("name") ) {
             m_memInEngine[child.nodeName()] = true;
-            m_name = child.nodeName();
+            m_name = child.nodeValue();
         }
         else if ( child.nodeName().compare("longname") ) {
             m_memInEngine[child.nodeName()] = true;
-            m_longname = child.nodeName();
+            m_longname = child.nodeValue();
         }
         else if ( child.nodeName().compare("description") ) {
             m_memInEngine[child.nodeName()] = true;
-            m_description = child.nodeName();
+            m_description = child.nodeValue();
         }
         else if ( child.nodeName().compare("language") ) {
             m_memInEngine[child.nodeName()] = true;
-            m_language = child.nodeName();
+            m_language = child.nodeValue();
         }
         else if ( child.nodeName().compare("license") ) {
             m_memInEngine[child.nodeName()] = true;
-            m_license = child.nodeName();
+            m_license = child.nodeValue();
         }
         else if ( child.nodeName().compare("author") ) {
             m_memInEngine[child.nodeName()] = true;
-            m_author = child.nodeName();
+            m_author = child.nodeValue();
         }
         else if ( child.nodeName().compare("icon") ) {
             m_memInEngine[child.nodeName()] = true;
-            m_icon = child.nodeName();
+            m_icon = child.nodeValue();
         }
         else if ( child.nodeName().compare("layout") ) {
             m_memInEngine[child.nodeName()] = true;
-            m_layout = child.nodeName();
+            m_layout = child.nodeValue();
         }
         else if ( child.nodeName().compare("rank") ) {
             m_memInEngine[child.nodeName()] = true;
-            m_rank = child.nodeName().toInt();
+            m_rank = child.nodeValue().toInt();
         }
     }
 
     QMapIterator<QString, bool> iter(m_memInEngine);
     while ( iter.hasNext() ) {
-        if ( iter.value() == false )
+        if ( iter.value() == false ) {
             return false;
+        }
 
         iter.next();
     }
