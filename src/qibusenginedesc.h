@@ -38,6 +38,7 @@ public:
     virtual bool serialize (QDBusArgument &argument) const;
     virtual bool deserialize (const QDBusArgument &argument);
 
+    void output (QString & output) const;
     void output (QString & output, const uint indent) const;
     bool parseXmlNode (const XMLNode * node);
 
@@ -52,7 +53,7 @@ private:
     inline void outputEntry(QString & buf, const QString & name, const QString & value, const uint indent) const
     {
         appendIndent(buf, indent);
-        QString entry = "<#" + name + ">" + value + "</#" + name + ">\n";
+        QString entry = "<" + name + ">" + value + "</" + name + ">\n";
         buf += entry;
     }
 

@@ -1,3 +1,4 @@
+#include <QXmlStreamWriter>
 #include "qibusenginedesc.h"
 
 namespace IBus {
@@ -18,7 +19,6 @@ EngineDesc::serialize (QDBusArgument &argument) const
     argument << m_author;
     argument << m_icon;
     argument << m_layout;
-    argument << m_rank;
 
     return true;
 }
@@ -37,11 +37,40 @@ EngineDesc::deserialize (const QDBusArgument &argument)
     argument >> m_author;
     argument >> m_icon;
     argument >> m_layout;
-    argument >> m_rank;
 
     return true;
 }
 
+// generate xml stream via QT-lib
+void
+EngineDesc::output (QString & output) const
+{
+    QXmlStreamWriter stream(&output);
+    stream.setAutoFormatting(true);
+
+    stream.writeStartDocument();
+
+    stream.writeStartElement("engine");
+
+    stream.writeTextElement("name", m_name);
+    stream.writeTextElement("longname", m_longname);
+    stream.writeTextElement("description", m_description);
+    stream.writeTextElement("language", m_language);
+    stream.writeTextElement("license", m_license);
+    stream.writeTextElement("author", m_author);
+    stream.writeTextElement("icon", m_icon);
+    stream.writeTextElement("layout", m_layout);
+
+    QString stringRank;
+    stringRank = stringRank.number(m_rank);
+    stream.writeTextElement("rank", stringRank);
+
+    stream.writeEndElement();
+
+    stream.writeEndDocument();
+}
+
+// generate xml stream manually, similiar to gtk codes
 void
 EngineDesc::output (QString & output, const uint indent) const
 {
