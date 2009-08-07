@@ -70,52 +70,60 @@ EngineDesc::output (QString & output) const
     stream.writeEndDocument();
 }
 
-// generate xml stream manually, similiar to gtk codes
-void
-EngineDesc::output (QString & output, const uint indent) const
-{
-    appendIndent(output, indent);
-    output.append("<engine>\n");
-
-    outputEntry(output, "name", m_name, indent + 1);
-    outputEntry(output, "longname", m_longname, indent + 1);
-    outputEntry(output, "description", m_description, indent + 1);
-    outputEntry(output, "language", m_language, indent + 1);
-    outputEntry(output, "license", m_license, indent + 1);
-    outputEntry(output, "author", m_author, indent + 1);
-    outputEntry(output, "icon", m_icon, indent + 1);
-    outputEntry(output, "layout", m_layout, indent + 1);
-
-    QString stringRank;
-    stringRank = stringRank.number(m_rank);
-    outputEntry(output, "rank", stringRank, indent + 1);
-
-    appendIndent(output, indent);
-    output.append("<engine>\n");
-}
-
 bool
-EngineDesc::parseXmlNode (const XMLNode * node)
+EngineDesc::parseXmlNode (const QDomNodePointer node)
 {
-    const QLinkedList<XMLNode> * subNodes = node->subNodes;
-    QLinkedListIterator<XMLNode> iter(*subNodes);
+    QString nodename(node->nodeName());
+    if ( nodename.compare("engine") ) {
+        return false;
+    }
 
-    while ( iter.hasNext() )
-    {
-        XMLNode tmpNodes = iter.next();
-
-        parseEntry(tmpNodes, "name", m_name);
-        parseEntry(tmpNodes, "longname", m_longname);
-        parseEntry(tmpNodes, "description", m_description);
-        parseEntry(tmpNodes, "language", m_language);
-        parseEntry(tmpNodes, "license", m_license);
-        parseEntry(tmpNodes, "author", m_author);
-        parseEntry(tmpNodes, "icon", m_icon);
-        parseEntry(tmpNodes, "layout", m_layout);
-
-        if ( !tmpNodes.name.compare("rank") ) {
-            m_rank = tmpNodes.text.toUInt();
+    QDomNode child = node->firstChild();
+    for ( ; !child.isNull() ; child = child.nextSibling() ) {
+        if ( child.nodeName().compare("name") ) {
+            m_memInEngine[child.nodeName()] = true;
+            m_name = child.nodeName();
         }
+        else if ( child.nodeName().compare("longname") ) {
+            m_memInEngine[child.nodeName()] = true;
+            m_longname = child.nodeName();
+        }
+        else if ( child.nodeName().compare("description") ) {
+            m_memInEngine[child.nodeName()] = true;
+            m_description = child.nodeName();
+        }
+        else if ( child.nodeName().compare("language") ) {
+            m_memInEngine[child.nodeName()] = true;
+            m_language = child.nodeName();
+        }
+        else if ( child.nodeName().compare("license") ) {
+            m_memInEngine[child.nodeName()] = true;
+            m_license = child.nodeName();
+        }
+        else if ( child.nodeName().compare("author") ) {
+            m_memInEngine[child.nodeName()] = true;
+            m_author = child.nodeName();
+        }
+        else if ( child.nodeName().compare("icon") ) {
+            m_memInEngine[child.nodeName()] = true;
+            m_icon = child.nodeName();
+        }
+        else if ( child.nodeName().compare("layout") ) {
+            m_memInEngine[child.nodeName()] = true;
+            m_layout = child.nodeName();
+        }
+        else if ( child.nodeName().compare("rank") ) {
+            m_memInEngine[child.nodeName()] = true;
+            m_rank = child.nodeName().toInt();
+        }
+    }
+
+    QMapIterator<QString, bool> iter(m_memInEngine);
+    while ( iter.hasNext() ) {
+        if ( iter.value() == false )
+            return false;
+
+        iter.next();
     }
 
     return true;
