@@ -25,7 +25,6 @@ set(
     qibusinputcontextproxy.cpp
     qibusbus.cpp
     qibusinputcontext.cpp
-    qibusxml.cpp
 )
 
 set(
@@ -45,7 +44,6 @@ set(
     qibusinputcontextproxy.h
     qibusbus.h
     qibusinputcontext.h
-    qibusxml.h
 )
 
 # QT4_ADD_DBUS_INTERFACE(
