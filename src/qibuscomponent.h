@@ -2,13 +2,15 @@
 #define __Q_IBUS_COMPONENT_H_
 
 #include <QtXml/QDomNode>
+#include <QVector>
 #include "qibusserializable.h"
+#include "qibusenginedesc.h"
+#include "qibusobservedpath.h"
 
 namespace IBus {
 
 class Component;
 typedef Pointer<Component> ComponentPointer;
-typedef Pointer<QDomNode> QDomNodePointer;
 
 class Component : public Serializable
 {
@@ -23,9 +25,8 @@ public:
                QString auth,
                QString hmpg,
                QString exec,
-               QString textdomain,
-               QDomNode * engineNode,
-               QDomNode * observedPathNode):
+               QString textdomain
+               ):
                m_name(name),
                m_description(desc),
                m_version(vers),
@@ -33,9 +34,7 @@ public:
                m_author(auth),
                m_homepage(hmpg),
                m_exec(exec),
-               m_textdomain(textdomain),
-               m_observedPathNode(observedPathNode),
-               m_engineNode(engineNode)
+               m_textdomain(textdomain)
     {}
 
     virtual ~Component ()
@@ -44,6 +43,14 @@ public:
 public:
     virtual bool serialize (QDBusArgument &argument) const;
     virtual bool deserialize (const QDBusArgument &argument);
+
+    void output (QString & output) const;
+    bool parseXmlNode (const QDomNode & node);
+    bool parseEngines (const QDomNode & node);
+    bool parseObservedPaths (const QDomNode & node);
+
+    const ComponentPointer newComponentFromXmlNode (const QDomNode & root) const;
+    const ComponentPointer newComponentFromFile (const QString & fileName) const;
 
 private:
     QString m_name;
@@ -55,9 +62,8 @@ private:
     QString m_exec;
     QString m_textdomain;
 
-    // QVector<QDomNode *> m_observedPathNode;
-    QDomNode * m_observedPathNode;
-    QDomNode * m_engineNode;
+    QVector<ObservedPathPointer>    m_observedPaths;
+    QVector<EngineDescPointer>      m_engines;
 
     uint    m_pid;
 

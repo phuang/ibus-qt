@@ -8,7 +8,6 @@ namespace IBus {
 
 class EngineDesc;
 typedef Pointer<EngineDesc> EngineDescPointer;
-typedef Pointer<QDomNode> QDomNodePointer;
 
 class EngineDesc : public Serializable
 {
@@ -46,8 +45,13 @@ public:
     virtual bool deserialize (const QDBusArgument &argument);
 
     void output (QString & output) const;
-    bool parseXmlNode (const QDomNodePointer node);
+    bool parseXmlNode (const QDomNode & node);
+    const EngineDescPointer newEngineFromXmlNode (const QDomNode & node) const; 
 
+    const QMap<QString, QString> & getEngineInfo() const
+    {
+        return m_engineInfo;
+    }
 
 private:
     void initialize ()
@@ -75,6 +79,7 @@ private:
     uint    m_rank;
 
     QMap<QString, bool> m_memInEngine;
+    QMap<QString, QString> m_engineInfo;
 
     IBUS_SERIALIZABLE
 };
