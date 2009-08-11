@@ -53,6 +53,9 @@ public:
     const ComponentPointer newComponentFromFile (const QString & fileName) const;
 
 private:
+    const QDomNode * parseXmlFile (const QString & filename) const;
+
+private:
     QString m_name;
     QString m_description;
     QString m_version;

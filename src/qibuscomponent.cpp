@@ -221,14 +221,17 @@ const ComponentPointer Component::newComponentFromXmlNode (const QDomNode & root
 
 const ComponentPointer Component::newComponentFromFile (const QString & filename) const
 {
-    QXmlDomParser parser;
-    if ( !parser.parse(filename) ) {
+    const QDomNode * root = parseXmlFile(filename);
+    if ( !root ) {
         return NULL;
     }
 
-    QDomNode root = parser.getRootNode();
+    return newComponentFromXmlNode(*root);
+}
 
-    return newComponentFromXmlNode(root);
+const QDomNode * Component::parseXmlFile (const QString & filename) const
+{
+    return NULL;
 }
 
 };
