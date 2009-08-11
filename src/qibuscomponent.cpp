@@ -231,6 +231,7 @@ const ComponentPointer Component::newComponentFromFile (const QString & filename
 
 const QDomNode * Component::parseXmlFile (const QString & filename) const
 {
+    // need to code
     return NULL;
 }
 

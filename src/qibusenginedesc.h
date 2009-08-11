@@ -14,10 +14,8 @@ class EngineDesc : public Serializable
     Q_OBJECT;
 
 public:
-    EngineDesc (): m_rank(0)
-    {
-        initialize();
-    }
+    EngineDesc (): m_rank(0), m_errFlag(false)
+    {}
     EngineDesc (QString name,
                 QString lname,
                 QString desc,
@@ -35,7 +33,7 @@ public:
                 m_icon(icon),
                 m_layout(layout)
     {
-        initialize();
+                m_errFlag = false;
     }
 
     virtual ~EngineDesc() {}
@@ -54,20 +52,6 @@ public:
     }
 
 private:
-    void initialize ()
-    {
-        m_memInEngine.insert("name", false);
-        m_memInEngine.insert("longname", false);
-        m_memInEngine.insert("description", false);
-        m_memInEngine.insert("language", false);
-        m_memInEngine.insert("license", false);
-        m_memInEngine.insert("author", false);
-        m_memInEngine.insert("icon", false);
-        m_memInEngine.insert("layout", false);
-        m_memInEngine.insert("rank", false);
-    }
-
-private:
     QString m_name;
     QString m_longname;
     QString m_description;
@@ -78,8 +62,9 @@ private:
     QString m_layout;
     uint    m_rank;
 
-    QMap<QString, bool> m_memInEngine;
     QMap<QString, QString> m_engineInfo;
+
+    bool    m_errFlag;
 
     IBUS_SERIALIZABLE
 };
