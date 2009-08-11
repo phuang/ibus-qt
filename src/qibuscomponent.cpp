@@ -2,7 +2,6 @@
 #include <QXmlStreamWriter>
 #include "qibuscomponent.h"
 #include "qibusobservedpath.h"
-#include "qibusxml.h"
 
 namespace IBus {
 
@@ -182,10 +181,17 @@ bool Component::parseObservedPaths(const QDomNode & node)
     int i = 0;
     QDomNode child = node.firstChild();
     for ( ; !child.isNull(); child = child.nextSibling(), ++i ) {
-        // if ( !(m_observedPaths[i]->newObserverdPathFromXmlNode(child)) ) {
-        if ( !(newObserverdPathFromXmlNode(child)) ) {
-            return false;
+        ObservedPathPointer obsPath = new ObservedPath(child.nodeValue());
+        if ( obsPath->isRegularFile() ) {
+            if ( !obsPath->parseXmlNode (child) ) {
+                return false;
+            }
         }
+        else if ( obsPath->isRegularFile() ) {
+            obsPath->traverseObservedPath(m_observedPaths);
+        }
+
+        m_observedPaths.push_back(obsPath);
     }
 
     return true;
@@ -200,23 +206,15 @@ bool Component::parseEngines(const QDomNode & node)
     int i = 0;
     QDomNode child = node.firstChild();
     for ( ; !child.isNull(); child = child.nextSibling(), ++i ) {
-        if ( !(m_engines[i]->newEngineFromXmlNode(child)) ) {
+        EngineDescPointer engiDesc = new EngineDesc;
+        if( !engiDesc->parseXmlNode(child) ) {
             return false;
         }
+
+        m_engines.push_back(engiDesc);
     }
 
     return true;
-}
-
-const ComponentPointer Component::newComponentFromXmlNode (const QDomNode & root) const
-{
-    ComponentPointer compnt = new Component;
-    if ( !compnt->parseXmlNode(root) ) {
-        fprintf(stderr, "Component::newComponentFromXmlNode error!\n");
-        return NULL;
-    }
-
-    return compnt;
 }
 
 const ComponentPointer Component::newComponentFromFile (const QString & filename) const
@@ -226,13 +224,59 @@ const ComponentPointer Component::newComponentFromFile (const QString & filename
         return NULL;
     }
 
-    return newComponentFromXmlNode(*root);
+    ComponentPointer compnt = new Component;
+    if ( !compnt ) {
+        fprintf(stderr, "Component::newComponentFromXmlFile::new error!\n");
+        return NULL;
+    }
+
+    if( compnt->parseXmlNode(*root) ) {
+        fprintf(stderr, "Component::newComponentFromXmlFile error!\n");
+        return NULL;
+    }
+
+    // append filename to m_observedPath in compnt
+    ObservedPathPointer observedPathPtr = new ObservedPath(filename);
+    if ( !observedPathPtr ) {
+        fprintf(stderr, "new error!\n");
+        return NULL;
+    }
+    observedPathPtr->setObservedPathStat();
+    compnt->getObservedPathVec().push_back(observedPathPtr);
+
+    return compnt;
 }
 
 const QDomNode * Component::parseXmlFile (const QString & filename) const
 {
     // need to code
     return NULL;
+}
+
+void
+Component::addObservedPath (const QString & filename)
+{
+    ObservedPathPointer obsPathPtr = new ObservedPath(filename);
+    if ( obsPathPtr->isRegularFile() ) {
+        obsPathPtr->setObservedPathStat();
+    }
+    else if ( obsPathPtr->isDirFile() ) {
+        obsPathPtr->traverseObservedPath(m_observedPaths);
+    }
+
+    m_observedPaths.push_back(obsPathPtr);
+}
+
+void
+Component::addEngine (const EngineDescPointer edp)
+{
+    m_engines.push_back(edp);
+}
+
+QVector<ObservedPathPointer>
+Component::getObservedPathVec () const
+{
+    return m_observedPaths;
 }
 
 };

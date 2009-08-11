@@ -126,14 +126,4 @@ EngineDesc::parseXmlNode (const QDomNode & node)
     return true;
 }
 
-const EngineDescPointer EngineDesc::newEngineFromXmlNode (const QDomNode & node) const
-{
-    EngineDescPointer engine = new EngineDesc;
-    if ( !engine->parseXmlNode(node) ) {
-        return NULL;
-    }
-
-    return engine;
-}
-
 };

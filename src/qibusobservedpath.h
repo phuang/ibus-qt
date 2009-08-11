@@ -1,6 +1,10 @@
 #ifndef _Q_IBUS_OBSERVED_PATH_H_
 #define _Q_IBUS_OBSERVED_PATH_H_
 
+#include <stdio.h>
+#include <QDir>
+#include <QDateTime>
+#include <QXmlStreamWriter>
 #include <QtXml/QDomNode>
 #include "qibusserializable.h"
 
@@ -14,24 +18,41 @@ class ObservedPath : public Serializable
     Q_OBJECT;
 
 public:
-    ObservedPath () {}
+    ObservedPath ()
+    {}
+    ObservedPath (QString path): m_path(path)
+    {}
+
     ~ObservedPath () {}
 
 public:
     virtual bool serialize (QDBusArgument &argument) const;
     virtual bool deserialize (const QDBusArgument &argument);
 
-    void output (QString & output);
-    bool parseObservedPath (const QDomNode & node);
-
-    friend const ObservedPathPointer newObserverdPathFromXmlNode (const QDomNode & node);
+public:
+    bool parseXmlNode (const QDomNode & node);
+    bool isObservedPathModified () const;
+    void setObservedPathStat ();
+    void traverseObservedPath (QVector<ObservedPathPointer> & observedPathVec) const;
 
     const QString & getPath() const { return m_path; }
     const int getMTime() const { return m_mtime; }
 
+    bool isRegularFile() const
+    {
+        QFileInfo fi(m_path);
+        return fi.isFile();
+    }
+
+    bool isDirFile() const
+    {
+        QFileInfo fi(m_path);
+        return fi.isDir();
+    }
+
 private:
     QString m_path;
-    int     m_mtime;
+    uint    m_mtime;
     bool    m_isDir;
     bool    m_isExist;
 

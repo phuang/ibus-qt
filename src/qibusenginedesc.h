@@ -44,7 +44,6 @@ public:
 
     void output (QString & output) const;
     bool parseXmlNode (const QDomNode & node);
-    const EngineDescPointer newEngineFromXmlNode (const QDomNode & node) const; 
 
     const QMap<QString, QString> & getEngineInfo() const
     {

@@ -49,8 +49,12 @@ public:
     bool parseEngines (const QDomNode & node);
     bool parseObservedPaths (const QDomNode & node);
 
-    const ComponentPointer newComponentFromXmlNode (const QDomNode & root) const;
-    const ComponentPointer newComponentFromFile (const QString & fileName) const;
+    const ComponentPointer newComponentFromFile (const QString & filename) const;
+
+    void addObservedPath (const QString & filename);
+    void addEngine (const EngineDescPointer edp);
+
+    QVector<ObservedPathPointer> getObservedPathVec () const;
 
 private:
     const QDomNode * parseXmlFile (const QString & filename) const;
