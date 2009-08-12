@@ -1,6 +1,7 @@
 #ifndef __Q_IBUS_ENGINE_DESC_H_
 #define __Q_IBUS_ENGINE_DESC_H_
 
+#include <QXmlStreamWriter>
 #include <QtXml/QDomNode>
 #include "qibusserializable.h"
 

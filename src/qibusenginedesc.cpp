@@ -1,4 +1,3 @@
-#include <QXmlStreamWriter>
 #include "qibusenginedesc.h"
 
 namespace IBus {

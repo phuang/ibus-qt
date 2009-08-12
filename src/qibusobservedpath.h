@@ -1,8 +1,8 @@
 #ifndef _Q_IBUS_OBSERVED_PATH_H_
 #define _Q_IBUS_OBSERVED_PATH_H_
 
-#include <stdio.h>
 #include <QDir>
+#include <QDebug>
 #include <QDateTime>
 #include <QXmlStreamWriter>
 #include <QtXml/QDomNode>

@@ -1,8 +1,12 @@
 #ifndef __Q_IBUS_COMPONENT_H_
 #define __Q_IBUS_COMPONENT_H_
 
-#include <QtXml/QDomNode>
+#include <QFile>
+#include <QDebug>
 #include <QVector>
+#include <QProcess>
+#include <QXmlStreamWriter>
+#include <QtXml/QDomNode>
 #include "qibusserializable.h"
 #include "qibusenginedesc.h"
 #include "qibusobservedpath.h"
@@ -46,7 +50,7 @@ public:
 
     void output (QString & output) const;
     bool parseXmlNode (const QDomNode & node);
-    bool parseEngines (const QDomNode & node);
+    bool parseEngines (QDomNode node);
     bool parseObservedPaths (const QDomNode & node);
 
     const ComponentPointer newComponentFromFile (const QString & filename) const;

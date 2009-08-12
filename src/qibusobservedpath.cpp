@@ -1,5 +1,4 @@
 #include "qibusobservedpath.h"
-#include <QDebug>
 
 namespace IBus {
 

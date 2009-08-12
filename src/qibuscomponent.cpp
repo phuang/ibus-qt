@@ -1,9 +1,4 @@
-#include <stdio.h>
-#include <QFile>
-#include <QXmlStreamWriter>
 #include "qibuscomponent.h"
-#include "qibusobservedpath.h"
-#include <QDebug>
 
 namespace IBus {
 
@@ -164,7 +159,6 @@ Component::parseXmlNode (const QDomNode & node)
         }
         else {
             qDebug() << "Component::parseXmlNode: invalid element! \"" << child.nodeName() << "\"";
-            // fprintf(stderr, "<component> element contains invalidate element %s\n", child.nodeName().data());
             return false;
         }
     }
@@ -197,13 +191,37 @@ bool Component::parseObservedPaths(const QDomNode & node)
     return true;
 }
 
-bool Component::parseEngines(const QDomNode & node)
+bool Component::parseEngines(QDomNode node)
 {
     if ( node.nodeName().compare("engines") ) {
         return false;
     }
 
+    QString exec;
+    const QDomDocument * doc = NULL;
+
     /* need to add codes to support some extra situation */
+    if ( node.hasAttributes() ) {
+        QDomNamedNodeMap nnMap = node.attributes();
+        for ( uint i = 0; i < nnMap.length(); ++i ) {
+            QDomNode attrNode = nnMap.item(i);
+            if ( !attrNode.nodeName().compare("exec") ) {
+                exec = attrNode.nodeValue();
+            }
+        }
+    }
+
+    if ( 0 != exec.size() ) {
+        QProcess * newProc = new QProcess;
+        newProc->setStandardOutputFile(".engines.xml");
+        newProc->start(exec);
+        doc = parseXmlFile(".engines.xml");
+        QDomElement docElem = doc->documentElement();
+        QDomNode enginesNode = static_cast<QDomNode>(docElem);
+        if ( 0 == enginesNode.nodeName().compare("engines") ) {
+            node = enginesNode;
+        }
+    }
 
     int i = 0;
     QDomNode child = node.firstChild();
@@ -216,12 +234,20 @@ bool Component::parseEngines(const QDomNode & node)
         m_engines.push_back(engiDesc);
     }
 
+    if ( !doc ) {
+        delete doc;
+    }
+
     return true;
 }
 
 const ComponentPointer Component::newComponentFromFile (const QString & filename) const
 {
     const QDomDocument * doc = parseXmlFile(filename);
+    if ( !doc ) {
+        return NULL;
+    }
+
     QDomElement docElem = doc->documentElement();
     QDomNode root = static_cast<QDomNode>(docElem);
 
@@ -245,11 +271,12 @@ const ComponentPointer Component::newComponentFromFile (const QString & filename
     observedPathPtr->setObservedPathStat();
     compnt->getObservedPathVec().push_back(observedPathPtr);
 
+    delete doc;
     return compnt;
 }
 
-const
-QDomDocument * Component::parseXmlFile (const QString & filename) const
+const QDomDocument * 
+Component::parseXmlFile (const QString & filename) const
 {
     QFile file(filename);
     if ( !file.open(QIODevice::ReadOnly) ) {
@@ -267,6 +294,7 @@ QDomDocument * Component::parseXmlFile (const QString & filename) const
         return NULL;
     }
 
+    file.close();
     return doc;
 }
 
