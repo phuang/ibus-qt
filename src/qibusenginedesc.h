@@ -1,6 +1,7 @@
 #ifndef __Q_IBUS_ENGINE_DESC_H_
 #define __Q_IBUS_ENGINE_DESC_H_
 
+#include <QDebug>
 #include <QXmlStreamWriter>
 #include <QtXml/QDomNode>
 #include "qibusserializable.h"
@@ -15,7 +16,7 @@ class EngineDesc : public Serializable
     Q_OBJECT;
 
 public:
-    EngineDesc (): m_rank(0), m_errFlag(false)
+    EngineDesc (): m_rank(0)
     {}
     EngineDesc (QString name,
                 QString lname,
@@ -33,9 +34,7 @@ public:
                 m_author(auth),
                 m_icon(icon),
                 m_layout(layout)
-    {
-                m_errFlag = false;
-    }
+    {}
 
     virtual ~EngineDesc() {}
 
@@ -63,8 +62,6 @@ private:
     uint    m_rank;
 
     QMap<QString, QString> m_engineInfo;
-
-    bool    m_errFlag;
 
     IBUS_SERIALIZABLE
 };

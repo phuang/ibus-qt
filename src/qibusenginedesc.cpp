@@ -78,10 +78,11 @@ EngineDesc::output (QString & output) const
 bool
 EngineDesc::parseXmlNode (const QDomNode & node)
 {
-    QString nodename(node.nodeName());
-    if ( nodename.compare("engine") ) {
+    if ( node.nodeName().compare("engine") ) {
         return false;
     }
+
+    bool errFlag = false;
 
     QDomNode child = node.firstChild();
     for ( ; !child.isNull() ; child = child.nextSibling() ) {
@@ -113,12 +114,17 @@ EngineDesc::parseXmlNode (const QDomNode & node)
             m_rank = child.nodeValue().toInt();
         }
         else {
-           m_errFlag = true;
-           break;
+            QString s;
+            QXmlStreamWriter stream(&s);
+            stream.writeTextElement(child.nodeName(), child.nodeValue());
+            qDebug() << "EngineDesc::parseXmlNode, Unknown element, \"<" << s << "\"";
+
+            errFlag = true;
+            break;
         }
     }
 
-    if ( m_errFlag ) {
+    if ( errFlag ) {
         return false;
     }
 

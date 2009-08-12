@@ -22,14 +22,14 @@ class Component : public Serializable
 
 public:
     Component () {}
-    Component (QString name,
-               QString desc,
-               QString vers,
-               QString lics,
-               QString auth,
-               QString hmpg,
-               QString exec,
-               QString textdomain
+    Component (const QString & name,
+               const QString & desc,
+               const QString & vers,
+               const QString & lics,
+               const QString & auth,
+               const QString & hmpg,
+               const QString & exec,
+               const QString & textdomain
                ):
                m_name(name),
                m_description(desc),

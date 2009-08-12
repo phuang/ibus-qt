@@ -121,6 +121,7 @@ Component::parseXmlNode (const QDomNode & node)
     if ( node.nodeName().compare("component") )
         return false;
 
+    bool errFlag = false;
     QDomNode child = node.firstChild();
     for ( ; !child.isNull(); child = child.nextSibling() ) {
         if ( !child.nodeName().compare("name") ) {
@@ -158,9 +159,18 @@ Component::parseXmlNode (const QDomNode & node)
             }
         }
         else {
-            qDebug() << "Component::parseXmlNode: invalid element! \"" << child.nodeName() << "\"";
-            return false;
+            QString s;
+            QXmlStreamWriter stream(&s);
+            stream.writeTextElement(child.nodeName(), child.nodeValue());
+            qDebug() << "Component::parseXmlNode, Unknown element, \"<" << s << "\"";
+
+            errFlag = true;
+            break;
         }
+    }
+
+    if ( !errFlag ) {
+        return false;
     }
 
     return true;
