@@ -213,7 +213,7 @@ bool Component::parseEngines(QDomNode node)
 
     if ( 0 != exec.size() ) {
         QProcess * newProc = new QProcess;
-        newProc->setStandardOutputFile(".engines.xml");
+        newProc->setStandardOutputFile(".engines.xml", QIODevice::WriteOnly | QIODevice::Truncate);
         newProc->start(exec);
         doc = parseXmlFile(".engines.xml");
         QDomElement docElem = doc->documentElement();

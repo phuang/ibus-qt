@@ -53,10 +53,9 @@ public:
     bool parseEngines (QDomNode node);
     bool parseObservedPaths (const QDomNode & node);
 
-    const ComponentPointer newComponentFromFile (const QString & filename) const;
-
     void addObservedPath (const QString & filename);
     void addEngine (const EngineDescPointer edp);
+    const ComponentPointer newComponentFromFile (const QString & filename) const;
 
     QVector<ObservedPathPointer> getObservedPathVec () const;
     const QVector<EngineDescPointer> & getEnginesVec () const;
