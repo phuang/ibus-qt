@@ -1,4 +1,5 @@
 #include "qibusobservedpath.h"
+#include <QDebug>
 
 namespace IBus {
 
@@ -66,7 +67,7 @@ ObservedPath::parseXmlNode (const QDomNode & node)
         }
     }
     else {
-        fprintf(stderr, "Invalid path: %s\n", node.nodeValue().data());
+        qDebug() << "ObservedPath::parseXmlNode: invalid path! \"" << node.nodeValue() << "\"";
         return false;
     }
 
@@ -123,11 +124,9 @@ ObservedPath::traverseObservedPath (QVector<ObservedPathPointer> & observedPathV
         QString file = files.at(i);
         ObservedPathPointer observedPathPtr = new ObservedPath(file);
         observedPathPtr->setObservedPathStat();
+        observedPathVec.push_back(observedPathPtr);
 
-        if ( observedPathPtr->isRegularFile() ) {
-            observedPathVec.push_back(observedPathPtr);
-        }
-        else if ( observedPathPtr->isDirFile() ) {
+        if ( observedPathPtr->isDirFile() ) {
             observedPathPtr->traverseObservedPath(observedPathVec);
         }
     }

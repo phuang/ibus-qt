@@ -55,9 +55,16 @@ public:
     void addEngine (const EngineDescPointer edp);
 
     QVector<ObservedPathPointer> getObservedPathVec () const;
+    const QVector<EngineDescPointer> & getEnginesVec () const;
+
+    bool start (bool verbose) const;
+    bool stop () const;
+    bool isRunning () const;
+    bool isComponentModified () const;
+    const ComponentPointer getComponentFromEngine (EngineDescPointer edp) const;
 
 private:
-    const QDomNode * parseXmlFile (const QString & filename) const;
+    const QDomDocument * parseXmlFile (const QString & filename) const;
 
 private:
     QString m_name;

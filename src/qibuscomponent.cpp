@@ -1,14 +1,13 @@
 #include <stdio.h>
+#include <QFile>
 #include <QXmlStreamWriter>
 #include "qibuscomponent.h"
 #include "qibusobservedpath.h"
+#include <QDebug>
 
 namespace IBus {
 
 IBUS_DECLARE_SERIALIZABLE(Component, IBusComponent);
-
-// this is a friend function, which is defined in class ObservedPath
-const ObservedPathPointer newObserverdPathFromXmlNode (const QDomNode & node);
 
 bool
 Component::serialize (QDBusArgument &argument) const
@@ -164,7 +163,8 @@ Component::parseXmlNode (const QDomNode & node)
             }
         }
         else {
-            fprintf(stderr, "<component> element contains invalidate element %s\n", child.nodeName().data());
+            qDebug() << "Component::parseXmlNode: invalid element! \"" << child.nodeName() << "\"";
+            // fprintf(stderr, "<component> element contains invalidate element %s\n", child.nodeName().data());
             return false;
         }
     }
@@ -203,6 +203,8 @@ bool Component::parseEngines(const QDomNode & node)
         return false;
     }
 
+    /* need to add codes to support some extra situation */
+
     int i = 0;
     QDomNode child = node.firstChild();
     for ( ; !child.isNull(); child = child.nextSibling(), ++i ) {
@@ -219,26 +221,25 @@ bool Component::parseEngines(const QDomNode & node)
 
 const ComponentPointer Component::newComponentFromFile (const QString & filename) const
 {
-    const QDomNode * root = parseXmlFile(filename);
-    if ( !root ) {
-        return NULL;
-    }
+    const QDomDocument * doc = parseXmlFile(filename);
+    QDomElement docElem = doc->documentElement();
+    QDomNode root = static_cast<QDomNode>(docElem);
 
     ComponentPointer compnt = new Component;
     if ( !compnt ) {
-        fprintf(stderr, "Component::newComponentFromXmlFile::new error!\n");
+        qDebug() << "Component::newComponentFromFile: new error!";
         return NULL;
     }
 
-    if( compnt->parseXmlNode(*root) ) {
-        fprintf(stderr, "Component::newComponentFromXmlFile error!\n");
+    if( compnt->parseXmlNode(root) ) {
+        qDebug() << "Component::newComponentFromFile: parseXmlNode error!";
         return NULL;
     }
 
     // append filename to m_observedPath in compnt
     ObservedPathPointer observedPathPtr = new ObservedPath(filename);
     if ( !observedPathPtr ) {
-        fprintf(stderr, "new error!\n");
+        qDebug() << "Component::newComponentFromFile: new error!";
         return NULL;
     }
     observedPathPtr->setObservedPathStat();
@@ -247,20 +248,36 @@ const ComponentPointer Component::newComponentFromFile (const QString & filename
     return compnt;
 }
 
-const QDomNode * Component::parseXmlFile (const QString & filename) const
+const
+QDomDocument * Component::parseXmlFile (const QString & filename) const
 {
-    // need to code
-    return NULL;
+    QFile file(filename);
+    if ( !file.open(QIODevice::ReadOnly) ) {
+        qDebug() << "Component::parseXmlFile: open failed!";
+        return NULL;
+    }
+
+    QString errMsg;
+    int errLine;
+    int errColumn;
+
+    QDomDocument * doc = new QDomDocument;
+    if ( !doc->setContent(&file, &errMsg, &errLine, &errColumn) ) {
+        qDebug() << errMsg << "line: " << errLine <<", column: " << errColumn;
+        return NULL;
+    }
+
+    return doc;
 }
 
 void
 Component::addObservedPath (const QString & filename)
 {
     ObservedPathPointer obsPathPtr = new ObservedPath(filename);
-    if ( obsPathPtr->isRegularFile() ) {
-        obsPathPtr->setObservedPathStat();
-    }
-    else if ( obsPathPtr->isDirFile() ) {
+
+    obsPathPtr->setObservedPathStat();
+
+    if ( obsPathPtr->isDirFile() ) {
         obsPathPtr->traverseObservedPath(m_observedPaths);
     }
 
@@ -278,5 +295,41 @@ Component::getObservedPathVec () const
 {
     return m_observedPaths;
 }
+
+const QVector<EngineDescPointer> &
+Component::getEnginesVec () const
+{
+    return m_engines;
+}
+
+bool
+Component::start (bool verbose) const
+{ return true; /* need to code */ }
+
+bool
+Component::stop () const
+{ return true; /* need to code */ }
+
+bool
+Component::isRunning () const
+{
+    return (m_pid == 0);
+}
+
+bool
+Component::isComponentModified () const
+{
+    for ( int i = 0; i < m_observedPaths.size(); ++i ) {
+        if ( m_observedPaths[i]->isObservedPathModified() ) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+const ComponentPointer
+Component::getComponentFromEngine (EngineDescPointer edp) const
+{ /* need to code */ }
 
 };
