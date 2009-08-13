@@ -210,7 +210,6 @@ bool Component::parseEngines(QDomNode node)
     QString exec;
     const QDomDocument * doc = NULL;
 
-    /* need to add codes to support some extra situation */
     if ( node.hasAttributes() ) {
         QDomNamedNodeMap nnMap = node.attributes();
         for ( uint i = 0; i < nnMap.length(); ++i ) {
@@ -223,14 +222,22 @@ bool Component::parseEngines(QDomNode node)
 
     if ( 0 != exec.size() ) {
         QProcess * newProc = new QProcess;
-        newProc->setStandardOutputFile(".engines.xml", QIODevice::WriteOnly | QIODevice::Truncate);
         newProc->start(exec);
-        doc = parseXmlFile(".engines.xml");
-        QDomElement docElem = doc->documentElement();
-        QDomNode enginesNode = static_cast<QDomNode>(docElem);
+        if ( newProc->waitForFinished(3000) ) {}
+        QByteArray output = newProc->readAllStandardOutput();
+
+        if ( output.isEmpty() ) {
+            qDebug() << "Component::parseEngines: " << "empty engines!";
+            return false;
+        }
+
+        doc = parseXmlBuffer(output);
+        const QDomNode enginesNode = static_cast<QDomNode>(doc->documentElement());
         if ( 0 == enginesNode.nodeName().compare("engines") ) {
             node = enginesNode;
         }
+
+        delete newProc;
     }
 
     int i = 0;
@@ -299,12 +306,38 @@ Component::parseXmlFile (const QString & filename) const
     int errColumn;
 
     QDomDocument * doc = new QDomDocument;
+    if( !doc ) {
+        qDebug() << "Component::parseXmlFile: " << "new error!";
+        return NULL;
+    }
+
     if ( !doc->setContent(&file, &errMsg, &errLine, &errColumn) ) {
         qDebug() << errMsg << "line: " << errLine <<", column: " << errColumn;
         return NULL;
     }
 
     file.close();
+    return doc;
+}
+
+const QDomDocument * 
+Component::parseXmlBuffer (const QByteArray & buf)
+{
+    QString errMsg;
+    int errLine;
+    int errColumn;
+
+    QDomDocument * doc = new QDomDocument;
+    if( !doc ) {
+        qDebug() << "Component::parseXmlBuffer: " << "new error!";
+        return NULL;
+    }
+
+    if ( !doc->setContent(buf, &errMsg, &errLine, &errColumn) ) {
+        qDebug() << errMsg << "line: " << errLine <<", column: " << errColumn;
+        return NULL;
+    }
+
     return doc;
 }
 

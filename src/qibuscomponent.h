@@ -68,6 +68,7 @@ public:
 
 private:
     const QDomDocument * parseXmlFile (const QString & filename) const;
+    const QDomDocument * parseXmlBuffer (const QByteArray & buf);
 
 private:
     QString m_name;
