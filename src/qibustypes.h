@@ -46,7 +46,7 @@ typedef enum {
     CapProperty          = 1 << 4,
 } Capabilite;
 
-typedef struct Rectangle {
+typedef struct {
     uint x;
     uint y;
     uint width;
