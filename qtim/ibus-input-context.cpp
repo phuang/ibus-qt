@@ -36,6 +36,25 @@
 # endif
 #endif
 
+#include <stdlib.h>
+
+#include <ibuskeysyms.h>
+#include "ibus-compose-data.h"
+
+typedef struct _IBusComposeTableCompat IBusComposeTableCompat;
+struct _IBusComposeTableCompat {
+    const quint16 *data;
+    int max_seq_len;
+    int n_index_size;
+    int n_index_stride;
+};
+
+static const IBusComposeTableCompat ibus_compose_table_compact = {
+    ibus_compose_seqs_compact,
+    5,
+    23,
+    6
+};
 
 typedef QInputMethodEvent::Attribute QAttribute;
 
