@@ -72,14 +72,7 @@ IBusInputContext::~IBusInputContext (void)
 bool
 IBusInputContext::filterEvent (const QEvent *event)
 {
-#ifndef Q_WS_X11
-    if (client->filterEvent (this, event)) {
-        return true;
-    }
     return QInputContext::filterEvent (event);
-#else
-    return QInputContext::filterEvent (event);
-#endif
 }
 
 QFont
@@ -210,12 +203,6 @@ translate_x_key_event (XEvent *xevent, uint *keyval, uint *keycode, uint *state)
 bool
 IBusInputContext::x11FilterEvent (QWidget *keywidget, XEvent *xevent)
 {
-#if 0
-    if (client->x11FilterEvent (this, keywidget, xevent)) {
-            return true;
-    }
-#endif
-
     if (!m_context.isNull ()) {
         uint keyval = 0;
         uint keycode = 0;
@@ -224,7 +211,9 @@ IBusInputContext::x11FilterEvent (QWidget *keywidget, XEvent *xevent)
         translate_x_key_event (xevent, &keyval, &keycode, &state);
         keycode -= 8;
 
-        return m_context->processKeyEvent (keyval, keycode, state);
+        if (m_context->processKeyEvent (keyval, keycode, state)) {
+            return true;
+        }
     }
 
     return QInputContext::x11FilterEvent (keywidget, xevent);
