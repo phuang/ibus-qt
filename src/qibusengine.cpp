@@ -2,10 +2,38 @@
 
 namespace IBus {
 
-Engine::Engine (bool enabled, bool hasFocus)
+Engine::Engine (bool enabled, bool hasFocus, const QString & engineName)
 {
     m_enabled = enabled;
     m_hasFocus = hasFocus;
+
+    m_engineName = engineName;
+}
+
+const QString &
+Engine::getEngineName () const
+{
+    return m_engineName;
+}
+
+void
+Engine::updateLookupTableFast (const LookupTablePointer & lookupTablePtr, bool visible)
+{
+    if ( static_cast<uint>(lookupTablePtr->getCandidates().size()) <= (lookupTablePtr->getPageSize() << 2) ) {
+        updateLookupTable(lookupTablePtr, visible);
+        return ;
+    }
+
+    LookupTable newLookupTable(lookupTablePtr->getPageSize(), 0, lookupTablePtr->isCursorVisible(), lookupTablePtr->isRound());
+    uint pageNumBegin = lookupTablePtr->getCursorPos() / lookupTablePtr->getPageSize();
+
+    for ( int i = 0; i < (lookupTablePtr->getCandidates().size()) \
+                    && i < static_cast<int>(pageNumBegin * lookupTablePtr->getPageSize() + lookupTablePtr->getPageSize()); ++i ) {
+        newLookupTable.appendCandidate(lookupTablePtr->getCandidate(i));
+    }
+
+    newLookupTable.setCursorPos(lookupTablePtr->getCursorPos());
+    updateLookupTable(static_cast<LookupTablePointer>(&newLookupTable), visible);
 }
 
 void

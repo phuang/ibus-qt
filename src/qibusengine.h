@@ -18,13 +18,16 @@ class Engine : public Object
 
 public :
     Engine () {}
-    Engine (bool enabled, bool hasFocus);
+    Engine (bool enabled, bool hasFocus, const QString & engineName);
+
     ~Engine () {}
 
 public :
+    const QString & getEngineName () const;
+    void updateLookupTableFast (const LookupTablePointer & lookupTablePtr, bool visible);
 
 private :
-    void commitText (const TextPointer text)
+    void commitText (const TextPointer & text)
     {
         CommitText(qDBusVariantFromSerializable (text));
     }
@@ -69,7 +72,7 @@ private :
         PageUpLookupTable();
     }
 
-    void registerProperties (const PropertyPointer props)
+    void registerProperties (const PropertyPointer & props)
     {
         RegisterProperties(qDBusVariantFromSerializable(props));
     }
@@ -89,22 +92,22 @@ private :
         ShowPreeditText();
     }
 
-    void updateAuxiliaryText (const TextPointer text, bool visible)
+    void updateAuxiliaryText (const TextPointer & text, bool visible)
     {
         UpdateAuxiliaryText(qDBusVariantFromSerializable(text), visible);
     }
 
-    void updateLookupTable (const LookupTablePointer lookupTable, bool visible)
+    void updateLookupTable (const LookupTablePointer & lookupTable, bool visible)
     {
         UpdateLookupTable(qDBusVariantFromSerializable(lookupTable), visible);
     }
 
-    void updatePreeditText (const TextPointer text, uint cursorPos, bool visible)
+    void updatePreeditText (const TextPointer & text, uint cursorPos, bool visible)
     {
         UpdatePreeditText(qDBusVariantFromSerializable(text), cursorPos, visible);
     }
 
-    void updateProperty (const PropertyPointer &prop)
+    void updateProperty (const PropertyPointer & prop)
     {
         UpdateProperty(qDBusVariantFromSerializable(prop));
     }
@@ -168,6 +171,8 @@ Q_SIGNALS :
     void UpdateProperty (const QDBusVariant &prop);
 
 private :
+    QString m_engineName;
+
     bool m_enabled;
     bool m_hasFocus;
 
