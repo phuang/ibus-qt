@@ -27,6 +27,7 @@ set(
     qibusinputcontext.cpp
     qibusobservedpath.cpp
     qibusengine.cpp
+    qibusservice.cpp
 )
 
 set(
@@ -48,6 +49,7 @@ set(
     qibusinputcontext.h
     qibusobservedpath.h
     qibusengine.h
+    qibusservice.h
 )
 
 # QT4_ADD_DBUS_INTERFACE(

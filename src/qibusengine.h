@@ -24,112 +24,112 @@ public :
 public :
 
 private :
-    inline void commitText (const TextPointer text)
+    void commitText (const TextPointer text)
     {
         CommitText(qDBusVariantFromSerializable (text));
     }
 
-    inline void cursorDownLookupTable ()
+    void cursorDownLookupTable ()
     {
         cursorDownLookupTable();
     }
 
-    inline void cursorUpLookupTable ()
+    void cursorUpLookupTable ()
     {
         CursorUpLookupTable();
     }
 
-    inline void forwardKeyEvent (uint keyval, uint state)
+    void forwardKeyEvent (uint keyval, uint state)
     {
         ForwardKeyEvent(keyval, state);
     }
 
-    inline void hideAuxiliaryText ()
+    void hideAuxiliaryText ()
     {
         HideAuxiliaryText();
     }
 
-    inline void hideLookupTable ()
+    void hideLookupTable ()
     {
         HideLookupTable();
     }
 
-    inline void hidePreeditText ()
+    void hidePreeditText ()
     {
         HidePreeditText();
     }
 
-    inline void pageDownLookupTable ()
+    void pageDownLookupTable ()
     {
         PageDownLookupTable();
     }
 
-    inline void pageUpLookupTable ()
+    void pageUpLookupTable ()
     {
         PageUpLookupTable();
     }
 
-    inline void registerProperties (const PropertyPointer props)
+    void registerProperties (const PropertyPointer props)
     {
         RegisterProperties(qDBusVariantFromSerializable(props));
     }
 
-    inline void showAuxiliaryText ()
+    void showAuxiliaryText ()
     {
         ShowAuxiliaryText();
     }
 
-    inline void showLookupTable ()
+    void showLookupTable ()
     {
         ShowLookupTable();
     }
 
-    inline void showPreeditText ()
+    void showPreeditText ()
     {
         ShowPreeditText();
     }
 
-    inline void updateAuxiliaryText (const TextPointer text, bool visible)
+    void updateAuxiliaryText (const TextPointer text, bool visible)
     {
         UpdateAuxiliaryText(qDBusVariantFromSerializable(text), visible);
     }
 
-    inline void updateLookupTable (const LookupTablePointer lookupTable, bool visible)
+    void updateLookupTable (const LookupTablePointer lookupTable, bool visible)
     {
         UpdateLookupTable(qDBusVariantFromSerializable(lookupTable), visible);
     }
 
-    inline void updatePreeditText (const TextPointer text, uint cursorPos, bool visible)
+    void updatePreeditText (const TextPointer text, uint cursorPos, bool visible)
     {
         UpdatePreeditText(qDBusVariantFromSerializable(text), cursorPos, visible);
     }
 
-    inline void updateProperty (const PropertyPointer prop)
+    void updateProperty (const PropertyPointer &prop)
     {
         UpdateProperty(qDBusVariantFromSerializable(prop));
     }
 
 public :
-    // IME developpers need to implement following functions
-    virtual void candidateClicked (uint index, uint button, uint state) = 0;
-    virtual void cursorDown () = 0;
-    virtual void cursorUp () = 0;
-    virtual void destroy () = 0;
-    virtual void disable () = 0;
-    virtual void enable () = 0;
-    virtual void focusIn () = 0;
-    virtual void focusOut () = 0;
-    virtual void pageDown () = 0;
-    virtual void pageUp () = 0;
+    // IME developpers need to implement following functions, only processKeyEvent is mandotory
+    virtual void candidateClicked (uint index, uint button, uint state);
+    virtual void cursorDown ();
+    virtual void cursorUp ();
+    virtual void destroy ();
+    virtual void disable ();
+    virtual void enable ();
+    virtual void focusIn ();
+    virtual void focusOut ();
+    virtual void pageDown ();
+    virtual void pageUp ();
     virtual bool processKeyEvent (uint keyval, uint keycode, uint state) = 0;
-    virtual void propertyActivate (const QString &prop_name, int prop_state) = 0;
-    virtual void propertyHide (const QString &prop_name) = 0;
-    virtual void propertyShow (const QString &prop_name) = 0;
-    virtual void reset () = 0;
-    virtual void setCapabilities (uint cap) = 0;
-    virtual void setCursorLocation (int x, int y, int w, int h) = 0;
+    virtual void propertyActivate (const QString &prop_name, int prop_state);
+    virtual void propertyHide (const QString &prop_name);
+    virtual void propertyShow (const QString &prop_name);
+    virtual void reset ();
+    virtual void setCapabilities (uint cap);
+    virtual void setCursorLocation (int x, int y, int w, int h);
 
-public slots :
+private Q_SLOTS:
     void CandidateClicked (uint index, uint button, uint state);
     void CursorDown ();
     void CursorUp ();
@@ -146,9 +146,9 @@ public slots :
     void PropertyShow (const QString &prop_name);
     void Reset ();
     void SetCapabilities (uint cap);
-    void SetCursorLocation (int x, int y, int w, int h); 
+    void SetCursorLocation (int x, int y, int w, int h);
 
-signals :
+Q_SIGNALS :
     void CommitText (const QDBusVariant &text);
     void CursorDownLookupTable ();
     void CursorUpLookupTable ();
