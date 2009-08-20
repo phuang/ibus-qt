@@ -41,19 +41,39 @@
 #include <ibuskeysyms.h>
 #include "ibus-compose-data.h"
 
-typedef struct _IBusComposeTableCompat IBusComposeTableCompat;
-struct _IBusComposeTableCompat {
+typedef struct _IBusComposeTableCompact IBusComposeTableCompact;
+struct _IBusComposeTableCompact {
     const quint16 *data;
     int max_seq_len;
     int n_index_size;
     int n_index_stride;
 };
 
-static const IBusComposeTableCompat ibus_compose_table_compact = {
+static const IBusComposeTableCompact ibus_compose_table_compact = {
     ibus_compose_seqs_compact,
     5,
     23,
     6
+};
+
+static const uint ibus_compose_ignore[] = {
+    IBUS_Shift_L,
+    IBUS_Shift_R,
+    IBUS_Control_L,
+    IBUS_Control_R,
+    IBUS_Caps_Lock,
+    IBUS_Shift_Lock,
+    IBUS_Meta_L,
+    IBUS_Meta_R,
+    IBUS_Alt_L,
+    IBUS_Alt_R,
+    IBUS_Super_L,
+    IBUS_Super_R,
+    IBUS_Hyper_L,
+    IBUS_Hyper_R,
+    IBUS_Mode_switch,
+    IBUS_ISO_Level3_Shift,
+    IBUS_VoidSymbol
 };
 
 typedef QInputMethodEvent::Attribute QAttribute;
@@ -65,9 +85,19 @@ IBusInputContext::IBusInputContext (const BusPointer &bus)
       m_preedit_visible (false),
       m_preedit_cursor_pos (0),
       m_has_focus (false),
-      m_caps (CapPreeditText | CapFocus)
+      m_caps (CapPreeditText | CapFocus),
+      m_n_compose (0)
 {
     Q_ASSERT (!m_bus.isNull ());
+
+    m_compose_buffer[0] =
+    m_compose_buffer[1] =
+    m_compose_buffer[2] =
+    m_compose_buffer[3] =
+    m_compose_buffer[4] =
+    m_compose_buffer[5] =
+    m_compose_buffer[6] =
+    m_compose_buffer[7] = 0;
 
     createInputContext ();
 
@@ -222,21 +252,146 @@ translate_x_key_event (XEvent *xevent, uint *keyval, uint *keycode, uint *state)
 bool
 IBusInputContext::x11FilterEvent (QWidget *keywidget, XEvent *xevent)
 {
+    uint keyval = 0;
+    uint keycode = 0;
+    uint state = 0;
+
+    translate_x_key_event (xevent, &keyval, &keycode, &state);
+    keycode -= 8;
+
     if (!m_context.isNull ()) {
-        uint keyval = 0;
-        uint keycode = 0;
-        uint state = 0;
-
-        translate_x_key_event (xevent, &keyval, &keycode, &state);
-        keycode -= 8;
-
         if (m_context->processKeyEvent (keyval, keycode, state)) {
             return true;
         }
     }
 
+    return processCompose (keyval, state);
+
     return QInputContext::x11FilterEvent (keywidget, xevent);
 }
+
+bool
+IBusInputContext::processCompose (uint keyval, uint state)
+{
+    int i;
+
+    if (state & IBus::ReleaseMask)
+        return false;
+
+    for (i = 0; ibus_compose_ignore[i] != IBUS_VoidSymbol; i++) {
+        if (keyval == ibus_compose_ignore[i])
+            return false;
+    }
+
+    m_compose_buffer[m_n_compose ++] = keyval;
+    m_compose_buffer[m_n_compose] = 0;
+
+    return checkCompactTable (&ibus_compose_table_compact);
+}
+
+static int
+compare_seq_index (const void *key, const void *value) {
+    const uint *keysyms = (const uint *)key;
+    const quint16 *seq = (const quint16 *)value;
+
+    if (keysyms[0] < seq[0])
+        return -1;
+    else if (keysyms[0] > seq[0])
+        return 1;
+    return 0;
+}
+
+static int
+compare_seq (const void *key, const void *value) {
+    int i = 0;
+    const uint *keysyms = (const uint *)key;
+    const quint16 *seq = (const quint16 *)value;
+
+    while (keysyms[i]) {
+        if (keysyms[i] < seq[i])
+            return -1;
+        else if (keysyms[i] > seq[i])
+            return 1;
+        i++;
+    }
+
+    return 0;
+}
+
+
+bool
+IBusInputContext::checkCompactTable (const IBusComposeTableCompact *table)
+{
+    qDebug () << "check";
+    int row_stride;
+    const quint16 *seq_index;
+    const quint16 *seq;
+    int i;
+
+    /* Will never match, if the sequence in the compose buffer is longer
+     * than the sequences in the table.  Further, compare_seq (key, val)
+     * will overrun val if key is longer than val. */
+    if (m_n_compose > table->max_seq_len)
+        return false;
+
+    seq_index = (const quint16 *)bsearch (m_compose_buffer,
+                                          table->data, table->n_index_size,
+                                          sizeof (quint16) * table->n_index_stride,
+                                          compare_seq_index);
+    qDebug () << "m_n_compose = " << m_n_compose;
+    qDebug () << "seq_index = " << seq_index;
+
+    if (!seq_index) {
+        m_compose_buffer[0] = 0;
+        m_n_compose = 0;
+        return false;
+    }
+
+    if (seq_index && m_n_compose == 1) {
+        return true;
+    }
+
+    seq = NULL;
+    for (i = m_n_compose-1; i < table->max_seq_len; i++) {
+        row_stride = i + 1;
+
+        if (seq_index[i+1] - seq_index[i] > 0) {
+            seq = (const quint16 *) bsearch (m_compose_buffer + 1,
+                                             table->data + seq_index[i], (seq_index[i+1] - seq_index[i]) / row_stride,
+                                             sizeof (quint16) *  row_stride,
+                                             compare_seq);
+            qDebug () << "for seq = " << seq;
+
+            if (seq) {
+                if (i == m_n_compose - 1)
+                    break;
+                else {
+                    // g_signal_emit_by_name (context_simple, "preedit-changed");
+                    return true;
+                }
+            }
+        }
+    }
+
+    qDebug () << "seq = " << seq;
+
+    if (!seq) {
+        m_compose_buffer[0] = 0;
+        m_n_compose = 0;
+        return false;
+    }
+    else
+    {
+        uint value;
+        value = seq[row_stride - 1];
+        slotCommitText (new Text (QChar (value)));
+        m_compose_buffer[0] = 0;
+        m_n_compose = 0;
+        return true;
+    }
+    return false;
+}
+
 #endif
 
 void

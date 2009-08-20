@@ -19,6 +19,7 @@ protected:
 public:
     Text () {}
     Text (const QString &text) : m_text (text) {}
+    Text (const QChar &ch) : m_text (ch) {}
 
 public:
     virtual bool serialize (QDBusArgument &argument) const;

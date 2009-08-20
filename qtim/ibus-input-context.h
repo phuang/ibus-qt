@@ -25,6 +25,8 @@
 #include <QList>
 #include <qibusinputcontext.h>
 
+typedef struct _IBusComposeTableCompact IBusComposeTableCompact;
+
 using namespace IBus;
 
 class IBusInputContext : public QInputContext  {
@@ -59,6 +61,8 @@ private:
 	void createInputContext (void);
 	void deleteInputContext (void);
 	void displayPreeditText (const TextPointer &text, uint cursor_pos, bool visible);
+	bool processCompose (uint keyval, uint state);
+	bool checkCompactTable (const IBusComposeTableCompact *table);
 
 private:
 	BusPointer m_bus;
@@ -68,6 +72,8 @@ private:
 	uint m_preedit_cursor_pos;
 	bool m_has_focus;
 	uint m_caps;
+	uint m_compose_buffer[8];
+	int m_n_compose;
 };
 
 #endif //__IBUS_INPUT_CONTEXT_H_
