@@ -1,14 +1,20 @@
 #ifndef __Q_IBUS_COMPONENT_H_
 #define __Q_IBUS_COMPONENT_H_
 
+#include <QFile>
+#include <QDebug>
+#include <QVector>
+#include <QProcess>
+#include <QXmlStreamWriter>
 #include <QtXml/QDomNode>
 #include "qibusserializable.h"
+#include "qibusenginedesc.h"
+#include "qibusobservedpath.h"
 
 namespace IBus {
 
 class Component;
 typedef Pointer<Component> ComponentPointer;
-typedef Pointer<QDomNode> QDomNodePointer;
 
 class Component : public Serializable
 {
@@ -16,16 +22,15 @@ class Component : public Serializable
 
 public:
     Component () {}
-    Component (QString name,
-               QString desc,
-               QString vers,
-               QString lics,
-               QString auth,
-               QString hmpg,
-               QString exec,
-               QString textdomain,
-               QDomNode * engineNode,
-               QDomNode * observedPathNode):
+    Component (const QString & name,
+               const QString & desc,
+               const QString & vers,
+               const QString & lics,
+               const QString & auth,
+               const QString & hmpg,
+               const QString & exec,
+               const QString & textdomain
+               ):
                m_name(name),
                m_description(desc),
                m_version(vers),
@@ -33,9 +38,7 @@ public:
                m_author(auth),
                m_homepage(hmpg),
                m_exec(exec),
-               m_textdomain(textdomain),
-               m_observedPathNode(observedPathNode),
-               m_engineNode(engineNode)
+               m_textdomain(textdomain)
     {}
 
     virtual ~Component ()
@@ -44,6 +47,28 @@ public:
 public:
     virtual bool serialize (QDBusArgument &argument) const;
     virtual bool deserialize (const QDBusArgument &argument);
+
+    void output (QString & output) const;
+    bool parseXmlNode (const QDomNode & node);
+    bool parseEngines (QDomNode node);
+    bool parseObservedPaths (const QDomNode & node);
+
+    void addObservedPath (const QString & filename);
+    void addEngine (const EngineDescPointer edp);
+    const ComponentPointer newComponentFromFile (const QString & filename) const;
+
+    QVector<ObservedPathPointer> getObservedPathVec () const;
+    const QVector<EngineDescPointer> & getEnginesVec () const;
+
+    bool start (bool verbose) const;
+    bool stop () const;
+    bool isRunning () const;
+    bool isComponentModified () const;
+    const ComponentPointer getComponentFromEngine (EngineDescPointer edp) const;
+
+private:
+    const QDomDocument * parseXmlFile (const QString & filename) const;
+    const QDomDocument * parseXmlBuffer (const QByteArray & buf);
 
 private:
     QString m_name;
@@ -55,9 +80,8 @@ private:
     QString m_exec;
     QString m_textdomain;
 
-    // QVector<QDomNode *> m_observedPathNode;
-    QDomNode * m_observedPathNode;
-    QDomNode * m_engineNode;
+    QVector<ObservedPathPointer>    m_observedPaths;
+    QVector<EngineDescPointer>      m_engines;
 
     uint    m_pid;
 

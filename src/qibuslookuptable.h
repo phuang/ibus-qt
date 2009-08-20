@@ -18,45 +18,13 @@ public:
     LookupTable (uint pageSize,
                  uint cursorPos,
                  bool cursorVisible,
-                 bool round,
-                 QVector<TextPointer> candidates,
-                 QVector<TextPointer> labels)
+                 bool round)
     : m_pageSize (pageSize),
       m_cursorPos (cursorPos),
       m_cursorVisible (cursorVisible),
-      m_round (round),
-      m_candidates (candidates),
-      m_labels (labels)
-    {
-    }
+      m_round (round)
+    {}
 
-/*
-    // copy constructor function
-    LookupTable (const LookupTablePointer &table)
-    {
-        m_pageSize = table->m_pageSize;
-        m_cursorPos = table->m_cursorPos;
-        m_cursorVisible = table->m_cursorVisible;
-        m_round = table->m_round;
-        m_candidates = table->m_candidates;
-        m_label = table->m_lable;
-    }
-
-    LookupTablePointer & operator= (const LookupTablePointer &table)
-    {
-        if ( this == table )
-            return this;
-
-        m_pageSize = other.m_pageSize;
-        m_cursorPos = other.m_cursorPos;
-        m_cursorVisible = other.m_cursorVisible;
-        m_round = other.m_round;
-        m_candidates = other.m_candidates;
-        m_label = other.m_lable;
-
-        return this;
-    }
-*/
     ~LookupTable() {}
 
 public:
@@ -64,15 +32,20 @@ public:
     virtual bool deserialize (const QDBusArgument & argument);
     void appendCandidate (const TextPointer & e);
     void appendLabel (const TextPointer & e);
+
     TextPointer getCandidate (const uint index) const;
     TextPointer getLabel (const uint index) const;
-    void setCursorPos (const uint cursorPos);
-    uint cursorPos () const { return m_cursorPos; }
-    uint cursorPosInPage () const;
-    void setCursorVisible (bool visible);
+    const QVector<TextPointer> & getCandidates () const { return m_candidates; }
+    const QVector<TextPointer> & getLables () const { return m_labels; }
+    const uint getCursorPos () const { return m_cursorPos; }
+    const uint getPageSize () const {return m_pageSize; }
     bool isCursorVisible () const { return m_cursorVisible; }
+    bool isRound () const { return m_round; }
+
+    void setCursorPos (const uint cursorPos);
+    void setCursorVisible (bool visible);
     void setPageSize (uint pageSize);
-    uint pageSize () const {return m_pageSize; }
+    uint cursorPosInPage () const;
 
     bool pageUp();
     bool pageDown();

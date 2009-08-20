@@ -1,0 +1,108 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN"
+"http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<node name="/">
+  <interface name="org.freedesktop.IBus.Engine">
+    <method name="CandidateClicked">
+      <arg direction="in"  type="u" name="index" />
+      <arg direction="in"  type="u" name="button" />
+      <arg direction="in"  type="u" name="state" />
+    </method>
+    <method name="SetCursorLocation">
+      <arg direction="in"  type="i" name="x" />
+      <arg direction="in"  type="i" name="y" />
+      <arg direction="in"  type="i" name="w" />
+      <arg direction="in"  type="i" name="h" />
+    </method>
+    <signal name="UpdateAuxiliaryText">
+      <arg type="v" name="text" />
+      <arg type="b" name="visible" />
+    </signal>
+    <method name="FocusOut">
+    </method>
+    <signal name="UpdateLookupTable">
+      <arg type="v" name="lookup_table" />
+      <arg type="b" name="visible" />
+    </signal>
+    <signal name="HideAuxiliaryText">
+    </signal>
+    <method name="Destroy">
+    </method>
+    <signal name="PageDownLookupTable">
+    </signal>
+    <signal name="ForwardKeyEvent">
+      <arg type="u" name="keyval" />
+      <arg type="u" name="state" />
+    </signal>
+    <method name="Enable">
+    </method>
+    <signal name="ShowAuxiliaryText">
+    </signal>
+    <method name="PageUp">
+    </method>
+    <method name="SetCapabilities">
+      <arg direction="in"  type="u" name="cap" />
+    </method>
+    <method name="Disable">
+    </method>
+    <signal name="ShowPreeditText">
+    </signal>
+    <method name="CursorUp">
+    </method>
+    <method name="Reset">
+    </method>
+    <signal name="UpdateProperty">
+      <arg type="v" name="prop" />
+    </signal>
+    <method name="ProcessKeyEvent">
+      <arg direction="in"  type="u" name="keyval" />
+      <arg direction="in"  type="u" name="keycode" />
+      <arg direction="in"  type="u" name="state" />
+      <arg direction="out" type="b" />
+    </method>
+    <signal name="HidePreeditText">
+    </signal>
+    <signal name="CommitText">
+      <arg type="v" name="text" />
+    </signal>
+    <signal name="CursorUpLookupTable">
+    </signal>
+    <method name="CursorDown">
+    </method>
+    <signal name="UpdatePreeditText">
+      <arg type="v" name="text" />
+      <arg type="u" name="cursor_pos" />
+      <arg type="b" name="visible" />
+    </signal>
+    <signal name="RegisterProperties">
+      <arg type="v" name="props" />
+    </signal>
+    <signal name="ShowLookupTable">
+    </signal>
+    <signal name="CursorDownLookupTable">
+    </signal>
+    <method name="PropertyShow">
+      <arg direction="in"  type="s" name="prop_name" />
+    </method>
+    <signal name="HideLookupTable">
+    </signal>
+    <method name="PageDown">
+    </method>
+    <method name="PropertyHide">
+      <arg direction="in"  type="s" name="prop_name" />
+    </method>
+    <method name="FocusIn">
+    </method>
+    <method name="PropertyActivate">
+      <arg direction="in"  type="s" name="prop_name" />
+      <arg direction="in"  type="i" name="prop_state" />
+    </method>
+    <signal name="PageUpLookupTable">
+    </signal>
+  </interface>
+  <interface name="org.freedesktop.DBus.Introspectable">
+    <method name="Introspect">
+      <arg direction="out" type="s" />
+    </method>
+  </interface>
+</node>
+
