@@ -37,6 +37,7 @@
 #endif
 
 #include <stdlib.h>
+#include <unicode/unorm.h>
 
 #include <ibuskeysyms.h>
 #include "ibus-compose-data.h"
@@ -261,13 +262,13 @@ IBusInputContext::x11FilterEvent (QWidget *keywidget, XEvent *xevent)
 
     if (!m_context.isNull ()) {
         if (m_context->processKeyEvent (keyval, keycode, state)) {
+            m_compose_buffer[0] = 0;
+            m_n_compose = 0;
             return true;
         }
     }
 
     return processCompose (keyval, state);
-
-    return QInputContext::x11FilterEvent (keywidget, xevent);
 }
 
 bool
@@ -286,7 +287,16 @@ IBusInputContext::processCompose (uint keyval, uint state)
     m_compose_buffer[m_n_compose ++] = keyval;
     m_compose_buffer[m_n_compose] = 0;
 
-    return checkCompactTable (&ibus_compose_table_compact);
+    if (checkCompactTable (&ibus_compose_table_compact))
+        return true;
+
+    if (checkAlgorithmically ())
+        return true;
+
+    m_compose_buffer[0] = 0;
+    m_n_compose = 0;
+
+    return false;
 }
 
 static int
@@ -322,7 +332,6 @@ compare_seq (const void *key, const void *value) {
 bool
 IBusInputContext::checkCompactTable (const IBusComposeTableCompact *table)
 {
-    qDebug () << "check";
     int row_stride;
     const quint16 *seq_index;
     const quint16 *seq;
@@ -338,8 +347,6 @@ IBusInputContext::checkCompactTable (const IBusComposeTableCompact *table)
                                           table->data, table->n_index_size,
                                           sizeof (quint16) * table->n_index_stride,
                                           compare_seq_index);
-    qDebug () << "m_n_compose = " << m_n_compose;
-    qDebug () << "seq_index = " << seq_index;
 
     if (!seq_index) {
         m_compose_buffer[0] = 0;
@@ -360,24 +367,17 @@ IBusInputContext::checkCompactTable (const IBusComposeTableCompact *table)
                                              table->data + seq_index[i], (seq_index[i+1] - seq_index[i]) / row_stride,
                                              sizeof (quint16) *  row_stride,
                                              compare_seq);
-            qDebug () << "for seq = " << seq;
-
             if (seq) {
                 if (i == m_n_compose - 1)
                     break;
                 else {
-                    // g_signal_emit_by_name (context_simple, "preedit-changed");
                     return true;
                 }
             }
         }
     }
 
-    qDebug () << "seq = " << seq;
-
     if (!seq) {
-        m_compose_buffer[0] = 0;
-        m_n_compose = 0;
         return false;
     }
     else
@@ -392,6 +392,104 @@ IBusInputContext::checkCompactTable (const IBusComposeTableCompact *table)
     return false;
 }
 
+#define IS_DEAD_KEY(k) \
+    ((k) >= IBUS_dead_grave && (k) <= (IBUS_dead_dasia+1))
+
+bool
+IBusInputContext::checkAlgorithmically ()
+{
+    int i;
+    UChar combination_buffer[IBUS_MAX_COMPOSE_LEN];
+
+    if (m_n_compose >= IBUS_MAX_COMPOSE_LEN)
+        return false;
+
+    for (i = 0; i < m_n_compose && IS_DEAD_KEY (m_compose_buffer[i]); i++);
+    if (i == m_n_compose)
+        return true;
+
+    if (i > 0 && i == m_n_compose - 1) {
+      combination_buffer[0] = m_compose_buffer[i];
+      combination_buffer[m_n_compose] = 0;
+      i--;
+      while (i >= 0) {
+      switch (m_compose_buffer[i]) {
+#define CASE(keysym, unicode) \
+        case IBUS_dead_##keysym: combination_buffer[i + 1] = unicode; break
+
+        CASE (grave, 0x0300);
+        CASE (acute, 0x0301);
+        CASE (circumflex, 0x0302);
+        CASE (tilde, 0x0303);   /* Also used with perispomeni, 0x342. */
+        CASE (macron, 0x0304);
+        CASE (breve, 0x0306);
+        CASE (abovedot, 0x0307);
+        CASE (diaeresis, 0x0308);
+        CASE (hook, 0x0309);
+        CASE (abovering, 0x030A);
+        CASE (doubleacute, 0x030B);
+        CASE (caron, 0x030C);
+        CASE (abovecomma, 0x0313);         /* Equivalent to psili */
+        CASE (abovereversedcomma, 0x0314); /* Equivalent to dasia */
+        CASE (horn, 0x031B);    /* Legacy use for psili, 0x313 (or 0x343). */
+        CASE (belowdot, 0x0323);
+        CASE (cedilla, 0x0327);
+        CASE (ogonek, 0x0328);  /* Legacy use for dasia, 0x314.*/
+        CASE (iota, 0x0345);
+        CASE (voiced_sound, 0x3099);    /* Per Markus Kuhn keysyms.txt file. */
+        CASE (semivoiced_sound, 0x309A);    /* Per Markus Kuhn keysyms.txt file. */
+        /* The following cases are to be removed once xkeyboard-config,
+         * xorg are fully updated.
+         **/
+        /* Workaround for typo in 1.4.x xserver-xorg */
+        case 0xfe66: combination_buffer[i + 1] = 0x314; break;
+        /* CASE (dasia, 0x314); */
+        /* CASE (perispomeni, 0x342); */
+        /* CASE (psili, 0x343); */
+#undef CASE
+        default:
+          combination_buffer[i + 1] = m_compose_buffer[i];
+        }
+        i--;
+    }
+      
+      /* If the buffer normalizes to a single character,
+       * then modify the order of combination_buffer accordingly, if necessary,
+       * and return TRUE. 
+       **/
+#if 0
+      if (check_normalize_nfc (combination_buffer, m_n_compose))
+        {
+          gunichar value;
+          combination_utf8 = g_ucs4_to_utf8 (combination_buffer, -1, NULL, NULL, NULL);
+          nfc = g_utf8_normalize (combination_utf8, -1, G_NORMALIZE_NFC);
+
+          value = g_utf8_get_char (nfc);
+          gtk_im_context_simple_commit_char (GTK_IM_CONTEXT (context_simple), value);
+          context_simple->compose_buffer[0] = 0;
+
+          g_free (combination_utf8);
+          g_free (nfc);
+
+          return TRUE;
+        }
+#endif
+    }
+    qDebug () << "combination_buffer = " << QString::fromUtf16(combination_buffer) << "m_n_compose" << m_n_compose;
+    UErrorCode state = U_ZERO_ERROR;
+    UChar result[IBUS_MAX_COMPOSE_LEN + 1];
+    i = unorm_normalize (combination_buffer, m_n_compose, UNORM_NFC, 0, result, IBUS_MAX_COMPOSE_LEN + 1, &state);
+    qDebug () << "result = " << QString::fromUtf16(result) << "i = " << i << state;
+    if (i == 1) {
+        qDebug () << "commit " << QString::fromUtf16(result);
+        slotCommitText (new Text (QChar (result[0])));
+        m_compose_buffer[0] = 0;
+        m_n_compose = 0;
+        return true;
+    }
+    return false;
+ 
+}
 #endif
 
 void

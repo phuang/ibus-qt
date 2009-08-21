@@ -8,6 +8,7 @@ include_directories(
 
 link_directories(
     ${DBUS_LIBRARY_DIRS}
+    ${ICU_LIBRARY_DIRS}
 )
 
 set(
@@ -37,6 +38,7 @@ target_link_libraries(
     qtim-ibus
     debug ${QT_QTGUI_LIBRARY_DEBUG}
     optimized ${QT_QTGUI_LIBRARY_RELEASE}
+    ${ICU_LIBRARIES}
     ibus-qt
 )
 

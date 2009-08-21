@@ -25,6 +25,8 @@
 #include <QList>
 #include <qibusinputcontext.h>
 
+#define IBUS_MAX_COMPOSE_LEN 7
+
 typedef struct _IBusComposeTableCompact IBusComposeTableCompact;
 
 using namespace IBus;
@@ -63,6 +65,7 @@ private:
 	void displayPreeditText (const TextPointer &text, uint cursor_pos, bool visible);
 	bool processCompose (uint keyval, uint state);
 	bool checkCompactTable (const IBusComposeTableCompact *table);
+	bool checkAlgorithmically (void);
 
 private:
 	BusPointer m_bus;
@@ -72,7 +75,7 @@ private:
 	uint m_preedit_cursor_pos;
 	bool m_has_focus;
 	uint m_caps;
-	uint m_compose_buffer[8];
+	uint m_compose_buffer[IBUS_MAX_COMPOSE_LEN + 1];
 	int m_n_compose;
 };
 

@@ -61,6 +61,7 @@ include(${QT_USE_FILE})
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(DBUS REQUIRED dbus-1)
 pkg_check_modules(IBUS REQUIRED ibus-1.0)
+pkg_check_modules(ICU REQUIRED icu)
 
 # =====
 # Define variables
