@@ -1,6 +1,8 @@
 #ifndef __Q_IBUS_TYPES_H_
 #define __Q_IBUS_TYPES_H_
 
+#include <QMetaType>
+
 namespace IBus {
 
 typedef enum
