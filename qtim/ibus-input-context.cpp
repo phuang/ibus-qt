@@ -452,10 +452,10 @@ IBusInputContext::checkAlgorithmically ()
         }
         i--;
     }
-      
+
       /* If the buffer normalizes to a single character,
        * then modify the order of combination_buffer accordingly, if necessary,
-       * and return TRUE. 
+       * and return TRUE.
        **/
 #if 0
       if (check_normalize_nfc (combination_buffer, m_n_compose))
@@ -475,20 +475,20 @@ IBusInputContext::checkAlgorithmically ()
         }
 #endif
     }
-    qDebug () << "combination_buffer = " << QString::fromUtf16(combination_buffer) << "m_n_compose" << m_n_compose;
     UErrorCode state = U_ZERO_ERROR;
     UChar result[IBUS_MAX_COMPOSE_LEN + 1];
     i = unorm_normalize (combination_buffer, m_n_compose, UNORM_NFC, 0, result, IBUS_MAX_COMPOSE_LEN + 1, &state);
-    qDebug () << "result = " << QString::fromUtf16(result) << "i = " << i << state;
+
+    // qDebug () << "combination_buffer = " << QString::fromUtf16(combination_buffer) << "m_n_compose" << m_n_compose;
+    // qDebug () << "result = " << QString::fromUtf16(result) << "i = " << i << state;
+
     if (i == 1) {
-        qDebug () << "commit " << QString::fromUtf16(result);
         slotCommitText (new Text (QChar (result[0])));
         m_compose_buffer[0] = 0;
         m_n_compose = 0;
         return true;
     }
     return false;
- 
 }
 #endif
 
