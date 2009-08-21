@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.4)
 if(COMMAND cmake_policy)
     cmake_policy(SET CMP0003 NEW)
 endif(COMMAND cmake_policy)
-
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
 # ======
 # Project information
@@ -59,9 +59,9 @@ find_package(Qt4 COMPONENTS QtCore QtGui QtDBus REQUIRED)
 include(${QT_USE_FILE})
 # check dbus
 find_package(PkgConfig REQUIRED)
+find_package(ICU REQUIRED)
 pkg_check_modules(DBUS REQUIRED dbus-1)
 pkg_check_modules(IBUS REQUIRED ibus-1.0)
-pkg_check_modules(ICU REQUIRED icu)
 
 # =====
 # Define variables
