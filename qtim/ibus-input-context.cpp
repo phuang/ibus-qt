@@ -409,6 +409,7 @@ IBusInputContext::checkCompactTable (const IBusComposeTableCompact *table)
 
 #define IS_DEAD_KEY(k) \
     ((k) >= IBUS_dead_grave && (k) <= (IBUS_dead_dasia+1))
+quint32 ibus_keyval_to_unicode (uint keyval);
 
 bool
 IBusInputContext::checkAlgorithmically ()
@@ -424,7 +425,7 @@ IBusInputContext::checkAlgorithmically ()
         return true;
 
     if (i > 0 && i == m_n_compose - 1) {
-        combination_buffer[0] = m_compose_buffer[i];
+        combination_buffer[0] = ibus_keyval_to_unicode (m_compose_buffer[i]);
         combination_buffer[m_n_compose] = 0;
         i--;
         while (i >= 0) {
@@ -462,7 +463,7 @@ IBusInputContext::checkAlgorithmically ()
             /* CASE (psili, 0x343); */
             #undef CASE
             default:
-                combination_buffer[i + 1] = m_compose_buffer[i];
+                combination_buffer[i + 1] = ibus_keyval_to_unicode (m_compose_buffer[i]);
             }
             i--;
         }

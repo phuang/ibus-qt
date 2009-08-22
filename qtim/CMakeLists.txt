@@ -14,6 +14,8 @@ link_directories(
 set(
     qtim_ibus_SRCS
     ibus-input-context.cpp
+    ibuskeyuni.cpp
+    ibus-plugin.cpp
 )
 
 set(
@@ -29,7 +31,6 @@ QT4_WRAP_CPP(
 
 add_library(
     qtim-ibus MODULE
-    ibus-plugin.cpp
     ${qtim_ibus_SRCS}
     ${qtim_ibus_MOC_SRCS}
 )
