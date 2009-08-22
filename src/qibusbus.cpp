@@ -1,3 +1,5 @@
+#include <sys/types.h>
+#include <signal.h>
 #include <stdlib.h>
 #include <QDebug>
 #include <QFile>
@@ -131,6 +133,8 @@ QString
 Bus::getAddress (void)
 {
     QString address;
+    pid_t pid = -1;
+
     QString path = getSocketPath ();
 
     QFile file(path);
@@ -146,9 +150,20 @@ Bus::getAddress (void)
 
         if (line.startsWith ("IBUS_ADDRESS=")) {
             address = line.mid (sizeof ("IBUS_ADDRESS=") -1);
-            break;
+            continue;
+        }
+
+        if (line.startsWith ("IBUS_DAEMON_PID=")) {
+            bool ok = false;
+            pid = line.mid (sizeof ("IBUS_DAEMON_PID=") - 1).toInt (&ok);
+            if (!ok)
+                pid = -1;
+            continue;
         }
     }
+
+    if (pid == -1 || kill (pid, 0) != 0)
+        address = "";
 
     return address;
 }
