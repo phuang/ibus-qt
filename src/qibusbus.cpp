@@ -105,6 +105,15 @@ QString
 Bus::getSocketPath (void)
 {
     QString display = getenv ("DISPLAY");
+    QStringList strs = display.split(":");
+    QString hostname = "unix";
+    QString display_number = "0";
+
+    if (!strs[0].isEmpty())
+        hostname = strs[0];
+    strs = strs[1].split(".");
+    if (!strs[0].isEmpty())
+        display_number = strs[0];
 
     QString path =
         QDir::homePath() +
@@ -113,7 +122,7 @@ Bus::getSocketPath (void)
         QDir::separator() + "bus" +
         QDir::separator() +
         dbus_get_local_machine_id () +
-        "-unix-0";
+        "-" + hostname + "-" + display_number;
 
     return path;
 }
