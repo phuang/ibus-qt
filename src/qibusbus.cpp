@@ -468,12 +468,12 @@ Bus::slotAddressChanged (const QString &path)
 {
     QFileInfo file(getSocketPath ());
 
-    if (file.exists () && m_watcher.files ().indexOf (file.filePath ()) == -1) {
-        m_watcher.addPath (getSocketPath ());
-    }
-
-    if (! isConnected ()) {
-        open ();
+    if (file.exists ()) {
+        if (m_watcher.files ().indexOf (file.filePath ()) == -1)
+            m_watcher.addPath (getSocketPath ());
+        if (! isConnected ()) {
+            open ();
+        }
     }
 }
 
