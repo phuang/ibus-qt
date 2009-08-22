@@ -22,6 +22,7 @@
 #include <QtDebug>
 #include <QInputMethodEvent>
 #include <QTextCharFormat>
+#include <QApplication>
 #include <qibus.h>
 #include "ibus-input-context.h"
 
@@ -269,7 +270,7 @@ IBusInputContext::x11FilterEvent (QWidget *keywidget, XEvent *xevent)
     }
 
     if (processCompose (keyval, state)) {
-        qDebug () << "processComose -> true";
+        // qDebug () << "processComose -> true";
         return true;
     }
 
@@ -293,19 +294,26 @@ IBusInputContext::processCompose (uint keyval, uint state)
     m_compose_buffer[m_n_compose] = 0;
 
     if (checkCompactTable (&ibus_compose_table_compact)) {
-        qDebug () << "checkCompactTable ->true";
+        // qDebug () << "checkCompactTable ->true";
         return true;
     }
 
     if (checkAlgorithmically ()) {
-        qDebug () << "checkAlgorithmically ->true";
+        // qDebug () << "checkAlgorithmically ->true";
         return true;
     }
 
-    m_compose_buffer[0] = 0;
-    m_n_compose = 0;
-
-    return false;
+    if (m_n_compose > 1) {
+        QApplication::beep ();
+        m_compose_buffer[0] = 0;
+        m_n_compose = 0;
+        return true;
+    }
+    else {
+        m_compose_buffer[0] = 0;
+        m_n_compose = 0;
+        return false;
+    }
 }
 
 static int
