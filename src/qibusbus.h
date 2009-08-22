@@ -1,12 +1,12 @@
 #ifndef __Q_IBUS_BUS_H_
 #define __Q_IBUS_BUS_H_
 
+#include <QFileSystemWatcher>
 #include "qibusobject.h"
 #include "qibusserializable.h"
 #include "qibusenginedesc.h"
 #include "qibuscomponent.h"
 
-class QFileSystemWatcher;
 class QDBusConnection;
 class IBusProxy;
 class DBusProxy;
@@ -62,7 +62,7 @@ private slots:
     void slotIBusDisconnected (void);
 
 private:
-    QFileSystemWatcher *m_watcher;
+    QFileSystemWatcher m_watcher;
     QDBusConnection *m_connection;
     DBusProxy *m_dbus;
     IBusProxy *m_ibus;

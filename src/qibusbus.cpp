@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <QDebug>
 #include <QFile>
+#include <QFileInfo>
 #include <QDir>
 #include <QList>
 #include <QFileSystemWatcher>
@@ -14,28 +15,27 @@
 namespace IBus {
 
 Bus::Bus (void)
-: m_watcher (NULL),
-  m_connection (NULL),
+: m_connection (NULL),
   m_dbus (NULL),
   m_ibus (NULL)
 {
+    QFileInfo file (getSocketPath ());
 
-   QString path = getSocketPath ();
-   m_watcher = new QFileSystemWatcher ();
-   m_watcher->addPath (path);
+    m_watcher.addPath (file.path ());
+    if (file.exists ()) {
+        m_watcher.addPath (file.filePath ());
+    }
 
-   QObject::connect (m_watcher, SIGNAL (fileChanged (const QString &)),
+    QObject::connect (&m_watcher, SIGNAL (fileChanged (const QString &)),
+            this, SLOT (slotAddressChanged (const QString &)));
+    QObject::connect (&m_watcher, SIGNAL (directoryChanged (const QString &)),
             this, SLOT (slotAddressChanged (const QString &)));
 
-   open ();
+    open ();
 }
 
 Bus::~Bus (void)
 {
-    if (m_watcher) {
-        delete m_watcher;
-        m_watcher = NULL;
-    }
     reset ();
 }
 
@@ -466,6 +466,12 @@ Bus::ping (const SerializablePointer &data)
 void
 Bus::slotAddressChanged (const QString &path)
 {
+    QFileInfo file(getSocketPath ());
+
+    if (file.exists () && m_watcher.files ().indexOf (file.filePath ()) == -1) {
+        m_watcher.addPath (getSocketPath ());
+    }
+
     if (! isConnected ()) {
         open ();
     }
