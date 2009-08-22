@@ -36,7 +36,7 @@ set(CPACK_SOURCE_IGNORE_FILES
     "\\\\.gitignore$"
     "/CMakeFiles/"
     "/_CPack_Packages/"
-    "\\\\.cmake$"
+    "cmake_install.cmake"
     "CMakeCache.txt$"
     "install_manifest.txt$"
     "Makefile$"
@@ -48,6 +48,8 @@ set(CPACK_SOURCE_IGNORE_FILES
     "ibus-test$"
     "/rpm/"
     "ibus-qt\\\\.spec$"
+    "CPackSourceConfig\\\\.cmake$"
+    "CPackConfig\\\\.cmake$"
 )
 include(CPack)
 configure_file(ibus-qt.spec.in ibus-qt.spec)
