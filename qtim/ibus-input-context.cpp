@@ -268,7 +268,12 @@ IBusInputContext::x11FilterEvent (QWidget *keywidget, XEvent *xevent)
         }
     }
 
-    return processCompose (keyval, state);
+    if (processCompose (keyval, state)) {
+        qDebug () << "processComose -> true";
+        return true;
+    }
+
+    return false;
 }
 
 bool
@@ -287,11 +292,15 @@ IBusInputContext::processCompose (uint keyval, uint state)
     m_compose_buffer[m_n_compose ++] = keyval;
     m_compose_buffer[m_n_compose] = 0;
 
-    if (checkCompactTable (&ibus_compose_table_compact))
+    if (checkCompactTable (&ibus_compose_table_compact)) {
+        qDebug () << "checkCompactTable ->true";
         return true;
+    }
 
-    if (checkAlgorithmically ())
+    if (checkAlgorithmically ()) {
+        qDebug () << "checkAlgorithmically ->true";
         return true;
+    }
 
     m_compose_buffer[0] = 0;
     m_n_compose = 0;
@@ -349,8 +358,6 @@ IBusInputContext::checkCompactTable (const IBusComposeTableCompact *table)
                                           compare_seq_index);
 
     if (!seq_index) {
-        m_compose_buffer[0] = 0;
-        m_n_compose = 0;
         return false;
     }
 
@@ -409,54 +416,53 @@ IBusInputContext::checkAlgorithmically ()
         return true;
 
     if (i > 0 && i == m_n_compose - 1) {
-      combination_buffer[0] = m_compose_buffer[i];
-      combination_buffer[m_n_compose] = 0;
-      i--;
-      while (i >= 0) {
-      switch (m_compose_buffer[i]) {
-#define CASE(keysym, unicode) \
-        case IBUS_dead_##keysym: combination_buffer[i + 1] = unicode; break
-
-        CASE (grave, 0x0300);
-        CASE (acute, 0x0301);
-        CASE (circumflex, 0x0302);
-        CASE (tilde, 0x0303);   /* Also used with perispomeni, 0x342. */
-        CASE (macron, 0x0304);
-        CASE (breve, 0x0306);
-        CASE (abovedot, 0x0307);
-        CASE (diaeresis, 0x0308);
-        CASE (hook, 0x0309);
-        CASE (abovering, 0x030A);
-        CASE (doubleacute, 0x030B);
-        CASE (caron, 0x030C);
-        CASE (abovecomma, 0x0313);         /* Equivalent to psili */
-        CASE (abovereversedcomma, 0x0314); /* Equivalent to dasia */
-        CASE (horn, 0x031B);    /* Legacy use for psili, 0x313 (or 0x343). */
-        CASE (belowdot, 0x0323);
-        CASE (cedilla, 0x0327);
-        CASE (ogonek, 0x0328);  /* Legacy use for dasia, 0x314.*/
-        CASE (iota, 0x0345);
-        CASE (voiced_sound, 0x3099);    /* Per Markus Kuhn keysyms.txt file. */
-        CASE (semivoiced_sound, 0x309A);    /* Per Markus Kuhn keysyms.txt file. */
-        /* The following cases are to be removed once xkeyboard-config,
-         * xorg are fully updated.
-         **/
-        /* Workaround for typo in 1.4.x xserver-xorg */
-        case 0xfe66: combination_buffer[i + 1] = 0x314; break;
-        /* CASE (dasia, 0x314); */
-        /* CASE (perispomeni, 0x342); */
-        /* CASE (psili, 0x343); */
-#undef CASE
-        default:
-          combination_buffer[i + 1] = m_compose_buffer[i];
-        }
+        combination_buffer[0] = m_compose_buffer[i];
+        combination_buffer[m_n_compose] = 0;
         i--;
-    }
+        while (i >= 0) {
+            switch (m_compose_buffer[i]) {
+            #define CASE(keysym, unicode) \
+                case IBUS_dead_##keysym: combination_buffer[i + 1] = unicode; break
+            CASE (grave, 0x0300);
+            CASE (acute, 0x0301);
+            CASE (circumflex, 0x0302);
+            CASE (tilde, 0x0303);   /* Also used with perispomeni, 0x342. */
+            CASE (macron, 0x0304);
+            CASE (breve, 0x0306);
+            CASE (abovedot, 0x0307);
+            CASE (diaeresis, 0x0308);
+            CASE (hook, 0x0309);
+            CASE (abovering, 0x030A);
+            CASE (doubleacute, 0x030B);
+            CASE (caron, 0x030C);
+            CASE (abovecomma, 0x0313);         /* Equivalent to psili */
+            CASE (abovereversedcomma, 0x0314); /* Equivalent to dasia */
+            CASE (horn, 0x031B);    /* Legacy use for psili, 0x313 (or 0x343). */
+            CASE (belowdot, 0x0323);
+            CASE (cedilla, 0x0327);
+            CASE (ogonek, 0x0328);  /* Legacy use for dasia, 0x314.*/
+            CASE (iota, 0x0345);
+            CASE (voiced_sound, 0x3099);    /* Per Markus Kuhn keysyms.txt file. */
+            CASE (semivoiced_sound, 0x309A);    /* Per Markus Kuhn keysyms.txt file. */
+            /* The following cases are to be removed once xkeyboard-config,
+             * xorg are fully updated.
+             **/
+            /* Workaround for typo in 1.4.x xserver-xorg */
+            case 0xfe66: combination_buffer[i + 1] = 0x314; break;
+            /* CASE (dasia, 0x314); */
+            /* CASE (perispomeni, 0x342); */
+            /* CASE (psili, 0x343); */
+            #undef CASE
+            default:
+                combination_buffer[i + 1] = m_compose_buffer[i];
+            }
+            i--;
+        }
 
-      /* If the buffer normalizes to a single character,
-       * then modify the order of combination_buffer accordingly, if necessary,
-       * and return TRUE.
-       **/
+        /* If the buffer normalizes to a single character,
+         * then modify the order of combination_buffer accordingly, if necessary,
+         * and return TRUE.
+         **/
 #if 0
       if (check_normalize_nfc (combination_buffer, m_n_compose))
         {
@@ -474,19 +480,19 @@ IBusInputContext::checkAlgorithmically ()
           return TRUE;
         }
 #endif
-    }
-    UErrorCode state = U_ZERO_ERROR;
-    UChar result[IBUS_MAX_COMPOSE_LEN + 1];
-    i = unorm_normalize (combination_buffer, m_n_compose, UNORM_NFC, 0, result, IBUS_MAX_COMPOSE_LEN + 1, &state);
+        UErrorCode state = U_ZERO_ERROR;
+        UChar result[IBUS_MAX_COMPOSE_LEN + 1];
+        i = unorm_normalize (combination_buffer, m_n_compose, UNORM_NFC, 0, result, IBUS_MAX_COMPOSE_LEN + 1, &state);
 
-    // qDebug () << "combination_buffer = " << QString::fromUtf16(combination_buffer) << "m_n_compose" << m_n_compose;
-    // qDebug () << "result = " << QString::fromUtf16(result) << "i = " << i << state;
+        // qDebug () << "combination_buffer = " << QString::fromUtf16(combination_buffer) << "m_n_compose" << m_n_compose;
+        // qDebug () << "result = " << QString::fromUtf16(result) << "i = " << i << state;
 
-    if (i == 1) {
-        slotCommitText (new Text (QChar (result[0])));
-        m_compose_buffer[0] = 0;
-        m_n_compose = 0;
-        return true;
+        if (i == 1) {
+            slotCommitText (new Text (QChar (result[0])));
+            m_compose_buffer[0] = 0;
+            m_n_compose = 0;
+            return true;
+        }
     }
     return false;
 }
