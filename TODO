@@ -8,5 +8,6 @@
     IBusProperty       luoxs   100%
     IBusPropList       luoxs   100%
     IBusLookupTable    luoxs   100%
-    IBusEngineDesc     luoxs    00%
-    IBusComponent      luoxs    00%
+    IBusEngineDesc     luoxs   100%
+    IBusComponent      luoxs   100%
+    IBusEngine         luoxs    80%
