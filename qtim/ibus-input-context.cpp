@@ -258,6 +258,12 @@ IBusInputContext::x11FilterEvent (QWidget *keywidget, XEvent *xevent)
     uint keycode = 0;
     uint state = 0;
 
+    if (!m_has_focus) {
+        m_has_focus = true;
+        if (!m_context.isNull ())
+            m_context->focusIn ();
+    }
+
     translate_x_key_event (xevent, &keyval, &keycode, &state);
     keycode -= 8;
 
