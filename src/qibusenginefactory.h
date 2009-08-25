@@ -18,7 +18,7 @@ public Q_SLOTS: // METHODS
     void Destroy ();
 
 private :
-    QDBusObjectPath m_path;
+    QDBusObjectPath * m_path;
 
 };
 
