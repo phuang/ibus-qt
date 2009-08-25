@@ -36,7 +36,7 @@ public:
     void traverseObservedPath (QVector<ObservedPathPointer> & observedPathVec) const;
 
     const QString & getPath() const { return m_path; }
-    const int getMTime() const { return m_mtime; }
+    int getMTime() const { return m_mtime; }
 
     bool isRegularFile() const
     {

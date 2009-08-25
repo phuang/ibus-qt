@@ -3,6 +3,7 @@
 
 #include "qibusobject.h"
 #include <QDBusArgument>
+#include <QDBusVariant>
 #include <QHash>
 #include <QMap>
 
