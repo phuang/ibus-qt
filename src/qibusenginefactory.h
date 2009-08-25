@@ -13,7 +13,12 @@ public :
     EngineFactory () {}
     ~EngineFactory () {}
 
+public Q_SLOTS: // METHODS
+    const QDBusObjectPath & CreateEngine (const QString &engine_name);
+    void Destroy ();
+
 private :
+    QDBusObjectPath m_path;
 
 };
 
