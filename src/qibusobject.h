@@ -21,6 +21,7 @@ class Object : public QObject
     template <typename T> friend class Pointer;
 
 public:
+    // Q_INVOKABLE Object () : m_referenced (false), m_refcount(1) {}
     Object () : m_referenced (false), m_refcount(1) {}
     virtual ~Object ();
 

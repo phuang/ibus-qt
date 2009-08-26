@@ -2,6 +2,7 @@
 #define __Q_IBUS_BUS_H_
 
 #include <QFileSystemWatcher>
+#include <QDBusConnection>
 #include "qibusobject.h"
 #include "qibusserializable.h"
 #include "qibusenginedesc.h"
@@ -42,6 +43,13 @@ public:
     /* org.freedesktop.IBus methods */
     QString createInputContext (const QString &name);
     bool registerComponent (const ComponentPointer &component);
+    bool registerObject (const QString &path, QObject *obj) {
+        if (m_connection == NULL)
+            return false;
+
+        return m_connection->registerObject (path, obj);
+    }
+
     QList<EngineDescPointer> listEngines (void);
     QList<EngineDescPointer> listActiveEngines (void);
     bool exit (bool restart = false);

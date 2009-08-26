@@ -1,25 +1,38 @@
 #ifndef __Q_IBUS_FACTORY_ADAPTOR_H_
 #define __Q_IBUS_FACTORY_ADAPTOR_H_
 
+#include "qibusbus.h"
+#include "qibusengineadaptor.h"
 #include "qibusfactoryadaptor.h"
 
 namespace IBus {
 
-class EngineFactory : public QObject
+class EngineFactory : public Object
 {
     Q_OBJECT;
 
 public :
-    EngineFactory () {}
+    EngineFactory (const BusPointer &bus):
+                                m_bus(bus)
+    {}
+
     ~EngineFactory () {}
 
 public Q_SLOTS: // METHODS
-    const QDBusObjectPath & CreateEngine (const QString &engine_name);
+    const QDBusObjectPath *CreateEngine (const QString &engineName);
+
+    /*
+    bool addEngine (const QString &name, const QMetaObject *meta_object) {
+        m_engines[name] = meta_object;
+    }
+    */
+
     void Destroy ();
 
 private :
-    QDBusObjectPath * m_path;
-
+    static uint    m_id;
+    QMap<QString, QMetaObject *> m_engines;
+    BusPointer m_bus;
 };
 
 };
