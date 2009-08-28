@@ -16,11 +16,11 @@ public :
                     m_engineName(name),
                     m_conn(conn) {}
     ~EngineFactory () {}
-
-public Q_SLOTS:
-
-    bool CreateEngine (const QString &name);
+public:
     void addEngine (const QString &name, const QMetaObject *metaObject);
+
+private Q_SLOTS:
+    bool CreateEngine (const QString &name);
     bool Destroy (const IBusEngineAdaptor *e);
 
 private :

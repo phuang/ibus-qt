@@ -10,4 +10,10 @@ Object::~Object ()
     }
 }
 
+void
+Object::destroy ()
+{
+    delete this;
+}
+
 };

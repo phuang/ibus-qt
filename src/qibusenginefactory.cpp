@@ -20,7 +20,8 @@ EngineFactory::CreateEngine (const QString &engineName)
         return false;
     }
 
-    QObject *obj = mo->newInstance (Q_ARG(QString, engineName), Q_ARG(QString, path), Q_ARG(QDBusConnection, m_conn));
+    EnginePointer obj = mo->newInstance ();
+
     if ( !obj ) {
         qCritical () << "EngineFactory::CreateEngine, newInstance error!";
         return false;

@@ -24,6 +24,7 @@ public:
     // Q_INVOKABLE Object () : m_referenced (false), m_refcount(1) {}
     Object () : m_referenced (false), m_refcount(1) {}
     virtual ~Object ();
+    virtual void destroy ();
 
 private:
     Object * ref () {

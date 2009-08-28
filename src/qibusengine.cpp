@@ -152,10 +152,6 @@ Engine::cursorUp ()
 {}
 
 void
-Engine::destroy ()
-{}
-
-void
 Engine::disable ()
 {}
 

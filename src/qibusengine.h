@@ -117,7 +117,6 @@ public :
     virtual void candidateClicked (uint index, uint button, uint state);
     virtual void cursorDown ();
     virtual void cursorUp ();
-    virtual void destroy ();
     virtual void disable ();
     virtual void enable ();
     virtual void focusIn ();
