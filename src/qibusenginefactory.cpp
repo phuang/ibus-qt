@@ -2,8 +2,6 @@
 
 namespace IBus {
 
-uint EngineFactory::m_id = 0;
-
 bool
 EngineFactory::CreateEngine (const QString &engineName)
 {
@@ -20,21 +18,21 @@ EngineFactory::CreateEngine (const QString &engineName)
         return false;
     }
 
-    EnginePointer obj = mo->newInstance ();
+    Engine *obj = qobject_cast<Engine *>(mo->newInstance (Q_ARG(QString, engineName)));
 
     if ( !obj ) {
-        qCritical () << "EngineFactory::CreateEngine, newInstance error!";
+        qDebug () << "EngineFactory::CreateEngine, newInstance error!";
         return false;
     }
 
     IBusEngineAdaptor *adaptor = new IBusEngineAdaptor (obj);
     if ( !adaptor ) {
-        qCritical () << "EngineFactory::CreateEngine, new error!";
+        qDebug () << "EngineFactory::CreateEngine, new error!";
         return false;
     }
 
     if ( !m_conn.registerObject (path, adaptor) ) {
-        qCritical () << "EngineFactory::CreateEngine, registerObject error!";
+        qDebug () << "EngineFactory::CreateEngine, registerObject error!";
         return false;
     }
 
@@ -50,12 +48,14 @@ EngineFactory::addEngine (const QString &name, const QMetaObject *metaObject)
 }
 
 bool
-EngineFactory::Destroy (const IBusEngineAdaptor *engineAdaptor)
+EngineFactory::Destroy (IBusEngineAdaptor *engineAdaptor)
 {
     QLinkedList<IBusEngineAdaptor *>::const_iterator lli = m_engineLList.begin();
     for ( ; lli != m_engineLList.end(); ++lli ) {
         if ( *lli ==  engineAdaptor ) {
             delete engineAdaptor;
+            m_engineLList.removeOne(engineAdaptor);
+
             return true;
         }
     }

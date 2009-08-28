@@ -2,14 +2,6 @@
 
 namespace IBus {
 
-Engine::Engine (bool enabled, bool hasFocus, const QString & engineName)
-{
-    m_enabled = enabled;
-    m_hasFocus = hasFocus;
-
-    m_engineName = engineName;
-}
-
 const QString &
 Engine::getEngineName () const
 {

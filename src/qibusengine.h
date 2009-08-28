@@ -18,7 +18,7 @@ class Engine : public Object
 
 public :
     Engine () {}
-    Engine (bool enabled, bool hasFocus, const QString & engineName);
+    Engine (const QString &engineName): m_engineName(engineName) {}
 
     ~Engine () {}
 
@@ -172,11 +172,13 @@ Q_SIGNALS :
 private :
     QString m_engineName;
 
+    /*
     bool m_enabled;
     bool m_hasFocus;
 
     Rectangle   m_cursorArea;
     uint        m_clientCapabilities;
+    */
 };
 
 };
