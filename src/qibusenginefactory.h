@@ -12,27 +12,25 @@ class EngineFactory : public Object
     Q_OBJECT;
 
 public :
-    EngineFactory (const BusPointer &bus):
-                                m_bus(bus)
-    {}
-
+    EngineFactory (const QString &name, const QDBusConnection &conn):
+                    m_engineName(name),
+                    m_conn(conn) {}
     ~EngineFactory () {}
 
-public Q_SLOTS: // METHODS
-    const QDBusObjectPath *CreateEngine (const QString &engineName);
+public Q_SLOTS:
 
-    /*
-    bool addEngine (const QString &name, const QMetaObject *meta_object) {
-        m_engines[name] = meta_object;
-    }
-    */
-
-    void Destroy ();
+    bool CreateEngine (const QString &name);
+    void addEngine (const QString &name, const QMetaObject *metaObject);
+    bool Destroy (const IBusEngineAdaptor *e);
 
 private :
+
     static uint    m_id;
-    QMap<QString, QMetaObject *> m_engines;
-    BusPointer m_bus;
+    QString     m_engineName;
+
+    QMap<QString, const QMetaObject *> m_engineMap;
+    QLinkedList<IBusEngineAdaptor *> m_engineLList;
+    QDBusConnection m_conn;
 };
 
 };

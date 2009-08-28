@@ -2,24 +2,62 @@
 
 namespace IBus {
 
-uint EngineFactory::m_id = 1;
+uint EngineFactory::m_id = 0;
 
-const QDBusObjectPath *EngineFactory::CreateEngine (const QString &engineName)
+bool EngineFactory::CreateEngine (const QString &engineName)
 {
-    QMetaObject *p = m_engines[engineName];
-    QObject *obj = p->newInstance ();
+    if ( !m_engineMap.contains(engineName) ) {
+        qDebug () << "EngineFactory::CreateEngine, can not create engine!";
+        return false;
+    }
+
+    QString path = "/org/freedesktop/IBus/Engine/" + engineName + "/" + QString::number(++m_id);
+
+    const QMetaObject *mo = m_engineMap[engineName];
+    if ( !mo ) {
+        qDebug () << "EngineFactory::CreateEngine, QMetaObject pointer in map is null!";
+        return false;
+    }
+
+    QObject *obj = mo->newInstance (Q_ARG(QString, engineName), Q_ARG(QString, path), Q_ARG(QDBusConnection, m_conn));
+    if ( !obj ) {
+        qCritical () << "EngineFactory::CreateEngine, newInstance error!";
+        return false;
+    }
+
     IBusEngineAdaptor *adaptor = new IBusEngineAdaptor (obj);
-    QString path = "/org/freedesktop/IBus/Engine/" + engineName + "/" + QString::number(m_id);
-    ++m_id;
+    if ( !adaptor ) {
+        qCritical () << "EngineFactory::CreateEngine, new error!";
+        return false;
+    }
 
-    m_bus->registerObject (path, adaptor);
+    if ( !m_conn.registerObject (path, adaptor) ) {
+        qCritical () << "EngineFactory::CreateEngine, registerObject error!";
+        return false;
+    }
 
-    QDBusObjectPath *dbusObjPth = new QDBusObjectPath(path);
+    m_engineLList.append(adaptor);
 
-    return dbusObjPth;
+    return true;
 }
 
-void EngineFactory::Destroy()
-{}
+void EngineFactory::addEngine (const QString &name, const QMetaObject *metaObject)
+{
+    m_engineMap[name] = metaObject;
+}
+
+bool EngineFactory::Destroy(const IBusEngineAdaptor *engineAdaptor)
+{
+    QLinkedList<IBusEngineAdaptor *>::const_iterator lli = m_engineLList.begin();
+    for ( ; lli != m_engineLList.end(); ++lli ) {
+        if ( *lli ==  engineAdaptor ) {
+            delete engineAdaptor;
+            return true;
+        }
+    }
+
+    return false;
+
+}
 
 };

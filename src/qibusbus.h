@@ -7,6 +7,7 @@
 #include "qibusserializable.h"
 #include "qibusenginedesc.h"
 #include "qibuscomponent.h"
+#include "qibusengine.h"
 
 class QDBusConnection;
 class IBusProxy;
