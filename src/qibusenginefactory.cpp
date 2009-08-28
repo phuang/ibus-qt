@@ -4,7 +4,8 @@ namespace IBus {
 
 uint EngineFactory::m_id = 0;
 
-bool EngineFactory::CreateEngine (const QString &engineName)
+bool
+EngineFactory::CreateEngine (const QString &engineName)
 {
     if ( !m_engineMap.contains(engineName) ) {
         qDebug () << "EngineFactory::CreateEngine, can not create engine!";
@@ -41,12 +42,14 @@ bool EngineFactory::CreateEngine (const QString &engineName)
     return true;
 }
 
-void EngineFactory::addEngine (const QString &name, const QMetaObject *metaObject)
+void
+EngineFactory::addEngine (const QString &name, const QMetaObject *metaObject)
 {
     m_engineMap[name] = metaObject;
 }
 
-bool EngineFactory::Destroy(const IBusEngineAdaptor *engineAdaptor)
+bool
+EngineFactory::Destroy (const IBusEngineAdaptor *engineAdaptor)
 {
     QLinkedList<IBusEngineAdaptor *>::const_iterator lli = m_engineLList.begin();
     for ( ; lli != m_engineLList.end(); ++lli ) {
@@ -57,7 +60,6 @@ bool EngineFactory::Destroy(const IBusEngineAdaptor *engineAdaptor)
     }
 
     return false;
-
 }
 
 };
