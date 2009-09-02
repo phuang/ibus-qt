@@ -12,9 +12,8 @@ class EngineFactory : public Object
     Q_OBJECT;
 
 public :
-    EngineFactory (const QString &name, const QDBusConnection &conn, uint id):
+    EngineFactory (const QDBusConnection &conn, uint id):
                     m_id(id),
-                    m_engineName(name),
                     m_conn(conn) {}
     ~EngineFactory () {}
 
@@ -22,16 +21,15 @@ public:
     void addEngine (const QString &name, const QMetaObject *metaObject);
 
 private Q_SLOTS:
-    bool CreateEngine (const QString &name);
-    bool Destroy (IBusEngineAdaptor *engineAdaptor);
+    QDBusObjectPath CreateEngine (const QString &name);
+    void Destroy ();
 
 private :
-    uint    m_id;
-    QString     m_engineName;
 
+    uint    m_id;
+    QDBusConnection m_conn;
     QMap<QString, const QMetaObject *> m_engineMap;
     QLinkedList<IBusEngineAdaptor *> m_engineLList;
-    QDBusConnection m_conn;
 };
 
 };

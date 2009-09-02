@@ -54,7 +54,7 @@ public:
     bool parseObservedPaths (const QDomNode & node);
 
     void addObservedPath (const QString & filename);
-    void addEngine (const EngineDescPointer edp);
+    void addEngine (const EngineDescPointer &edp);
     const ComponentPointer newComponentFromFile (const QString & filename) const;
 
     QVector<ObservedPathPointer> getObservedPathVec () const;

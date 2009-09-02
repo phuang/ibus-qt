@@ -342,7 +342,7 @@ Component::parseXmlBuffer (const QByteArray & buf)
 }
 
 void
-Component::addObservedPath (const QString & filename)
+Component::addObservedPath (const QString &filename)
 {
     ObservedPathPointer obsPathPtr = new ObservedPath(filename);
 
@@ -356,7 +356,7 @@ Component::addObservedPath (const QString & filename)
 }
 
 void
-Component::addEngine (const EngineDescPointer edp)
+Component::addEngine (const EngineDescPointer &edp)
 {
     m_engines.push_back(edp);
 }

@@ -6,6 +6,8 @@
 #include <qibusproperty.h>
 #include <qibusproplist.h>
 #include <qibusengine.h>
+#include <qibuscomponent.h>
 #include <qibusbus.h>
+#include <qibuskeysyms.h>
 
 #endif
