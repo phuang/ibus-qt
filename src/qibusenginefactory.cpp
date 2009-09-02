@@ -62,8 +62,10 @@ EngineFactory::Destroy ()
 }
 
 void
-EngineFactory::addEngine (const QString &name, const QMetaObject *metaObject)
+EngineFactory::addMetaObject(const QString &name, const QMetaObject *metaObject)
 {
+    Q_ASSERT(metaObject);
+
     m_engineMap[name] = metaObject;
 }
 

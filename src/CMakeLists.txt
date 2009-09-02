@@ -56,7 +56,6 @@ set(
     qibusservice.h
     qibusfactoryadaptor.h
     qibusenginefactory.h
-    qibuskeysyms.h
 )
 
 # QT4_ADD_DBUS_INTERFACE(

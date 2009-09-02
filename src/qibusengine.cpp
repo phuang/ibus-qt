@@ -144,6 +144,10 @@ Engine::cursorUp ()
 {}
 
 void
+Engine::destroy ()
+{}
+
+void
 Engine::disable ()
 {}
 
@@ -166,6 +170,12 @@ Engine::pageDown ()
 void
 Engine::pageUp ()
 {}
+
+bool
+Engine::processKeyEvent (uint keyval, uint keycode, uint state)
+{
+    return true;
+}
 
 void
 Engine::propertyActivate (const QString &prop_name, int prop_state)

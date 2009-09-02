@@ -12,17 +12,17 @@ class EngineFactory : public Object
     Q_OBJECT;
 
 public :
-    EngineFactory (const QDBusConnection &conn, uint id):
+    EngineFactory (const QDBusConnection &conn, uint id = 0):
                     m_id(id),
                     m_conn(conn) {}
     ~EngineFactory () {}
 
 public:
-    void addEngine (const QString &name, const QMetaObject *metaObject);
+    void addMetaObject (const QString &name, const QMetaObject *metaObject);
 
 private Q_SLOTS:
-    QDBusObjectPath CreateEngine (const QString &name);
-    void Destroy ();
+    Q_INVOKABLE QDBusObjectPath CreateEngine (const QString &name);
+    Q_INVOKABLE void Destroy ();
 
 private :
 

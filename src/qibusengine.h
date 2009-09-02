@@ -12,15 +12,15 @@ namespace IBus {
 class Engine;
 typedef Pointer<Engine> EnginePointer;
 
-class Engine : public Object
+class Engine : public QObject
 {
-    Q_OBJECT;
+    Q_OBJECT
 
 public :
     Engine () {}
-    Engine (const QString &engineName): m_engineName(engineName) {}
+    Q_INVOKABLE Engine (const QString &engineName): m_engineName(engineName) {}
 
-    ~Engine () {}
+    virtual ~Engine () {}
 
 public :
     const QString & getEngineName () const;
@@ -117,13 +117,15 @@ public :
     virtual void candidateClicked (uint index, uint button, uint state);
     virtual void cursorDown ();
     virtual void cursorUp ();
+    virtual void destroy ();
     virtual void disable ();
     virtual void enable ();
     virtual void focusIn ();
     virtual void focusOut ();
     virtual void pageDown ();
     virtual void pageUp ();
-    virtual bool processKeyEvent (uint keyval, uint keycode, uint state) = 0;
+    // virtual bool processKeyEvent (uint keyval, uint keycode, uint state) = 0;
+    virtual bool processKeyEvent (uint keyval, uint keycode, uint state);
     virtual void propertyActivate (const QString &prop_name, int prop_state);
     virtual void propertyHide (const QString &prop_name);
     virtual void propertyShow (const QString &prop_name);
@@ -132,23 +134,23 @@ public :
     virtual void setCursorLocation (int x, int y, int w, int h);
 
 private Q_SLOTS:
-    void CandidateClicked (uint index, uint button, uint state);
-    void CursorDown ();
-    void CursorUp ();
-    void Destroy ();
-    void Disable ();
-    void Enable ();
-    void FocusIn ();
-    void FocusOut ();
-    void PageDown ();
-    void PageUp ();
-    bool ProcessKeyEvent (uint keyval, uint keycode, uint state);
-    void PropertyActivate (const QString &prop_name, int prop_state);
-    void PropertyHide (const QString &prop_name);
-    void PropertyShow (const QString &prop_name);
-    void Reset ();
-    void SetCapabilities (uint cap);
-    void SetCursorLocation (int x, int y, int w, int h);
+    Q_INVOKABLE void CandidateClicked (uint index, uint button, uint state);
+    Q_INVOKABLE void CursorDown ();
+    Q_INVOKABLE void CursorUp ();
+    Q_INVOKABLE void Destroy ();
+    Q_INVOKABLE void Disable ();
+    Q_INVOKABLE void Enable ();
+    Q_INVOKABLE void FocusIn ();
+    Q_INVOKABLE void FocusOut ();
+    Q_INVOKABLE void PageDown ();
+    Q_INVOKABLE void PageUp ();
+    Q_INVOKABLE bool ProcessKeyEvent (uint keyval, uint keycode, uint state);
+    Q_INVOKABLE void PropertyActivate (const QString &prop_name, int prop_state);
+    Q_INVOKABLE void PropertyHide (const QString &prop_name);
+    Q_INVOKABLE void PropertyShow (const QString &prop_name);
+    Q_INVOKABLE void Reset ();
+    Q_INVOKABLE void SetCapabilities (uint cap);
+    Q_INVOKABLE void SetCursorLocation (int x, int y, int w, int h);
 
 Q_SIGNALS :
     void CommitText (const QDBusVariant &text);
@@ -171,14 +173,6 @@ Q_SIGNALS :
 
 private :
     QString m_engineName;
-
-    /*
-    bool m_enabled;
-    bool m_hasFocus;
-
-    Rectangle   m_cursorArea;
-    uint        m_clientCapabilities;
-    */
 };
 
 };
