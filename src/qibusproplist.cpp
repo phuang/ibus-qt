@@ -12,7 +12,7 @@ PropList::serialize (QDBusArgument & argument) const
         return false;
     }
 
-    argument.beginArray(QDBusArgument::VariantType);
+    argument.beginArray(qMetaTypeId<QDBusVariant>());
     for ( int i = 0; i < m_props.size(); ++i )
         argument << m_props[i];
     argument.endArray();

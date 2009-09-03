@@ -39,7 +39,7 @@ Serializable::serialize (QDBusArgument &argument) const
 {
     QMap<QString, SerializablePointer>::const_iterator i;
 
-    argument.beginMap (QVariant::String, QDBusArgument::VariantType);
+    argument.beginMap (QVariant::String, qMetaTypeId<QDBusVariant>());
     for (i = m_attachments.begin (); i != m_attachments.end (); i++) {
         argument.beginMapEntry ();
         argument << i.key ();
