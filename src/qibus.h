@@ -9,6 +9,6 @@
 #include <qibuscomponent.h>
 #include <qibusbus.h>
 #include <qibusenginefactory.h>
-#include <qibuskeysyms.h>
+// #include <qibuskeysyms.h>
 
 #endif

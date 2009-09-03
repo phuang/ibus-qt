@@ -1,6 +1,18 @@
 #include "qibusenginefactory.h"
+#include "qibusfactoryadaptor.h"
 
 namespace IBus {
+
+EngineFactory::EngineFactory (const QDBusConnection &conn, uint id)
+    : m_conn (conn), m_id (id)
+{
+    m_adaptor = new IBusFactoryAdaptor (this);
+}
+
+EngineFactory::~EngineFactory ()
+{
+    delete m_adaptor;
+}
 
 QDBusObjectPath
 EngineFactory::CreateEngine (const QString &engineName)
