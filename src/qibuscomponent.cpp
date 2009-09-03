@@ -27,7 +27,7 @@ Component::serialize (QDBusArgument &argument) const
 
     argument.beginArray(qMetaTypeId<QDBusVariant>());
     for ( int i = 0; i < m_engines.size(); ++i ) {
-        argument << m_engines[i];
+        argument << qDBusVariantFromSerializable (m_engines[i]);
     }
     argument.endArray();
 
