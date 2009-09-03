@@ -2,6 +2,10 @@
 
 namespace IBus {
 
+// initialize two static private members
+QMap<QString, const QMetaObject *> EngineFactory::m_engineMap;
+QLinkedList<IBusEngineAdaptor *> EngineFactory::m_engineLList;
+
 QDBusObjectPath
 EngineFactory::CreateEngine (const QString &engineName)
 {

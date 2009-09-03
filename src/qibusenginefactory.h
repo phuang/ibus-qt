@@ -28,8 +28,8 @@ private :
 
     uint    m_id;
     QDBusConnection m_conn;
-    QMap<QString, const QMetaObject *> m_engineMap;
-    QLinkedList<IBusEngineAdaptor *> m_engineLList;
+    static QMap<QString, const QMetaObject *> m_engineMap;
+    static QLinkedList<IBusEngineAdaptor *> m_engineLList;
 };
 
 };
