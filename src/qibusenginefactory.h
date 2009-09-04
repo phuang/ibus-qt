@@ -14,7 +14,7 @@ class EngineFactory : public Object
     Q_OBJECT;
 
 private :
-    EngineFactory (const QDBusConnection &conn, uint id = 0);
+    Q_INVOKABLE EngineFactory (const QDBusConnection &conn, uint id = 0);
     ~EngineFactory ();
 
 public:

@@ -18,7 +18,7 @@ class Engine : public QObject
 
 public :
     Engine () {}
-    Engine (const QString &engineName): m_engineName(engineName) {}
+    Q_INVOKABLE Engine (const QString &engineName): m_engineName(engineName) {}
 
     virtual ~Engine () {}
 

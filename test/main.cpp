@@ -32,10 +32,10 @@ int main (int argc, char **argv)
         return -1;
     }
  
-    EngineFactory factory(bus.getConnection());
-    factory.addMetaObject("qtdemo", &(DemoEngine::staticMetaObject));
+    EngineFactory *engineFactory = EngineFactory::getEngineFactory(bus.getConnection());
+    engineFactory->addMetaObject("qtdemo", &(DemoEngine::staticMetaObject));
 
-    bus.registerObject ("/org/freedesktop/IBus/Factory", &factory);
+    bus.registerObject ("/org/freedesktop/IBus/Factory", engineFactory);
  
     if ( !bus.registerComponent(cmpt) ) {
         qDebug () << "registerComponent error!";
