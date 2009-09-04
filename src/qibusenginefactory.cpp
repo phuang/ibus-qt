@@ -1,15 +1,46 @@
 #include "qibusenginefactory.h"
+#include "qibusfactoryadaptor.h"
 
 namespace IBus {
 
-// initialize two static private members
-QMap<QString, const QMetaObject *> EngineFactory::m_engineMap;
-QLinkedList<IBusEngineAdaptor *> EngineFactory::m_engineLList;
+EngineFactory *EngineFactory::m_factory = NULL;
+
+EngineFactory::EngineFactory (const QDBusConnection &conn, uint id)
+    : m_conn (conn)
+{
+    m_id = id;
+    m_factoryAdaptor = new IBusFactoryAdaptor (this);
+}
+
+EngineFactory::~EngineFactory ()
+{
+    if ( m_factoryAdaptor != NULL ) {
+        delete m_factoryAdaptor;
+        m_factoryAdaptor = NULL;
+    }
+
+    if ( m_factory != NULL ) {
+	delete m_factory;
+	m_factory = NULL;
+    }
+}
+
+EngineFactory *EngineFactory::getEngineFactory (const QDBusConnection &conn)
+{
+    if ( m_factory == NULL ) {
+	m_factory = new EngineFactory(conn);
+    }
+
+    return m_factory;
+}
 
 QDBusObjectPath
 EngineFactory::CreateEngine (const QString &engineName)
 {
     QString path = "/org/freedesktop/IBus/Engine/" + engineName + "/" + QString::number(++m_id);
+
+    qDebug () << "CreateEngine";
+    qDebug () << path;
 
     if ( !m_engineMap.contains(engineName) ) {
         qDebug () << "EngineFactory::CreateEngine, can not create engine!";
@@ -30,18 +61,18 @@ EngineFactory::CreateEngine (const QString &engineName)
         return QDBusObjectPath();
     }
 
-    IBusEngineAdaptor *adaptor = new IBusEngineAdaptor (obj);
-    if ( !adaptor ) {
+    IBusEngineAdaptor *engineAdaptor = new IBusEngineAdaptor (obj);
+    if ( !engineAdaptor ) {
         qDebug () << "EngineFactory::CreateEngine, new error!";
         return QDBusObjectPath();
     }
 
-    if ( !m_conn.registerObject (path, adaptor) ) {
+    if ( !m_conn.registerObject (path, engineAdaptor) ) {
         qDebug () << "EngineFactory::CreateEngine, registerObject error!";
         return QDBusObjectPath();
     }
 
-    m_engineLList.append(adaptor);
+    m_engineLList.append(engineAdaptor);
 
     return QDBusObjectPath(path);
 }

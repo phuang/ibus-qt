@@ -5,20 +5,21 @@
 #include "qibusengineadaptor.h"
 #include "qibusfactoryadaptor.h"
 
+class IBusFactoryAdaptor;
+
 namespace IBus {
 
 class EngineFactory : public Object
 {
     Q_OBJECT;
 
-public :
-    EngineFactory (const QDBusConnection &conn, uint id = 0):
-                    m_id(id),
-                    m_conn(conn) {}
-    ~EngineFactory () {}
+private :
+    EngineFactory (const QDBusConnection &conn, uint id = 0);
+    ~EngineFactory ();
 
 public:
     void addMetaObject (const QString &name, const QMetaObject *metaObject);
+    static EngineFactory *getEngineFactory (const QDBusConnection &conn);
 
 private Q_SLOTS:
     Q_INVOKABLE QDBusObjectPath CreateEngine (const QString &name);
@@ -28,8 +29,11 @@ private :
 
     uint    m_id;
     QDBusConnection m_conn;
-    static QMap<QString, const QMetaObject *> m_engineMap;
-    static QLinkedList<IBusEngineAdaptor *> m_engineLList;
+    QMap<QString, const QMetaObject *> m_engineMap;
+    QLinkedList<IBusEngineAdaptor *> m_engineLList;
+    IBusFactoryAdaptor	*m_factoryAdaptor;
+
+    static EngineFactory	*m_factory;
 };
 
 };
