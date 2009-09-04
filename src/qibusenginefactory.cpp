@@ -53,8 +53,6 @@ EngineFactory::CreateEngine (const QString &engineName)
         return QDBusObjectPath();
     }
 
-    // QObject::connect(obj, "SIGNAL(destroyed(QObject *))", "SLOT(Destroy (IBusEngineAdaptor *engineAdaptor))");
-    // EnginePointer obj = static_cast<EnginePointer >(mo->newInstance (Q_ARG(QString, engineName)));
     Engine *obj = qobject_cast<Engine *>(mo->newInstance (Q_ARG(QString, engineName)));
     if ( !obj ) {
         qDebug () << "EngineFactory::CreateEngine, newInstance error!";
@@ -78,7 +76,6 @@ EngineFactory::CreateEngine (const QString &engineName)
 }
 
 void
-// EngineFactory::Destroy (IBusEngineAdaptor *engineAdaptor)
 EngineFactory::Destroy ()
 {
     /*
