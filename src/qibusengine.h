@@ -26,7 +26,7 @@ public :
     const QString & getEngineName () const;
     void updateLookupTableFast (const LookupTablePointer & lookupTablePtr, bool visible);
 
-private :
+public :
     void commitText (const TextPointer & text)
     {
         CommitText(qDBusVariantFromSerializable (text));
@@ -124,7 +124,6 @@ public :
     virtual void focusOut ();
     virtual void pageDown ();
     virtual void pageUp ();
-    // virtual bool processKeyEvent (uint keyval, uint keycode, uint state) = 0;
     virtual bool processKeyEvent (uint keyval, uint keycode, uint state);
     virtual void propertyActivate (const QString &prop_name, int prop_state);
     virtual void propertyHide (const QString &prop_name);

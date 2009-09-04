@@ -17,19 +17,16 @@ class PropList: public Serializable
     Q_OBJECT;
 
 public:
-    PropList ()
-    {}
-    PropList (const QVector<PropertyPointer> & props): m_props(props)
-    {}
-
-    ~PropList ()
-    {}
+    PropList () {}
+    ~PropList () {}
 
 public:
     virtual bool serialize (QDBusArgument &argument) const;
     virtual bool deserialize (const QDBusArgument &argument);
 
-    bool updateProperty (const PropertyPointer prop);
+public :
+    bool appendProperty (const PropertyPointer &prop);
+    bool updateProperty (const PropertyPointer &prop);
 
 private:
     QVector<PropertyPointer> m_props;

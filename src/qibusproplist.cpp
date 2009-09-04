@@ -39,8 +39,18 @@ PropList::deserialize (const QDBusArgument & argument)
     return true;
 }
 
+bool PropList::appendProperty (const PropertyPointer &prop)
+{
+    if ( !prop.isNull() ) {
+        m_props.append(prop);
+        return true;
+    }
+
+    return false;
+}
+
 bool
-PropList::updateProperty (const PropertyPointer prop)
+PropList::updateProperty (const PropertyPointer &prop)
 {
     for ( int i = 0; i < m_props.size(); ++i ) {
         if ( m_props[i]->update(prop) ) {

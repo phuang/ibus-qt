@@ -12,15 +12,31 @@ class DemoEngine : public Engine
  
 public :
     Q_INVOKABLE DemoEngine () {}
-    Q_INVOKABLE DemoEngine (const QString &name): Engine(name) {}
+    Q_INVOKABLE DemoEngine (const QString &name);
  
-    virtual ~DemoEngine () {}
+    virtual ~DemoEngine ();
+ 
+public :
+    void initialize ();
+    void clearup ();
+
+private :
+    // send signals
+    void UpdatePreeditText ();
+    void UpdateAuxiliaryText ();
+    void UpdateLookupTable ();
+    void CommitCurrentCandidate ();
+
+    void CloseLookupTable ();
+
+private :
+    // virtual function
+    bool processKeyEvent (uint keyval, uint keycode, uint state);
  
 private :
-    Q_INVOKABLE bool ProcessKeyEvent(uint keyVal, uint keyCode, uint modifiers);
  
-private :
- 
+    QString             m_context;  // store keyboard input
+
     LookupTablePointer  m_table;
     PropertyPointer     m_prop;
     PropListPointer     m_propList;

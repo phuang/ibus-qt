@@ -7,15 +7,6 @@
 
 namespace IBus {
 
-class Property;
-class PropList;
-typedef Pointer<PropList> PropListPointer;
-typedef Pointer<Property> PropertyPointer;
-
-class Property : public Serializable
-{
-    Q_OBJECT;
-
 /* type of QIBusProperty */
 typedef enum
 {
@@ -37,6 +28,16 @@ typedef enum
     StateInconsistent = 2,
 }PropState;
 
+class Property;
+class PropList;
+typedef Pointer<PropList> PropListPointer;
+typedef Pointer<Property> PropertyPointer;
+
+class Property : public Serializable
+{
+    Q_OBJECT;
+
+
 public:
     Property ()
     {}
@@ -47,7 +48,8 @@ public:
               bool sensitive,
               bool visible,
               uint type,
-              uint state)
+              uint state,
+              PropListPointer subProps)
     : m_key(key),
       m_icon(icon),
       m_label(label),
@@ -55,11 +57,11 @@ public:
       m_sensitive(sensitive),
       m_visible(visible),
       m_type(type),
-      m_state(state)
+      m_state(state),
+      m_subProps(subProps)
     {}
 
-    ~Property ()
-    {}
+    ~Property () {}
 
 public:
     virtual bool serialize (QDBusArgument &argument) const;
@@ -72,7 +74,6 @@ public:
     bool update (const PropertyPointer prop);
 
 private:
-
     QString m_key;
     QString m_icon;
     TextPointer m_label;
