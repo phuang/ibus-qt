@@ -19,9 +19,6 @@ EngineFactory::CreateEngine (const QString &engineName)
 {
     QString path = "/org/freedesktop/IBus/Engine/" + engineName + "/" + QString::number(++m_id);
 
-    qDebug () << "CreateEngine";
-    qDebug () << path;
-
     if ( !m_engineMap.contains(engineName) ) {
         qDebug () << "EngineFactory::CreateEngine, can not create engine!";
         return QDBusObjectPath();
@@ -47,13 +44,14 @@ EngineFactory::CreateEngine (const QString &engineName)
         return QDBusObjectPath();
     }
 
-    if ( !m_conn.registerObject (path, adaptor) ) {
+    if ( !m_conn.registerObject (path, obj) ) {
         qDebug () << "EngineFactory::CreateEngine, registerObject error!";
         return QDBusObjectPath();
     }
 
     m_engineLList.append(adaptor);
 
+    qDebug () << path;
     return QDBusObjectPath(path);
 }
 

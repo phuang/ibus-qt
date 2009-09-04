@@ -33,7 +33,7 @@ int main (int argc, char **argv)
     }
  
     EngineFactory factory(bus.getConnection());
-    factory.addMetaObject("hangul", &(DemoEngine::staticMetaObject));
+    factory.addMetaObject("qtdemo", &(DemoEngine::staticMetaObject));
 
     bus.registerObject ("/org/freedesktop/IBus/Factory", &factory);
  
