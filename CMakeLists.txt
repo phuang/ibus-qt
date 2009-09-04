@@ -93,6 +93,7 @@ install(FILES ${MAIN_DOCS}
 # sub dirs
 add_subdirectory(src)
 add_subdirectory(qtim)
+add_subdirectory(test)
 
 # ======
 # targets

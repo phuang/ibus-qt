@@ -19,15 +19,15 @@ Component::serialize (QDBusArgument &argument) const
     argument << m_exec;
     argument << m_textdomain;
 
-    argument.beginArray(QDBusArgument::VariantType);
+    argument.beginArray(qMetaTypeId<QDBusVariant>());
     for ( int i = 0; i < m_observedPaths.size(); ++i ) {
         argument << m_observedPaths[i];
     }
     argument.endArray();
 
-    argument.beginArray(QDBusArgument::VariantType);
+    argument.beginArray(qMetaTypeId<QDBusVariant>());
     for ( int i = 0; i < m_engines.size(); ++i ) {
-        argument << m_engines[i];
+        argument << qDBusVariantFromSerializable (m_engines[i]);
     }
     argument.endArray();
 

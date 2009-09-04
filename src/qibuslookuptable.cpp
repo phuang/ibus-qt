@@ -17,14 +17,14 @@ LookupTable::serialize (QDBusArgument & argument) const
     argument << m_round;
 
     // read variables of container type into argument
-    argument.beginArray(QDBusArgument::VariantType);
+    argument.beginArray (qMetaTypeId<QDBusVariant>());
     for ( int i = 0; i < m_candidates.size(); ++i )
     {
         argument << m_candidates[i];
     }
     argument.endArray();
 
-    argument.beginArray(QDBusArgument::VariantType);
+    argument.beginArray (qMetaTypeId<QDBusVariant>());
     for ( int i = 0; i < m_labels.size(); ++i )
     {
         argument << m_labels[i];
