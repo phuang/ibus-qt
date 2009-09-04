@@ -12,28 +12,30 @@ link_directories(
 )
 
 set(
-    test_engine_SRCS
+    demo_engine_SRCS
+    qibusdemoengine.cpp
     main.cpp
 )
 
 set(
-    test_engine_MOC_HDRS
+    demo_engine_MOC_HDRS
+    qibusdemoengine.h
 )
 
-QT4_AUTOMOC(${test_engine_SRCS})
+QT4_AUTOMOC(${demo_engine_SRCS})
 QT4_WRAP_CPP(
-    _MOC_SRCS
-    ${test_engine_MOC_HDRS}
+    demo_engine_MOC_SRCS
+    ${demo_engine_MOC_HDRS}
 )
 
 add_executable(
-    test-engine
-    ${test_engine_SRCS}
-    ${test_engine_MOC_SRCS}
+    demo-engine
+    ${demo_engine_SRCS}
+    ${demo_engine_MOC_SRCS}
 )
 
 target_link_libraries(
-    test-engine
+    demo-engine
     debug ${QT_QTGUI_LIBRARY_DEBUG}
     optimized ${QT_QTGUI_LIBRARY_RELEASE}
     ${ICU_LIBRARIES}
