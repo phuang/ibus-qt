@@ -24,6 +24,7 @@ int main (int argc, char **argv)
                     "Peng Huang <shawn.p.huang@gmail.com>",
                     "ibus",
                     "us");
+
     cmpt->addEngine(engine);
  
     Bus bus;
