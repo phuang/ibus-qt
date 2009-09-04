@@ -3,7 +3,7 @@
  
 using namespace IBus;
  
-int main(int argc, char **argv)
+int main (int argc, char **argv)
 {
     QCoreApplication app (argc, argv);
  
@@ -14,9 +14,9 @@ int main(int argc, char **argv)
                     "Peng Huang <shawn.p.huang@gmail.com>",
                     "http://code.google.com/p/ibus/",
                     "",
-                    "ibus-hangul");
+                    "ibus-qt");
  
-    EngineDescPointer engine = new EngineDesc("hangul",
+    EngineDescPointer engine = new EngineDesc("qtdemo",
                     "Qt Demo Input Method",
                     "Qt Demo Input Method",
                     "en",
@@ -35,7 +35,7 @@ int main(int argc, char **argv)
     EngineFactory factory(bus.getConnection());
     factory.addMetaObject("hangul", &(DemoEngine::staticMetaObject));
 
-    bus.registerObject ("/org/freedesktop/IBus", &factory);
+    bus.registerObject ("/org/freedesktop/IBus/Factory", &factory);
  
     if ( !bus.registerComponent(cmpt) ) {
         qDebug () << "registerComponent error!";

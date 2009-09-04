@@ -11,7 +11,7 @@ class DemoEngine : public Engine
     Q_OBJECT
  
 public :
-    DemoEngine () {}
+    Q_INVOKABLE DemoEngine () {}
     Q_INVOKABLE DemoEngine (const QString &name): Engine(name) {}
  
     virtual ~DemoEngine () {}
