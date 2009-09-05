@@ -29,11 +29,11 @@ DemoEngine::initialize ()
     m_propList->appendProperty(prop);
 }
 
-void 
+void
 DemoEngine::clearup () {}
 
 // call the corresponding function in base class--Engine
-void 
+void
 DemoEngine::UpdatePreeditText ()
 {
     if ( m_context.size() > 0 ) {
@@ -58,7 +58,7 @@ DemoEngine::UpdateLookupTable ()
     updateLookupTable(m_table, true);
 }
 
-void 
+void
 DemoEngine::CommitCurrentCandidate ()
 {}
 
@@ -73,7 +73,7 @@ DemoEngine::CloseLookupTable ()
 bool
 DemoEngine::processKeyEvent (uint keyval, uint keycode, uint modifiers)
 {
-    if ( keyval == IBUS_Shift_L || keyval == IBUS_Shift_R ) {
+    if ( keyval == Key_Shift_L || keyval == Key_Shift_R ) {
         return false;
     }
 

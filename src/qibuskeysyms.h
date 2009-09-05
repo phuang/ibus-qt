@@ -30,21 +30,21 @@
  * because they are self-explaining.
  */
 
-#ifndef __IBUS_KEYSYMS_H__
-#define __IBUS_KEYSYMS_H__
-
-
-#define IBUS_VoidSymbol 0xffffff
-#define IBUS_BackSpace 0xff08
-#define IBUS_Tab 0xff09
-#define IBUS_Linefeed 0xff0a
-#define IBUS_Clear 0xff0b
-#define IBUS_Return 0xff0d
-#define IBUS_Pause 0xff13
-#define IBUS_Scroll_Lock 0xff14
-#define IBUS_Sys_Req 0xff15
-#define IBUS_Escape 0xff1b
-#define IBUS_Delete 0xffff
+#ifndef __Q_IBUS_KEYSYMS_H__
+#define __Q_IBUS_KEYSYMS_H__
+namespace IBus {
+typedef enum {
+    Key_VoidSymbol = 0xffffff,
+    Key_BackSpace = 0xff08,
+    Key_Tab = 0xff09,
+    Key_Linefeed = 0xff0a,
+    Key_Clear = 0xff0b,
+    Key_Return = 0xff0d,
+    Key_Pause = 0xff13,
+    Key_Scroll_Lock = 0xff14,
+    Key_Sys_Req = 0xff15,
+    Key_Escape = 0xff1b,
+    Key_Delete = 0xffff,
 
 
 /**
@@ -53,2037 +53,2039 @@
  * Key for composing characters.
  * A.k.a. Compose Key.
  */
-#define IBUS_Multi_key 0xff20
+    Key_Multi_key = 0xff20,
 
 /**
  * IBUS_Codeinput:
  *
  * International and multi-key character composition.
  */
-#define IBUS_Codeinput 0xff37
-#define IBUS_SingleCandidate 0xff3c
-#define IBUS_MultipleCandidate 0xff3d
-#define IBUS_PreviousCandidate 0xff3e
+    Key_Codeinput = 0xff37,
+    Key_SingleCandidate = 0xff3c,
+    Key_MultipleCandidate = 0xff3d,
+    Key_PreviousCandidate = 0xff3e,
 
 /**
  * IBUS_Kanji:
  *
  * Japanese keyboard support.
  */
-#define IBUS_Kanji 0xff21
+    Key_Kanji = 0xff21,
 
 /**
  * IBUS_Muhenkan:
  *
  * Japanese keyboard support.
  */
-#define IBUS_Muhenkan 0xff22
+    Key_Muhenkan = 0xff22,
 
 /**
  * IBUS_Henkan_Mode:
  *
  * Japanese keyboard support.
  */
-#define IBUS_Henkan_Mode 0xff23
+    Key_Henkan_Mode = 0xff23,
 
 /**
  * IBUS_Henkan:
  *
  * Japanese keyboard support.
  */
-#define IBUS_Henkan 0xff23
+    Key_Henkan = 0xff23,
 
 /**
  * IBUS_Romaji:
  *
  * Japanese keyboard support.
  */
-#define IBUS_Romaji 0xff24
+    Key_Romaji = 0xff24,
 
 /**
  * IBUS_Hiragana:
  *
  * Japanese keyboard support.
  */
-#define IBUS_Hiragana 0xff25
+    Key_Hiragana = 0xff25,
 
 /**
  * IBUS_Katakana:
  *
  * Japanese keyboard support.
  */
-#define IBUS_Katakana 0xff26
+    Key_Katakana = 0xff26,
 
 /**
  * IBUS_Hiragana_Katakana:
  *
  * Japanese keyboard support.
  */
-#define IBUS_Hiragana_Katakana 0xff27
-#define IBUS_Zenkaku 0xff28
-#define IBUS_Hankaku 0xff29
-#define IBUS_Zenkaku_Hankaku 0xff2a
-#define IBUS_Touroku 0xff2b
-#define IBUS_Massyo 0xff2c
-#define IBUS_Kana_Lock 0xff2d
-#define IBUS_Kana_Shift 0xff2e
-#define IBUS_Eisu_Shift 0xff2f
-#define IBUS_Eisu_toggle 0xff30
-#define IBUS_Kanji_Bangou 0xff37
-#define IBUS_Zen_Koho 0xff3d
-#define IBUS_Mae_Koho 0xff3e
-#define IBUS_Home 0xff50
-#define IBUS_Left 0xff51
-#define IBUS_Up 0xff52
-#define IBUS_Right 0xff53
-#define IBUS_Down 0xff54
-#define IBUS_Prior 0xff55
-#define IBUS_Page_Up 0xff55
-#define IBUS_Next 0xff56
-#define IBUS_Page_Down 0xff56
-#define IBUS_End 0xff57
-#define IBUS_Begin 0xff58
-#define IBUS_Select 0xff60
-#define IBUS_Print 0xff61
-#define IBUS_Execute 0xff62
-#define IBUS_Insert 0xff63
-#define IBUS_Undo 0xff65
-#define IBUS_Redo 0xff66
-#define IBUS_Menu 0xff67
-#define IBUS_Find 0xff68
-#define IBUS_Cancel 0xff69
-#define IBUS_Help 0xff6a
-#define IBUS_Break 0xff6b
-#define IBUS_Mode_switch 0xff7e
-#define IBUS_script_switch 0xff7e
-#define IBUS_Num_Lock 0xff7f
-#define IBUS_KP_Space 0xff80
-#define IBUS_KP_Tab 0xff89
-#define IBUS_KP_Enter 0xff8d
-#define IBUS_KP_F1 0xff91
-#define IBUS_KP_F2 0xff92
-#define IBUS_KP_F3 0xff93
-#define IBUS_KP_F4 0xff94
-#define IBUS_KP_Home 0xff95
-#define IBUS_KP_Left 0xff96
-#define IBUS_KP_Up 0xff97
-#define IBUS_KP_Right 0xff98
-#define IBUS_KP_Down 0xff99
-#define IBUS_KP_Prior 0xff9a
-#define IBUS_KP_Page_Up 0xff9a
-#define IBUS_KP_Next 0xff9b
-#define IBUS_KP_Page_Down 0xff9b
-#define IBUS_KP_End 0xff9c
-#define IBUS_KP_Begin 0xff9d
-#define IBUS_KP_Insert 0xff9e
-#define IBUS_KP_Delete 0xff9f
-#define IBUS_KP_Equal 0xffbd
-#define IBUS_KP_Multiply 0xffaa
-#define IBUS_KP_Add 0xffab
-#define IBUS_KP_Separator 0xffac
-#define IBUS_KP_Subtract 0xffad
-#define IBUS_KP_Decimal 0xffae
-#define IBUS_KP_Divide 0xffaf
-#define IBUS_KP_0 0xffb0
-#define IBUS_KP_1 0xffb1
-#define IBUS_KP_2 0xffb2
-#define IBUS_KP_3 0xffb3
-#define IBUS_KP_4 0xffb4
-#define IBUS_KP_5 0xffb5
-#define IBUS_KP_6 0xffb6
-#define IBUS_KP_7 0xffb7
-#define IBUS_KP_8 0xffb8
-#define IBUS_KP_9 0xffb9
-#define IBUS_F1 0xffbe
-#define IBUS_F2 0xffbf
-#define IBUS_F3 0xffc0
-#define IBUS_F4 0xffc1
-#define IBUS_F5 0xffc2
-#define IBUS_F6 0xffc3
-#define IBUS_F7 0xffc4
-#define IBUS_F8 0xffc5
-#define IBUS_F9 0xffc6
-#define IBUS_F10 0xffc7
-#define IBUS_F11 0xffc8
-#define IBUS_L1 0xffc8
-#define IBUS_F12 0xffc9
-#define IBUS_L2 0xffc9
-#define IBUS_F13 0xffca
-#define IBUS_L3 0xffca
-#define IBUS_F14 0xffcb
-#define IBUS_L4 0xffcb
-#define IBUS_F15 0xffcc
-#define IBUS_L5 0xffcc
-#define IBUS_F16 0xffcd
-#define IBUS_L6 0xffcd
-#define IBUS_F17 0xffce
-#define IBUS_L7 0xffce
-#define IBUS_F18 0xffcf
-#define IBUS_L8 0xffcf
-#define IBUS_F19 0xffd0
-#define IBUS_L9 0xffd0
-#define IBUS_F20 0xffd1
-#define IBUS_L10 0xffd1
-#define IBUS_F21 0xffd2
-#define IBUS_R1 0xffd2
-#define IBUS_F22 0xffd3
-#define IBUS_R2 0xffd3
-#define IBUS_F23 0xffd4
-#define IBUS_R3 0xffd4
-#define IBUS_F24 0xffd5
-#define IBUS_R4 0xffd5
-#define IBUS_F25 0xffd6
-#define IBUS_R5 0xffd6
-#define IBUS_F26 0xffd7
-#define IBUS_R6 0xffd7
-#define IBUS_F27 0xffd8
-#define IBUS_R7 0xffd8
-#define IBUS_F28 0xffd9
-#define IBUS_R8 0xffd9
-#define IBUS_F29 0xffda
-#define IBUS_R9 0xffda
-#define IBUS_F30 0xffdb
-#define IBUS_R10 0xffdb
-#define IBUS_F31 0xffdc
-#define IBUS_R11 0xffdc
-#define IBUS_F32 0xffdd
-#define IBUS_R12 0xffdd
-#define IBUS_F33 0xffde
-#define IBUS_R13 0xffde
-#define IBUS_F34 0xffdf
-#define IBUS_R14 0xffdf
-#define IBUS_F35 0xffe0
-#define IBUS_R15 0xffe0
-#define IBUS_Shift_L 0xffe1
-#define IBUS_Shift_R 0xffe2
-#define IBUS_Control_L 0xffe3
-#define IBUS_Control_R 0xffe4
-#define IBUS_Caps_Lock 0xffe5
-#define IBUS_Shift_Lock 0xffe6
-#define IBUS_Meta_L 0xffe7
-#define IBUS_Meta_R 0xffe8
-#define IBUS_Alt_L 0xffe9
-#define IBUS_Alt_R 0xffea
-#define IBUS_Super_L 0xffeb
-#define IBUS_Super_R 0xffec
-#define IBUS_Hyper_L 0xffed
-#define IBUS_Hyper_R 0xffee
-#define IBUS_ISO_Lock 0xfe01
-#define IBUS_ISO_Level2_Latch 0xfe02
-#define IBUS_ISO_Level3_Shift 0xfe03
-#define IBUS_ISO_Level3_Latch 0xfe04
-#define IBUS_ISO_Level3_Lock 0xfe05
-#define IBUS_ISO_Level5_Shift 0xfe11
-#define IBUS_ISO_Level5_Latch 0xfe12
-#define IBUS_ISO_Level5_Lock 0xfe13
-#define IBUS_ISO_Group_Shift 0xff7e
-#define IBUS_ISO_Group_Latch 0xfe06
-#define IBUS_ISO_Group_Lock 0xfe07
-#define IBUS_ISO_Next_Group 0xfe08
-#define IBUS_ISO_Next_Group_Lock 0xfe09
-#define IBUS_ISO_Prev_Group 0xfe0a
-#define IBUS_ISO_Prev_Group_Lock 0xfe0b
-#define IBUS_ISO_First_Group 0xfe0c
-#define IBUS_ISO_First_Group_Lock 0xfe0d
-#define IBUS_ISO_Last_Group 0xfe0e
-#define IBUS_ISO_Last_Group_Lock 0xfe0f
-#define IBUS_ISO_Left_Tab 0xfe20
-#define IBUS_ISO_Move_Line_Up 0xfe21
-#define IBUS_ISO_Move_Line_Down 0xfe22
-#define IBUS_ISO_Partial_Line_Up 0xfe23
-#define IBUS_ISO_Partial_Line_Down 0xfe24
-#define IBUS_ISO_Partial_Space_Left 0xfe25
-#define IBUS_ISO_Partial_Space_Right 0xfe26
-#define IBUS_ISO_Set_Margin_Left 0xfe27
-#define IBUS_ISO_Set_Margin_Right 0xfe28
-#define IBUS_ISO_Release_Margin_Left 0xfe29
-#define IBUS_ISO_Release_Margin_Right 0xfe2a
-#define IBUS_ISO_Release_Both_Margins 0xfe2b
-#define IBUS_ISO_Fast_Cursor_Left 0xfe2c
-#define IBUS_ISO_Fast_Cursor_Right 0xfe2d
-#define IBUS_ISO_Fast_Cursor_Up 0xfe2e
-#define IBUS_ISO_Fast_Cursor_Down 0xfe2f
-#define IBUS_ISO_Continuous_Underline 0xfe30
-#define IBUS_ISO_Discontinuous_Underline 0xfe31
-#define IBUS_ISO_Emphasize 0xfe32
-#define IBUS_ISO_Center_Object 0xfe33
-#define IBUS_ISO_Enter 0xfe34
-#define IBUS_dead_grave 0xfe50
-#define IBUS_dead_acute 0xfe51
-#define IBUS_dead_circumflex 0xfe52
-#define IBUS_dead_tilde 0xfe53
-#define IBUS_dead_perispomeni 0xfe53
-#define IBUS_dead_macron 0xfe54
-#define IBUS_dead_breve 0xfe55
-#define IBUS_dead_abovedot 0xfe56
-#define IBUS_dead_diaeresis 0xfe57
-#define IBUS_dead_abovering 0xfe58
-#define IBUS_dead_doubleacute 0xfe59
-#define IBUS_dead_caron 0xfe5a
-#define IBUS_dead_cedilla 0xfe5b
-#define IBUS_dead_ogonek 0xfe5c
-#define IBUS_dead_iota 0xfe5d
-#define IBUS_dead_voiced_sound 0xfe5e
-#define IBUS_dead_semivoiced_sound 0xfe5f
-#define IBUS_dead_belowdot 0xfe60
-#define IBUS_dead_hook 0xfe61
-#define IBUS_dead_horn 0xfe62
-#define IBUS_dead_stroke 0xfe63
-#define IBUS_dead_abovecomma 0xfe64
-#define IBUS_dead_psili 0xfe64
-#define IBUS_dead_abovereversedcomma 0xfe65
-#define IBUS_dead_dasia 0xfe65
-#define IBUS_dead_belowring 0xfe67
-#define IBUS_dead_belowmacron 0xfe68
-#define IBUS_dead_belowcircumflex 0xfe69
-#define IBUS_dead_belowtilde 0xfe6a
-#define IBUS_dead_belowbreve 0xfe6b
-#define IBUS_dead_belowdiaeresis 0xfe6c
-#define IBUS_First_Virtual_Screen 0xfed0
-#define IBUS_Prev_Virtual_Screen 0xfed1
-#define IBUS_Next_Virtual_Screen 0xfed2
-#define IBUS_Last_Virtual_Screen 0xfed4
-#define IBUS_Terminate_Server 0xfed5
-#define IBUS_AccessX_Enable 0xfe70
-#define IBUS_AccessX_Feedback_Enable 0xfe71
-#define IBUS_RepeatKeys_Enable 0xfe72
-#define IBUS_SlowKeys_Enable 0xfe73
-#define IBUS_BounceKeys_Enable 0xfe74
-#define IBUS_StickyKeys_Enable 0xfe75
-#define IBUS_MouseKeys_Enable 0xfe76
-#define IBUS_MouseKeys_Accel_Enable 0xfe77
-#define IBUS_Overlay1_Enable 0xfe78
-#define IBUS_Overlay2_Enable 0xfe79
-#define IBUS_AudibleBell_Enable 0xfe7a
-#define IBUS_Pointer_Left 0xfee0
-#define IBUS_Pointer_Right 0xfee1
-#define IBUS_Pointer_Up 0xfee2
-#define IBUS_Pointer_Down 0xfee3
-#define IBUS_Pointer_UpLeft 0xfee4
-#define IBUS_Pointer_UpRight 0xfee5
-#define IBUS_Pointer_DownLeft 0xfee6
-#define IBUS_Pointer_DownRight 0xfee7
-#define IBUS_Pointer_Button_Dflt 0xfee8
-#define IBUS_Pointer_Button1 0xfee9
-#define IBUS_Pointer_Button2 0xfeea
-#define IBUS_Pointer_Button3 0xfeeb
-#define IBUS_Pointer_Button4 0xfeec
-#define IBUS_Pointer_Button5 0xfeed
-#define IBUS_Pointer_DblClick_Dflt 0xfeee
-#define IBUS_Pointer_DblClick1 0xfeef
-#define IBUS_Pointer_DblClick2 0xfef0
-#define IBUS_Pointer_DblClick3 0xfef1
-#define IBUS_Pointer_DblClick4 0xfef2
-#define IBUS_Pointer_DblClick5 0xfef3
-#define IBUS_Pointer_Drag_Dflt 0xfef4
-#define IBUS_Pointer_Drag1 0xfef5
-#define IBUS_Pointer_Drag2 0xfef6
-#define IBUS_Pointer_Drag3 0xfef7
-#define IBUS_Pointer_Drag4 0xfef8
-#define IBUS_Pointer_Drag5 0xfefd
-#define IBUS_Pointer_EnableKeys 0xfef9
-#define IBUS_Pointer_Accelerate 0xfefa
-#define IBUS_Pointer_DfltBtnNext 0xfefb
-#define IBUS_Pointer_DfltBtnPrev 0xfefc
-#define IBUS_3270_Duplicate 0xfd01
-#define IBUS_3270_FieldMark 0xfd02
-#define IBUS_3270_Right2 0xfd03
-#define IBUS_3270_Left2 0xfd04
-#define IBUS_3270_BackTab 0xfd05
-#define IBUS_3270_EraseEOF 0xfd06
-#define IBUS_3270_EraseInput 0xfd07
-#define IBUS_3270_Reset 0xfd08
-#define IBUS_3270_Quit 0xfd09
-#define IBUS_3270_PA1 0xfd0a
-#define IBUS_3270_PA2 0xfd0b
-#define IBUS_3270_PA3 0xfd0c
-#define IBUS_3270_Test 0xfd0d
-#define IBUS_3270_Attn 0xfd0e
-#define IBUS_3270_CursorBlink 0xfd0f
-#define IBUS_3270_AltCursor 0xfd10
-#define IBUS_3270_KeyClick 0xfd11
-#define IBUS_3270_Jump 0xfd12
-#define IBUS_3270_Ident 0xfd13
-#define IBUS_3270_Rule 0xfd14
-#define IBUS_3270_Copy 0xfd15
-#define IBUS_3270_Play 0xfd16
-#define IBUS_3270_Setup 0xfd17
-#define IBUS_3270_Record 0xfd18
-#define IBUS_3270_ChangeScreen 0xfd19
-#define IBUS_3270_DeleteWord 0xfd1a
-#define IBUS_3270_ExSelect 0xfd1b
-#define IBUS_3270_CursorSelect 0xfd1c
-#define IBUS_3270_PrintScreen 0xfd1d
-#define IBUS_3270_Enter 0xfd1e
-#define IBUS_space 0x020
-#define IBUS_exclam 0x021
-#define IBUS_quotedbl 0x022
-#define IBUS_numbersign 0x023
-#define IBUS_dollar 0x024
-#define IBUS_percent 0x025
-#define IBUS_ampersand 0x026
-#define IBUS_apostrophe 0x027
-#define IBUS_quoteright 0x027
-#define IBUS_parenleft 0x028
-#define IBUS_parenright 0x029
-#define IBUS_asterisk 0x02a
-#define IBUS_plus 0x02b
-#define IBUS_comma 0x02c
-#define IBUS_minus 0x02d
-#define IBUS_period 0x02e
-#define IBUS_slash 0x02f
-#define IBUS_0 0x030
-#define IBUS_1 0x031
-#define IBUS_2 0x032
-#define IBUS_3 0x033
-#define IBUS_4 0x034
-#define IBUS_5 0x035
-#define IBUS_6 0x036
-#define IBUS_7 0x037
-#define IBUS_8 0x038
-#define IBUS_9 0x039
-#define IBUS_colon 0x03a
-#define IBUS_semicolon 0x03b
-#define IBUS_less 0x03c
-#define IBUS_equal 0x03d
-#define IBUS_greater 0x03e
-#define IBUS_question 0x03f
-#define IBUS_at 0x040
-#define IBUS_A 0x041
-#define IBUS_B 0x042
-#define IBUS_C 0x043
-#define IBUS_D 0x044
-#define IBUS_E 0x045
-#define IBUS_F 0x046
-#define IBUS_G 0x047
-#define IBUS_H 0x048
-#define IBUS_I 0x049
-#define IBUS_J 0x04a
-#define IBUS_K 0x04b
-#define IBUS_L 0x04c
-#define IBUS_M 0x04d
-#define IBUS_N 0x04e
-#define IBUS_O 0x04f
-#define IBUS_P 0x050
-#define IBUS_Q 0x051
-#define IBUS_R 0x052
-#define IBUS_S 0x053
-#define IBUS_T 0x054
-#define IBUS_U 0x055
-#define IBUS_V 0x056
-#define IBUS_W 0x057
-#define IBUS_X 0x058
-#define IBUS_Y 0x059
-#define IBUS_Z 0x05a
-#define IBUS_bracketleft 0x05b
-#define IBUS_backslash 0x05c
-#define IBUS_bracketright 0x05d
-#define IBUS_asciicircum 0x05e
-#define IBUS_underscore 0x05f
-#define IBUS_grave 0x060
-#define IBUS_quoteleft 0x060
-#define IBUS_a 0x061
-#define IBUS_b 0x062
-#define IBUS_c 0x063
-#define IBUS_d 0x064
-#define IBUS_e 0x065
-#define IBUS_f 0x066
-#define IBUS_g 0x067
-#define IBUS_h 0x068
-#define IBUS_i 0x069
-#define IBUS_j 0x06a
-#define IBUS_k 0x06b
-#define IBUS_l 0x06c
-#define IBUS_m 0x06d
-#define IBUS_n 0x06e
-#define IBUS_o 0x06f
-#define IBUS_p 0x070
-#define IBUS_q 0x071
-#define IBUS_r 0x072
-#define IBUS_s 0x073
-#define IBUS_t 0x074
-#define IBUS_u 0x075
-#define IBUS_v 0x076
-#define IBUS_w 0x077
-#define IBUS_x 0x078
-#define IBUS_y 0x079
-#define IBUS_z 0x07a
-#define IBUS_braceleft 0x07b
-#define IBUS_bar 0x07c
-#define IBUS_braceright 0x07d
-#define IBUS_asciitilde 0x07e
-#define IBUS_nobreakspace 0x0a0
-#define IBUS_exclamdown 0x0a1
-#define IBUS_cent 0x0a2
-#define IBUS_sterling 0x0a3
-#define IBUS_currency 0x0a4
-#define IBUS_yen 0x0a5
-#define IBUS_brokenbar 0x0a6
-#define IBUS_section 0x0a7
-#define IBUS_diaeresis 0x0a8
-#define IBUS_copyright 0x0a9
-#define IBUS_ordfeminine 0x0aa
-#define IBUS_guillemotleft 0x0ab
-#define IBUS_notsign 0x0ac
-#define IBUS_hyphen 0x0ad
-#define IBUS_registered 0x0ae
-#define IBUS_macron 0x0af
-#define IBUS_degree 0x0b0
-#define IBUS_plusminus 0x0b1
-#define IBUS_twosuperior 0x0b2
-#define IBUS_threesuperior 0x0b3
-#define IBUS_acute 0x0b4
-#define IBUS_mu 0x0b5
-#define IBUS_paragraph 0x0b6
-#define IBUS_periodcentered 0x0b7
-#define IBUS_cedilla 0x0b8
-#define IBUS_onesuperior 0x0b9
-#define IBUS_masculine 0x0ba
-#define IBUS_guillemotright 0x0bb
-#define IBUS_onequarter 0x0bc
-#define IBUS_onehalf 0x0bd
-#define IBUS_threequarters 0x0be
-#define IBUS_questiondown 0x0bf
-#define IBUS_Agrave 0x0c0
-#define IBUS_Aacute 0x0c1
-#define IBUS_Acircumflex 0x0c2
-#define IBUS_Atilde 0x0c3
-#define IBUS_Adiaeresis 0x0c4
-#define IBUS_Aring 0x0c5
-#define IBUS_AE 0x0c6
-#define IBUS_Ccedilla 0x0c7
-#define IBUS_Egrave 0x0c8
-#define IBUS_Eacute 0x0c9
-#define IBUS_Ecircumflex 0x0ca
-#define IBUS_Ediaeresis 0x0cb
-#define IBUS_Igrave 0x0cc
-#define IBUS_Iacute 0x0cd
-#define IBUS_Icircumflex 0x0ce
-#define IBUS_Idiaeresis 0x0cf
-#define IBUS_ETH 0x0d0
-#define IBUS_Eth 0x0d0
-#define IBUS_Ntilde 0x0d1
-#define IBUS_Ograve 0x0d2
-#define IBUS_Oacute 0x0d3
-#define IBUS_Ocircumflex 0x0d4
-#define IBUS_Otilde 0x0d5
-#define IBUS_Odiaeresis 0x0d6
-#define IBUS_multiply 0x0d7
-#define IBUS_Oslash 0x0d8
-#define IBUS_Ooblique 0x0d8
-#define IBUS_Ugrave 0x0d9
-#define IBUS_Uacute 0x0da
-#define IBUS_Ucircumflex 0x0db
-#define IBUS_Udiaeresis 0x0dc
-#define IBUS_Yacute 0x0dd
-#define IBUS_THORN 0x0de
-#define IBUS_Thorn 0x0de
-#define IBUS_ssharp 0x0df
-#define IBUS_agrave 0x0e0
-#define IBUS_aacute 0x0e1
-#define IBUS_acircumflex 0x0e2
-#define IBUS_atilde 0x0e3
-#define IBUS_adiaeresis 0x0e4
-#define IBUS_aring 0x0e5
-#define IBUS_ae 0x0e6
-#define IBUS_ccedilla 0x0e7
-#define IBUS_egrave 0x0e8
-#define IBUS_eacute 0x0e9
-#define IBUS_ecircumflex 0x0ea
-#define IBUS_ediaeresis 0x0eb
-#define IBUS_igrave 0x0ec
-#define IBUS_iacute 0x0ed
-#define IBUS_icircumflex 0x0ee
-#define IBUS_idiaeresis 0x0ef
-#define IBUS_eth 0x0f0
-#define IBUS_ntilde 0x0f1
-#define IBUS_ograve 0x0f2
-#define IBUS_oacute 0x0f3
-#define IBUS_ocircumflex 0x0f4
-#define IBUS_otilde 0x0f5
-#define IBUS_odiaeresis 0x0f6
-#define IBUS_division 0x0f7
-#define IBUS_oslash 0x0f8
-#define IBUS_ooblique 0x0f8
-#define IBUS_ugrave 0x0f9
-#define IBUS_uacute 0x0fa
-#define IBUS_ucircumflex 0x0fb
-#define IBUS_udiaeresis 0x0fc
-#define IBUS_yacute 0x0fd
-#define IBUS_thorn 0x0fe
-#define IBUS_ydiaeresis 0x0ff
-#define IBUS_Aogonek 0x1a1
-#define IBUS_breve 0x1a2
-#define IBUS_Lstroke 0x1a3
-#define IBUS_Lcaron 0x1a5
-#define IBUS_Sacute 0x1a6
-#define IBUS_Scaron 0x1a9
-#define IBUS_Scedilla 0x1aa
-#define IBUS_Tcaron 0x1ab
-#define IBUS_Zacute 0x1ac
-#define IBUS_Zcaron 0x1ae
-#define IBUS_Zabovedot 0x1af
-#define IBUS_aogonek 0x1b1
-#define IBUS_ogonek 0x1b2
-#define IBUS_lstroke 0x1b3
-#define IBUS_lcaron 0x1b5
-#define IBUS_sacute 0x1b6
-#define IBUS_caron 0x1b7
-#define IBUS_scaron 0x1b9
-#define IBUS_scedilla 0x1ba
-#define IBUS_tcaron 0x1bb
-#define IBUS_zacute 0x1bc
-#define IBUS_doubleacute 0x1bd
-#define IBUS_zcaron 0x1be
-#define IBUS_zabovedot 0x1bf
-#define IBUS_Racute 0x1c0
-#define IBUS_Abreve 0x1c3
-#define IBUS_Lacute 0x1c5
-#define IBUS_Cacute 0x1c6
-#define IBUS_Ccaron 0x1c8
-#define IBUS_Eogonek 0x1ca
-#define IBUS_Ecaron 0x1cc
-#define IBUS_Dcaron 0x1cf
-#define IBUS_Dstroke 0x1d0
-#define IBUS_Nacute 0x1d1
-#define IBUS_Ncaron 0x1d2
-#define IBUS_Odoubleacute 0x1d5
-#define IBUS_Rcaron 0x1d8
-#define IBUS_Uring 0x1d9
-#define IBUS_Udoubleacute 0x1db
-#define IBUS_Tcedilla 0x1de
-#define IBUS_racute 0x1e0
-#define IBUS_abreve 0x1e3
-#define IBUS_lacute 0x1e5
-#define IBUS_cacute 0x1e6
-#define IBUS_ccaron 0x1e8
-#define IBUS_eogonek 0x1ea
-#define IBUS_ecaron 0x1ec
-#define IBUS_dcaron 0x1ef
-#define IBUS_dstroke 0x1f0
-#define IBUS_nacute 0x1f1
-#define IBUS_ncaron 0x1f2
-#define IBUS_odoubleacute 0x1f5
-#define IBUS_udoubleacute 0x1fb
-#define IBUS_rcaron 0x1f8
-#define IBUS_uring 0x1f9
-#define IBUS_tcedilla 0x1fe
-#define IBUS_abovedot 0x1ff
-#define IBUS_Hstroke 0x2a1
-#define IBUS_Hcircumflex 0x2a6
-#define IBUS_Iabovedot 0x2a9
-#define IBUS_Gbreve 0x2ab
-#define IBUS_Jcircumflex 0x2ac
-#define IBUS_hstroke 0x2b1
-#define IBUS_hcircumflex 0x2b6
-#define IBUS_idotless 0x2b9
-#define IBUS_gbreve 0x2bb
-#define IBUS_jcircumflex 0x2bc
-#define IBUS_Cabovedot 0x2c5
-#define IBUS_Ccircumflex 0x2c6
-#define IBUS_Gabovedot 0x2d5
-#define IBUS_Gcircumflex 0x2d8
-#define IBUS_Ubreve 0x2dd
-#define IBUS_Scircumflex 0x2de
-#define IBUS_cabovedot 0x2e5
-#define IBUS_ccircumflex 0x2e6
-#define IBUS_gabovedot 0x2f5
-#define IBUS_gcircumflex 0x2f8
-#define IBUS_ubreve 0x2fd
-#define IBUS_scircumflex 0x2fe
-#define IBUS_kra 0x3a2
-#define IBUS_kappa 0x3a2
-#define IBUS_Rcedilla 0x3a3
-#define IBUS_Itilde 0x3a5
-#define IBUS_Lcedilla 0x3a6
-#define IBUS_Emacron 0x3aa
-#define IBUS_Gcedilla 0x3ab
-#define IBUS_Tslash 0x3ac
-#define IBUS_rcedilla 0x3b3
-#define IBUS_itilde 0x3b5
-#define IBUS_lcedilla 0x3b6
-#define IBUS_emacron 0x3ba
-#define IBUS_gcedilla 0x3bb
-#define IBUS_tslash 0x3bc
-#define IBUS_ENG 0x3bd
-#define IBUS_eng 0x3bf
-#define IBUS_Amacron 0x3c0
-#define IBUS_Iogonek 0x3c7
-#define IBUS_Eabovedot 0x3cc
-#define IBUS_Imacron 0x3cf
-#define IBUS_Ncedilla 0x3d1
-#define IBUS_Omacron 0x3d2
-#define IBUS_Kcedilla 0x3d3
-#define IBUS_Uogonek 0x3d9
-#define IBUS_Utilde 0x3dd
-#define IBUS_Umacron 0x3de
-#define IBUS_amacron 0x3e0
-#define IBUS_iogonek 0x3e7
-#define IBUS_eabovedot 0x3ec
-#define IBUS_imacron 0x3ef
-#define IBUS_ncedilla 0x3f1
-#define IBUS_omacron 0x3f2
-#define IBUS_kcedilla 0x3f3
-#define IBUS_uogonek 0x3f9
-#define IBUS_utilde 0x3fd
-#define IBUS_umacron 0x3fe
-#define IBUS_Babovedot 0x1001e02
-#define IBUS_babovedot 0x1001e03
-#define IBUS_Dabovedot 0x1001e0a
-#define IBUS_Wgrave 0x1001e80
-#define IBUS_Wacute 0x1001e82
-#define IBUS_dabovedot 0x1001e0b
-#define IBUS_Ygrave 0x1001ef2
-#define IBUS_Fabovedot 0x1001e1e
-#define IBUS_fabovedot 0x1001e1f
-#define IBUS_Mabovedot 0x1001e40
-#define IBUS_mabovedot 0x1001e41
-#define IBUS_Pabovedot 0x1001e56
-#define IBUS_wgrave 0x1001e81
-#define IBUS_pabovedot 0x1001e57
-#define IBUS_wacute 0x1001e83
-#define IBUS_Sabovedot 0x1001e60
-#define IBUS_ygrave 0x1001ef3
-#define IBUS_Wdiaeresis 0x1001e84
-#define IBUS_wdiaeresis 0x1001e85
-#define IBUS_sabovedot 0x1001e61
-#define IBUS_Wcircumflex 0x1000174
-#define IBUS_Tabovedot 0x1001e6a
-#define IBUS_Ycircumflex 0x1000176
-#define IBUS_wcircumflex 0x1000175
-#define IBUS_tabovedot 0x1001e6b
-#define IBUS_ycircumflex 0x1000177
-#define IBUS_OE 0x13bc
-#define IBUS_oe 0x13bd
-#define IBUS_Ydiaeresis 0x13be
-#define IBUS_overline 0x47e
-#define IBUS_kana_fullstop 0x4a1
-#define IBUS_kana_openingbracket 0x4a2
-#define IBUS_kana_closingbracket 0x4a3
-#define IBUS_kana_comma 0x4a4
-#define IBUS_kana_conjunctive 0x4a5
-#define IBUS_kana_middledot 0x4a5
-#define IBUS_kana_WO 0x4a6
-#define IBUS_kana_a 0x4a7
-#define IBUS_kana_i 0x4a8
-#define IBUS_kana_u 0x4a9
-#define IBUS_kana_e 0x4aa
-#define IBUS_kana_o 0x4ab
-#define IBUS_kana_ya 0x4ac
-#define IBUS_kana_yu 0x4ad
-#define IBUS_kana_yo 0x4ae
-#define IBUS_kana_tsu 0x4af
-#define IBUS_kana_tu 0x4af
-#define IBUS_prolongedsound 0x4b0
-#define IBUS_kana_A 0x4b1
-#define IBUS_kana_I 0x4b2
-#define IBUS_kana_U 0x4b3
-#define IBUS_kana_E 0x4b4
-#define IBUS_kana_O 0x4b5
-#define IBUS_kana_KA 0x4b6
-#define IBUS_kana_KI 0x4b7
-#define IBUS_kana_KU 0x4b8
-#define IBUS_kana_KE 0x4b9
-#define IBUS_kana_KO 0x4ba
-#define IBUS_kana_SA 0x4bb
-#define IBUS_kana_SHI 0x4bc
-#define IBUS_kana_SU 0x4bd
-#define IBUS_kana_SE 0x4be
-#define IBUS_kana_SO 0x4bf
-#define IBUS_kana_TA 0x4c0
-#define IBUS_kana_CHI 0x4c1
-#define IBUS_kana_TI 0x4c1
-#define IBUS_kana_TSU 0x4c2
-#define IBUS_kana_TU 0x4c2
-#define IBUS_kana_TE 0x4c3
-#define IBUS_kana_TO 0x4c4
-#define IBUS_kana_NA 0x4c5
-#define IBUS_kana_NI 0x4c6
-#define IBUS_kana_NU 0x4c7
-#define IBUS_kana_NE 0x4c8
-#define IBUS_kana_NO 0x4c9
-#define IBUS_kana_HA 0x4ca
-#define IBUS_kana_HI 0x4cb
-#define IBUS_kana_FU 0x4cc
-#define IBUS_kana_HU 0x4cc
-#define IBUS_kana_HE 0x4cd
-#define IBUS_kana_HO 0x4ce
-#define IBUS_kana_MA 0x4cf
-#define IBUS_kana_MI 0x4d0
-#define IBUS_kana_MU 0x4d1
-#define IBUS_kana_ME 0x4d2
-#define IBUS_kana_MO 0x4d3
-#define IBUS_kana_YA 0x4d4
-#define IBUS_kana_YU 0x4d5
-#define IBUS_kana_YO 0x4d6
-#define IBUS_kana_RA 0x4d7
-#define IBUS_kana_RI 0x4d8
-#define IBUS_kana_RU 0x4d9
-#define IBUS_kana_RE 0x4da
-#define IBUS_kana_RO 0x4db
-#define IBUS_kana_WA 0x4dc
-#define IBUS_kana_N 0x4dd
-#define IBUS_voicedsound 0x4de
-#define IBUS_semivoicedsound 0x4df
-#define IBUS_kana_switch 0xff7e
-#define IBUS_Farsi_0 0x10006f0
-#define IBUS_Farsi_1 0x10006f1
-#define IBUS_Farsi_2 0x10006f2
-#define IBUS_Farsi_3 0x10006f3
-#define IBUS_Farsi_4 0x10006f4
-#define IBUS_Farsi_5 0x10006f5
-#define IBUS_Farsi_6 0x10006f6
-#define IBUS_Farsi_7 0x10006f7
-#define IBUS_Farsi_8 0x10006f8
-#define IBUS_Farsi_9 0x10006f9
-#define IBUS_Arabic_percent 0x100066a
-#define IBUS_Arabic_superscript_alef 0x1000670
-#define IBUS_Arabic_tteh 0x1000679
-#define IBUS_Arabic_peh 0x100067e
-#define IBUS_Arabic_tcheh 0x1000686
-#define IBUS_Arabic_ddal 0x1000688
-#define IBUS_Arabic_rreh 0x1000691
-#define IBUS_Arabic_comma 0x5ac
-#define IBUS_Arabic_fullstop 0x10006d4
-#define IBUS_Arabic_0 0x1000660
-#define IBUS_Arabic_1 0x1000661
-#define IBUS_Arabic_2 0x1000662
-#define IBUS_Arabic_3 0x1000663
-#define IBUS_Arabic_4 0x1000664
-#define IBUS_Arabic_5 0x1000665
-#define IBUS_Arabic_6 0x1000666
-#define IBUS_Arabic_7 0x1000667
-#define IBUS_Arabic_8 0x1000668
-#define IBUS_Arabic_9 0x1000669
-#define IBUS_Arabic_semicolon 0x5bb
-#define IBUS_Arabic_question_mark 0x5bf
-#define IBUS_Arabic_hamza 0x5c1
-#define IBUS_Arabic_maddaonalef 0x5c2
-#define IBUS_Arabic_hamzaonalef 0x5c3
-#define IBUS_Arabic_hamzaonwaw 0x5c4
-#define IBUS_Arabic_hamzaunderalef 0x5c5
-#define IBUS_Arabic_hamzaonyeh 0x5c6
-#define IBUS_Arabic_alef 0x5c7
-#define IBUS_Arabic_beh 0x5c8
-#define IBUS_Arabic_tehmarbuta 0x5c9
-#define IBUS_Arabic_teh 0x5ca
-#define IBUS_Arabic_theh 0x5cb
-#define IBUS_Arabic_jeem 0x5cc
-#define IBUS_Arabic_hah 0x5cd
-#define IBUS_Arabic_khah 0x5ce
-#define IBUS_Arabic_dal 0x5cf
-#define IBUS_Arabic_thal 0x5d0
-#define IBUS_Arabic_ra 0x5d1
-#define IBUS_Arabic_zain 0x5d2
-#define IBUS_Arabic_seen 0x5d3
-#define IBUS_Arabic_sheen 0x5d4
-#define IBUS_Arabic_sad 0x5d5
-#define IBUS_Arabic_dad 0x5d6
-#define IBUS_Arabic_tah 0x5d7
-#define IBUS_Arabic_zah 0x5d8
-#define IBUS_Arabic_ain 0x5d9
-#define IBUS_Arabic_ghain 0x5da
-#define IBUS_Arabic_tatweel 0x5e0
-#define IBUS_Arabic_feh 0x5e1
-#define IBUS_Arabic_qaf 0x5e2
-#define IBUS_Arabic_kaf 0x5e3
-#define IBUS_Arabic_lam 0x5e4
-#define IBUS_Arabic_meem 0x5e5
-#define IBUS_Arabic_noon 0x5e6
-#define IBUS_Arabic_ha 0x5e7
-#define IBUS_Arabic_heh 0x5e7
-#define IBUS_Arabic_waw 0x5e8
-#define IBUS_Arabic_alefmaksura 0x5e9
-#define IBUS_Arabic_yeh 0x5ea
-#define IBUS_Arabic_fathatan 0x5eb
-#define IBUS_Arabic_dammatan 0x5ec
-#define IBUS_Arabic_kasratan 0x5ed
-#define IBUS_Arabic_fatha 0x5ee
-#define IBUS_Arabic_damma 0x5ef
-#define IBUS_Arabic_kasra 0x5f0
-#define IBUS_Arabic_shadda 0x5f1
-#define IBUS_Arabic_sukun 0x5f2
-#define IBUS_Arabic_madda_above 0x1000653
-#define IBUS_Arabic_hamza_above 0x1000654
-#define IBUS_Arabic_hamza_below 0x1000655
-#define IBUS_Arabic_jeh 0x1000698
-#define IBUS_Arabic_veh 0x10006a4
-#define IBUS_Arabic_keheh 0x10006a9
-#define IBUS_Arabic_gaf 0x10006af
-#define IBUS_Arabic_noon_ghunna 0x10006ba
-#define IBUS_Arabic_heh_doachashmee 0x10006be
-#define IBUS_Farsi_yeh 0x10006cc
-#define IBUS_Arabic_farsi_yeh 0x10006cc
-#define IBUS_Arabic_yeh_baree 0x10006d2
-#define IBUS_Arabic_heh_goal 0x10006c1
-#define IBUS_Arabic_switch 0xff7e
-#define IBUS_Cyrillic_GHE_bar 0x1000492
-#define IBUS_Cyrillic_ghe_bar 0x1000493
-#define IBUS_Cyrillic_ZHE_descender 0x1000496
-#define IBUS_Cyrillic_zhe_descender 0x1000497
-#define IBUS_Cyrillic_KA_descender 0x100049a
-#define IBUS_Cyrillic_ka_descender 0x100049b
-#define IBUS_Cyrillic_KA_vertstroke 0x100049c
-#define IBUS_Cyrillic_ka_vertstroke 0x100049d
-#define IBUS_Cyrillic_EN_descender 0x10004a2
-#define IBUS_Cyrillic_en_descender 0x10004a3
-#define IBUS_Cyrillic_U_straight 0x10004ae
-#define IBUS_Cyrillic_u_straight 0x10004af
-#define IBUS_Cyrillic_U_straight_bar 0x10004b0
-#define IBUS_Cyrillic_u_straight_bar 0x10004b1
-#define IBUS_Cyrillic_HA_descender 0x10004b2
-#define IBUS_Cyrillic_ha_descender 0x10004b3
-#define IBUS_Cyrillic_CHE_descender 0x10004b6
-#define IBUS_Cyrillic_che_descender 0x10004b7
-#define IBUS_Cyrillic_CHE_vertstroke 0x10004b8
-#define IBUS_Cyrillic_che_vertstroke 0x10004b9
-#define IBUS_Cyrillic_SHHA 0x10004ba
-#define IBUS_Cyrillic_shha 0x10004bb
-#define IBUS_Cyrillic_SCHWA 0x10004d8
-#define IBUS_Cyrillic_schwa 0x10004d9
-#define IBUS_Cyrillic_I_macron 0x10004e2
-#define IBUS_Cyrillic_i_macron 0x10004e3
-#define IBUS_Cyrillic_O_bar 0x10004e8
-#define IBUS_Cyrillic_o_bar 0x10004e9
-#define IBUS_Cyrillic_U_macron 0x10004ee
-#define IBUS_Cyrillic_u_macron 0x10004ef
-#define IBUS_Serbian_dje 0x6a1
-#define IBUS_Macedonia_gje 0x6a2
-#define IBUS_Cyrillic_io 0x6a3
-#define IBUS_Ukrainian_ie 0x6a4
-#define IBUS_Ukranian_je 0x6a4
-#define IBUS_Macedonia_dse 0x6a5
-#define IBUS_Ukrainian_i 0x6a6
-#define IBUS_Ukranian_i 0x6a6
-#define IBUS_Ukrainian_yi 0x6a7
-#define IBUS_Ukranian_yi 0x6a7
-#define IBUS_Cyrillic_je 0x6a8
-#define IBUS_Serbian_je 0x6a8
-#define IBUS_Cyrillic_lje 0x6a9
-#define IBUS_Serbian_lje 0x6a9
-#define IBUS_Cyrillic_nje 0x6aa
-#define IBUS_Serbian_nje 0x6aa
-#define IBUS_Serbian_tshe 0x6ab
-#define IBUS_Macedonia_kje 0x6ac
-#define IBUS_Ukrainian_ghe_with_upturn 0x6ad
-#define IBUS_Byelorussian_shortu 0x6ae
-#define IBUS_Cyrillic_dzhe 0x6af
-#define IBUS_Serbian_dze 0x6af
-#define IBUS_numerosign 0x6b0
-#define IBUS_Serbian_DJE 0x6b1
-#define IBUS_Macedonia_GJE 0x6b2
-#define IBUS_Cyrillic_IO 0x6b3
-#define IBUS_Ukrainian_IE 0x6b4
-#define IBUS_Ukranian_JE 0x6b4
-#define IBUS_Macedonia_DSE 0x6b5
-#define IBUS_Ukrainian_I 0x6b6
-#define IBUS_Ukranian_I 0x6b6
-#define IBUS_Ukrainian_YI 0x6b7
-#define IBUS_Ukranian_YI 0x6b7
-#define IBUS_Cyrillic_JE 0x6b8
-#define IBUS_Serbian_JE 0x6b8
-#define IBUS_Cyrillic_LJE 0x6b9
-#define IBUS_Serbian_LJE 0x6b9
-#define IBUS_Cyrillic_NJE 0x6ba
-#define IBUS_Serbian_NJE 0x6ba
-#define IBUS_Serbian_TSHE 0x6bb
-#define IBUS_Macedonia_KJE 0x6bc
-#define IBUS_Ukrainian_GHE_WITH_UPTURN 0x6bd
-#define IBUS_Byelorussian_SHORTU 0x6be
-#define IBUS_Cyrillic_DZHE 0x6bf
-#define IBUS_Serbian_DZE 0x6bf
-#define IBUS_Cyrillic_yu 0x6c0
-#define IBUS_Cyrillic_a 0x6c1
-#define IBUS_Cyrillic_be 0x6c2
-#define IBUS_Cyrillic_tse 0x6c3
-#define IBUS_Cyrillic_de 0x6c4
-#define IBUS_Cyrillic_ie 0x6c5
-#define IBUS_Cyrillic_ef 0x6c6
-#define IBUS_Cyrillic_ghe 0x6c7
-#define IBUS_Cyrillic_ha 0x6c8
-#define IBUS_Cyrillic_i 0x6c9
-#define IBUS_Cyrillic_shorti 0x6ca
-#define IBUS_Cyrillic_ka 0x6cb
-#define IBUS_Cyrillic_el 0x6cc
-#define IBUS_Cyrillic_em 0x6cd
-#define IBUS_Cyrillic_en 0x6ce
-#define IBUS_Cyrillic_o 0x6cf
-#define IBUS_Cyrillic_pe 0x6d0
-#define IBUS_Cyrillic_ya 0x6d1
-#define IBUS_Cyrillic_er 0x6d2
-#define IBUS_Cyrillic_es 0x6d3
-#define IBUS_Cyrillic_te 0x6d4
-#define IBUS_Cyrillic_u 0x6d5
-#define IBUS_Cyrillic_zhe 0x6d6
-#define IBUS_Cyrillic_ve 0x6d7
-#define IBUS_Cyrillic_softsign 0x6d8
-#define IBUS_Cyrillic_yeru 0x6d9
-#define IBUS_Cyrillic_ze 0x6da
-#define IBUS_Cyrillic_sha 0x6db
-#define IBUS_Cyrillic_e 0x6dc
-#define IBUS_Cyrillic_shcha 0x6dd
-#define IBUS_Cyrillic_che 0x6de
-#define IBUS_Cyrillic_hardsign 0x6df
-#define IBUS_Cyrillic_YU 0x6e0
-#define IBUS_Cyrillic_A 0x6e1
-#define IBUS_Cyrillic_BE 0x6e2
-#define IBUS_Cyrillic_TSE 0x6e3
-#define IBUS_Cyrillic_DE 0x6e4
-#define IBUS_Cyrillic_IE 0x6e5
-#define IBUS_Cyrillic_EF 0x6e6
-#define IBUS_Cyrillic_GHE 0x6e7
-#define IBUS_Cyrillic_HA 0x6e8
-#define IBUS_Cyrillic_I 0x6e9
-#define IBUS_Cyrillic_SHORTI 0x6ea
-#define IBUS_Cyrillic_KA 0x6eb
-#define IBUS_Cyrillic_EL 0x6ec
-#define IBUS_Cyrillic_EM 0x6ed
-#define IBUS_Cyrillic_EN 0x6ee
-#define IBUS_Cyrillic_O 0x6ef
-#define IBUS_Cyrillic_PE 0x6f0
-#define IBUS_Cyrillic_YA 0x6f1
-#define IBUS_Cyrillic_ER 0x6f2
-#define IBUS_Cyrillic_ES 0x6f3
-#define IBUS_Cyrillic_TE 0x6f4
-#define IBUS_Cyrillic_U 0x6f5
-#define IBUS_Cyrillic_ZHE 0x6f6
-#define IBUS_Cyrillic_VE 0x6f7
-#define IBUS_Cyrillic_SOFTSIGN 0x6f8
-#define IBUS_Cyrillic_YERU 0x6f9
-#define IBUS_Cyrillic_ZE 0x6fa
-#define IBUS_Cyrillic_SHA 0x6fb
-#define IBUS_Cyrillic_E 0x6fc
-#define IBUS_Cyrillic_SHCHA 0x6fd
-#define IBUS_Cyrillic_CHE 0x6fe
-#define IBUS_Cyrillic_HARDSIGN 0x6ff
-#define IBUS_Greek_ALPHAaccent 0x7a1
-#define IBUS_Greek_EPSILONaccent 0x7a2
-#define IBUS_Greek_ETAaccent 0x7a3
-#define IBUS_Greek_IOTAaccent 0x7a4
-#define IBUS_Greek_IOTAdieresis 0x7a5
-#define IBUS_Greek_IOTAdiaeresis 0x7a5
-#define IBUS_Greek_OMICRONaccent 0x7a7
-#define IBUS_Greek_UPSILONaccent 0x7a8
-#define IBUS_Greek_UPSILONdieresis 0x7a9
-#define IBUS_Greek_OMEGAaccent 0x7ab
-#define IBUS_Greek_accentdieresis 0x7ae
-#define IBUS_Greek_horizbar 0x7af
-#define IBUS_Greek_alphaaccent 0x7b1
-#define IBUS_Greek_epsilonaccent 0x7b2
-#define IBUS_Greek_etaaccent 0x7b3
-#define IBUS_Greek_iotaaccent 0x7b4
-#define IBUS_Greek_iotadieresis 0x7b5
-#define IBUS_Greek_iotaaccentdieresis 0x7b6
-#define IBUS_Greek_omicronaccent 0x7b7
-#define IBUS_Greek_upsilonaccent 0x7b8
-#define IBUS_Greek_upsilondieresis 0x7b9
-#define IBUS_Greek_upsilonaccentdieresis 0x7ba
-#define IBUS_Greek_omegaaccent 0x7bb
-#define IBUS_Greek_ALPHA 0x7c1
-#define IBUS_Greek_BETA 0x7c2
-#define IBUS_Greek_GAMMA 0x7c3
-#define IBUS_Greek_DELTA 0x7c4
-#define IBUS_Greek_EPSILON 0x7c5
-#define IBUS_Greek_ZETA 0x7c6
-#define IBUS_Greek_ETA 0x7c7
-#define IBUS_Greek_THETA 0x7c8
-#define IBUS_Greek_IOTA 0x7c9
-#define IBUS_Greek_KAPPA 0x7ca
-#define IBUS_Greek_LAMDA 0x7cb
-#define IBUS_Greek_LAMBDA 0x7cb
-#define IBUS_Greek_MU 0x7cc
-#define IBUS_Greek_NU 0x7cd
-#define IBUS_Greek_XI 0x7ce
-#define IBUS_Greek_OMICRON 0x7cf
-#define IBUS_Greek_PI 0x7d0
-#define IBUS_Greek_RHO 0x7d1
-#define IBUS_Greek_SIGMA 0x7d2
-#define IBUS_Greek_TAU 0x7d4
-#define IBUS_Greek_UPSILON 0x7d5
-#define IBUS_Greek_PHI 0x7d6
-#define IBUS_Greek_CHI 0x7d7
-#define IBUS_Greek_PSI 0x7d8
-#define IBUS_Greek_OMEGA 0x7d9
-#define IBUS_Greek_alpha 0x7e1
-#define IBUS_Greek_beta 0x7e2
-#define IBUS_Greek_gamma 0x7e3
-#define IBUS_Greek_delta 0x7e4
-#define IBUS_Greek_epsilon 0x7e5
-#define IBUS_Greek_zeta 0x7e6
-#define IBUS_Greek_eta 0x7e7
-#define IBUS_Greek_theta 0x7e8
-#define IBUS_Greek_iota 0x7e9
-#define IBUS_Greek_kappa 0x7ea
-#define IBUS_Greek_lamda 0x7eb
-#define IBUS_Greek_lambda 0x7eb
-#define IBUS_Greek_mu 0x7ec
-#define IBUS_Greek_nu 0x7ed
-#define IBUS_Greek_xi 0x7ee
-#define IBUS_Greek_omicron 0x7ef
-#define IBUS_Greek_pi 0x7f0
-#define IBUS_Greek_rho 0x7f1
-#define IBUS_Greek_sigma 0x7f2
-#define IBUS_Greek_finalsmallsigma 0x7f3
-#define IBUS_Greek_tau 0x7f4
-#define IBUS_Greek_upsilon 0x7f5
-#define IBUS_Greek_phi 0x7f6
-#define IBUS_Greek_chi 0x7f7
-#define IBUS_Greek_psi 0x7f8
-#define IBUS_Greek_omega 0x7f9
-#define IBUS_Greek_switch 0xff7e
-#define IBUS_leftradical 0x8a1
-#define IBUS_topleftradical 0x8a2
-#define IBUS_horizconnector 0x8a3
-#define IBUS_topintegral 0x8a4
-#define IBUS_botintegral 0x8a5
-#define IBUS_vertconnector 0x8a6
-#define IBUS_topleftsqbracket 0x8a7
-#define IBUS_botleftsqbracket 0x8a8
-#define IBUS_toprightsqbracket 0x8a9
-#define IBUS_botrightsqbracket 0x8aa
-#define IBUS_topleftparens 0x8ab
-#define IBUS_botleftparens 0x8ac
-#define IBUS_toprightparens 0x8ad
-#define IBUS_botrightparens 0x8ae
-#define IBUS_leftmiddlecurlybrace 0x8af
-#define IBUS_rightmiddlecurlybrace 0x8b0
-#define IBUS_topleftsummation 0x8b1
-#define IBUS_botleftsummation 0x8b2
-#define IBUS_topvertsummationconnector 0x8b3
-#define IBUS_botvertsummationconnector 0x8b4
-#define IBUS_toprightsummation 0x8b5
-#define IBUS_botrightsummation 0x8b6
-#define IBUS_rightmiddlesummation 0x8b7
-#define IBUS_lessthanequal 0x8bc
-#define IBUS_notequal 0x8bd
-#define IBUS_greaterthanequal 0x8be
-#define IBUS_integral 0x8bf
-#define IBUS_therefore 0x8c0
-#define IBUS_variation 0x8c1
-#define IBUS_infinity 0x8c2
-#define IBUS_nabla 0x8c5
-#define IBUS_approximate 0x8c8
-#define IBUS_similarequal 0x8c9
-#define IBUS_ifonlyif 0x8cd
-#define IBUS_implies 0x8ce
-#define IBUS_identical 0x8cf
-#define IBUS_radical 0x8d6
-#define IBUS_includedin 0x8da
-#define IBUS_includes 0x8db
-#define IBUS_intersection 0x8dc
-#define IBUS_union 0x8dd
-#define IBUS_logicaland 0x8de
-#define IBUS_logicalor 0x8df
-#define IBUS_partialderivative 0x8ef
-#define IBUS_function 0x8f6
-#define IBUS_leftarrow 0x8fb
-#define IBUS_uparrow 0x8fc
-#define IBUS_rightarrow 0x8fd
-#define IBUS_downarrow 0x8fe
-#define IBUS_blank 0x9df
-#define IBUS_soliddiamond 0x9e0
-#define IBUS_checkerboard 0x9e1
-#define IBUS_ht 0x9e2
-#define IBUS_ff 0x9e3
-#define IBUS_cr 0x9e4
-#define IBUS_lf 0x9e5
-#define IBUS_nl 0x9e8
-#define IBUS_vt 0x9e9
-#define IBUS_lowrightcorner 0x9ea
-#define IBUS_uprightcorner 0x9eb
-#define IBUS_upleftcorner 0x9ec
-#define IBUS_lowleftcorner 0x9ed
-#define IBUS_crossinglines 0x9ee
-#define IBUS_horizlinescan1 0x9ef
-#define IBUS_horizlinescan3 0x9f0
-#define IBUS_horizlinescan5 0x9f1
-#define IBUS_horizlinescan7 0x9f2
-#define IBUS_horizlinescan9 0x9f3
-#define IBUS_leftt 0x9f4
-#define IBUS_rightt 0x9f5
-#define IBUS_bott 0x9f6
-#define IBUS_topt 0x9f7
-#define IBUS_vertbar 0x9f8
-#define IBUS_emspace 0xaa1
-#define IBUS_enspace 0xaa2
-#define IBUS_em3space 0xaa3
-#define IBUS_em4space 0xaa4
-#define IBUS_digitspace 0xaa5
-#define IBUS_punctspace 0xaa6
-#define IBUS_thinspace 0xaa7
-#define IBUS_hairspace 0xaa8
-#define IBUS_emdash 0xaa9
-#define IBUS_endash 0xaaa
-#define IBUS_signifblank 0xaac
-#define IBUS_ellipsis 0xaae
-#define IBUS_doubbaselinedot 0xaaf
-#define IBUS_onethird 0xab0
-#define IBUS_twothirds 0xab1
-#define IBUS_onefifth 0xab2
-#define IBUS_twofifths 0xab3
-#define IBUS_threefifths 0xab4
-#define IBUS_fourfifths 0xab5
-#define IBUS_onesixth 0xab6
-#define IBUS_fivesixths 0xab7
-#define IBUS_careof 0xab8
-#define IBUS_figdash 0xabb
-#define IBUS_leftanglebracket 0xabc
-#define IBUS_decimalpoint 0xabd
-#define IBUS_rightanglebracket 0xabe
-#define IBUS_marker 0xabf
-#define IBUS_oneeighth 0xac3
-#define IBUS_threeeighths 0xac4
-#define IBUS_fiveeighths 0xac5
-#define IBUS_seveneighths 0xac6
-#define IBUS_trademark 0xac9
-#define IBUS_signaturemark 0xaca
-#define IBUS_trademarkincircle 0xacb
-#define IBUS_leftopentriangle 0xacc
-#define IBUS_rightopentriangle 0xacd
-#define IBUS_emopencircle 0xace
-#define IBUS_emopenrectangle 0xacf
-#define IBUS_leftsinglequotemark 0xad0
-#define IBUS_rightsinglequotemark 0xad1
-#define IBUS_leftdoublequotemark 0xad2
-#define IBUS_rightdoublequotemark 0xad3
-#define IBUS_prescription 0xad4
-#define IBUS_minutes 0xad6
-#define IBUS_seconds 0xad7
-#define IBUS_latincross 0xad9
-#define IBUS_hexagram 0xada
-#define IBUS_filledrectbullet 0xadb
-#define IBUS_filledlefttribullet 0xadc
-#define IBUS_filledrighttribullet 0xadd
-#define IBUS_emfilledcircle 0xade
-#define IBUS_emfilledrect 0xadf
-#define IBUS_enopencircbullet 0xae0
-#define IBUS_enopensquarebullet 0xae1
-#define IBUS_openrectbullet 0xae2
-#define IBUS_opentribulletup 0xae3
-#define IBUS_opentribulletdown 0xae4
-#define IBUS_openstar 0xae5
-#define IBUS_enfilledcircbullet 0xae6
-#define IBUS_enfilledsqbullet 0xae7
-#define IBUS_filledtribulletup 0xae8
-#define IBUS_filledtribulletdown 0xae9
-#define IBUS_leftpointer 0xaea
-#define IBUS_rightpointer 0xaeb
-#define IBUS_club 0xaec
-#define IBUS_diamond 0xaed
-#define IBUS_heart 0xaee
-#define IBUS_maltesecross 0xaf0
-#define IBUS_dagger 0xaf1
-#define IBUS_doubledagger 0xaf2
-#define IBUS_checkmark 0xaf3
-#define IBUS_ballotcross 0xaf4
-#define IBUS_musicalsharp 0xaf5
-#define IBUS_musicalflat 0xaf6
-#define IBUS_malesymbol 0xaf7
-#define IBUS_femalesymbol 0xaf8
-#define IBUS_telephone 0xaf9
-#define IBUS_telephonerecorder 0xafa
-#define IBUS_phonographcopyright 0xafb
-#define IBUS_caret 0xafc
-#define IBUS_singlelowquotemark 0xafd
-#define IBUS_doublelowquotemark 0xafe
-#define IBUS_cursor 0xaff
-#define IBUS_leftcaret 0xba3
-#define IBUS_rightcaret 0xba6
-#define IBUS_downcaret 0xba8
-#define IBUS_upcaret 0xba9
-#define IBUS_overbar 0xbc0
-#define IBUS_downtack 0xbc2
-#define IBUS_upshoe 0xbc3
-#define IBUS_downstile 0xbc4
-#define IBUS_underbar 0xbc6
-#define IBUS_jot 0xbca
-#define IBUS_quad 0xbcc
-#define IBUS_uptack 0xbce
-#define IBUS_circle 0xbcf
-#define IBUS_upstile 0xbd3
-#define IBUS_downshoe 0xbd6
-#define IBUS_rightshoe 0xbd8
-#define IBUS_leftshoe 0xbda
-#define IBUS_lefttack 0xbdc
-#define IBUS_righttack 0xbfc
-#define IBUS_hebrew_doublelowline 0xcdf
-#define IBUS_hebrew_aleph 0xce0
-#define IBUS_hebrew_bet 0xce1
-#define IBUS_hebrew_beth 0xce1
-#define IBUS_hebrew_gimel 0xce2
-#define IBUS_hebrew_gimmel 0xce2
-#define IBUS_hebrew_dalet 0xce3
-#define IBUS_hebrew_daleth 0xce3
-#define IBUS_hebrew_he 0xce4
-#define IBUS_hebrew_waw 0xce5
-#define IBUS_hebrew_zain 0xce6
-#define IBUS_hebrew_zayin 0xce6
-#define IBUS_hebrew_chet 0xce7
-#define IBUS_hebrew_het 0xce7
-#define IBUS_hebrew_tet 0xce8
-#define IBUS_hebrew_teth 0xce8
-#define IBUS_hebrew_yod 0xce9
-#define IBUS_hebrew_finalkaph 0xcea
-#define IBUS_hebrew_kaph 0xceb
-#define IBUS_hebrew_lamed 0xcec
-#define IBUS_hebrew_finalmem 0xced
-#define IBUS_hebrew_mem 0xcee
-#define IBUS_hebrew_finalnun 0xcef
-#define IBUS_hebrew_nun 0xcf0
-#define IBUS_hebrew_samech 0xcf1
-#define IBUS_hebrew_samekh 0xcf1
-#define IBUS_hebrew_ayin 0xcf2
-#define IBUS_hebrew_finalpe 0xcf3
-#define IBUS_hebrew_pe 0xcf4
-#define IBUS_hebrew_finalzade 0xcf5
-#define IBUS_hebrew_finalzadi 0xcf5
-#define IBUS_hebrew_zade 0xcf6
-#define IBUS_hebrew_zadi 0xcf6
-#define IBUS_hebrew_qoph 0xcf7
-#define IBUS_hebrew_kuf 0xcf7
-#define IBUS_hebrew_resh 0xcf8
-#define IBUS_hebrew_shin 0xcf9
-#define IBUS_hebrew_taw 0xcfa
-#define IBUS_hebrew_taf 0xcfa
-#define IBUS_Hebrew_switch 0xff7e
-#define IBUS_Thai_kokai 0xda1
-#define IBUS_Thai_khokhai 0xda2
-#define IBUS_Thai_khokhuat 0xda3
-#define IBUS_Thai_khokhwai 0xda4
-#define IBUS_Thai_khokhon 0xda5
-#define IBUS_Thai_khorakhang 0xda6
-#define IBUS_Thai_ngongu 0xda7
-#define IBUS_Thai_chochan 0xda8
-#define IBUS_Thai_choching 0xda9
-#define IBUS_Thai_chochang 0xdaa
-#define IBUS_Thai_soso 0xdab
-#define IBUS_Thai_chochoe 0xdac
-#define IBUS_Thai_yoying 0xdad
-#define IBUS_Thai_dochada 0xdae
-#define IBUS_Thai_topatak 0xdaf
-#define IBUS_Thai_thothan 0xdb0
-#define IBUS_Thai_thonangmontho 0xdb1
-#define IBUS_Thai_thophuthao 0xdb2
-#define IBUS_Thai_nonen 0xdb3
-#define IBUS_Thai_dodek 0xdb4
-#define IBUS_Thai_totao 0xdb5
-#define IBUS_Thai_thothung 0xdb6
-#define IBUS_Thai_thothahan 0xdb7
-#define IBUS_Thai_thothong 0xdb8
-#define IBUS_Thai_nonu 0xdb9
-#define IBUS_Thai_bobaimai 0xdba
-#define IBUS_Thai_popla 0xdbb
-#define IBUS_Thai_phophung 0xdbc
-#define IBUS_Thai_fofa 0xdbd
-#define IBUS_Thai_phophan 0xdbe
-#define IBUS_Thai_fofan 0xdbf
-#define IBUS_Thai_phosamphao 0xdc0
-#define IBUS_Thai_moma 0xdc1
-#define IBUS_Thai_yoyak 0xdc2
-#define IBUS_Thai_rorua 0xdc3
-#define IBUS_Thai_ru 0xdc4
-#define IBUS_Thai_loling 0xdc5
-#define IBUS_Thai_lu 0xdc6
-#define IBUS_Thai_wowaen 0xdc7
-#define IBUS_Thai_sosala 0xdc8
-#define IBUS_Thai_sorusi 0xdc9
-#define IBUS_Thai_sosua 0xdca
-#define IBUS_Thai_hohip 0xdcb
-#define IBUS_Thai_lochula 0xdcc
-#define IBUS_Thai_oang 0xdcd
-#define IBUS_Thai_honokhuk 0xdce
-#define IBUS_Thai_paiyannoi 0xdcf
-#define IBUS_Thai_saraa 0xdd0
-#define IBUS_Thai_maihanakat 0xdd1
-#define IBUS_Thai_saraaa 0xdd2
-#define IBUS_Thai_saraam 0xdd3
-#define IBUS_Thai_sarai 0xdd4
-#define IBUS_Thai_saraii 0xdd5
-#define IBUS_Thai_saraue 0xdd6
-#define IBUS_Thai_sarauee 0xdd7
-#define IBUS_Thai_sarau 0xdd8
-#define IBUS_Thai_sarauu 0xdd9
-#define IBUS_Thai_phinthu 0xdda
-#define IBUS_Thai_maihanakat_maitho 0xdde
-#define IBUS_Thai_baht 0xddf
-#define IBUS_Thai_sarae 0xde0
-#define IBUS_Thai_saraae 0xde1
-#define IBUS_Thai_sarao 0xde2
-#define IBUS_Thai_saraaimaimuan 0xde3
-#define IBUS_Thai_saraaimaimalai 0xde4
-#define IBUS_Thai_lakkhangyao 0xde5
-#define IBUS_Thai_maiyamok 0xde6
-#define IBUS_Thai_maitaikhu 0xde7
-#define IBUS_Thai_maiek 0xde8
-#define IBUS_Thai_maitho 0xde9
-#define IBUS_Thai_maitri 0xdea
-#define IBUS_Thai_maichattawa 0xdeb
-#define IBUS_Thai_thanthakhat 0xdec
-#define IBUS_Thai_nikhahit 0xded
-#define IBUS_Thai_leksun 0xdf0
-#define IBUS_Thai_leknung 0xdf1
-#define IBUS_Thai_leksong 0xdf2
-#define IBUS_Thai_leksam 0xdf3
-#define IBUS_Thai_leksi 0xdf4
-#define IBUS_Thai_lekha 0xdf5
-#define IBUS_Thai_lekhok 0xdf6
-#define IBUS_Thai_lekchet 0xdf7
-#define IBUS_Thai_lekpaet 0xdf8
-#define IBUS_Thai_lekkao 0xdf9
-#define IBUS_Hangul 0xff31
-#define IBUS_Hangul_Start 0xff32
-#define IBUS_Hangul_End 0xff33
-#define IBUS_Hangul_Hanja 0xff34
-#define IBUS_Hangul_Jamo 0xff35
-#define IBUS_Hangul_Romaja 0xff36
-#define IBUS_Hangul_Codeinput 0xff37
-#define IBUS_Hangul_Jeonja 0xff38
-#define IBUS_Hangul_Banja 0xff39
-#define IBUS_Hangul_PreHanja 0xff3a
-#define IBUS_Hangul_PostHanja 0xff3b
-#define IBUS_Hangul_SingleCandidate 0xff3c
-#define IBUS_Hangul_MultipleCandidate 0xff3d
-#define IBUS_Hangul_PreviousCandidate 0xff3e
-#define IBUS_Hangul_Special 0xff3f
-#define IBUS_Hangul_switch 0xff7e
-#define IBUS_Hangul_Kiyeog 0xea1
-#define IBUS_Hangul_SsangKiyeog 0xea2
-#define IBUS_Hangul_KiyeogSios 0xea3
-#define IBUS_Hangul_Nieun 0xea4
-#define IBUS_Hangul_NieunJieuj 0xea5
-#define IBUS_Hangul_NieunHieuh 0xea6
-#define IBUS_Hangul_Dikeud 0xea7
-#define IBUS_Hangul_SsangDikeud 0xea8
-#define IBUS_Hangul_Rieul 0xea9
-#define IBUS_Hangul_RieulKiyeog 0xeaa
-#define IBUS_Hangul_RieulMieum 0xeab
-#define IBUS_Hangul_RieulPieub 0xeac
-#define IBUS_Hangul_RieulSios 0xead
-#define IBUS_Hangul_RieulTieut 0xeae
-#define IBUS_Hangul_RieulPhieuf 0xeaf
-#define IBUS_Hangul_RieulHieuh 0xeb0
-#define IBUS_Hangul_Mieum 0xeb1
-#define IBUS_Hangul_Pieub 0xeb2
-#define IBUS_Hangul_SsangPieub 0xeb3
-#define IBUS_Hangul_PieubSios 0xeb4
-#define IBUS_Hangul_Sios 0xeb5
-#define IBUS_Hangul_SsangSios 0xeb6
-#define IBUS_Hangul_Ieung 0xeb7
-#define IBUS_Hangul_Jieuj 0xeb8
-#define IBUS_Hangul_SsangJieuj 0xeb9
-#define IBUS_Hangul_Cieuc 0xeba
-#define IBUS_Hangul_Khieuq 0xebb
-#define IBUS_Hangul_Tieut 0xebc
-#define IBUS_Hangul_Phieuf 0xebd
-#define IBUS_Hangul_Hieuh 0xebe
-#define IBUS_Hangul_A 0xebf
-#define IBUS_Hangul_AE 0xec0
-#define IBUS_Hangul_YA 0xec1
-#define IBUS_Hangul_YAE 0xec2
-#define IBUS_Hangul_EO 0xec3
-#define IBUS_Hangul_E 0xec4
-#define IBUS_Hangul_YEO 0xec5
-#define IBUS_Hangul_YE 0xec6
-#define IBUS_Hangul_O 0xec7
-#define IBUS_Hangul_WA 0xec8
-#define IBUS_Hangul_WAE 0xec9
-#define IBUS_Hangul_OE 0xeca
-#define IBUS_Hangul_YO 0xecb
-#define IBUS_Hangul_U 0xecc
-#define IBUS_Hangul_WEO 0xecd
-#define IBUS_Hangul_WE 0xece
-#define IBUS_Hangul_WI 0xecf
-#define IBUS_Hangul_YU 0xed0
-#define IBUS_Hangul_EU 0xed1
-#define IBUS_Hangul_YI 0xed2
-#define IBUS_Hangul_I 0xed3
-#define IBUS_Hangul_J_Kiyeog 0xed4
-#define IBUS_Hangul_J_SsangKiyeog 0xed5
-#define IBUS_Hangul_J_KiyeogSios 0xed6
-#define IBUS_Hangul_J_Nieun 0xed7
-#define IBUS_Hangul_J_NieunJieuj 0xed8
-#define IBUS_Hangul_J_NieunHieuh 0xed9
-#define IBUS_Hangul_J_Dikeud 0xeda
-#define IBUS_Hangul_J_Rieul 0xedb
-#define IBUS_Hangul_J_RieulKiyeog 0xedc
-#define IBUS_Hangul_J_RieulMieum 0xedd
-#define IBUS_Hangul_J_RieulPieub 0xede
-#define IBUS_Hangul_J_RieulSios 0xedf
-#define IBUS_Hangul_J_RieulTieut 0xee0
-#define IBUS_Hangul_J_RieulPhieuf 0xee1
-#define IBUS_Hangul_J_RieulHieuh 0xee2
-#define IBUS_Hangul_J_Mieum 0xee3
-#define IBUS_Hangul_J_Pieub 0xee4
-#define IBUS_Hangul_J_PieubSios 0xee5
-#define IBUS_Hangul_J_Sios 0xee6
-#define IBUS_Hangul_J_SsangSios 0xee7
-#define IBUS_Hangul_J_Ieung 0xee8
-#define IBUS_Hangul_J_Jieuj 0xee9
-#define IBUS_Hangul_J_Cieuc 0xeea
-#define IBUS_Hangul_J_Khieuq 0xeeb
-#define IBUS_Hangul_J_Tieut 0xeec
-#define IBUS_Hangul_J_Phieuf 0xeed
-#define IBUS_Hangul_J_Hieuh 0xeee
-#define IBUS_Hangul_RieulYeorinHieuh 0xeef
-#define IBUS_Hangul_SunkyeongeumMieum 0xef0
-#define IBUS_Hangul_SunkyeongeumPieub 0xef1
-#define IBUS_Hangul_PanSios 0xef2
-#define IBUS_Hangul_KkogjiDalrinIeung 0xef3
-#define IBUS_Hangul_SunkyeongeumPhieuf 0xef4
-#define IBUS_Hangul_YeorinHieuh 0xef5
-#define IBUS_Hangul_AraeA 0xef6
-#define IBUS_Hangul_AraeAE 0xef7
-#define IBUS_Hangul_J_PanSios 0xef8
-#define IBUS_Hangul_J_KkogjiDalrinIeung 0xef9
-#define IBUS_Hangul_J_YeorinHieuh 0xefa
-#define IBUS_Korean_Won 0xeff
-#define IBUS_Armenian_ligature_ew 0x1000587
-#define IBUS_Armenian_full_stop 0x1000589
-#define IBUS_Armenian_verjaket 0x1000589
-#define IBUS_Armenian_separation_mark 0x100055d
-#define IBUS_Armenian_but 0x100055d
-#define IBUS_Armenian_hyphen 0x100058a
-#define IBUS_Armenian_yentamna 0x100058a
-#define IBUS_Armenian_exclam 0x100055c
-#define IBUS_Armenian_amanak 0x100055c
-#define IBUS_Armenian_accent 0x100055b
-#define IBUS_Armenian_shesht 0x100055b
-#define IBUS_Armenian_question 0x100055e
-#define IBUS_Armenian_paruyk 0x100055e
-#define IBUS_Armenian_AYB 0x1000531
-#define IBUS_Armenian_ayb 0x1000561
-#define IBUS_Armenian_BEN 0x1000532
-#define IBUS_Armenian_ben 0x1000562
-#define IBUS_Armenian_GIM 0x1000533
-#define IBUS_Armenian_gim 0x1000563
-#define IBUS_Armenian_DA 0x1000534
-#define IBUS_Armenian_da 0x1000564
-#define IBUS_Armenian_YECH 0x1000535
-#define IBUS_Armenian_yech 0x1000565
-#define IBUS_Armenian_ZA 0x1000536
-#define IBUS_Armenian_za 0x1000566
-#define IBUS_Armenian_E 0x1000537
-#define IBUS_Armenian_e 0x1000567
-#define IBUS_Armenian_AT 0x1000538
-#define IBUS_Armenian_at 0x1000568
-#define IBUS_Armenian_TO 0x1000539
-#define IBUS_Armenian_to 0x1000569
-#define IBUS_Armenian_ZHE 0x100053a
-#define IBUS_Armenian_zhe 0x100056a
-#define IBUS_Armenian_INI 0x100053b
-#define IBUS_Armenian_ini 0x100056b
-#define IBUS_Armenian_LYUN 0x100053c
-#define IBUS_Armenian_lyun 0x100056c
-#define IBUS_Armenian_KHE 0x100053d
-#define IBUS_Armenian_khe 0x100056d
-#define IBUS_Armenian_TSA 0x100053e
-#define IBUS_Armenian_tsa 0x100056e
-#define IBUS_Armenian_KEN 0x100053f
-#define IBUS_Armenian_ken 0x100056f
-#define IBUS_Armenian_HO 0x1000540
-#define IBUS_Armenian_ho 0x1000570
-#define IBUS_Armenian_DZA 0x1000541
-#define IBUS_Armenian_dza 0x1000571
-#define IBUS_Armenian_GHAT 0x1000542
-#define IBUS_Armenian_ghat 0x1000572
-#define IBUS_Armenian_TCHE 0x1000543
-#define IBUS_Armenian_tche 0x1000573
-#define IBUS_Armenian_MEN 0x1000544
-#define IBUS_Armenian_men 0x1000574
-#define IBUS_Armenian_HI 0x1000545
-#define IBUS_Armenian_hi 0x1000575
-#define IBUS_Armenian_NU 0x1000546
-#define IBUS_Armenian_nu 0x1000576
-#define IBUS_Armenian_SHA 0x1000547
-#define IBUS_Armenian_sha 0x1000577
-#define IBUS_Armenian_VO 0x1000548
-#define IBUS_Armenian_vo 0x1000578
-#define IBUS_Armenian_CHA 0x1000549
-#define IBUS_Armenian_cha 0x1000579
-#define IBUS_Armenian_PE 0x100054a
-#define IBUS_Armenian_pe 0x100057a
-#define IBUS_Armenian_JE 0x100054b
-#define IBUS_Armenian_je 0x100057b
-#define IBUS_Armenian_RA 0x100054c
-#define IBUS_Armenian_ra 0x100057c
-#define IBUS_Armenian_SE 0x100054d
-#define IBUS_Armenian_se 0x100057d
-#define IBUS_Armenian_VEV 0x100054e
-#define IBUS_Armenian_vev 0x100057e
-#define IBUS_Armenian_TYUN 0x100054f
-#define IBUS_Armenian_tyun 0x100057f
-#define IBUS_Armenian_RE 0x1000550
-#define IBUS_Armenian_re 0x1000580
-#define IBUS_Armenian_TSO 0x1000551
-#define IBUS_Armenian_tso 0x1000581
-#define IBUS_Armenian_VYUN 0x1000552
-#define IBUS_Armenian_vyun 0x1000582
-#define IBUS_Armenian_PYUR 0x1000553
-#define IBUS_Armenian_pyur 0x1000583
-#define IBUS_Armenian_KE 0x1000554
-#define IBUS_Armenian_ke 0x1000584
-#define IBUS_Armenian_O 0x1000555
-#define IBUS_Armenian_o 0x1000585
-#define IBUS_Armenian_FE 0x1000556
-#define IBUS_Armenian_fe 0x1000586
-#define IBUS_Armenian_apostrophe 0x100055a
-#define IBUS_Georgian_an 0x10010d0
-#define IBUS_Georgian_ban 0x10010d1
-#define IBUS_Georgian_gan 0x10010d2
-#define IBUS_Georgian_don 0x10010d3
-#define IBUS_Georgian_en 0x10010d4
-#define IBUS_Georgian_vin 0x10010d5
-#define IBUS_Georgian_zen 0x10010d6
-#define IBUS_Georgian_tan 0x10010d7
-#define IBUS_Georgian_in 0x10010d8
-#define IBUS_Georgian_kan 0x10010d9
-#define IBUS_Georgian_las 0x10010da
-#define IBUS_Georgian_man 0x10010db
-#define IBUS_Georgian_nar 0x10010dc
-#define IBUS_Georgian_on 0x10010dd
-#define IBUS_Georgian_par 0x10010de
-#define IBUS_Georgian_zhar 0x10010df
-#define IBUS_Georgian_rae 0x10010e0
-#define IBUS_Georgian_san 0x10010e1
-#define IBUS_Georgian_tar 0x10010e2
-#define IBUS_Georgian_un 0x10010e3
-#define IBUS_Georgian_phar 0x10010e4
-#define IBUS_Georgian_khar 0x10010e5
-#define IBUS_Georgian_ghan 0x10010e6
-#define IBUS_Georgian_qar 0x10010e7
-#define IBUS_Georgian_shin 0x10010e8
-#define IBUS_Georgian_chin 0x10010e9
-#define IBUS_Georgian_can 0x10010ea
-#define IBUS_Georgian_jil 0x10010eb
-#define IBUS_Georgian_cil 0x10010ec
-#define IBUS_Georgian_char 0x10010ed
-#define IBUS_Georgian_xan 0x10010ee
-#define IBUS_Georgian_jhan 0x10010ef
-#define IBUS_Georgian_hae 0x10010f0
-#define IBUS_Georgian_he 0x10010f1
-#define IBUS_Georgian_hie 0x10010f2
-#define IBUS_Georgian_we 0x10010f3
-#define IBUS_Georgian_har 0x10010f4
-#define IBUS_Georgian_hoe 0x10010f5
-#define IBUS_Georgian_fi 0x10010f6
-#define IBUS_Xabovedot 0x1001e8a
-#define IBUS_Ibreve 0x100012c
-#define IBUS_Zstroke 0x10001b5
-#define IBUS_Gcaron 0x10001e6
-#define IBUS_Ocaron 0x10001d1
-#define IBUS_Obarred 0x100019f
-#define IBUS_xabovedot 0x1001e8b
-#define IBUS_ibreve 0x100012d
-#define IBUS_zstroke 0x10001b6
-#define IBUS_gcaron 0x10001e7
-#define IBUS_ocaron 0x10001d2
-#define IBUS_obarred 0x1000275
-#define IBUS_SCHWA 0x100018f
-#define IBUS_schwa 0x1000259
-#define IBUS_Lbelowdot 0x1001e36
-#define IBUS_lbelowdot 0x1001e37
-#define IBUS_Abelowdot 0x1001ea0
-#define IBUS_abelowdot 0x1001ea1
-#define IBUS_Ahook 0x1001ea2
-#define IBUS_ahook 0x1001ea3
-#define IBUS_Acircumflexacute 0x1001ea4
-#define IBUS_acircumflexacute 0x1001ea5
-#define IBUS_Acircumflexgrave 0x1001ea6
-#define IBUS_acircumflexgrave 0x1001ea7
-#define IBUS_Acircumflexhook 0x1001ea8
-#define IBUS_acircumflexhook 0x1001ea9
-#define IBUS_Acircumflextilde 0x1001eaa
-#define IBUS_acircumflextilde 0x1001eab
-#define IBUS_Acircumflexbelowdot 0x1001eac
-#define IBUS_acircumflexbelowdot 0x1001ead
-#define IBUS_Abreveacute 0x1001eae
-#define IBUS_abreveacute 0x1001eaf
-#define IBUS_Abrevegrave 0x1001eb0
-#define IBUS_abrevegrave 0x1001eb1
-#define IBUS_Abrevehook 0x1001eb2
-#define IBUS_abrevehook 0x1001eb3
-#define IBUS_Abrevetilde 0x1001eb4
-#define IBUS_abrevetilde 0x1001eb5
-#define IBUS_Abrevebelowdot 0x1001eb6
-#define IBUS_abrevebelowdot 0x1001eb7
-#define IBUS_Ebelowdot 0x1001eb8
-#define IBUS_ebelowdot 0x1001eb9
-#define IBUS_Ehook 0x1001eba
-#define IBUS_ehook 0x1001ebb
-#define IBUS_Etilde 0x1001ebc
-#define IBUS_etilde 0x1001ebd
-#define IBUS_Ecircumflexacute 0x1001ebe
-#define IBUS_ecircumflexacute 0x1001ebf
-#define IBUS_Ecircumflexgrave 0x1001ec0
-#define IBUS_ecircumflexgrave 0x1001ec1
-#define IBUS_Ecircumflexhook 0x1001ec2
-#define IBUS_ecircumflexhook 0x1001ec3
-#define IBUS_Ecircumflextilde 0x1001ec4
-#define IBUS_ecircumflextilde 0x1001ec5
-#define IBUS_Ecircumflexbelowdot 0x1001ec6
-#define IBUS_ecircumflexbelowdot 0x1001ec7
-#define IBUS_Ihook 0x1001ec8
-#define IBUS_ihook 0x1001ec9
-#define IBUS_Ibelowdot 0x1001eca
-#define IBUS_ibelowdot 0x1001ecb
-#define IBUS_Obelowdot 0x1001ecc
-#define IBUS_obelowdot 0x1001ecd
-#define IBUS_Ohook 0x1001ece
-#define IBUS_ohook 0x1001ecf
-#define IBUS_Ocircumflexacute 0x1001ed0
-#define IBUS_ocircumflexacute 0x1001ed1
-#define IBUS_Ocircumflexgrave 0x1001ed2
-#define IBUS_ocircumflexgrave 0x1001ed3
-#define IBUS_Ocircumflexhook 0x1001ed4
-#define IBUS_ocircumflexhook 0x1001ed5
-#define IBUS_Ocircumflextilde 0x1001ed6
-#define IBUS_ocircumflextilde 0x1001ed7
-#define IBUS_Ocircumflexbelowdot 0x1001ed8
-#define IBUS_ocircumflexbelowdot 0x1001ed9
-#define IBUS_Ohornacute 0x1001eda
-#define IBUS_ohornacute 0x1001edb
-#define IBUS_Ohorngrave 0x1001edc
-#define IBUS_ohorngrave 0x1001edd
-#define IBUS_Ohornhook 0x1001ede
-#define IBUS_ohornhook 0x1001edf
-#define IBUS_Ohorntilde 0x1001ee0
-#define IBUS_ohorntilde 0x1001ee1
-#define IBUS_Ohornbelowdot 0x1001ee2
-#define IBUS_ohornbelowdot 0x1001ee3
-#define IBUS_Ubelowdot 0x1001ee4
-#define IBUS_ubelowdot 0x1001ee5
-#define IBUS_Uhook 0x1001ee6
-#define IBUS_uhook 0x1001ee7
-#define IBUS_Uhornacute 0x1001ee8
-#define IBUS_uhornacute 0x1001ee9
-#define IBUS_Uhorngrave 0x1001eea
-#define IBUS_uhorngrave 0x1001eeb
-#define IBUS_Uhornhook 0x1001eec
-#define IBUS_uhornhook 0x1001eed
-#define IBUS_Uhorntilde 0x1001eee
-#define IBUS_uhorntilde 0x1001eef
-#define IBUS_Uhornbelowdot 0x1001ef0
-#define IBUS_uhornbelowdot 0x1001ef1
-#define IBUS_Ybelowdot 0x1001ef4
-#define IBUS_ybelowdot 0x1001ef5
-#define IBUS_Yhook 0x1001ef6
-#define IBUS_yhook 0x1001ef7
-#define IBUS_Ytilde 0x1001ef8
-#define IBUS_ytilde 0x1001ef9
-#define IBUS_Ohorn 0x10001a0
-#define IBUS_ohorn 0x10001a1
-#define IBUS_Uhorn 0x10001af
-#define IBUS_uhorn 0x10001b0
-#define IBUS_EcuSign 0x10020a0
-#define IBUS_ColonSign 0x10020a1
-#define IBUS_CruzeiroSign 0x10020a2
-#define IBUS_FFrancSign 0x10020a3
-#define IBUS_LiraSign 0x10020a4
-#define IBUS_MillSign 0x10020a5
-#define IBUS_NairaSign 0x10020a6
-#define IBUS_PesetaSign 0x10020a7
-#define IBUS_RupeeSign 0x10020a8
-#define IBUS_WonSign 0x10020a9
-#define IBUS_NewSheqelSign 0x10020aa
-#define IBUS_DongSign 0x10020ab
-#define IBUS_EuroSign 0x20ac
-#define IBUS_zerosuperior 0x1002070
-#define IBUS_foursuperior 0x1002074
-#define IBUS_fivesuperior 0x1002075
-#define IBUS_sixsuperior 0x1002076
-#define IBUS_sevensuperior 0x1002077
-#define IBUS_eightsuperior 0x1002078
-#define IBUS_ninesuperior 0x1002079
-#define IBUS_zerosubscript 0x1002080
-#define IBUS_onesubscript 0x1002081
-#define IBUS_twosubscript 0x1002082
-#define IBUS_threesubscript 0x1002083
-#define IBUS_foursubscript 0x1002084
-#define IBUS_fivesubscript 0x1002085
-#define IBUS_sixsubscript 0x1002086
-#define IBUS_sevensubscript 0x1002087
-#define IBUS_eightsubscript 0x1002088
-#define IBUS_ninesubscript 0x1002089
-#define IBUS_partdifferential 0x1002202
-#define IBUS_emptyset 0x1002205
-#define IBUS_elementof 0x1002208
-#define IBUS_notelementof 0x1002209
-#define IBUS_containsas 0x100220b
-#define IBUS_squareroot 0x100221a
-#define IBUS_cuberoot 0x100221b
-#define IBUS_fourthroot 0x100221c
-#define IBUS_dintegral 0x100222c
-#define IBUS_tintegral 0x100222d
-#define IBUS_because 0x1002235
-#define IBUS_approxeq 0x1002248
-#define IBUS_notapproxeq 0x1002247
-#define IBUS_notidentical 0x1002262
-#define IBUS_stricteq 0x1002263
-#define IBUS_braille_dot_1 0xfff1
-#define IBUS_braille_dot_2 0xfff2
-#define IBUS_braille_dot_3 0xfff3
-#define IBUS_braille_dot_4 0xfff4
-#define IBUS_braille_dot_5 0xfff5
-#define IBUS_braille_dot_6 0xfff6
-#define IBUS_braille_dot_7 0xfff7
-#define IBUS_braille_dot_8 0xfff8
-#define IBUS_braille_dot_9 0xfff9
-#define IBUS_braille_dot_10 0xfffa
-#define IBUS_braille_blank 0x1002800
-#define IBUS_braille_dots_1 0x1002801
-#define IBUS_braille_dots_2 0x1002802
-#define IBUS_braille_dots_12 0x1002803
-#define IBUS_braille_dots_3 0x1002804
-#define IBUS_braille_dots_13 0x1002805
-#define IBUS_braille_dots_23 0x1002806
-#define IBUS_braille_dots_123 0x1002807
-#define IBUS_braille_dots_4 0x1002808
-#define IBUS_braille_dots_14 0x1002809
-#define IBUS_braille_dots_24 0x100280a
-#define IBUS_braille_dots_124 0x100280b
-#define IBUS_braille_dots_34 0x100280c
-#define IBUS_braille_dots_134 0x100280d
-#define IBUS_braille_dots_234 0x100280e
-#define IBUS_braille_dots_1234 0x100280f
-#define IBUS_braille_dots_5 0x1002810
-#define IBUS_braille_dots_15 0x1002811
-#define IBUS_braille_dots_25 0x1002812
-#define IBUS_braille_dots_125 0x1002813
-#define IBUS_braille_dots_35 0x1002814
-#define IBUS_braille_dots_135 0x1002815
-#define IBUS_braille_dots_235 0x1002816
-#define IBUS_braille_dots_1235 0x1002817
-#define IBUS_braille_dots_45 0x1002818
-#define IBUS_braille_dots_145 0x1002819
-#define IBUS_braille_dots_245 0x100281a
-#define IBUS_braille_dots_1245 0x100281b
-#define IBUS_braille_dots_345 0x100281c
-#define IBUS_braille_dots_1345 0x100281d
-#define IBUS_braille_dots_2345 0x100281e
-#define IBUS_braille_dots_12345 0x100281f
-#define IBUS_braille_dots_6 0x1002820
-#define IBUS_braille_dots_16 0x1002821
-#define IBUS_braille_dots_26 0x1002822
-#define IBUS_braille_dots_126 0x1002823
-#define IBUS_braille_dots_36 0x1002824
-#define IBUS_braille_dots_136 0x1002825
-#define IBUS_braille_dots_236 0x1002826
-#define IBUS_braille_dots_1236 0x1002827
-#define IBUS_braille_dots_46 0x1002828
-#define IBUS_braille_dots_146 0x1002829
-#define IBUS_braille_dots_246 0x100282a
-#define IBUS_braille_dots_1246 0x100282b
-#define IBUS_braille_dots_346 0x100282c
-#define IBUS_braille_dots_1346 0x100282d
-#define IBUS_braille_dots_2346 0x100282e
-#define IBUS_braille_dots_12346 0x100282f
-#define IBUS_braille_dots_56 0x1002830
-#define IBUS_braille_dots_156 0x1002831
-#define IBUS_braille_dots_256 0x1002832
-#define IBUS_braille_dots_1256 0x1002833
-#define IBUS_braille_dots_356 0x1002834
-#define IBUS_braille_dots_1356 0x1002835
-#define IBUS_braille_dots_2356 0x1002836
-#define IBUS_braille_dots_12356 0x1002837
-#define IBUS_braille_dots_456 0x1002838
-#define IBUS_braille_dots_1456 0x1002839
-#define IBUS_braille_dots_2456 0x100283a
-#define IBUS_braille_dots_12456 0x100283b
-#define IBUS_braille_dots_3456 0x100283c
-#define IBUS_braille_dots_13456 0x100283d
-#define IBUS_braille_dots_23456 0x100283e
-#define IBUS_braille_dots_123456 0x100283f
-#define IBUS_braille_dots_7 0x1002840
-#define IBUS_braille_dots_17 0x1002841
-#define IBUS_braille_dots_27 0x1002842
-#define IBUS_braille_dots_127 0x1002843
-#define IBUS_braille_dots_37 0x1002844
-#define IBUS_braille_dots_137 0x1002845
-#define IBUS_braille_dots_237 0x1002846
-#define IBUS_braille_dots_1237 0x1002847
-#define IBUS_braille_dots_47 0x1002848
-#define IBUS_braille_dots_147 0x1002849
-#define IBUS_braille_dots_247 0x100284a
-#define IBUS_braille_dots_1247 0x100284b
-#define IBUS_braille_dots_347 0x100284c
-#define IBUS_braille_dots_1347 0x100284d
-#define IBUS_braille_dots_2347 0x100284e
-#define IBUS_braille_dots_12347 0x100284f
-#define IBUS_braille_dots_57 0x1002850
-#define IBUS_braille_dots_157 0x1002851
-#define IBUS_braille_dots_257 0x1002852
-#define IBUS_braille_dots_1257 0x1002853
-#define IBUS_braille_dots_357 0x1002854
-#define IBUS_braille_dots_1357 0x1002855
-#define IBUS_braille_dots_2357 0x1002856
-#define IBUS_braille_dots_12357 0x1002857
-#define IBUS_braille_dots_457 0x1002858
-#define IBUS_braille_dots_1457 0x1002859
-#define IBUS_braille_dots_2457 0x100285a
-#define IBUS_braille_dots_12457 0x100285b
-#define IBUS_braille_dots_3457 0x100285c
-#define IBUS_braille_dots_13457 0x100285d
-#define IBUS_braille_dots_23457 0x100285e
-#define IBUS_braille_dots_123457 0x100285f
-#define IBUS_braille_dots_67 0x1002860
-#define IBUS_braille_dots_167 0x1002861
-#define IBUS_braille_dots_267 0x1002862
-#define IBUS_braille_dots_1267 0x1002863
-#define IBUS_braille_dots_367 0x1002864
-#define IBUS_braille_dots_1367 0x1002865
-#define IBUS_braille_dots_2367 0x1002866
-#define IBUS_braille_dots_12367 0x1002867
-#define IBUS_braille_dots_467 0x1002868
-#define IBUS_braille_dots_1467 0x1002869
-#define IBUS_braille_dots_2467 0x100286a
-#define IBUS_braille_dots_12467 0x100286b
-#define IBUS_braille_dots_3467 0x100286c
-#define IBUS_braille_dots_13467 0x100286d
-#define IBUS_braille_dots_23467 0x100286e
-#define IBUS_braille_dots_123467 0x100286f
-#define IBUS_braille_dots_567 0x1002870
-#define IBUS_braille_dots_1567 0x1002871
-#define IBUS_braille_dots_2567 0x1002872
-#define IBUS_braille_dots_12567 0x1002873
-#define IBUS_braille_dots_3567 0x1002874
-#define IBUS_braille_dots_13567 0x1002875
-#define IBUS_braille_dots_23567 0x1002876
-#define IBUS_braille_dots_123567 0x1002877
-#define IBUS_braille_dots_4567 0x1002878
-#define IBUS_braille_dots_14567 0x1002879
-#define IBUS_braille_dots_24567 0x100287a
-#define IBUS_braille_dots_124567 0x100287b
-#define IBUS_braille_dots_34567 0x100287c
-#define IBUS_braille_dots_134567 0x100287d
-#define IBUS_braille_dots_234567 0x100287e
-#define IBUS_braille_dots_1234567 0x100287f
-#define IBUS_braille_dots_8 0x1002880
-#define IBUS_braille_dots_18 0x1002881
-#define IBUS_braille_dots_28 0x1002882
-#define IBUS_braille_dots_128 0x1002883
-#define IBUS_braille_dots_38 0x1002884
-#define IBUS_braille_dots_138 0x1002885
-#define IBUS_braille_dots_238 0x1002886
-#define IBUS_braille_dots_1238 0x1002887
-#define IBUS_braille_dots_48 0x1002888
-#define IBUS_braille_dots_148 0x1002889
-#define IBUS_braille_dots_248 0x100288a
-#define IBUS_braille_dots_1248 0x100288b
-#define IBUS_braille_dots_348 0x100288c
-#define IBUS_braille_dots_1348 0x100288d
-#define IBUS_braille_dots_2348 0x100288e
-#define IBUS_braille_dots_12348 0x100288f
-#define IBUS_braille_dots_58 0x1002890
-#define IBUS_braille_dots_158 0x1002891
-#define IBUS_braille_dots_258 0x1002892
-#define IBUS_braille_dots_1258 0x1002893
-#define IBUS_braille_dots_358 0x1002894
-#define IBUS_braille_dots_1358 0x1002895
-#define IBUS_braille_dots_2358 0x1002896
-#define IBUS_braille_dots_12358 0x1002897
-#define IBUS_braille_dots_458 0x1002898
-#define IBUS_braille_dots_1458 0x1002899
-#define IBUS_braille_dots_2458 0x100289a
-#define IBUS_braille_dots_12458 0x100289b
-#define IBUS_braille_dots_3458 0x100289c
-#define IBUS_braille_dots_13458 0x100289d
-#define IBUS_braille_dots_23458 0x100289e
-#define IBUS_braille_dots_123458 0x100289f
-#define IBUS_braille_dots_68 0x10028a0
-#define IBUS_braille_dots_168 0x10028a1
-#define IBUS_braille_dots_268 0x10028a2
-#define IBUS_braille_dots_1268 0x10028a3
-#define IBUS_braille_dots_368 0x10028a4
-#define IBUS_braille_dots_1368 0x10028a5
-#define IBUS_braille_dots_2368 0x10028a6
-#define IBUS_braille_dots_12368 0x10028a7
-#define IBUS_braille_dots_468 0x10028a8
-#define IBUS_braille_dots_1468 0x10028a9
-#define IBUS_braille_dots_2468 0x10028aa
-#define IBUS_braille_dots_12468 0x10028ab
-#define IBUS_braille_dots_3468 0x10028ac
-#define IBUS_braille_dots_13468 0x10028ad
-#define IBUS_braille_dots_23468 0x10028ae
-#define IBUS_braille_dots_123468 0x10028af
-#define IBUS_braille_dots_568 0x10028b0
-#define IBUS_braille_dots_1568 0x10028b1
-#define IBUS_braille_dots_2568 0x10028b2
-#define IBUS_braille_dots_12568 0x10028b3
-#define IBUS_braille_dots_3568 0x10028b4
-#define IBUS_braille_dots_13568 0x10028b5
-#define IBUS_braille_dots_23568 0x10028b6
-#define IBUS_braille_dots_123568 0x10028b7
-#define IBUS_braille_dots_4568 0x10028b8
-#define IBUS_braille_dots_14568 0x10028b9
-#define IBUS_braille_dots_24568 0x10028ba
-#define IBUS_braille_dots_124568 0x10028bb
-#define IBUS_braille_dots_34568 0x10028bc
-#define IBUS_braille_dots_134568 0x10028bd
-#define IBUS_braille_dots_234568 0x10028be
-#define IBUS_braille_dots_1234568 0x10028bf
-#define IBUS_braille_dots_78 0x10028c0
-#define IBUS_braille_dots_178 0x10028c1
-#define IBUS_braille_dots_278 0x10028c2
-#define IBUS_braille_dots_1278 0x10028c3
-#define IBUS_braille_dots_378 0x10028c4
-#define IBUS_braille_dots_1378 0x10028c5
-#define IBUS_braille_dots_2378 0x10028c6
-#define IBUS_braille_dots_12378 0x10028c7
-#define IBUS_braille_dots_478 0x10028c8
-#define IBUS_braille_dots_1478 0x10028c9
-#define IBUS_braille_dots_2478 0x10028ca
-#define IBUS_braille_dots_12478 0x10028cb
-#define IBUS_braille_dots_3478 0x10028cc
-#define IBUS_braille_dots_13478 0x10028cd
-#define IBUS_braille_dots_23478 0x10028ce
-#define IBUS_braille_dots_123478 0x10028cf
-#define IBUS_braille_dots_578 0x10028d0
-#define IBUS_braille_dots_1578 0x10028d1
-#define IBUS_braille_dots_2578 0x10028d2
-#define IBUS_braille_dots_12578 0x10028d3
-#define IBUS_braille_dots_3578 0x10028d4
-#define IBUS_braille_dots_13578 0x10028d5
-#define IBUS_braille_dots_23578 0x10028d6
-#define IBUS_braille_dots_123578 0x10028d7
-#define IBUS_braille_dots_4578 0x10028d8
-#define IBUS_braille_dots_14578 0x10028d9
-#define IBUS_braille_dots_24578 0x10028da
-#define IBUS_braille_dots_124578 0x10028db
-#define IBUS_braille_dots_34578 0x10028dc
-#define IBUS_braille_dots_134578 0x10028dd
-#define IBUS_braille_dots_234578 0x10028de
-#define IBUS_braille_dots_1234578 0x10028df
-#define IBUS_braille_dots_678 0x10028e0
-#define IBUS_braille_dots_1678 0x10028e1
-#define IBUS_braille_dots_2678 0x10028e2
-#define IBUS_braille_dots_12678 0x10028e3
-#define IBUS_braille_dots_3678 0x10028e4
-#define IBUS_braille_dots_13678 0x10028e5
-#define IBUS_braille_dots_23678 0x10028e6
-#define IBUS_braille_dots_123678 0x10028e7
-#define IBUS_braille_dots_4678 0x10028e8
-#define IBUS_braille_dots_14678 0x10028e9
-#define IBUS_braille_dots_24678 0x10028ea
-#define IBUS_braille_dots_124678 0x10028eb
-#define IBUS_braille_dots_34678 0x10028ec
-#define IBUS_braille_dots_134678 0x10028ed
-#define IBUS_braille_dots_234678 0x10028ee
-#define IBUS_braille_dots_1234678 0x10028ef
-#define IBUS_braille_dots_5678 0x10028f0
-#define IBUS_braille_dots_15678 0x10028f1
-#define IBUS_braille_dots_25678 0x10028f2
-#define IBUS_braille_dots_125678 0x10028f3
-#define IBUS_braille_dots_35678 0x10028f4
-#define IBUS_braille_dots_135678 0x10028f5
-#define IBUS_braille_dots_235678 0x10028f6
-#define IBUS_braille_dots_1235678 0x10028f7
-#define IBUS_braille_dots_45678 0x10028f8
-#define IBUS_braille_dots_145678 0x10028f9
-#define IBUS_braille_dots_245678 0x10028fa
-#define IBUS_braille_dots_1245678 0x10028fb
-#define IBUS_braille_dots_345678 0x10028fc
-#define IBUS_braille_dots_1345678 0x10028fd
-#define IBUS_braille_dots_2345678 0x10028fe
-#define IBUS_braille_dots_12345678 0x10028ff
+    Key_Hiragana_Katakana = 0xff27,
+    Key_Zenkaku = 0xff28,
+    Key_Hankaku = 0xff29,
+    Key_Zenkaku_Hankaku = 0xff2a,
+    Key_Touroku = 0xff2b,
+    Key_Massyo = 0xff2c,
+    Key_Kana_Lock = 0xff2d,
+    Key_Kana_Shift = 0xff2e,
+    Key_Eisu_Shift = 0xff2f,
+    Key_Eisu_toggle = 0xff30,
+    Key_Kanji_Bangou = 0xff37,
+    Key_Zen_Koho = 0xff3d,
+    Key_Mae_Koho = 0xff3e,
+    Key_Home = 0xff50,
+    Key_Left = 0xff51,
+    Key_Up = 0xff52,
+    Key_Right = 0xff53,
+    Key_Down = 0xff54,
+    Key_Prior = 0xff55,
+    Key_Page_Up = 0xff55,
+    Key_Next = 0xff56,
+    Key_Page_Down = 0xff56,
+    Key_End = 0xff57,
+    Key_Begin = 0xff58,
+    Key_Select = 0xff60,
+    Key_Print = 0xff61,
+    Key_Execute = 0xff62,
+    Key_Insert = 0xff63,
+    Key_Undo = 0xff65,
+    Key_Redo = 0xff66,
+    Key_Menu = 0xff67,
+    Key_Find = 0xff68,
+    Key_Cancel = 0xff69,
+    Key_Help = 0xff6a,
+    Key_Break = 0xff6b,
+    Key_Mode_switch = 0xff7e,
+    Key_script_switch = 0xff7e,
+    Key_Num_Lock = 0xff7f,
+    Key_KP_Space = 0xff80,
+    Key_KP_Tab = 0xff89,
+    Key_KP_Enter = 0xff8d,
+    Key_KP_F1 = 0xff91,
+    Key_KP_F2 = 0xff92,
+    Key_KP_F3 = 0xff93,
+    Key_KP_F4 = 0xff94,
+    Key_KP_Home = 0xff95,
+    Key_KP_Left = 0xff96,
+    Key_KP_Up = 0xff97,
+    Key_KP_Right = 0xff98,
+    Key_KP_Down = 0xff99,
+    Key_KP_Prior = 0xff9a,
+    Key_KP_Page_Up = 0xff9a,
+    Key_KP_Next = 0xff9b,
+    Key_KP_Page_Down = 0xff9b,
+    Key_KP_End = 0xff9c,
+    Key_KP_Begin = 0xff9d,
+    Key_KP_Insert = 0xff9e,
+    Key_KP_Delete = 0xff9f,
+    Key_KP_Equal = 0xffbd,
+    Key_KP_Multiply = 0xffaa,
+    Key_KP_Add = 0xffab,
+    Key_KP_Separator = 0xffac,
+    Key_KP_Subtract = 0xffad,
+    Key_KP_Decimal = 0xffae,
+    Key_KP_Divide = 0xffaf,
+    Key_KP_0 = 0xffb0,
+    Key_KP_1 = 0xffb1,
+    Key_KP_2 = 0xffb2,
+    Key_KP_3 = 0xffb3,
+    Key_KP_4 = 0xffb4,
+    Key_KP_5 = 0xffb5,
+    Key_KP_6 = 0xffb6,
+    Key_KP_7 = 0xffb7,
+    Key_KP_8 = 0xffb8,
+    Key_KP_9 = 0xffb9,
+    Key_F1 = 0xffbe,
+    Key_F2 = 0xffbf,
+    Key_F3 = 0xffc0,
+    Key_F4 = 0xffc1,
+    Key_F5 = 0xffc2,
+    Key_F6 = 0xffc3,
+    Key_F7 = 0xffc4,
+    Key_F8 = 0xffc5,
+    Key_F9 = 0xffc6,
+    Key_F10 = 0xffc7,
+    Key_F11 = 0xffc8,
+    Key_L1 = 0xffc8,
+    Key_F12 = 0xffc9,
+    Key_L2 = 0xffc9,
+    Key_F13 = 0xffca,
+    Key_L3 = 0xffca,
+    Key_F14 = 0xffcb,
+    Key_L4 = 0xffcb,
+    Key_F15 = 0xffcc,
+    Key_L5 = 0xffcc,
+    Key_F16 = 0xffcd,
+    Key_L6 = 0xffcd,
+    Key_F17 = 0xffce,
+    Key_L7 = 0xffce,
+    Key_F18 = 0xffcf,
+    Key_L8 = 0xffcf,
+    Key_F19 = 0xffd0,
+    Key_L9 = 0xffd0,
+    Key_F20 = 0xffd1,
+    Key_L10 = 0xffd1,
+    Key_F21 = 0xffd2,
+    Key_R1 = 0xffd2,
+    Key_F22 = 0xffd3,
+    Key_R2 = 0xffd3,
+    Key_F23 = 0xffd4,
+    Key_R3 = 0xffd4,
+    Key_F24 = 0xffd5,
+    Key_R4 = 0xffd5,
+    Key_F25 = 0xffd6,
+    Key_R5 = 0xffd6,
+    Key_F26 = 0xffd7,
+    Key_R6 = 0xffd7,
+    Key_F27 = 0xffd8,
+    Key_R7 = 0xffd8,
+    Key_F28 = 0xffd9,
+    Key_R8 = 0xffd9,
+    Key_F29 = 0xffda,
+    Key_R9 = 0xffda,
+    Key_F30 = 0xffdb,
+    Key_R10 = 0xffdb,
+    Key_F31 = 0xffdc,
+    Key_R11 = 0xffdc,
+    Key_F32 = 0xffdd,
+    Key_R12 = 0xffdd,
+    Key_F33 = 0xffde,
+    Key_R13 = 0xffde,
+    Key_F34 = 0xffdf,
+    Key_R14 = 0xffdf,
+    Key_F35 = 0xffe0,
+    Key_R15 = 0xffe0,
+    Key_Shift_L = 0xffe1,
+    Key_Shift_R = 0xffe2,
+    Key_Control_L = 0xffe3,
+    Key_Control_R = 0xffe4,
+    Key_Caps_Lock = 0xffe5,
+    Key_Shift_Lock = 0xffe6,
+    Key_Meta_L = 0xffe7,
+    Key_Meta_R = 0xffe8,
+    Key_Alt_L = 0xffe9,
+    Key_Alt_R = 0xffea,
+    Key_Super_L = 0xffeb,
+    Key_Super_R = 0xffec,
+    Key_Hyper_L = 0xffed,
+    Key_Hyper_R = 0xffee,
+    Key_ISO_Lock = 0xfe01,
+    Key_ISO_Level2_Latch = 0xfe02,
+    Key_ISO_Level3_Shift = 0xfe03,
+    Key_ISO_Level3_Latch = 0xfe04,
+    Key_ISO_Level3_Lock = 0xfe05,
+    Key_ISO_Level5_Shift = 0xfe11,
+    Key_ISO_Level5_Latch = 0xfe12,
+    Key_ISO_Level5_Lock = 0xfe13,
+    Key_ISO_Group_Shift = 0xff7e,
+    Key_ISO_Group_Latch = 0xfe06,
+    Key_ISO_Group_Lock = 0xfe07,
+    Key_ISO_Next_Group = 0xfe08,
+    Key_ISO_Next_Group_Lock = 0xfe09,
+    Key_ISO_Prev_Group = 0xfe0a,
+    Key_ISO_Prev_Group_Lock = 0xfe0b,
+    Key_ISO_First_Group = 0xfe0c,
+    Key_ISO_First_Group_Lock = 0xfe0d,
+    Key_ISO_Last_Group = 0xfe0e,
+    Key_ISO_Last_Group_Lock = 0xfe0f,
+    Key_ISO_Left_Tab = 0xfe20,
+    Key_ISO_Move_Line_Up = 0xfe21,
+    Key_ISO_Move_Line_Down = 0xfe22,
+    Key_ISO_Partial_Line_Up = 0xfe23,
+    Key_ISO_Partial_Line_Down = 0xfe24,
+    Key_ISO_Partial_Space_Left = 0xfe25,
+    Key_ISO_Partial_Space_Right = 0xfe26,
+    Key_ISO_Set_Margin_Left = 0xfe27,
+    Key_ISO_Set_Margin_Right = 0xfe28,
+    Key_ISO_Release_Margin_Left = 0xfe29,
+    Key_ISO_Release_Margin_Right = 0xfe2a,
+    Key_ISO_Release_Both_Margins = 0xfe2b,
+    Key_ISO_Fast_Cursor_Left = 0xfe2c,
+    Key_ISO_Fast_Cursor_Right = 0xfe2d,
+    Key_ISO_Fast_Cursor_Up = 0xfe2e,
+    Key_ISO_Fast_Cursor_Down = 0xfe2f,
+    Key_ISO_Continuous_Underline = 0xfe30,
+    Key_ISO_Discontinuous_Underline = 0xfe31,
+    Key_ISO_Emphasize = 0xfe32,
+    Key_ISO_Center_Object = 0xfe33,
+    Key_ISO_Enter = 0xfe34,
+    Key_dead_grave = 0xfe50,
+    Key_dead_acute = 0xfe51,
+    Key_dead_circumflex = 0xfe52,
+    Key_dead_tilde = 0xfe53,
+    Key_dead_perispomeni = 0xfe53,
+    Key_dead_macron = 0xfe54,
+    Key_dead_breve = 0xfe55,
+    Key_dead_abovedot = 0xfe56,
+    Key_dead_diaeresis = 0xfe57,
+    Key_dead_abovering = 0xfe58,
+    Key_dead_doubleacute = 0xfe59,
+    Key_dead_caron = 0xfe5a,
+    Key_dead_cedilla = 0xfe5b,
+    Key_dead_ogonek = 0xfe5c,
+    Key_dead_iota = 0xfe5d,
+    Key_dead_voiced_sound = 0xfe5e,
+    Key_dead_semivoiced_sound = 0xfe5f,
+    Key_dead_belowdot = 0xfe60,
+    Key_dead_hook = 0xfe61,
+    Key_dead_horn = 0xfe62,
+    Key_dead_stroke = 0xfe63,
+    Key_dead_abovecomma = 0xfe64,
+    Key_dead_psili = 0xfe64,
+    Key_dead_abovereversedcomma = 0xfe65,
+    Key_dead_dasia = 0xfe65,
+    Key_dead_belowring = 0xfe67,
+    Key_dead_belowmacron = 0xfe68,
+    Key_dead_belowcircumflex = 0xfe69,
+    Key_dead_belowtilde = 0xfe6a,
+    Key_dead_belowbreve = 0xfe6b,
+    Key_dead_belowdiaeresis = 0xfe6c,
+    Key_First_Virtual_Screen = 0xfed0,
+    Key_Prev_Virtual_Screen = 0xfed1,
+    Key_Next_Virtual_Screen = 0xfed2,
+    Key_Last_Virtual_Screen = 0xfed4,
+    Key_Terminate_Server = 0xfed5,
+    Key_AccessX_Enable = 0xfe70,
+    Key_AccessX_Feedback_Enable = 0xfe71,
+    Key_RepeatKeys_Enable = 0xfe72,
+    Key_SlowKeys_Enable = 0xfe73,
+    Key_BounceKeys_Enable = 0xfe74,
+    Key_StickyKeys_Enable = 0xfe75,
+    Key_MouseKeys_Enable = 0xfe76,
+    Key_MouseKeys_Accel_Enable = 0xfe77,
+    Key_Overlay1_Enable = 0xfe78,
+    Key_Overlay2_Enable = 0xfe79,
+    Key_AudibleBell_Enable = 0xfe7a,
+    Key_Pointer_Left = 0xfee0,
+    Key_Pointer_Right = 0xfee1,
+    Key_Pointer_Up = 0xfee2,
+    Key_Pointer_Down = 0xfee3,
+    Key_Pointer_UpLeft = 0xfee4,
+    Key_Pointer_UpRight = 0xfee5,
+    Key_Pointer_DownLeft = 0xfee6,
+    Key_Pointer_DownRight = 0xfee7,
+    Key_Pointer_Button_Dflt = 0xfee8,
+    Key_Pointer_Button1 = 0xfee9,
+    Key_Pointer_Button2 = 0xfeea,
+    Key_Pointer_Button3 = 0xfeeb,
+    Key_Pointer_Button4 = 0xfeec,
+    Key_Pointer_Button5 = 0xfeed,
+    Key_Pointer_DblClick_Dflt = 0xfeee,
+    Key_Pointer_DblClick1 = 0xfeef,
+    Key_Pointer_DblClick2 = 0xfef0,
+    Key_Pointer_DblClick3 = 0xfef1,
+    Key_Pointer_DblClick4 = 0xfef2,
+    Key_Pointer_DblClick5 = 0xfef3,
+    Key_Pointer_Drag_Dflt = 0xfef4,
+    Key_Pointer_Drag1 = 0xfef5,
+    Key_Pointer_Drag2 = 0xfef6,
+    Key_Pointer_Drag3 = 0xfef7,
+    Key_Pointer_Drag4 = 0xfef8,
+    Key_Pointer_Drag5 = 0xfefd,
+    Key_Pointer_EnableKeys = 0xfef9,
+    Key_Pointer_Accelerate = 0xfefa,
+    Key_Pointer_DfltBtnNext = 0xfefb,
+    Key_Pointer_DfltBtnPrev = 0xfefc,
+    Key_3270_Duplicate = 0xfd01,
+    Key_3270_FieldMark = 0xfd02,
+    Key_3270_Right2 = 0xfd03,
+    Key_3270_Left2 = 0xfd04,
+    Key_3270_BackTab = 0xfd05,
+    Key_3270_EraseEOF = 0xfd06,
+    Key_3270_EraseInput = 0xfd07,
+    Key_3270_Reset = 0xfd08,
+    Key_3270_Quit = 0xfd09,
+    Key_3270_PA1 = 0xfd0a,
+    Key_3270_PA2 = 0xfd0b,
+    Key_3270_PA3 = 0xfd0c,
+    Key_3270_Test = 0xfd0d,
+    Key_3270_Attn = 0xfd0e,
+    Key_3270_CursorBlink = 0xfd0f,
+    Key_3270_AltCursor = 0xfd10,
+    Key_3270_KeyClick = 0xfd11,
+    Key_3270_Jump = 0xfd12,
+    Key_3270_Ident = 0xfd13,
+    Key_3270_Rule = 0xfd14,
+    Key_3270_Copy = 0xfd15,
+    Key_3270_Play = 0xfd16,
+    Key_3270_Setup = 0xfd17,
+    Key_3270_Record = 0xfd18,
+    Key_3270_ChangeScreen = 0xfd19,
+    Key_3270_DeleteWord = 0xfd1a,
+    Key_3270_ExSelect = 0xfd1b,
+    Key_3270_CursorSelect = 0xfd1c,
+    Key_3270_PrintScreen = 0xfd1d,
+    Key_3270_Enter = 0xfd1e,
+    Key_space = 0x020,
+    Key_exclam = 0x021,
+    Key_quotedbl = 0x022,
+    Key_numbersign = 0x023,
+    Key_dollar = 0x024,
+    Key_percent = 0x025,
+    Key_ampersand = 0x026,
+    Key_apostrophe = 0x027,
+    Key_quoteright = 0x027,
+    Key_parenleft = 0x028,
+    Key_parenright = 0x029,
+    Key_asterisk = 0x02a,
+    Key_plus = 0x02b,
+    Key_comma = 0x02c,
+    Key_minus = 0x02d,
+    Key_period = 0x02e,
+    Key_slash = 0x02f,
+    Key_0 = 0x030,
+    Key_1 = 0x031,
+    Key_2 = 0x032,
+    Key_3 = 0x033,
+    Key_4 = 0x034,
+    Key_5 = 0x035,
+    Key_6 = 0x036,
+    Key_7 = 0x037,
+    Key_8 = 0x038,
+    Key_9 = 0x039,
+    Key_colon = 0x03a,
+    Key_semicolon = 0x03b,
+    Key_less = 0x03c,
+    Key_equal = 0x03d,
+    Key_greater = 0x03e,
+    Key_question = 0x03f,
+    Key_at = 0x040,
+    Key_A = 0x041,
+    Key_B = 0x042,
+    Key_C = 0x043,
+    Key_D = 0x044,
+    Key_E = 0x045,
+    Key_F = 0x046,
+    Key_G = 0x047,
+    Key_H = 0x048,
+    Key_I = 0x049,
+    Key_J = 0x04a,
+    Key_K = 0x04b,
+    Key_L = 0x04c,
+    Key_M = 0x04d,
+    Key_N = 0x04e,
+    Key_O = 0x04f,
+    Key_P = 0x050,
+    Key_Q = 0x051,
+    Key_R = 0x052,
+    Key_S = 0x053,
+    Key_T = 0x054,
+    Key_U = 0x055,
+    Key_V = 0x056,
+    Key_W = 0x057,
+    Key_X = 0x058,
+    Key_Y = 0x059,
+    Key_Z = 0x05a,
+    Key_bracketleft = 0x05b,
+    Key_backslash = 0x05c,
+    Key_bracketright = 0x05d,
+    Key_asciicircum = 0x05e,
+    Key_underscore = 0x05f,
+    Key_grave = 0x060,
+    Key_quoteleft = 0x060,
+    Key_a = 0x061,
+    Key_b = 0x062,
+    Key_c = 0x063,
+    Key_d = 0x064,
+    Key_e = 0x065,
+    Key_f = 0x066,
+    Key_g = 0x067,
+    Key_h = 0x068,
+    Key_i = 0x069,
+    Key_j = 0x06a,
+    Key_k = 0x06b,
+    Key_l = 0x06c,
+    Key_m = 0x06d,
+    Key_n = 0x06e,
+    Key_o = 0x06f,
+    Key_p = 0x070,
+    Key_q = 0x071,
+    Key_r = 0x072,
+    Key_s = 0x073,
+    Key_t = 0x074,
+    Key_u = 0x075,
+    Key_v = 0x076,
+    Key_w = 0x077,
+    Key_x = 0x078,
+    Key_y = 0x079,
+    Key_z = 0x07a,
+    Key_braceleft = 0x07b,
+    Key_bar = 0x07c,
+    Key_braceright = 0x07d,
+    Key_asciitilde = 0x07e,
+    Key_nobreakspace = 0x0a0,
+    Key_exclamdown = 0x0a1,
+    Key_cent = 0x0a2,
+    Key_sterling = 0x0a3,
+    Key_currency = 0x0a4,
+    Key_yen = 0x0a5,
+    Key_brokenbar = 0x0a6,
+    Key_section = 0x0a7,
+    Key_diaeresis = 0x0a8,
+    Key_copyright = 0x0a9,
+    Key_ordfeminine = 0x0aa,
+    Key_guillemotleft = 0x0ab,
+    Key_notsign = 0x0ac,
+    Key_hyphen = 0x0ad,
+    Key_registered = 0x0ae,
+    Key_macron = 0x0af,
+    Key_degree = 0x0b0,
+    Key_plusminus = 0x0b1,
+    Key_twosuperior = 0x0b2,
+    Key_threesuperior = 0x0b3,
+    Key_acute = 0x0b4,
+    Key_mu = 0x0b5,
+    Key_paragraph = 0x0b6,
+    Key_periodcentered = 0x0b7,
+    Key_cedilla = 0x0b8,
+    Key_onesuperior = 0x0b9,
+    Key_masculine = 0x0ba,
+    Key_guillemotright = 0x0bb,
+    Key_onequarter = 0x0bc,
+    Key_onehalf = 0x0bd,
+    Key_threequarters = 0x0be,
+    Key_questiondown = 0x0bf,
+    Key_Agrave = 0x0c0,
+    Key_Aacute = 0x0c1,
+    Key_Acircumflex = 0x0c2,
+    Key_Atilde = 0x0c3,
+    Key_Adiaeresis = 0x0c4,
+    Key_Aring = 0x0c5,
+    Key_AE = 0x0c6,
+    Key_Ccedilla = 0x0c7,
+    Key_Egrave = 0x0c8,
+    Key_Eacute = 0x0c9,
+    Key_Ecircumflex = 0x0ca,
+    Key_Ediaeresis = 0x0cb,
+    Key_Igrave = 0x0cc,
+    Key_Iacute = 0x0cd,
+    Key_Icircumflex = 0x0ce,
+    Key_Idiaeresis = 0x0cf,
+    Key_ETH = 0x0d0,
+    Key_Eth = 0x0d0,
+    Key_Ntilde = 0x0d1,
+    Key_Ograve = 0x0d2,
+    Key_Oacute = 0x0d3,
+    Key_Ocircumflex = 0x0d4,
+    Key_Otilde = 0x0d5,
+    Key_Odiaeresis = 0x0d6,
+    Key_multiply = 0x0d7,
+    Key_Oslash = 0x0d8,
+    Key_Ooblique = 0x0d8,
+    Key_Ugrave = 0x0d9,
+    Key_Uacute = 0x0da,
+    Key_Ucircumflex = 0x0db,
+    Key_Udiaeresis = 0x0dc,
+    Key_Yacute = 0x0dd,
+    Key_THORN = 0x0de,
+    Key_Thorn = 0x0de,
+    Key_ssharp = 0x0df,
+    Key_agrave = 0x0e0,
+    Key_aacute = 0x0e1,
+    Key_acircumflex = 0x0e2,
+    Key_atilde = 0x0e3,
+    Key_adiaeresis = 0x0e4,
+    Key_aring = 0x0e5,
+    Key_ae = 0x0e6,
+    Key_ccedilla = 0x0e7,
+    Key_egrave = 0x0e8,
+    Key_eacute = 0x0e9,
+    Key_ecircumflex = 0x0ea,
+    Key_ediaeresis = 0x0eb,
+    Key_igrave = 0x0ec,
+    Key_iacute = 0x0ed,
+    Key_icircumflex = 0x0ee,
+    Key_idiaeresis = 0x0ef,
+    Key_eth = 0x0f0,
+    Key_ntilde = 0x0f1,
+    Key_ograve = 0x0f2,
+    Key_oacute = 0x0f3,
+    Key_ocircumflex = 0x0f4,
+    Key_otilde = 0x0f5,
+    Key_odiaeresis = 0x0f6,
+    Key_division = 0x0f7,
+    Key_oslash = 0x0f8,
+    Key_ooblique = 0x0f8,
+    Key_ugrave = 0x0f9,
+    Key_uacute = 0x0fa,
+    Key_ucircumflex = 0x0fb,
+    Key_udiaeresis = 0x0fc,
+    Key_yacute = 0x0fd,
+    Key_thorn = 0x0fe,
+    Key_ydiaeresis = 0x0ff,
+    Key_Aogonek = 0x1a1,
+    Key_breve = 0x1a2,
+    Key_Lstroke = 0x1a3,
+    Key_Lcaron = 0x1a5,
+    Key_Sacute = 0x1a6,
+    Key_Scaron = 0x1a9,
+    Key_Scedilla = 0x1aa,
+    Key_Tcaron = 0x1ab,
+    Key_Zacute = 0x1ac,
+    Key_Zcaron = 0x1ae,
+    Key_Zabovedot = 0x1af,
+    Key_aogonek = 0x1b1,
+    Key_ogonek = 0x1b2,
+    Key_lstroke = 0x1b3,
+    Key_lcaron = 0x1b5,
+    Key_sacute = 0x1b6,
+    Key_caron = 0x1b7,
+    Key_scaron = 0x1b9,
+    Key_scedilla = 0x1ba,
+    Key_tcaron = 0x1bb,
+    Key_zacute = 0x1bc,
+    Key_doubleacute = 0x1bd,
+    Key_zcaron = 0x1be,
+    Key_zabovedot = 0x1bf,
+    Key_Racute = 0x1c0,
+    Key_Abreve = 0x1c3,
+    Key_Lacute = 0x1c5,
+    Key_Cacute = 0x1c6,
+    Key_Ccaron = 0x1c8,
+    Key_Eogonek = 0x1ca,
+    Key_Ecaron = 0x1cc,
+    Key_Dcaron = 0x1cf,
+    Key_Dstroke = 0x1d0,
+    Key_Nacute = 0x1d1,
+    Key_Ncaron = 0x1d2,
+    Key_Odoubleacute = 0x1d5,
+    Key_Rcaron = 0x1d8,
+    Key_Uring = 0x1d9,
+    Key_Udoubleacute = 0x1db,
+    Key_Tcedilla = 0x1de,
+    Key_racute = 0x1e0,
+    Key_abreve = 0x1e3,
+    Key_lacute = 0x1e5,
+    Key_cacute = 0x1e6,
+    Key_ccaron = 0x1e8,
+    Key_eogonek = 0x1ea,
+    Key_ecaron = 0x1ec,
+    Key_dcaron = 0x1ef,
+    Key_dstroke = 0x1f0,
+    Key_nacute = 0x1f1,
+    Key_ncaron = 0x1f2,
+    Key_odoubleacute = 0x1f5,
+    Key_udoubleacute = 0x1fb,
+    Key_rcaron = 0x1f8,
+    Key_uring = 0x1f9,
+    Key_tcedilla = 0x1fe,
+    Key_abovedot = 0x1ff,
+    Key_Hstroke = 0x2a1,
+    Key_Hcircumflex = 0x2a6,
+    Key_Iabovedot = 0x2a9,
+    Key_Gbreve = 0x2ab,
+    Key_Jcircumflex = 0x2ac,
+    Key_hstroke = 0x2b1,
+    Key_hcircumflex = 0x2b6,
+    Key_idotless = 0x2b9,
+    Key_gbreve = 0x2bb,
+    Key_jcircumflex = 0x2bc,
+    Key_Cabovedot = 0x2c5,
+    Key_Ccircumflex = 0x2c6,
+    Key_Gabovedot = 0x2d5,
+    Key_Gcircumflex = 0x2d8,
+    Key_Ubreve = 0x2dd,
+    Key_Scircumflex = 0x2de,
+    Key_cabovedot = 0x2e5,
+    Key_ccircumflex = 0x2e6,
+    Key_gabovedot = 0x2f5,
+    Key_gcircumflex = 0x2f8,
+    Key_ubreve = 0x2fd,
+    Key_scircumflex = 0x2fe,
+    Key_kra = 0x3a2,
+    Key_kappa = 0x3a2,
+    Key_Rcedilla = 0x3a3,
+    Key_Itilde = 0x3a5,
+    Key_Lcedilla = 0x3a6,
+    Key_Emacron = 0x3aa,
+    Key_Gcedilla = 0x3ab,
+    Key_Tslash = 0x3ac,
+    Key_rcedilla = 0x3b3,
+    Key_itilde = 0x3b5,
+    Key_lcedilla = 0x3b6,
+    Key_emacron = 0x3ba,
+    Key_gcedilla = 0x3bb,
+    Key_tslash = 0x3bc,
+    Key_ENG = 0x3bd,
+    Key_eng = 0x3bf,
+    Key_Amacron = 0x3c0,
+    Key_Iogonek = 0x3c7,
+    Key_Eabovedot = 0x3cc,
+    Key_Imacron = 0x3cf,
+    Key_Ncedilla = 0x3d1,
+    Key_Omacron = 0x3d2,
+    Key_Kcedilla = 0x3d3,
+    Key_Uogonek = 0x3d9,
+    Key_Utilde = 0x3dd,
+    Key_Umacron = 0x3de,
+    Key_amacron = 0x3e0,
+    Key_iogonek = 0x3e7,
+    Key_eabovedot = 0x3ec,
+    Key_imacron = 0x3ef,
+    Key_ncedilla = 0x3f1,
+    Key_omacron = 0x3f2,
+    Key_kcedilla = 0x3f3,
+    Key_uogonek = 0x3f9,
+    Key_utilde = 0x3fd,
+    Key_umacron = 0x3fe,
+    Key_Babovedot = 0x1001e02,
+    Key_babovedot = 0x1001e03,
+    Key_Dabovedot = 0x1001e0a,
+    Key_Wgrave = 0x1001e80,
+    Key_Wacute = 0x1001e82,
+    Key_dabovedot = 0x1001e0b,
+    Key_Ygrave = 0x1001ef2,
+    Key_Fabovedot = 0x1001e1e,
+    Key_fabovedot = 0x1001e1f,
+    Key_Mabovedot = 0x1001e40,
+    Key_mabovedot = 0x1001e41,
+    Key_Pabovedot = 0x1001e56,
+    Key_wgrave = 0x1001e81,
+    Key_pabovedot = 0x1001e57,
+    Key_wacute = 0x1001e83,
+    Key_Sabovedot = 0x1001e60,
+    Key_ygrave = 0x1001ef3,
+    Key_Wdiaeresis = 0x1001e84,
+    Key_wdiaeresis = 0x1001e85,
+    Key_sabovedot = 0x1001e61,
+    Key_Wcircumflex = 0x1000174,
+    Key_Tabovedot = 0x1001e6a,
+    Key_Ycircumflex = 0x1000176,
+    Key_wcircumflex = 0x1000175,
+    Key_tabovedot = 0x1001e6b,
+    Key_ycircumflex = 0x1000177,
+    Key_OE = 0x13bc,
+    Key_oe = 0x13bd,
+    Key_Ydiaeresis = 0x13be,
+    Key_overline = 0x47e,
+    Key_kana_fullstop = 0x4a1,
+    Key_kana_openingbracket = 0x4a2,
+    Key_kana_closingbracket = 0x4a3,
+    Key_kana_comma = 0x4a4,
+    Key_kana_conjunctive = 0x4a5,
+    Key_kana_middledot = 0x4a5,
+    Key_kana_WO = 0x4a6,
+    Key_kana_a = 0x4a7,
+    Key_kana_i = 0x4a8,
+    Key_kana_u = 0x4a9,
+    Key_kana_e = 0x4aa,
+    Key_kana_o = 0x4ab,
+    Key_kana_ya = 0x4ac,
+    Key_kana_yu = 0x4ad,
+    Key_kana_yo = 0x4ae,
+    Key_kana_tsu = 0x4af,
+    Key_kana_tu = 0x4af,
+    Key_prolongedsound = 0x4b0,
+    Key_kana_A = 0x4b1,
+    Key_kana_I = 0x4b2,
+    Key_kana_U = 0x4b3,
+    Key_kana_E = 0x4b4,
+    Key_kana_O = 0x4b5,
+    Key_kana_KA = 0x4b6,
+    Key_kana_KI = 0x4b7,
+    Key_kana_KU = 0x4b8,
+    Key_kana_KE = 0x4b9,
+    Key_kana_KO = 0x4ba,
+    Key_kana_SA = 0x4bb,
+    Key_kana_SHI = 0x4bc,
+    Key_kana_SU = 0x4bd,
+    Key_kana_SE = 0x4be,
+    Key_kana_SO = 0x4bf,
+    Key_kana_TA = 0x4c0,
+    Key_kana_CHI = 0x4c1,
+    Key_kana_TI = 0x4c1,
+    Key_kana_TSU = 0x4c2,
+    Key_kana_TU = 0x4c2,
+    Key_kana_TE = 0x4c3,
+    Key_kana_TO = 0x4c4,
+    Key_kana_NA = 0x4c5,
+    Key_kana_NI = 0x4c6,
+    Key_kana_NU = 0x4c7,
+    Key_kana_NE = 0x4c8,
+    Key_kana_NO = 0x4c9,
+    Key_kana_HA = 0x4ca,
+    Key_kana_HI = 0x4cb,
+    Key_kana_FU = 0x4cc,
+    Key_kana_HU = 0x4cc,
+    Key_kana_HE = 0x4cd,
+    Key_kana_HO = 0x4ce,
+    Key_kana_MA = 0x4cf,
+    Key_kana_MI = 0x4d0,
+    Key_kana_MU = 0x4d1,
+    Key_kana_ME = 0x4d2,
+    Key_kana_MO = 0x4d3,
+    Key_kana_YA = 0x4d4,
+    Key_kana_YU = 0x4d5,
+    Key_kana_YO = 0x4d6,
+    Key_kana_RA = 0x4d7,
+    Key_kana_RI = 0x4d8,
+    Key_kana_RU = 0x4d9,
+    Key_kana_RE = 0x4da,
+    Key_kana_RO = 0x4db,
+    Key_kana_WA = 0x4dc,
+    Key_kana_N = 0x4dd,
+    Key_voicedsound = 0x4de,
+    Key_semivoicedsound = 0x4df,
+    Key_kana_switch = 0xff7e,
+    Key_Farsi_0 = 0x10006f0,
+    Key_Farsi_1 = 0x10006f1,
+    Key_Farsi_2 = 0x10006f2,
+    Key_Farsi_3 = 0x10006f3,
+    Key_Farsi_4 = 0x10006f4,
+    Key_Farsi_5 = 0x10006f5,
+    Key_Farsi_6 = 0x10006f6,
+    Key_Farsi_7 = 0x10006f7,
+    Key_Farsi_8 = 0x10006f8,
+    Key_Farsi_9 = 0x10006f9,
+    Key_Arabic_percent = 0x100066a,
+    Key_Arabic_superscript_alef = 0x1000670,
+    Key_Arabic_tteh = 0x1000679,
+    Key_Arabic_peh = 0x100067e,
+    Key_Arabic_tcheh = 0x1000686,
+    Key_Arabic_ddal = 0x1000688,
+    Key_Arabic_rreh = 0x1000691,
+    Key_Arabic_comma = 0x5ac,
+    Key_Arabic_fullstop = 0x10006d4,
+    Key_Arabic_0 = 0x1000660,
+    Key_Arabic_1 = 0x1000661,
+    Key_Arabic_2 = 0x1000662,
+    Key_Arabic_3 = 0x1000663,
+    Key_Arabic_4 = 0x1000664,
+    Key_Arabic_5 = 0x1000665,
+    Key_Arabic_6 = 0x1000666,
+    Key_Arabic_7 = 0x1000667,
+    Key_Arabic_8 = 0x1000668,
+    Key_Arabic_9 = 0x1000669,
+    Key_Arabic_semicolon = 0x5bb,
+    Key_Arabic_question_mark = 0x5bf,
+    Key_Arabic_hamza = 0x5c1,
+    Key_Arabic_maddaonalef = 0x5c2,
+    Key_Arabic_hamzaonalef = 0x5c3,
+    Key_Arabic_hamzaonwaw = 0x5c4,
+    Key_Arabic_hamzaunderalef = 0x5c5,
+    Key_Arabic_hamzaonyeh = 0x5c6,
+    Key_Arabic_alef = 0x5c7,
+    Key_Arabic_beh = 0x5c8,
+    Key_Arabic_tehmarbuta = 0x5c9,
+    Key_Arabic_teh = 0x5ca,
+    Key_Arabic_theh = 0x5cb,
+    Key_Arabic_jeem = 0x5cc,
+    Key_Arabic_hah = 0x5cd,
+    Key_Arabic_khah = 0x5ce,
+    Key_Arabic_dal = 0x5cf,
+    Key_Arabic_thal = 0x5d0,
+    Key_Arabic_ra = 0x5d1,
+    Key_Arabic_zain = 0x5d2,
+    Key_Arabic_seen = 0x5d3,
+    Key_Arabic_sheen = 0x5d4,
+    Key_Arabic_sad = 0x5d5,
+    Key_Arabic_dad = 0x5d6,
+    Key_Arabic_tah = 0x5d7,
+    Key_Arabic_zah = 0x5d8,
+    Key_Arabic_ain = 0x5d9,
+    Key_Arabic_ghain = 0x5da,
+    Key_Arabic_tatweel = 0x5e0,
+    Key_Arabic_feh = 0x5e1,
+    Key_Arabic_qaf = 0x5e2,
+    Key_Arabic_kaf = 0x5e3,
+    Key_Arabic_lam = 0x5e4,
+    Key_Arabic_meem = 0x5e5,
+    Key_Arabic_noon = 0x5e6,
+    Key_Arabic_ha = 0x5e7,
+    Key_Arabic_heh = 0x5e7,
+    Key_Arabic_waw = 0x5e8,
+    Key_Arabic_alefmaksura = 0x5e9,
+    Key_Arabic_yeh = 0x5ea,
+    Key_Arabic_fathatan = 0x5eb,
+    Key_Arabic_dammatan = 0x5ec,
+    Key_Arabic_kasratan = 0x5ed,
+    Key_Arabic_fatha = 0x5ee,
+    Key_Arabic_damma = 0x5ef,
+    Key_Arabic_kasra = 0x5f0,
+    Key_Arabic_shadda = 0x5f1,
+    Key_Arabic_sukun = 0x5f2,
+    Key_Arabic_madda_above = 0x1000653,
+    Key_Arabic_hamza_above = 0x1000654,
+    Key_Arabic_hamza_below = 0x1000655,
+    Key_Arabic_jeh = 0x1000698,
+    Key_Arabic_veh = 0x10006a4,
+    Key_Arabic_keheh = 0x10006a9,
+    Key_Arabic_gaf = 0x10006af,
+    Key_Arabic_noon_ghunna = 0x10006ba,
+    Key_Arabic_heh_doachashmee = 0x10006be,
+    Key_Farsi_yeh = 0x10006cc,
+    Key_Arabic_farsi_yeh = 0x10006cc,
+    Key_Arabic_yeh_baree = 0x10006d2,
+    Key_Arabic_heh_goal = 0x10006c1,
+    Key_Arabic_switch = 0xff7e,
+    Key_Cyrillic_GHE_bar = 0x1000492,
+    Key_Cyrillic_ghe_bar = 0x1000493,
+    Key_Cyrillic_ZHE_descender = 0x1000496,
+    Key_Cyrillic_zhe_descender = 0x1000497,
+    Key_Cyrillic_KA_descender = 0x100049a,
+    Key_Cyrillic_ka_descender = 0x100049b,
+    Key_Cyrillic_KA_vertstroke = 0x100049c,
+    Key_Cyrillic_ka_vertstroke = 0x100049d,
+    Key_Cyrillic_EN_descender = 0x10004a2,
+    Key_Cyrillic_en_descender = 0x10004a3,
+    Key_Cyrillic_U_straight = 0x10004ae,
+    Key_Cyrillic_u_straight = 0x10004af,
+    Key_Cyrillic_U_straight_bar = 0x10004b0,
+    Key_Cyrillic_u_straight_bar = 0x10004b1,
+    Key_Cyrillic_HA_descender = 0x10004b2,
+    Key_Cyrillic_ha_descender = 0x10004b3,
+    Key_Cyrillic_CHE_descender = 0x10004b6,
+    Key_Cyrillic_che_descender = 0x10004b7,
+    Key_Cyrillic_CHE_vertstroke = 0x10004b8,
+    Key_Cyrillic_che_vertstroke = 0x10004b9,
+    Key_Cyrillic_SHHA = 0x10004ba,
+    Key_Cyrillic_shha = 0x10004bb,
+    Key_Cyrillic_SCHWA = 0x10004d8,
+    Key_Cyrillic_schwa = 0x10004d9,
+    Key_Cyrillic_I_macron = 0x10004e2,
+    Key_Cyrillic_i_macron = 0x10004e3,
+    Key_Cyrillic_O_bar = 0x10004e8,
+    Key_Cyrillic_o_bar = 0x10004e9,
+    Key_Cyrillic_U_macron = 0x10004ee,
+    Key_Cyrillic_u_macron = 0x10004ef,
+    Key_Serbian_dje = 0x6a1,
+    Key_Macedonia_gje = 0x6a2,
+    Key_Cyrillic_io = 0x6a3,
+    Key_Ukrainian_ie = 0x6a4,
+    Key_Ukranian_je = 0x6a4,
+    Key_Macedonia_dse = 0x6a5,
+    Key_Ukrainian_i = 0x6a6,
+    Key_Ukranian_i = 0x6a6,
+    Key_Ukrainian_yi = 0x6a7,
+    Key_Ukranian_yi = 0x6a7,
+    Key_Cyrillic_je = 0x6a8,
+    Key_Serbian_je = 0x6a8,
+    Key_Cyrillic_lje = 0x6a9,
+    Key_Serbian_lje = 0x6a9,
+    Key_Cyrillic_nje = 0x6aa,
+    Key_Serbian_nje = 0x6aa,
+    Key_Serbian_tshe = 0x6ab,
+    Key_Macedonia_kje = 0x6ac,
+    Key_Ukrainian_ghe_with_upturn = 0x6ad,
+    Key_Byelorussian_shortu = 0x6ae,
+    Key_Cyrillic_dzhe = 0x6af,
+    Key_Serbian_dze = 0x6af,
+    Key_numerosign = 0x6b0,
+    Key_Serbian_DJE = 0x6b1,
+    Key_Macedonia_GJE = 0x6b2,
+    Key_Cyrillic_IO = 0x6b3,
+    Key_Ukrainian_IE = 0x6b4,
+    Key_Ukranian_JE = 0x6b4,
+    Key_Macedonia_DSE = 0x6b5,
+    Key_Ukrainian_I = 0x6b6,
+    Key_Ukranian_I = 0x6b6,
+    Key_Ukrainian_YI = 0x6b7,
+    Key_Ukranian_YI = 0x6b7,
+    Key_Cyrillic_JE = 0x6b8,
+    Key_Serbian_JE = 0x6b8,
+    Key_Cyrillic_LJE = 0x6b9,
+    Key_Serbian_LJE = 0x6b9,
+    Key_Cyrillic_NJE = 0x6ba,
+    Key_Serbian_NJE = 0x6ba,
+    Key_Serbian_TSHE = 0x6bb,
+    Key_Macedonia_KJE = 0x6bc,
+    Key_Ukrainian_GHE_WITH_UPTURN = 0x6bd,
+    Key_Byelorussian_SHORTU = 0x6be,
+    Key_Cyrillic_DZHE = 0x6bf,
+    Key_Serbian_DZE = 0x6bf,
+    Key_Cyrillic_yu = 0x6c0,
+    Key_Cyrillic_a = 0x6c1,
+    Key_Cyrillic_be = 0x6c2,
+    Key_Cyrillic_tse = 0x6c3,
+    Key_Cyrillic_de = 0x6c4,
+    Key_Cyrillic_ie = 0x6c5,
+    Key_Cyrillic_ef = 0x6c6,
+    Key_Cyrillic_ghe = 0x6c7,
+    Key_Cyrillic_ha = 0x6c8,
+    Key_Cyrillic_i = 0x6c9,
+    Key_Cyrillic_shorti = 0x6ca,
+    Key_Cyrillic_ka = 0x6cb,
+    Key_Cyrillic_el = 0x6cc,
+    Key_Cyrillic_em = 0x6cd,
+    Key_Cyrillic_en = 0x6ce,
+    Key_Cyrillic_o = 0x6cf,
+    Key_Cyrillic_pe = 0x6d0,
+    Key_Cyrillic_ya = 0x6d1,
+    Key_Cyrillic_er = 0x6d2,
+    Key_Cyrillic_es = 0x6d3,
+    Key_Cyrillic_te = 0x6d4,
+    Key_Cyrillic_u = 0x6d5,
+    Key_Cyrillic_zhe = 0x6d6,
+    Key_Cyrillic_ve = 0x6d7,
+    Key_Cyrillic_softsign = 0x6d8,
+    Key_Cyrillic_yeru = 0x6d9,
+    Key_Cyrillic_ze = 0x6da,
+    Key_Cyrillic_sha = 0x6db,
+    Key_Cyrillic_e = 0x6dc,
+    Key_Cyrillic_shcha = 0x6dd,
+    Key_Cyrillic_che = 0x6de,
+    Key_Cyrillic_hardsign = 0x6df,
+    Key_Cyrillic_YU = 0x6e0,
+    Key_Cyrillic_A = 0x6e1,
+    Key_Cyrillic_BE = 0x6e2,
+    Key_Cyrillic_TSE = 0x6e3,
+    Key_Cyrillic_DE = 0x6e4,
+    Key_Cyrillic_IE = 0x6e5,
+    Key_Cyrillic_EF = 0x6e6,
+    Key_Cyrillic_GHE = 0x6e7,
+    Key_Cyrillic_HA = 0x6e8,
+    Key_Cyrillic_I = 0x6e9,
+    Key_Cyrillic_SHORTI = 0x6ea,
+    Key_Cyrillic_KA = 0x6eb,
+    Key_Cyrillic_EL = 0x6ec,
+    Key_Cyrillic_EM = 0x6ed,
+    Key_Cyrillic_EN = 0x6ee,
+    Key_Cyrillic_O = 0x6ef,
+    Key_Cyrillic_PE = 0x6f0,
+    Key_Cyrillic_YA = 0x6f1,
+    Key_Cyrillic_ER = 0x6f2,
+    Key_Cyrillic_ES = 0x6f3,
+    Key_Cyrillic_TE = 0x6f4,
+    Key_Cyrillic_U = 0x6f5,
+    Key_Cyrillic_ZHE = 0x6f6,
+    Key_Cyrillic_VE = 0x6f7,
+    Key_Cyrillic_SOFTSIGN = 0x6f8,
+    Key_Cyrillic_YERU = 0x6f9,
+    Key_Cyrillic_ZE = 0x6fa,
+    Key_Cyrillic_SHA = 0x6fb,
+    Key_Cyrillic_E = 0x6fc,
+    Key_Cyrillic_SHCHA = 0x6fd,
+    Key_Cyrillic_CHE = 0x6fe,
+    Key_Cyrillic_HARDSIGN = 0x6ff,
+    Key_Greek_ALPHAaccent = 0x7a1,
+    Key_Greek_EPSILONaccent = 0x7a2,
+    Key_Greek_ETAaccent = 0x7a3,
+    Key_Greek_IOTAaccent = 0x7a4,
+    Key_Greek_IOTAdieresis = 0x7a5,
+    Key_Greek_IOTAdiaeresis = 0x7a5,
+    Key_Greek_OMICRONaccent = 0x7a7,
+    Key_Greek_UPSILONaccent = 0x7a8,
+    Key_Greek_UPSILONdieresis = 0x7a9,
+    Key_Greek_OMEGAaccent = 0x7ab,
+    Key_Greek_accentdieresis = 0x7ae,
+    Key_Greek_horizbar = 0x7af,
+    Key_Greek_alphaaccent = 0x7b1,
+    Key_Greek_epsilonaccent = 0x7b2,
+    Key_Greek_etaaccent = 0x7b3,
+    Key_Greek_iotaaccent = 0x7b4,
+    Key_Greek_iotadieresis = 0x7b5,
+    Key_Greek_iotaaccentdieresis = 0x7b6,
+    Key_Greek_omicronaccent = 0x7b7,
+    Key_Greek_upsilonaccent = 0x7b8,
+    Key_Greek_upsilondieresis = 0x7b9,
+    Key_Greek_upsilonaccentdieresis = 0x7ba,
+    Key_Greek_omegaaccent = 0x7bb,
+    Key_Greek_ALPHA = 0x7c1,
+    Key_Greek_BETA = 0x7c2,
+    Key_Greek_GAMMA = 0x7c3,
+    Key_Greek_DELTA = 0x7c4,
+    Key_Greek_EPSILON = 0x7c5,
+    Key_Greek_ZETA = 0x7c6,
+    Key_Greek_ETA = 0x7c7,
+    Key_Greek_THETA = 0x7c8,
+    Key_Greek_IOTA = 0x7c9,
+    Key_Greek_KAPPA = 0x7ca,
+    Key_Greek_LAMDA = 0x7cb,
+    Key_Greek_LAMBDA = 0x7cb,
+    Key_Greek_MU = 0x7cc,
+    Key_Greek_NU = 0x7cd,
+    Key_Greek_XI = 0x7ce,
+    Key_Greek_OMICRON = 0x7cf,
+    Key_Greek_PI = 0x7d0,
+    Key_Greek_RHO = 0x7d1,
+    Key_Greek_SIGMA = 0x7d2,
+    Key_Greek_TAU = 0x7d4,
+    Key_Greek_UPSILON = 0x7d5,
+    Key_Greek_PHI = 0x7d6,
+    Key_Greek_CHI = 0x7d7,
+    Key_Greek_PSI = 0x7d8,
+    Key_Greek_OMEGA = 0x7d9,
+    Key_Greek_alpha = 0x7e1,
+    Key_Greek_beta = 0x7e2,
+    Key_Greek_gamma = 0x7e3,
+    Key_Greek_delta = 0x7e4,
+    Key_Greek_epsilon = 0x7e5,
+    Key_Greek_zeta = 0x7e6,
+    Key_Greek_eta = 0x7e7,
+    Key_Greek_theta = 0x7e8,
+    Key_Greek_iota = 0x7e9,
+    Key_Greek_kappa = 0x7ea,
+    Key_Greek_lamda = 0x7eb,
+    Key_Greek_lambda = 0x7eb,
+    Key_Greek_mu = 0x7ec,
+    Key_Greek_nu = 0x7ed,
+    Key_Greek_xi = 0x7ee,
+    Key_Greek_omicron = 0x7ef,
+    Key_Greek_pi = 0x7f0,
+    Key_Greek_rho = 0x7f1,
+    Key_Greek_sigma = 0x7f2,
+    Key_Greek_finalsmallsigma = 0x7f3,
+    Key_Greek_tau = 0x7f4,
+    Key_Greek_upsilon = 0x7f5,
+    Key_Greek_phi = 0x7f6,
+    Key_Greek_chi = 0x7f7,
+    Key_Greek_psi = 0x7f8,
+    Key_Greek_omega = 0x7f9,
+    Key_Greek_switch = 0xff7e,
+    Key_leftradical = 0x8a1,
+    Key_topleftradical = 0x8a2,
+    Key_horizconnector = 0x8a3,
+    Key_topintegral = 0x8a4,
+    Key_botintegral = 0x8a5,
+    Key_vertconnector = 0x8a6,
+    Key_topleftsqbracket = 0x8a7,
+    Key_botleftsqbracket = 0x8a8,
+    Key_toprightsqbracket = 0x8a9,
+    Key_botrightsqbracket = 0x8aa,
+    Key_topleftparens = 0x8ab,
+    Key_botleftparens = 0x8ac,
+    Key_toprightparens = 0x8ad,
+    Key_botrightparens = 0x8ae,
+    Key_leftmiddlecurlybrace = 0x8af,
+    Key_rightmiddlecurlybrace = 0x8b0,
+    Key_topleftsummation = 0x8b1,
+    Key_botleftsummation = 0x8b2,
+    Key_topvertsummationconnector = 0x8b3,
+    Key_botvertsummationconnector = 0x8b4,
+    Key_toprightsummation = 0x8b5,
+    Key_botrightsummation = 0x8b6,
+    Key_rightmiddlesummation = 0x8b7,
+    Key_lessthanequal = 0x8bc,
+    Key_notequal = 0x8bd,
+    Key_greaterthanequal = 0x8be,
+    Key_integral = 0x8bf,
+    Key_therefore = 0x8c0,
+    Key_variation = 0x8c1,
+    Key_infinity = 0x8c2,
+    Key_nabla = 0x8c5,
+    Key_approximate = 0x8c8,
+    Key_similarequal = 0x8c9,
+    Key_ifonlyif = 0x8cd,
+    Key_implies = 0x8ce,
+    Key_identical = 0x8cf,
+    Key_radical = 0x8d6,
+    Key_includedin = 0x8da,
+    Key_includes = 0x8db,
+    Key_intersection = 0x8dc,
+    Key_union = 0x8dd,
+    Key_logicaland = 0x8de,
+    Key_logicalor = 0x8df,
+    Key_partialderivative = 0x8ef,
+    Key_function = 0x8f6,
+    Key_leftarrow = 0x8fb,
+    Key_uparrow = 0x8fc,
+    Key_rightarrow = 0x8fd,
+    Key_downarrow = 0x8fe,
+    Key_blank = 0x9df,
+    Key_soliddiamond = 0x9e0,
+    Key_checkerboard = 0x9e1,
+    Key_ht = 0x9e2,
+    Key_ff = 0x9e3,
+    Key_cr = 0x9e4,
+    Key_lf = 0x9e5,
+    Key_nl = 0x9e8,
+    Key_vt = 0x9e9,
+    Key_lowrightcorner = 0x9ea,
+    Key_uprightcorner = 0x9eb,
+    Key_upleftcorner = 0x9ec,
+    Key_lowleftcorner = 0x9ed,
+    Key_crossinglines = 0x9ee,
+    Key_horizlinescan1 = 0x9ef,
+    Key_horizlinescan3 = 0x9f0,
+    Key_horizlinescan5 = 0x9f1,
+    Key_horizlinescan7 = 0x9f2,
+    Key_horizlinescan9 = 0x9f3,
+    Key_leftt = 0x9f4,
+    Key_rightt = 0x9f5,
+    Key_bott = 0x9f6,
+    Key_topt = 0x9f7,
+    Key_vertbar = 0x9f8,
+    Key_emspace = 0xaa1,
+    Key_enspace = 0xaa2,
+    Key_em3space = 0xaa3,
+    Key_em4space = 0xaa4,
+    Key_digitspace = 0xaa5,
+    Key_punctspace = 0xaa6,
+    Key_thinspace = 0xaa7,
+    Key_hairspace = 0xaa8,
+    Key_emdash = 0xaa9,
+    Key_endash = 0xaaa,
+    Key_signifblank = 0xaac,
+    Key_ellipsis = 0xaae,
+    Key_doubbaselinedot = 0xaaf,
+    Key_onethird = 0xab0,
+    Key_twothirds = 0xab1,
+    Key_onefifth = 0xab2,
+    Key_twofifths = 0xab3,
+    Key_threefifths = 0xab4,
+    Key_fourfifths = 0xab5,
+    Key_onesixth = 0xab6,
+    Key_fivesixths = 0xab7,
+    Key_careof = 0xab8,
+    Key_figdash = 0xabb,
+    Key_leftanglebracket = 0xabc,
+    Key_decimalpoint = 0xabd,
+    Key_rightanglebracket = 0xabe,
+    Key_marker = 0xabf,
+    Key_oneeighth = 0xac3,
+    Key_threeeighths = 0xac4,
+    Key_fiveeighths = 0xac5,
+    Key_seveneighths = 0xac6,
+    Key_trademark = 0xac9,
+    Key_signaturemark = 0xaca,
+    Key_trademarkincircle = 0xacb,
+    Key_leftopentriangle = 0xacc,
+    Key_rightopentriangle = 0xacd,
+    Key_emopencircle = 0xace,
+    Key_emopenrectangle = 0xacf,
+    Key_leftsinglequotemark = 0xad0,
+    Key_rightsinglequotemark = 0xad1,
+    Key_leftdoublequotemark = 0xad2,
+    Key_rightdoublequotemark = 0xad3,
+    Key_prescription = 0xad4,
+    Key_minutes = 0xad6,
+    Key_seconds = 0xad7,
+    Key_latincross = 0xad9,
+    Key_hexagram = 0xada,
+    Key_filledrectbullet = 0xadb,
+    Key_filledlefttribullet = 0xadc,
+    Key_filledrighttribullet = 0xadd,
+    Key_emfilledcircle = 0xade,
+    Key_emfilledrect = 0xadf,
+    Key_enopencircbullet = 0xae0,
+    Key_enopensquarebullet = 0xae1,
+    Key_openrectbullet = 0xae2,
+    Key_opentribulletup = 0xae3,
+    Key_opentribulletdown = 0xae4,
+    Key_openstar = 0xae5,
+    Key_enfilledcircbullet = 0xae6,
+    Key_enfilledsqbullet = 0xae7,
+    Key_filledtribulletup = 0xae8,
+    Key_filledtribulletdown = 0xae9,
+    Key_leftpointer = 0xaea,
+    Key_rightpointer = 0xaeb,
+    Key_club = 0xaec,
+    Key_diamond = 0xaed,
+    Key_heart = 0xaee,
+    Key_maltesecross = 0xaf0,
+    Key_dagger = 0xaf1,
+    Key_doubledagger = 0xaf2,
+    Key_checkmark = 0xaf3,
+    Key_ballotcross = 0xaf4,
+    Key_musicalsharp = 0xaf5,
+    Key_musicalflat = 0xaf6,
+    Key_malesymbol = 0xaf7,
+    Key_femalesymbol = 0xaf8,
+    Key_telephone = 0xaf9,
+    Key_telephonerecorder = 0xafa,
+    Key_phonographcopyright = 0xafb,
+    Key_caret = 0xafc,
+    Key_singlelowquotemark = 0xafd,
+    Key_doublelowquotemark = 0xafe,
+    Key_cursor = 0xaff,
+    Key_leftcaret = 0xba3,
+    Key_rightcaret = 0xba6,
+    Key_downcaret = 0xba8,
+    Key_upcaret = 0xba9,
+    Key_overbar = 0xbc0,
+    Key_downtack = 0xbc2,
+    Key_upshoe = 0xbc3,
+    Key_downstile = 0xbc4,
+    Key_underbar = 0xbc6,
+    Key_jot = 0xbca,
+    Key_quad = 0xbcc,
+    Key_uptack = 0xbce,
+    Key_circle = 0xbcf,
+    Key_upstile = 0xbd3,
+    Key_downshoe = 0xbd6,
+    Key_rightshoe = 0xbd8,
+    Key_leftshoe = 0xbda,
+    Key_lefttack = 0xbdc,
+    Key_righttack = 0xbfc,
+    Key_hebrew_doublelowline = 0xcdf,
+    Key_hebrew_aleph = 0xce0,
+    Key_hebrew_bet = 0xce1,
+    Key_hebrew_beth = 0xce1,
+    Key_hebrew_gimel = 0xce2,
+    Key_hebrew_gimmel = 0xce2,
+    Key_hebrew_dalet = 0xce3,
+    Key_hebrew_daleth = 0xce3,
+    Key_hebrew_he = 0xce4,
+    Key_hebrew_waw = 0xce5,
+    Key_hebrew_zain = 0xce6,
+    Key_hebrew_zayin = 0xce6,
+    Key_hebrew_chet = 0xce7,
+    Key_hebrew_het = 0xce7,
+    Key_hebrew_tet = 0xce8,
+    Key_hebrew_teth = 0xce8,
+    Key_hebrew_yod = 0xce9,
+    Key_hebrew_finalkaph = 0xcea,
+    Key_hebrew_kaph = 0xceb,
+    Key_hebrew_lamed = 0xcec,
+    Key_hebrew_finalmem = 0xced,
+    Key_hebrew_mem = 0xcee,
+    Key_hebrew_finalnun = 0xcef,
+    Key_hebrew_nun = 0xcf0,
+    Key_hebrew_samech = 0xcf1,
+    Key_hebrew_samekh = 0xcf1,
+    Key_hebrew_ayin = 0xcf2,
+    Key_hebrew_finalpe = 0xcf3,
+    Key_hebrew_pe = 0xcf4,
+    Key_hebrew_finalzade = 0xcf5,
+    Key_hebrew_finalzadi = 0xcf5,
+    Key_hebrew_zade = 0xcf6,
+    Key_hebrew_zadi = 0xcf6,
+    Key_hebrew_qoph = 0xcf7,
+    Key_hebrew_kuf = 0xcf7,
+    Key_hebrew_resh = 0xcf8,
+    Key_hebrew_shin = 0xcf9,
+    Key_hebrew_taw = 0xcfa,
+    Key_hebrew_taf = 0xcfa,
+    Key_Hebrew_switch = 0xff7e,
+    Key_Thai_kokai = 0xda1,
+    Key_Thai_khokhai = 0xda2,
+    Key_Thai_khokhuat = 0xda3,
+    Key_Thai_khokhwai = 0xda4,
+    Key_Thai_khokhon = 0xda5,
+    Key_Thai_khorakhang = 0xda6,
+    Key_Thai_ngongu = 0xda7,
+    Key_Thai_chochan = 0xda8,
+    Key_Thai_choching = 0xda9,
+    Key_Thai_chochang = 0xdaa,
+    Key_Thai_soso = 0xdab,
+    Key_Thai_chochoe = 0xdac,
+    Key_Thai_yoying = 0xdad,
+    Key_Thai_dochada = 0xdae,
+    Key_Thai_topatak = 0xdaf,
+    Key_Thai_thothan = 0xdb0,
+    Key_Thai_thonangmontho = 0xdb1,
+    Key_Thai_thophuthao = 0xdb2,
+    Key_Thai_nonen = 0xdb3,
+    Key_Thai_dodek = 0xdb4,
+    Key_Thai_totao = 0xdb5,
+    Key_Thai_thothung = 0xdb6,
+    Key_Thai_thothahan = 0xdb7,
+    Key_Thai_thothong = 0xdb8,
+    Key_Thai_nonu = 0xdb9,
+    Key_Thai_bobaimai = 0xdba,
+    Key_Thai_popla = 0xdbb,
+    Key_Thai_phophung = 0xdbc,
+    Key_Thai_fofa = 0xdbd,
+    Key_Thai_phophan = 0xdbe,
+    Key_Thai_fofan = 0xdbf,
+    Key_Thai_phosamphao = 0xdc0,
+    Key_Thai_moma = 0xdc1,
+    Key_Thai_yoyak = 0xdc2,
+    Key_Thai_rorua = 0xdc3,
+    Key_Thai_ru = 0xdc4,
+    Key_Thai_loling = 0xdc5,
+    Key_Thai_lu = 0xdc6,
+    Key_Thai_wowaen = 0xdc7,
+    Key_Thai_sosala = 0xdc8,
+    Key_Thai_sorusi = 0xdc9,
+    Key_Thai_sosua = 0xdca,
+    Key_Thai_hohip = 0xdcb,
+    Key_Thai_lochula = 0xdcc,
+    Key_Thai_oang = 0xdcd,
+    Key_Thai_honokhuk = 0xdce,
+    Key_Thai_paiyannoi = 0xdcf,
+    Key_Thai_saraa = 0xdd0,
+    Key_Thai_maihanakat = 0xdd1,
+    Key_Thai_saraaa = 0xdd2,
+    Key_Thai_saraam = 0xdd3,
+    Key_Thai_sarai = 0xdd4,
+    Key_Thai_saraii = 0xdd5,
+    Key_Thai_saraue = 0xdd6,
+    Key_Thai_sarauee = 0xdd7,
+    Key_Thai_sarau = 0xdd8,
+    Key_Thai_sarauu = 0xdd9,
+    Key_Thai_phinthu = 0xdda,
+    Key_Thai_maihanakat_maitho = 0xdde,
+    Key_Thai_baht = 0xddf,
+    Key_Thai_sarae = 0xde0,
+    Key_Thai_saraae = 0xde1,
+    Key_Thai_sarao = 0xde2,
+    Key_Thai_saraaimaimuan = 0xde3,
+    Key_Thai_saraaimaimalai = 0xde4,
+    Key_Thai_lakkhangyao = 0xde5,
+    Key_Thai_maiyamok = 0xde6,
+    Key_Thai_maitaikhu = 0xde7,
+    Key_Thai_maiek = 0xde8,
+    Key_Thai_maitho = 0xde9,
+    Key_Thai_maitri = 0xdea,
+    Key_Thai_maichattawa = 0xdeb,
+    Key_Thai_thanthakhat = 0xdec,
+    Key_Thai_nikhahit = 0xded,
+    Key_Thai_leksun = 0xdf0,
+    Key_Thai_leknung = 0xdf1,
+    Key_Thai_leksong = 0xdf2,
+    Key_Thai_leksam = 0xdf3,
+    Key_Thai_leksi = 0xdf4,
+    Key_Thai_lekha = 0xdf5,
+    Key_Thai_lekhok = 0xdf6,
+    Key_Thai_lekchet = 0xdf7,
+    Key_Thai_lekpaet = 0xdf8,
+    Key_Thai_lekkao = 0xdf9,
+    Key_Hangul = 0xff31,
+    Key_Hangul_Start = 0xff32,
+    Key_Hangul_End = 0xff33,
+    Key_Hangul_Hanja = 0xff34,
+    Key_Hangul_Jamo = 0xff35,
+    Key_Hangul_Romaja = 0xff36,
+    Key_Hangul_Codeinput = 0xff37,
+    Key_Hangul_Jeonja = 0xff38,
+    Key_Hangul_Banja = 0xff39,
+    Key_Hangul_PreHanja = 0xff3a,
+    Key_Hangul_PostHanja = 0xff3b,
+    Key_Hangul_SingleCandidate = 0xff3c,
+    Key_Hangul_MultipleCandidate = 0xff3d,
+    Key_Hangul_PreviousCandidate = 0xff3e,
+    Key_Hangul_Special = 0xff3f,
+    Key_Hangul_switch = 0xff7e,
+    Key_Hangul_Kiyeog = 0xea1,
+    Key_Hangul_SsangKiyeog = 0xea2,
+    Key_Hangul_KiyeogSios = 0xea3,
+    Key_Hangul_Nieun = 0xea4,
+    Key_Hangul_NieunJieuj = 0xea5,
+    Key_Hangul_NieunHieuh = 0xea6,
+    Key_Hangul_Dikeud = 0xea7,
+    Key_Hangul_SsangDikeud = 0xea8,
+    Key_Hangul_Rieul = 0xea9,
+    Key_Hangul_RieulKiyeog = 0xeaa,
+    Key_Hangul_RieulMieum = 0xeab,
+    Key_Hangul_RieulPieub = 0xeac,
+    Key_Hangul_RieulSios = 0xead,
+    Key_Hangul_RieulTieut = 0xeae,
+    Key_Hangul_RieulPhieuf = 0xeaf,
+    Key_Hangul_RieulHieuh = 0xeb0,
+    Key_Hangul_Mieum = 0xeb1,
+    Key_Hangul_Pieub = 0xeb2,
+    Key_Hangul_SsangPieub = 0xeb3,
+    Key_Hangul_PieubSios = 0xeb4,
+    Key_Hangul_Sios = 0xeb5,
+    Key_Hangul_SsangSios = 0xeb6,
+    Key_Hangul_Ieung = 0xeb7,
+    Key_Hangul_Jieuj = 0xeb8,
+    Key_Hangul_SsangJieuj = 0xeb9,
+    Key_Hangul_Cieuc = 0xeba,
+    Key_Hangul_Khieuq = 0xebb,
+    Key_Hangul_Tieut = 0xebc,
+    Key_Hangul_Phieuf = 0xebd,
+    Key_Hangul_Hieuh = 0xebe,
+    Key_Hangul_A = 0xebf,
+    Key_Hangul_AE = 0xec0,
+    Key_Hangul_YA = 0xec1,
+    Key_Hangul_YAE = 0xec2,
+    Key_Hangul_EO = 0xec3,
+    Key_Hangul_E = 0xec4,
+    Key_Hangul_YEO = 0xec5,
+    Key_Hangul_YE = 0xec6,
+    Key_Hangul_O = 0xec7,
+    Key_Hangul_WA = 0xec8,
+    Key_Hangul_WAE = 0xec9,
+    Key_Hangul_OE = 0xeca,
+    Key_Hangul_YO = 0xecb,
+    Key_Hangul_U = 0xecc,
+    Key_Hangul_WEO = 0xecd,
+    Key_Hangul_WE = 0xece,
+    Key_Hangul_WI = 0xecf,
+    Key_Hangul_YU = 0xed0,
+    Key_Hangul_EU = 0xed1,
+    Key_Hangul_YI = 0xed2,
+    Key_Hangul_I = 0xed3,
+    Key_Hangul_J_Kiyeog = 0xed4,
+    Key_Hangul_J_SsangKiyeog = 0xed5,
+    Key_Hangul_J_KiyeogSios = 0xed6,
+    Key_Hangul_J_Nieun = 0xed7,
+    Key_Hangul_J_NieunJieuj = 0xed8,
+    Key_Hangul_J_NieunHieuh = 0xed9,
+    Key_Hangul_J_Dikeud = 0xeda,
+    Key_Hangul_J_Rieul = 0xedb,
+    Key_Hangul_J_RieulKiyeog = 0xedc,
+    Key_Hangul_J_RieulMieum = 0xedd,
+    Key_Hangul_J_RieulPieub = 0xede,
+    Key_Hangul_J_RieulSios = 0xedf,
+    Key_Hangul_J_RieulTieut = 0xee0,
+    Key_Hangul_J_RieulPhieuf = 0xee1,
+    Key_Hangul_J_RieulHieuh = 0xee2,
+    Key_Hangul_J_Mieum = 0xee3,
+    Key_Hangul_J_Pieub = 0xee4,
+    Key_Hangul_J_PieubSios = 0xee5,
+    Key_Hangul_J_Sios = 0xee6,
+    Key_Hangul_J_SsangSios = 0xee7,
+    Key_Hangul_J_Ieung = 0xee8,
+    Key_Hangul_J_Jieuj = 0xee9,
+    Key_Hangul_J_Cieuc = 0xeea,
+    Key_Hangul_J_Khieuq = 0xeeb,
+    Key_Hangul_J_Tieut = 0xeec,
+    Key_Hangul_J_Phieuf = 0xeed,
+    Key_Hangul_J_Hieuh = 0xeee,
+    Key_Hangul_RieulYeorinHieuh = 0xeef,
+    Key_Hangul_SunkyeongeumMieum = 0xef0,
+    Key_Hangul_SunkyeongeumPieub = 0xef1,
+    Key_Hangul_PanSios = 0xef2,
+    Key_Hangul_KkogjiDalrinIeung = 0xef3,
+    Key_Hangul_SunkyeongeumPhieuf = 0xef4,
+    Key_Hangul_YeorinHieuh = 0xef5,
+    Key_Hangul_AraeA = 0xef6,
+    Key_Hangul_AraeAE = 0xef7,
+    Key_Hangul_J_PanSios = 0xef8,
+    Key_Hangul_J_KkogjiDalrinIeung = 0xef9,
+    Key_Hangul_J_YeorinHieuh = 0xefa,
+    Key_Korean_Won = 0xeff,
+    Key_Armenian_ligature_ew = 0x1000587,
+    Key_Armenian_full_stop = 0x1000589,
+    Key_Armenian_verjaket = 0x1000589,
+    Key_Armenian_separation_mark = 0x100055d,
+    Key_Armenian_but = 0x100055d,
+    Key_Armenian_hyphen = 0x100058a,
+    Key_Armenian_yentamna = 0x100058a,
+    Key_Armenian_exclam = 0x100055c,
+    Key_Armenian_amanak = 0x100055c,
+    Key_Armenian_accent = 0x100055b,
+    Key_Armenian_shesht = 0x100055b,
+    Key_Armenian_question = 0x100055e,
+    Key_Armenian_paruyk = 0x100055e,
+    Key_Armenian_AYB = 0x1000531,
+    Key_Armenian_ayb = 0x1000561,
+    Key_Armenian_BEN = 0x1000532,
+    Key_Armenian_ben = 0x1000562,
+    Key_Armenian_GIM = 0x1000533,
+    Key_Armenian_gim = 0x1000563,
+    Key_Armenian_DA = 0x1000534,
+    Key_Armenian_da = 0x1000564,
+    Key_Armenian_YECH = 0x1000535,
+    Key_Armenian_yech = 0x1000565,
+    Key_Armenian_ZA = 0x1000536,
+    Key_Armenian_za = 0x1000566,
+    Key_Armenian_E = 0x1000537,
+    Key_Armenian_e = 0x1000567,
+    Key_Armenian_AT = 0x1000538,
+    Key_Armenian_at = 0x1000568,
+    Key_Armenian_TO = 0x1000539,
+    Key_Armenian_to = 0x1000569,
+    Key_Armenian_ZHE = 0x100053a,
+    Key_Armenian_zhe = 0x100056a,
+    Key_Armenian_INI = 0x100053b,
+    Key_Armenian_ini = 0x100056b,
+    Key_Armenian_LYUN = 0x100053c,
+    Key_Armenian_lyun = 0x100056c,
+    Key_Armenian_KHE = 0x100053d,
+    Key_Armenian_khe = 0x100056d,
+    Key_Armenian_TSA = 0x100053e,
+    Key_Armenian_tsa = 0x100056e,
+    Key_Armenian_KEN = 0x100053f,
+    Key_Armenian_ken = 0x100056f,
+    Key_Armenian_HO = 0x1000540,
+    Key_Armenian_ho = 0x1000570,
+    Key_Armenian_DZA = 0x1000541,
+    Key_Armenian_dza = 0x1000571,
+    Key_Armenian_GHAT = 0x1000542,
+    Key_Armenian_ghat = 0x1000572,
+    Key_Armenian_TCHE = 0x1000543,
+    Key_Armenian_tche = 0x1000573,
+    Key_Armenian_MEN = 0x1000544,
+    Key_Armenian_men = 0x1000574,
+    Key_Armenian_HI = 0x1000545,
+    Key_Armenian_hi = 0x1000575,
+    Key_Armenian_NU = 0x1000546,
+    Key_Armenian_nu = 0x1000576,
+    Key_Armenian_SHA = 0x1000547,
+    Key_Armenian_sha = 0x1000577,
+    Key_Armenian_VO = 0x1000548,
+    Key_Armenian_vo = 0x1000578,
+    Key_Armenian_CHA = 0x1000549,
+    Key_Armenian_cha = 0x1000579,
+    Key_Armenian_PE = 0x100054a,
+    Key_Armenian_pe = 0x100057a,
+    Key_Armenian_JE = 0x100054b,
+    Key_Armenian_je = 0x100057b,
+    Key_Armenian_RA = 0x100054c,
+    Key_Armenian_ra = 0x100057c,
+    Key_Armenian_SE = 0x100054d,
+    Key_Armenian_se = 0x100057d,
+    Key_Armenian_VEV = 0x100054e,
+    Key_Armenian_vev = 0x100057e,
+    Key_Armenian_TYUN = 0x100054f,
+    Key_Armenian_tyun = 0x100057f,
+    Key_Armenian_RE = 0x1000550,
+    Key_Armenian_re = 0x1000580,
+    Key_Armenian_TSO = 0x1000551,
+    Key_Armenian_tso = 0x1000581,
+    Key_Armenian_VYUN = 0x1000552,
+    Key_Armenian_vyun = 0x1000582,
+    Key_Armenian_PYUR = 0x1000553,
+    Key_Armenian_pyur = 0x1000583,
+    Key_Armenian_KE = 0x1000554,
+    Key_Armenian_ke = 0x1000584,
+    Key_Armenian_O = 0x1000555,
+    Key_Armenian_o = 0x1000585,
+    Key_Armenian_FE = 0x1000556,
+    Key_Armenian_fe = 0x1000586,
+    Key_Armenian_apostrophe = 0x100055a,
+    Key_Georgian_an = 0x10010d0,
+    Key_Georgian_ban = 0x10010d1,
+    Key_Georgian_gan = 0x10010d2,
+    Key_Georgian_don = 0x10010d3,
+    Key_Georgian_en = 0x10010d4,
+    Key_Georgian_vin = 0x10010d5,
+    Key_Georgian_zen = 0x10010d6,
+    Key_Georgian_tan = 0x10010d7,
+    Key_Georgian_in = 0x10010d8,
+    Key_Georgian_kan = 0x10010d9,
+    Key_Georgian_las = 0x10010da,
+    Key_Georgian_man = 0x10010db,
+    Key_Georgian_nar = 0x10010dc,
+    Key_Georgian_on = 0x10010dd,
+    Key_Georgian_par = 0x10010de,
+    Key_Georgian_zhar = 0x10010df,
+    Key_Georgian_rae = 0x10010e0,
+    Key_Georgian_san = 0x10010e1,
+    Key_Georgian_tar = 0x10010e2,
+    Key_Georgian_un = 0x10010e3,
+    Key_Georgian_phar = 0x10010e4,
+    Key_Georgian_khar = 0x10010e5,
+    Key_Georgian_ghan = 0x10010e6,
+    Key_Georgian_qar = 0x10010e7,
+    Key_Georgian_shin = 0x10010e8,
+    Key_Georgian_chin = 0x10010e9,
+    Key_Georgian_can = 0x10010ea,
+    Key_Georgian_jil = 0x10010eb,
+    Key_Georgian_cil = 0x10010ec,
+    Key_Georgian_char = 0x10010ed,
+    Key_Georgian_xan = 0x10010ee,
+    Key_Georgian_jhan = 0x10010ef,
+    Key_Georgian_hae = 0x10010f0,
+    Key_Georgian_he = 0x10010f1,
+    Key_Georgian_hie = 0x10010f2,
+    Key_Georgian_we = 0x10010f3,
+    Key_Georgian_har = 0x10010f4,
+    Key_Georgian_hoe = 0x10010f5,
+    Key_Georgian_fi = 0x10010f6,
+    Key_Xabovedot = 0x1001e8a,
+    Key_Ibreve = 0x100012c,
+    Key_Zstroke = 0x10001b5,
+    Key_Gcaron = 0x10001e6,
+    Key_Ocaron = 0x10001d1,
+    Key_Obarred = 0x100019f,
+    Key_xabovedot = 0x1001e8b,
+    Key_ibreve = 0x100012d,
+    Key_zstroke = 0x10001b6,
+    Key_gcaron = 0x10001e7,
+    Key_ocaron = 0x10001d2,
+    Key_obarred = 0x1000275,
+    Key_SCHWA = 0x100018f,
+    Key_schwa = 0x1000259,
+    Key_Lbelowdot = 0x1001e36,
+    Key_lbelowdot = 0x1001e37,
+    Key_Abelowdot = 0x1001ea0,
+    Key_abelowdot = 0x1001ea1,
+    Key_Ahook = 0x1001ea2,
+    Key_ahook = 0x1001ea3,
+    Key_Acircumflexacute = 0x1001ea4,
+    Key_acircumflexacute = 0x1001ea5,
+    Key_Acircumflexgrave = 0x1001ea6,
+    Key_acircumflexgrave = 0x1001ea7,
+    Key_Acircumflexhook = 0x1001ea8,
+    Key_acircumflexhook = 0x1001ea9,
+    Key_Acircumflextilde = 0x1001eaa,
+    Key_acircumflextilde = 0x1001eab,
+    Key_Acircumflexbelowdot = 0x1001eac,
+    Key_acircumflexbelowdot = 0x1001ead,
+    Key_Abreveacute = 0x1001eae,
+    Key_abreveacute = 0x1001eaf,
+    Key_Abrevegrave = 0x1001eb0,
+    Key_abrevegrave = 0x1001eb1,
+    Key_Abrevehook = 0x1001eb2,
+    Key_abrevehook = 0x1001eb3,
+    Key_Abrevetilde = 0x1001eb4,
+    Key_abrevetilde = 0x1001eb5,
+    Key_Abrevebelowdot = 0x1001eb6,
+    Key_abrevebelowdot = 0x1001eb7,
+    Key_Ebelowdot = 0x1001eb8,
+    Key_ebelowdot = 0x1001eb9,
+    Key_Ehook = 0x1001eba,
+    Key_ehook = 0x1001ebb,
+    Key_Etilde = 0x1001ebc,
+    Key_etilde = 0x1001ebd,
+    Key_Ecircumflexacute = 0x1001ebe,
+    Key_ecircumflexacute = 0x1001ebf,
+    Key_Ecircumflexgrave = 0x1001ec0,
+    Key_ecircumflexgrave = 0x1001ec1,
+    Key_Ecircumflexhook = 0x1001ec2,
+    Key_ecircumflexhook = 0x1001ec3,
+    Key_Ecircumflextilde = 0x1001ec4,
+    Key_ecircumflextilde = 0x1001ec5,
+    Key_Ecircumflexbelowdot = 0x1001ec6,
+    Key_ecircumflexbelowdot = 0x1001ec7,
+    Key_Ihook = 0x1001ec8,
+    Key_ihook = 0x1001ec9,
+    Key_Ibelowdot = 0x1001eca,
+    Key_ibelowdot = 0x1001ecb,
+    Key_Obelowdot = 0x1001ecc,
+    Key_obelowdot = 0x1001ecd,
+    Key_Ohook = 0x1001ece,
+    Key_ohook = 0x1001ecf,
+    Key_Ocircumflexacute = 0x1001ed0,
+    Key_ocircumflexacute = 0x1001ed1,
+    Key_Ocircumflexgrave = 0x1001ed2,
+    Key_ocircumflexgrave = 0x1001ed3,
+    Key_Ocircumflexhook = 0x1001ed4,
+    Key_ocircumflexhook = 0x1001ed5,
+    Key_Ocircumflextilde = 0x1001ed6,
+    Key_ocircumflextilde = 0x1001ed7,
+    Key_Ocircumflexbelowdot = 0x1001ed8,
+    Key_ocircumflexbelowdot = 0x1001ed9,
+    Key_Ohornacute = 0x1001eda,
+    Key_ohornacute = 0x1001edb,
+    Key_Ohorngrave = 0x1001edc,
+    Key_ohorngrave = 0x1001edd,
+    Key_Ohornhook = 0x1001ede,
+    Key_ohornhook = 0x1001edf,
+    Key_Ohorntilde = 0x1001ee0,
+    Key_ohorntilde = 0x1001ee1,
+    Key_Ohornbelowdot = 0x1001ee2,
+    Key_ohornbelowdot = 0x1001ee3,
+    Key_Ubelowdot = 0x1001ee4,
+    Key_ubelowdot = 0x1001ee5,
+    Key_Uhook = 0x1001ee6,
+    Key_uhook = 0x1001ee7,
+    Key_Uhornacute = 0x1001ee8,
+    Key_uhornacute = 0x1001ee9,
+    Key_Uhorngrave = 0x1001eea,
+    Key_uhorngrave = 0x1001eeb,
+    Key_Uhornhook = 0x1001eec,
+    Key_uhornhook = 0x1001eed,
+    Key_Uhorntilde = 0x1001eee,
+    Key_uhorntilde = 0x1001eef,
+    Key_Uhornbelowdot = 0x1001ef0,
+    Key_uhornbelowdot = 0x1001ef1,
+    Key_Ybelowdot = 0x1001ef4,
+    Key_ybelowdot = 0x1001ef5,
+    Key_Yhook = 0x1001ef6,
+    Key_yhook = 0x1001ef7,
+    Key_Ytilde = 0x1001ef8,
+    Key_ytilde = 0x1001ef9,
+    Key_Ohorn = 0x10001a0,
+    Key_ohorn = 0x10001a1,
+    Key_Uhorn = 0x10001af,
+    Key_uhorn = 0x10001b0,
+    Key_EcuSign = 0x10020a0,
+    Key_ColonSign = 0x10020a1,
+    Key_CruzeiroSign = 0x10020a2,
+    Key_FFrancSign = 0x10020a3,
+    Key_LiraSign = 0x10020a4,
+    Key_MillSign = 0x10020a5,
+    Key_NairaSign = 0x10020a6,
+    Key_PesetaSign = 0x10020a7,
+    Key_RupeeSign = 0x10020a8,
+    Key_WonSign = 0x10020a9,
+    Key_NewSheqelSign = 0x10020aa,
+    Key_DongSign = 0x10020ab,
+    Key_EuroSign = 0x20ac,
+    Key_zerosuperior = 0x1002070,
+    Key_foursuperior = 0x1002074,
+    Key_fivesuperior = 0x1002075,
+    Key_sixsuperior = 0x1002076,
+    Key_sevensuperior = 0x1002077,
+    Key_eightsuperior = 0x1002078,
+    Key_ninesuperior = 0x1002079,
+    Key_zerosubscript = 0x1002080,
+    Key_onesubscript = 0x1002081,
+    Key_twosubscript = 0x1002082,
+    Key_threesubscript = 0x1002083,
+    Key_foursubscript = 0x1002084,
+    Key_fivesubscript = 0x1002085,
+    Key_sixsubscript = 0x1002086,
+    Key_sevensubscript = 0x1002087,
+    Key_eightsubscript = 0x1002088,
+    Key_ninesubscript = 0x1002089,
+    Key_partdifferential = 0x1002202,
+    Key_emptyset = 0x1002205,
+    Key_elementof = 0x1002208,
+    Key_notelementof = 0x1002209,
+    Key_containsas = 0x100220b,
+    Key_squareroot = 0x100221a,
+    Key_cuberoot = 0x100221b,
+    Key_fourthroot = 0x100221c,
+    Key_dintegral = 0x100222c,
+    Key_tintegral = 0x100222d,
+    Key_because = 0x1002235,
+    Key_approxeq = 0x1002248,
+    Key_notapproxeq = 0x1002247,
+    Key_notidentical = 0x1002262,
+    Key_stricteq = 0x1002263,
+    Key_braille_dot_1 = 0xfff1,
+    Key_braille_dot_2 = 0xfff2,
+    Key_braille_dot_3 = 0xfff3,
+    Key_braille_dot_4 = 0xfff4,
+    Key_braille_dot_5 = 0xfff5,
+    Key_braille_dot_6 = 0xfff6,
+    Key_braille_dot_7 = 0xfff7,
+    Key_braille_dot_8 = 0xfff8,
+    Key_braille_dot_9 = 0xfff9,
+    Key_braille_dot_10 = 0xfffa,
+    Key_braille_blank = 0x1002800,
+    Key_braille_dots_1 = 0x1002801,
+    Key_braille_dots_2 = 0x1002802,
+    Key_braille_dots_12 = 0x1002803,
+    Key_braille_dots_3 = 0x1002804,
+    Key_braille_dots_13 = 0x1002805,
+    Key_braille_dots_23 = 0x1002806,
+    Key_braille_dots_123 = 0x1002807,
+    Key_braille_dots_4 = 0x1002808,
+    Key_braille_dots_14 = 0x1002809,
+    Key_braille_dots_24 = 0x100280a,
+    Key_braille_dots_124 = 0x100280b,
+    Key_braille_dots_34 = 0x100280c,
+    Key_braille_dots_134 = 0x100280d,
+    Key_braille_dots_234 = 0x100280e,
+    Key_braille_dots_1234 = 0x100280f,
+    Key_braille_dots_5 = 0x1002810,
+    Key_braille_dots_15 = 0x1002811,
+    Key_braille_dots_25 = 0x1002812,
+    Key_braille_dots_125 = 0x1002813,
+    Key_braille_dots_35 = 0x1002814,
+    Key_braille_dots_135 = 0x1002815,
+    Key_braille_dots_235 = 0x1002816,
+    Key_braille_dots_1235 = 0x1002817,
+    Key_braille_dots_45 = 0x1002818,
+    Key_braille_dots_145 = 0x1002819,
+    Key_braille_dots_245 = 0x100281a,
+    Key_braille_dots_1245 = 0x100281b,
+    Key_braille_dots_345 = 0x100281c,
+    Key_braille_dots_1345 = 0x100281d,
+    Key_braille_dots_2345 = 0x100281e,
+    Key_braille_dots_12345 = 0x100281f,
+    Key_braille_dots_6 = 0x1002820,
+    Key_braille_dots_16 = 0x1002821,
+    Key_braille_dots_26 = 0x1002822,
+    Key_braille_dots_126 = 0x1002823,
+    Key_braille_dots_36 = 0x1002824,
+    Key_braille_dots_136 = 0x1002825,
+    Key_braille_dots_236 = 0x1002826,
+    Key_braille_dots_1236 = 0x1002827,
+    Key_braille_dots_46 = 0x1002828,
+    Key_braille_dots_146 = 0x1002829,
+    Key_braille_dots_246 = 0x100282a,
+    Key_braille_dots_1246 = 0x100282b,
+    Key_braille_dots_346 = 0x100282c,
+    Key_braille_dots_1346 = 0x100282d,
+    Key_braille_dots_2346 = 0x100282e,
+    Key_braille_dots_12346 = 0x100282f,
+    Key_braille_dots_56 = 0x1002830,
+    Key_braille_dots_156 = 0x1002831,
+    Key_braille_dots_256 = 0x1002832,
+    Key_braille_dots_1256 = 0x1002833,
+    Key_braille_dots_356 = 0x1002834,
+    Key_braille_dots_1356 = 0x1002835,
+    Key_braille_dots_2356 = 0x1002836,
+    Key_braille_dots_12356 = 0x1002837,
+    Key_braille_dots_456 = 0x1002838,
+    Key_braille_dots_1456 = 0x1002839,
+    Key_braille_dots_2456 = 0x100283a,
+    Key_braille_dots_12456 = 0x100283b,
+    Key_braille_dots_3456 = 0x100283c,
+    Key_braille_dots_13456 = 0x100283d,
+    Key_braille_dots_23456 = 0x100283e,
+    Key_braille_dots_123456 = 0x100283f,
+    Key_braille_dots_7 = 0x1002840,
+    Key_braille_dots_17 = 0x1002841,
+    Key_braille_dots_27 = 0x1002842,
+    Key_braille_dots_127 = 0x1002843,
+    Key_braille_dots_37 = 0x1002844,
+    Key_braille_dots_137 = 0x1002845,
+    Key_braille_dots_237 = 0x1002846,
+    Key_braille_dots_1237 = 0x1002847,
+    Key_braille_dots_47 = 0x1002848,
+    Key_braille_dots_147 = 0x1002849,
+    Key_braille_dots_247 = 0x100284a,
+    Key_braille_dots_1247 = 0x100284b,
+    Key_braille_dots_347 = 0x100284c,
+    Key_braille_dots_1347 = 0x100284d,
+    Key_braille_dots_2347 = 0x100284e,
+    Key_braille_dots_12347 = 0x100284f,
+    Key_braille_dots_57 = 0x1002850,
+    Key_braille_dots_157 = 0x1002851,
+    Key_braille_dots_257 = 0x1002852,
+    Key_braille_dots_1257 = 0x1002853,
+    Key_braille_dots_357 = 0x1002854,
+    Key_braille_dots_1357 = 0x1002855,
+    Key_braille_dots_2357 = 0x1002856,
+    Key_braille_dots_12357 = 0x1002857,
+    Key_braille_dots_457 = 0x1002858,
+    Key_braille_dots_1457 = 0x1002859,
+    Key_braille_dots_2457 = 0x100285a,
+    Key_braille_dots_12457 = 0x100285b,
+    Key_braille_dots_3457 = 0x100285c,
+    Key_braille_dots_13457 = 0x100285d,
+    Key_braille_dots_23457 = 0x100285e,
+    Key_braille_dots_123457 = 0x100285f,
+    Key_braille_dots_67 = 0x1002860,
+    Key_braille_dots_167 = 0x1002861,
+    Key_braille_dots_267 = 0x1002862,
+    Key_braille_dots_1267 = 0x1002863,
+    Key_braille_dots_367 = 0x1002864,
+    Key_braille_dots_1367 = 0x1002865,
+    Key_braille_dots_2367 = 0x1002866,
+    Key_braille_dots_12367 = 0x1002867,
+    Key_braille_dots_467 = 0x1002868,
+    Key_braille_dots_1467 = 0x1002869,
+    Key_braille_dots_2467 = 0x100286a,
+    Key_braille_dots_12467 = 0x100286b,
+    Key_braille_dots_3467 = 0x100286c,
+    Key_braille_dots_13467 = 0x100286d,
+    Key_braille_dots_23467 = 0x100286e,
+    Key_braille_dots_123467 = 0x100286f,
+    Key_braille_dots_567 = 0x1002870,
+    Key_braille_dots_1567 = 0x1002871,
+    Key_braille_dots_2567 = 0x1002872,
+    Key_braille_dots_12567 = 0x1002873,
+    Key_braille_dots_3567 = 0x1002874,
+    Key_braille_dots_13567 = 0x1002875,
+    Key_braille_dots_23567 = 0x1002876,
+    Key_braille_dots_123567 = 0x1002877,
+    Key_braille_dots_4567 = 0x1002878,
+    Key_braille_dots_14567 = 0x1002879,
+    Key_braille_dots_24567 = 0x100287a,
+    Key_braille_dots_124567 = 0x100287b,
+    Key_braille_dots_34567 = 0x100287c,
+    Key_braille_dots_134567 = 0x100287d,
+    Key_braille_dots_234567 = 0x100287e,
+    Key_braille_dots_1234567 = 0x100287f,
+    Key_braille_dots_8 = 0x1002880,
+    Key_braille_dots_18 = 0x1002881,
+    Key_braille_dots_28 = 0x1002882,
+    Key_braille_dots_128 = 0x1002883,
+    Key_braille_dots_38 = 0x1002884,
+    Key_braille_dots_138 = 0x1002885,
+    Key_braille_dots_238 = 0x1002886,
+    Key_braille_dots_1238 = 0x1002887,
+    Key_braille_dots_48 = 0x1002888,
+    Key_braille_dots_148 = 0x1002889,
+    Key_braille_dots_248 = 0x100288a,
+    Key_braille_dots_1248 = 0x100288b,
+    Key_braille_dots_348 = 0x100288c,
+    Key_braille_dots_1348 = 0x100288d,
+    Key_braille_dots_2348 = 0x100288e,
+    Key_braille_dots_12348 = 0x100288f,
+    Key_braille_dots_58 = 0x1002890,
+    Key_braille_dots_158 = 0x1002891,
+    Key_braille_dots_258 = 0x1002892,
+    Key_braille_dots_1258 = 0x1002893,
+    Key_braille_dots_358 = 0x1002894,
+    Key_braille_dots_1358 = 0x1002895,
+    Key_braille_dots_2358 = 0x1002896,
+    Key_braille_dots_12358 = 0x1002897,
+    Key_braille_dots_458 = 0x1002898,
+    Key_braille_dots_1458 = 0x1002899,
+    Key_braille_dots_2458 = 0x100289a,
+    Key_braille_dots_12458 = 0x100289b,
+    Key_braille_dots_3458 = 0x100289c,
+    Key_braille_dots_13458 = 0x100289d,
+    Key_braille_dots_23458 = 0x100289e,
+    Key_braille_dots_123458 = 0x100289f,
+    Key_braille_dots_68 = 0x10028a0,
+    Key_braille_dots_168 = 0x10028a1,
+    Key_braille_dots_268 = 0x10028a2,
+    Key_braille_dots_1268 = 0x10028a3,
+    Key_braille_dots_368 = 0x10028a4,
+    Key_braille_dots_1368 = 0x10028a5,
+    Key_braille_dots_2368 = 0x10028a6,
+    Key_braille_dots_12368 = 0x10028a7,
+    Key_braille_dots_468 = 0x10028a8,
+    Key_braille_dots_1468 = 0x10028a9,
+    Key_braille_dots_2468 = 0x10028aa,
+    Key_braille_dots_12468 = 0x10028ab,
+    Key_braille_dots_3468 = 0x10028ac,
+    Key_braille_dots_13468 = 0x10028ad,
+    Key_braille_dots_23468 = 0x10028ae,
+    Key_braille_dots_123468 = 0x10028af,
+    Key_braille_dots_568 = 0x10028b0,
+    Key_braille_dots_1568 = 0x10028b1,
+    Key_braille_dots_2568 = 0x10028b2,
+    Key_braille_dots_12568 = 0x10028b3,
+    Key_braille_dots_3568 = 0x10028b4,
+    Key_braille_dots_13568 = 0x10028b5,
+    Key_braille_dots_23568 = 0x10028b6,
+    Key_braille_dots_123568 = 0x10028b7,
+    Key_braille_dots_4568 = 0x10028b8,
+    Key_braille_dots_14568 = 0x10028b9,
+    Key_braille_dots_24568 = 0x10028ba,
+    Key_braille_dots_124568 = 0x10028bb,
+    Key_braille_dots_34568 = 0x10028bc,
+    Key_braille_dots_134568 = 0x10028bd,
+    Key_braille_dots_234568 = 0x10028be,
+    Key_braille_dots_1234568 = 0x10028bf,
+    Key_braille_dots_78 = 0x10028c0,
+    Key_braille_dots_178 = 0x10028c1,
+    Key_braille_dots_278 = 0x10028c2,
+    Key_braille_dots_1278 = 0x10028c3,
+    Key_braille_dots_378 = 0x10028c4,
+    Key_braille_dots_1378 = 0x10028c5,
+    Key_braille_dots_2378 = 0x10028c6,
+    Key_braille_dots_12378 = 0x10028c7,
+    Key_braille_dots_478 = 0x10028c8,
+    Key_braille_dots_1478 = 0x10028c9,
+    Key_braille_dots_2478 = 0x10028ca,
+    Key_braille_dots_12478 = 0x10028cb,
+    Key_braille_dots_3478 = 0x10028cc,
+    Key_braille_dots_13478 = 0x10028cd,
+    Key_braille_dots_23478 = 0x10028ce,
+    Key_braille_dots_123478 = 0x10028cf,
+    Key_braille_dots_578 = 0x10028d0,
+    Key_braille_dots_1578 = 0x10028d1,
+    Key_braille_dots_2578 = 0x10028d2,
+    Key_braille_dots_12578 = 0x10028d3,
+    Key_braille_dots_3578 = 0x10028d4,
+    Key_braille_dots_13578 = 0x10028d5,
+    Key_braille_dots_23578 = 0x10028d6,
+    Key_braille_dots_123578 = 0x10028d7,
+    Key_braille_dots_4578 = 0x10028d8,
+    Key_braille_dots_14578 = 0x10028d9,
+    Key_braille_dots_24578 = 0x10028da,
+    Key_braille_dots_124578 = 0x10028db,
+    Key_braille_dots_34578 = 0x10028dc,
+    Key_braille_dots_134578 = 0x10028dd,
+    Key_braille_dots_234578 = 0x10028de,
+    Key_braille_dots_1234578 = 0x10028df,
+    Key_braille_dots_678 = 0x10028e0,
+    Key_braille_dots_1678 = 0x10028e1,
+    Key_braille_dots_2678 = 0x10028e2,
+    Key_braille_dots_12678 = 0x10028e3,
+    Key_braille_dots_3678 = 0x10028e4,
+    Key_braille_dots_13678 = 0x10028e5,
+    Key_braille_dots_23678 = 0x10028e6,
+    Key_braille_dots_123678 = 0x10028e7,
+    Key_braille_dots_4678 = 0x10028e8,
+    Key_braille_dots_14678 = 0x10028e9,
+    Key_braille_dots_24678 = 0x10028ea,
+    Key_braille_dots_124678 = 0x10028eb,
+    Key_braille_dots_34678 = 0x10028ec,
+    Key_braille_dots_134678 = 0x10028ed,
+    Key_braille_dots_234678 = 0x10028ee,
+    Key_braille_dots_1234678 = 0x10028ef,
+    Key_braille_dots_5678 = 0x10028f0,
+    Key_braille_dots_15678 = 0x10028f1,
+    Key_braille_dots_25678 = 0x10028f2,
+    Key_braille_dots_125678 = 0x10028f3,
+    Key_braille_dots_35678 = 0x10028f4,
+    Key_braille_dots_135678 = 0x10028f5,
+    Key_braille_dots_235678 = 0x10028f6,
+    Key_braille_dots_1235678 = 0x10028f7,
+    Key_braille_dots_45678 = 0x10028f8,
+    Key_braille_dots_145678 = 0x10028f9,
+    Key_braille_dots_245678 = 0x10028fa,
+    Key_braille_dots_1245678 = 0x10028fb,
+    Key_braille_dots_345678 = 0x10028fc,
+    Key_braille_dots_1345678 = 0x10028fd,
+    Key_braille_dots_2345678 = 0x10028fe,
+    Key_braille_dots_12345678 = 0x10028ff,
+} Keysym;
 
+}
 #endif /* __IBUS_KEYSYMS_H__ */

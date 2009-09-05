@@ -40,7 +40,6 @@
 #include <stdlib.h>
 #include <unicode/unorm.h>
 
-#include <ibuskeysyms.h>
 #include "ibus-compose-data.h"
 
 typedef struct _IBusComposeTableCompact IBusComposeTableCompact;
@@ -59,23 +58,23 @@ static const IBusComposeTableCompact ibus_compose_table_compact = {
 };
 
 static const uint ibus_compose_ignore[] = {
-    IBUS_Shift_L,
-    IBUS_Shift_R,
-    IBUS_Control_L,
-    IBUS_Control_R,
-    IBUS_Caps_Lock,
-    IBUS_Shift_Lock,
-    IBUS_Meta_L,
-    IBUS_Meta_R,
-    IBUS_Alt_L,
-    IBUS_Alt_R,
-    IBUS_Super_L,
-    IBUS_Super_R,
-    IBUS_Hyper_L,
-    IBUS_Hyper_R,
-    IBUS_Mode_switch,
-    IBUS_ISO_Level3_Shift,
-    IBUS_VoidSymbol
+    Key_Shift_L,
+    Key_Shift_R,
+    Key_Control_L,
+    Key_Control_R,
+    Key_Caps_Lock,
+    Key_Shift_Lock,
+    Key_Meta_L,
+    Key_Meta_R,
+    Key_Alt_L,
+    Key_Alt_R,
+    Key_Super_L,
+    Key_Super_R,
+    Key_Hyper_L,
+    Key_Hyper_R,
+    Key_Mode_switch,
+    Key_ISO_Level3_Shift,
+    Key_VoidSymbol
 };
 
 typedef QInputMethodEvent::Attribute QAttribute;
@@ -291,7 +290,7 @@ IBusInputContext::processCompose (uint keyval, uint state)
     if (state & IBus::ReleaseMask)
         return false;
 
-    for (i = 0; ibus_compose_ignore[i] != IBUS_VoidSymbol; i++) {
+    for (i = 0; ibus_compose_ignore[i] != Key_VoidSymbol; i++) {
         if (keyval == ibus_compose_ignore[i])
             return false;
     }
@@ -414,7 +413,7 @@ IBusInputContext::checkCompactTable (const IBusComposeTableCompact *table)
 }
 
 #define IS_DEAD_KEY(k) \
-    ((k) >= IBUS_dead_grave && (k) <= (IBUS_dead_dasia+1))
+    ((k) >= Key_dead_grave && (k) <= (Key_dead_dasia+1))
 quint32 ibus_keyval_to_unicode (uint keyval);
 
 bool
@@ -437,7 +436,7 @@ IBusInputContext::checkAlgorithmically ()
         while (i >= 0) {
             switch (m_compose_buffer[i]) {
             #define CASE(keysym, unicode) \
-                case IBUS_dead_##keysym: combination_buffer[i + 1] = unicode; break
+                case Key_dead_##keysym: combination_buffer[i + 1] = unicode; break
             CASE (grave, 0x0300);
             CASE (acute, 0x0301);
             CASE (circumflex, 0x0302);
