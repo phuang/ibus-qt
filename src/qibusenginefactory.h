@@ -1,13 +1,17 @@
 #ifndef __Q_IBUS_FACTORY_ADAPTOR_H_
 #define __Q_IBUS_FACTORY_ADAPTOR_H_
 
-#include "qibusbus.h"
-#include "qibusengineadaptor.h"
-#include "qibusfactoryadaptor.h"
+#include <QLinkedList>
+#include <QDBusConnection>
+#include <QDBusObjectPath>
+#include "qibusobject.h"
 
 class IBusFactoryAdaptor;
 
 namespace IBus {
+
+class Engine;
+typedef Pointer<Engine> EnginePointer;
 
 class EngineFactory : public Object
 {

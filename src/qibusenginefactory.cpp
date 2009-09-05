@@ -1,5 +1,6 @@
 #include "qibusenginefactory.h"
 #include "qibusfactoryadaptor.h"
+#include "qibusengine.h"
 
 namespace IBus {
 
