@@ -33,7 +33,7 @@ private :
     uint    m_id;
     QDBusConnection m_conn;
     QMap<QString, const QMetaObject *> m_engineMap;
-    QLinkedList<IBusEngineAdaptor *> m_engineLList;
+    QLinkedList<EnginePointer> m_engineLList;
     IBusFactoryAdaptor	*m_factoryAdaptor;
 
     static EngineFactory	*m_factory;

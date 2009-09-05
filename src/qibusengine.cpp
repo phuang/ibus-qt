@@ -1,6 +1,18 @@
 #include "qibusengine.h"
+#include "qibusengineadaptor.h"
 
 namespace IBus {
+
+Engine::Engine (const QString &engineName)
+    : m_engineName(engineName)
+{
+    m_adaptor = new IBusEngineAdaptor (this);
+}
+
+Engine::~Engine ()
+{
+    delete m_adaptor;
+}
 
 const QString &
 Engine::getEngineName () const

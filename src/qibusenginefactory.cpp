@@ -20,8 +20,8 @@ EngineFactory::~EngineFactory ()
     }
 
     if ( m_factory != NULL ) {
-	delete m_factory;
-	m_factory = NULL;
+	    delete m_factory;
+	    m_factory = NULL;
     }
 }
 
@@ -53,24 +53,18 @@ EngineFactory::createEngine (const QString &engineName)
         return "";
     }
 
-    Engine *obj = qobject_cast<Engine *>(mo->newInstance (Q_ARG(QString, engineName)));
-    if ( !obj ) {
+    EnginePointer engine = qobject_cast<Engine *>(mo->newInstance (Q_ARG(QString, engineName)));
+    if ( engine.isNull() ) {
         qDebug () << "EngineFactory::CreateEngine, newInstance error!";
         return "";
     }
 
-    IBusEngineAdaptor *engineAdaptor = new IBusEngineAdaptor (obj);
-    if ( !engineAdaptor ) {
-        qDebug () << "EngineFactory::CreateEngine, new error!";
-        return "";
-    }
-
-    if ( !m_conn.registerObject (path, engineAdaptor) ) {
+    if ( !m_conn.registerObject (path, engine) ) {
         qDebug () << "EngineFactory::CreateEngine, registerObject error!";
         return "";
     }
 
-    m_engineLList.append(engineAdaptor);
+    m_engineLList.append(engine);
 
     return path;
 }
@@ -84,19 +78,7 @@ EngineFactory::CreateEngine (const QString &engineName)
 void
 EngineFactory::Destroy ()
 {
-    /*
-    QLinkedList<IBusEngineAdaptor *>::const_iterator lli = m_engineLList.begin();
-    for ( ; lli != m_engineLList.end(); ++lli ) {
-        if ( *lli ==  engineAdaptor ) {
-            delete engineAdaptor;
-            m_engineLList.removeOne(engineAdaptor);
-
-            return;
-        }
-    }
-    */
-
-    return;
+    delete this;
 }
 
 void

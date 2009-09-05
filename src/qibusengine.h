@@ -7,20 +7,20 @@
 #include "qibusproplist.h"
 #include "qibuslookuptable.h"
 
+class IBusEngineAdaptor;
+
 namespace IBus {
 
 class Engine;
 typedef Pointer<Engine> EnginePointer;
 
-class Engine : public QObject
+class Engine : public Object
 {
     Q_OBJECT
 
 public :
-    Engine () {}
-    Engine (const QString &engineName): m_engineName(engineName) {}
-
-    virtual ~Engine () {}
+    Engine (const QString &engineName);
+    virtual ~Engine ();
 
 public :
     const QString & getEngineName () const;
@@ -172,6 +172,7 @@ Q_SIGNALS :
 
 private :
     QString m_engineName;
+    IBusEngineAdaptor *m_adaptor;
 };
 
 };
