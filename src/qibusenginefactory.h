@@ -21,6 +21,9 @@ public:
     void addMetaObject (const QString &name, const QMetaObject *metaObject);
     static EngineFactory *getEngineFactory (const QDBusConnection &conn);
 
+protected:
+    virtual QString createEngine (const QString &name);
+
 private Q_SLOTS:
     Q_INVOKABLE QDBusObjectPath CreateEngine (const QString &name);
     Q_INVOKABLE void Destroy ();

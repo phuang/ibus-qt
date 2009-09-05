@@ -34,8 +34,8 @@ EngineFactory *EngineFactory::getEngineFactory (const QDBusConnection &conn)
     return m_factory;
 }
 
-QDBusObjectPath
-EngineFactory::CreateEngine (const QString &engineName)
+QString
+EngineFactory::createEngine (const QString &engineName)
 {
     QString path = "/org/freedesktop/IBus/Engine/" + engineName + "/" + QString::number(++m_id);
 
@@ -44,35 +44,41 @@ EngineFactory::CreateEngine (const QString &engineName)
 
     if ( !m_engineMap.contains(engineName) ) {
         qDebug () << "EngineFactory::CreateEngine, can not create engine!";
-        return QDBusObjectPath();
+        return "";
     }
 
     const QMetaObject *mo = m_engineMap[engineName];
     if ( !mo ) {
         qDebug () << "EngineFactory::CreateEngine, QMetaObject pointer in map is null!";
-        return QDBusObjectPath();
+        return "";
     }
 
     Engine *obj = qobject_cast<Engine *>(mo->newInstance (Q_ARG(QString, engineName)));
     if ( !obj ) {
         qDebug () << "EngineFactory::CreateEngine, newInstance error!";
-        return QDBusObjectPath();
+        return "";
     }
 
     IBusEngineAdaptor *engineAdaptor = new IBusEngineAdaptor (obj);
     if ( !engineAdaptor ) {
         qDebug () << "EngineFactory::CreateEngine, new error!";
-        return QDBusObjectPath();
+        return "";
     }
 
     if ( !m_conn.registerObject (path, engineAdaptor) ) {
         qDebug () << "EngineFactory::CreateEngine, registerObject error!";
-        return QDBusObjectPath();
+        return "";
     }
 
     m_engineLList.append(engineAdaptor);
 
-    return QDBusObjectPath(path);
+    return path;
+}
+
+QDBusObjectPath
+EngineFactory::CreateEngine (const QString &engineName)
+{
+    return QDBusObjectPath (createEngine (engineName));
 }
 
 void
