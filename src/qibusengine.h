@@ -34,7 +34,7 @@ public :
 
     void cursorDownLookupTable ()
     {
-        cursorDownLookupTable();
+        CursorDownLookupTable();
     }
 
     void cursorUpLookupTable ()

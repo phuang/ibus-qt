@@ -16,18 +16,15 @@ LookupTable::serialize (QDBusArgument & argument)
     argument << m_cursorVisible;
     argument << m_round;
 
-    // read variables of container type into argument
     argument.beginArray (qMetaTypeId<QDBusVariant>());
-    for ( int i = 0; i < m_candidates.size(); ++i )
-    {
-        argument << m_candidates[i];
+    for ( int i = 0; i < m_candidates.size(); ++i ) {
+        argument << qDBusVariantFromSerializable(m_candidates[i]);
     }
     argument.endArray();
 
     argument.beginArray (qMetaTypeId<QDBusVariant>());
-    for ( int i = 0; i < m_labels.size(); ++i )
-    {
-        argument << m_labels[i];
+    for ( int i = 0; i < m_labels.size(); ++i ) {
+        argument << qDBusVariantFromSerializable(m_labels[i]);
     }
     argument.endArray();
 
@@ -127,15 +124,15 @@ LookupTable::setPageSize(const uint pageSize)
 bool
 LookupTable::pageUp()
 {
-    if ( m_cursorPos >= m_pageSize )
-    {
+    if ( m_cursorPos >= m_pageSize ) {
         m_cursorPos -= m_pageSize;
         return true;
     }
 
     // here, cursor points to first page
-    if ( !m_round )
+    if ( !m_round ) {
         return false;
+    }
 
     // set the right position of cursor  
     uint tmpCursorPos = (m_candidates.size() / m_pageSize) * m_pageSize + cursorPosInPage();
@@ -150,8 +147,7 @@ LookupTable::pageUp()
 bool
 LookupTable::pageDown()
 {
-    if ( (m_candidates.size() / m_pageSize) > (m_cursorPos / m_pageSize) )
-    {
+    if ( (m_candidates.size() / m_pageSize) > (m_cursorPos / m_pageSize) ) {
         if ( (m_cursorPos + m_pageSize) < static_cast<uint>(m_candidates.size()) )
             m_cursorPos = m_cursorPos + m_pageSize;
         else
@@ -171,11 +167,11 @@ LookupTable::pageDown()
 bool
 LookupTable::cursorUp()
 {
-    if ( m_cursorPos == 0 )
-    {
+    if ( m_cursorPos == 0 ) {
         // cursor points to the first candidate of first page
-        if ( !m_round )
+        if ( !m_round ) {
             return false;
+        }
 
         m_cursorPos = m_candidates.size() - 1;
         return true;
@@ -188,18 +184,16 @@ LookupTable::cursorUp()
 bool
 LookupTable::cursorDown()
 {
-    if ( (m_cursorPos + 1) == static_cast<uint>(m_candidates.size()) )
-    {
-        // cursor points to the last candidate of last page
-        if ( !m_round )
-            return false;
+    if ( ++m_cursorPos < static_cast<uint>(m_candidates.size()) ) {
+        return true;
+    }
 
+    if ( m_round ) {
         m_cursorPos = 0;
         return true;
     }
 
-    ++m_cursorPos;
-    return true;
+    return false;
 }
 
 };

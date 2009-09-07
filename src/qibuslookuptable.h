@@ -15,15 +15,14 @@ class LookupTable: public Serializable
 
 public:
     LookupTable () {}
-    LookupTable (uint pageSize,
-                 uint cursorPos,
-                 bool cursorVisible,
-                 bool round)
-    : m_pageSize (pageSize),
-      m_cursorPos (cursorPos),
-      m_cursorVisible (cursorVisible),
-      m_round (round)
-    {}
+    LookupTable (bool round,
+                 bool cursorVisible = true,
+                 uint pageSize = 6,
+                 uint cursorPos = 0):
+                 m_pageSize (pageSize),
+                 m_cursorPos (cursorPos),
+                 m_cursorVisible (cursorVisible),
+                 m_round (round) {}
 
     ~LookupTable() {}
 

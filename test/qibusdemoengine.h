@@ -36,7 +36,7 @@ private :
  
     QString             m_context;  // store keyboard input
 
-    LookupTablePointer  m_table;
+    LookupTablePointer  m_lookupTable;
     PropertyPointer     m_prop;
     PropListPointer     m_propList;
 };

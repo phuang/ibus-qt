@@ -49,17 +49,16 @@ public:
               bool visible,
               uint type,
               uint state,
-              PropListPointer subProps)
-    : m_key(key),
-      m_icon(icon),
-      m_label(label),
-      m_tooltip(tooltip),
-      m_sensitive(sensitive),
-      m_visible(visible),
-      m_type(type),
-      m_state(state),
-      m_subProps(subProps)
-    {}
+              PropListPointer subProps) :
+              m_key(key),
+              m_icon(icon),
+              m_label(label),
+              m_tooltip(tooltip),
+              m_sensitive(sensitive),
+              m_visible(visible),
+              m_type(type),
+              m_state(state),
+              m_subProps(subProps) {}
 
     ~Property () {}
 
