@@ -35,7 +35,7 @@ Serializable::removeAttachment (const QString &key)
 }
 
 bool
-Serializable::serialize (QDBusArgument &argument) const
+Serializable::serialize (QDBusArgument &argument)
 {
     QMap<QString, SerializablePointer>::const_iterator i;
 

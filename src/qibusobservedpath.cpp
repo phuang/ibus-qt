@@ -5,7 +5,7 @@ namespace IBus {
 IBUS_DECLARE_SERIALIZABLE(ObservedPath, IBusObservedPath);
 
 bool
-ObservedPath::serialize (QDBusArgument & argument) const
+ObservedPath::serialize (QDBusArgument & argument)
 {
     if ( !Serializable::serialize(argument) ) {
         return false;

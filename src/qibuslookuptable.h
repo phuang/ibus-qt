@@ -28,7 +28,7 @@ public:
     ~LookupTable() {}
 
 public:
-    virtual bool serialize (QDBusArgument & argument) const;
+    virtual bool serialize (QDBusArgument & argument);
     virtual bool deserialize (const QDBusArgument & argument);
     void appendCandidate (const TextPointer & e);
     void appendLabel (const TextPointer & e);

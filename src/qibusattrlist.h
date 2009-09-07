@@ -21,7 +21,7 @@ public:
 
     AttributePointer operator[] (int index) const { return get (index); }
 
-    virtual bool serialize (QDBusArgument &argument) const;
+    virtual bool serialize (QDBusArgument &argument);
     virtual bool deserialize (const QDBusArgument &argument);
 private:
     QVector<AttributePointer> m_attrs;

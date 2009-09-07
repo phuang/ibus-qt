@@ -22,7 +22,7 @@ public:
     Text (const QChar &ch) : m_text (ch) {}
 
 public:
-    virtual bool serialize (QDBusArgument &argument) const;
+    virtual bool serialize (QDBusArgument &argument);
     virtual bool deserialize (const QDBusArgument &argument);
 
     const QString &text (void) { return m_text; }

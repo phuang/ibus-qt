@@ -31,7 +31,7 @@ public:
 
 
 public:
-    virtual bool serialize (QDBusArgument &argument) const;
+    virtual bool serialize (QDBusArgument &argument);
     virtual bool deserialize (const QDBusArgument &argument);
 
     uint type (void) const { return m_type; }

@@ -5,7 +5,7 @@ namespace IBus {
 IBUS_DECLARE_SERIALIZABLE(LookupTable, IBusLookupTable);
 
 bool
-LookupTable::serialize (QDBusArgument & argument) const
+LookupTable::serialize (QDBusArgument & argument)
 {
     if ( !Serializable::serialize(argument) )
         return false;

@@ -72,7 +72,7 @@ public:
     SerializablePointer removeAttachment (const QString &key);
 
 protected:
-    virtual bool serialize (QDBusArgument &argument) const;
+    virtual bool serialize (QDBusArgument &argument);
     virtual bool deserialize (const QDBusArgument &argument);
 
 private:
@@ -89,6 +89,7 @@ private:
 
     IBUS_SERIALIZABLE
 };
+
 
 template<typename T>
 QDBusArgument& operator<< (QDBusArgument& argument, const Pointer<T> &p)

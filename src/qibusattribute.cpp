@@ -5,7 +5,7 @@ namespace IBus {
 IBUS_DECLARE_SERIALIZABLE(Attribute, IBusAttribute);
 
 bool
-Attribute::serialize (QDBusArgument &argument) const
+Attribute::serialize (QDBusArgument &argument)
 {
     if (!Serializable::serialize (argument)) {
         return false;

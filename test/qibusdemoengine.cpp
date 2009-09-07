@@ -77,6 +77,21 @@ DemoEngine::processKeyEvent (uint keyval, uint keycode, uint modifiers)
         return false;
     }
 
-    qDebug () << "Process Key Event";
+    if (modifiers & ReleaseMask)
+        return false;
+
+    
+    
+    switch (keyval) {
+    case Key_a: {
+        TextPointer text = new Text ("Apple");
+        updatePreeditText (text, 0, TRUE); break;
+    }
+    case Key_b:
+        updatePreeditText (new Text ("Banana"), 0, TRUE); break;
+    default:
+        hidePreeditText (); return false;
+    }
+
     return true;
 }

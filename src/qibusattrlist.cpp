@@ -29,7 +29,7 @@ void AttrList::clear (void)
     m_attrs.clear ();
 }
 
-bool AttrList::serialize (QDBusArgument &argument) const
+bool AttrList::serialize (QDBusArgument &argument)
 {
     if (!Serializable::serialize (argument)) {
         return false;
