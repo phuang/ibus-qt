@@ -183,14 +183,14 @@ InputContext::setEngine (const QString &name)
 void
 InputContext::slotCommitText (const QDBusVariant &text)
 {
-    commitText (qDBusVariantToSerializable (text));
+    commitText (qDBusVariantToSerializable<Text> (text));
 }
 
 /* preedit text */
 void
 InputContext::slotUpdatePreeditText (const QDBusVariant &text, uint cursor_pos, bool visible)
 {
-    updatePreeditText (qDBusVariantToSerializable(text), cursor_pos, visible);
+    updatePreeditText (qDBusVariantToSerializable<Text> (text), cursor_pos, visible);
 }
 
 void
@@ -209,7 +209,7 @@ InputContext::slotHidePreeditText ()
 void
 InputContext::slotUpdateAuxiliaryText (const QDBusVariant &text, bool visible)
 {
-    updateAuxiliaryText (qDBusVariantToSerializable (text), visible);
+    updateAuxiliaryText (qDBusVariantToSerializable<Text> (text), visible);
 }
 
 void
@@ -228,7 +228,7 @@ InputContext::slotHideAuxiliaryText ()
 void
 InputContext::slotUpdateLookupTable (const QDBusVariant &table, bool visible)
 {
-    updateLookupTable (qDBusVariantToSerializable (table), visible);
+    updateLookupTable (qDBusVariantToSerializable<LookupTable> (table), visible);
 }
 
 void
@@ -288,13 +288,13 @@ InputContext::slotForwardKeyEvent (uint keyval, uint keycode, uint state)
 void
 InputContext::slotRegisterProperties (const QDBusVariant &props)
 {
-    registerProperties (qDBusVariantToSerializable (props));
+    registerProperties (qDBusVariantToSerializable<PropList> (props));
 }
 
 void
 InputContext::slotUpdateProperty (const QDBusVariant &prop)
 {
-    updateProperty (qDBusVariantToSerializable (prop));
+    updateProperty (qDBusVariantToSerializable<Property> (prop));
 }
 
 };

@@ -475,7 +475,7 @@ Bus::ping (const SerializablePointer &data)
         return NULL;
     }
 
-    return qDBusVariantToSerializable (reply.value ());
+    return qDBusVariantToSerializable<Serializable> (reply.value ());
 }
 
 void

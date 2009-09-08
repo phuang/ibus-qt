@@ -21,13 +21,13 @@ Component::serialize (QDBusArgument &argument)
 
     argument.beginArray(qMetaTypeId<QDBusVariant>());
     for ( int i = 0; i < m_observedPaths.size(); ++i ) {
-        argument << qDBusVariantFromSerializable(m_observedPaths[i]);
+        argument << m_observedPaths[i];
     }
     argument.endArray();
 
     argument.beginArray(qMetaTypeId<QDBusVariant>());
     for ( int i = 0; i < m_engines.size(); ++i ) {
-        argument << qDBusVariantFromSerializable(m_engines[i]);
+        argument << m_engines[i];
     }
     argument.endArray();
 

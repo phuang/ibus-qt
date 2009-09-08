@@ -133,25 +133,6 @@ operator>> (const QDBusArgument& argument, SerializablePointer &p)
 #endif
 
 
-QDBusVariant
-qDBusVariantFromSerializable (const SerializablePointer &p)
-{
-    QDBusArgument argument;
-    argument << p;
-    return QDBusVariant (qVariantFromValue (argument));
-}
 
-
-SerializablePointer
-qDBusVariantToSerializable (const QDBusVariant &variant)
-{
-    SerializablePointer p;
-    QDBusArgument argument;
-
-    argument = variant.variant().value<QDBusArgument> ();
-    argument >> p;
-
-    return p;
-}
 
 };
