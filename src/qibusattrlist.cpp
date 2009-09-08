@@ -11,8 +11,10 @@ AttrList::~AttrList ()
 
 AttributePointer AttrList::get (int index) const
 {
-    if (index >= m_attrs.size ())
+    if (index >= m_attrs.size ()) {
         return NULL;
+    }
+
     return m_attrs[index];
 }
 
@@ -37,7 +39,7 @@ bool AttrList::serialize (QDBusArgument &argument)
 
     argument.beginArray (qMetaTypeId<QDBusVariant>());
     for (int i = 0; i < m_attrs.size(); i++) {
-        argument << m_attrs[i];
+        argument << qDBusVariantFromSerializable (m_attrs[i]);
     }
     argument.endArray ();
 

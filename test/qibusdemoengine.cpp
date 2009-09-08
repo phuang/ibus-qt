@@ -77,37 +77,49 @@ DemoEngine::processKeyEvent (uint keyval, uint keycode, uint modifiers)
         return false;
     }
     
-    TextPointer tooltip = new Text ("configuration demo engine");
-    TextPointer lable = new Text("Setup");
+    TextPointer tooltip = NULL;
+    TextPointer lable = NULL;
+    PropListPointer props = NULL;
     PropertyPointer prop = NULL;
+
+    TextPointer attributeText = NULL;
 
     switch (keyval) {
         case Key_a :
-            updatePreeditText (new Text ("Apple"), 0, TRUE);
+            attributeText = new Text ("Apple");
+            attributeText->appendAttribute(TypeUnderline, UnderlineLow, 0, -1);
+            attributeText->appendAttribute(TypeForeground, 0xff0000, 0, -1);
+            updatePreeditText (attributeText, 0, TRUE);
             break;
 
         case Key_b :
-            updatePreeditText (new Text ("Banana"), 0, TRUE);
+            attributeText = new Text ("Banana");
+            attributeText->appendAttribute(TypeUnderline, UnderlineSingle, 0, -1);
+            attributeText->appendAttribute(TypeBackground, 0xff0000, 0, -1);
+            updatePreeditText (attributeText, 0, TRUE);
             break;
 
         case Key_c :
             updateAuxiliaryText (new Text ("CCCCC"), TRUE);
             break;
 
+    // can't pass
         case Key_p :
-            prop = new Property("setup",
+            lable = new Text ("setup");
+            tooltip = new Text ("configuration demo engine");
+            prop = new Property ("setup",
                                 "gtk-preference",
-                                                lable,
-                                                tooltip,
-                                                // new ("demo engine"), // lable,
-                                                // new ("setup"), // tooltip,
-                                                true,
-                                                true,
-                                                TypeNormal,
-                                                0,
-                                                NULL);
-
-            updateProperty (prop);
+                                lable,
+                                tooltip,
+                                true,
+                                true,
+                                TypeNormal,
+                                0,
+                                NULL);
+            props = new PropList ();
+            props->appendProperty (prop);
+            registerProperties (props);
+            // updateProperty (prop);
             break;
 
         case Key_d :
@@ -118,7 +130,10 @@ DemoEngine::processKeyEvent (uint keyval, uint keycode, uint modifiers)
             m_lookupTable->appendLabel (new Text ("3"));
             m_lookupTable->appendLabel (new Text ("4"));
             m_lookupTable->appendLabel (new Text ("5"));
-            m_lookupTable->appendCandidate (new Text ("ibus"));
+            attributeText = new Text("ibus");
+            attributeText->appendAttribute(TypeForeground, 0xff0000, 0, -1);
+            m_lookupTable->appendCandidate (attributeText);
+            // m_lookupTable->appendCandidate (new Text ("ibus"));
             m_lookupTable->appendCandidate (new Text ("wubi"));
             m_lookupTable->appendCandidate (new Text ("chewing"));
             m_lookupTable->appendCandidate (new Text ("IBM"));
@@ -130,12 +145,13 @@ DemoEngine::processKeyEvent (uint keyval, uint keycode, uint modifiers)
             m_lookupTable->appendCandidate (new Text ("sogou"));
             m_lookupTable->appendCandidate (new Text ("google"));
             m_lookupTable->appendCandidate (new Text ("ziguang"));
+
             updateLookupTable (m_lookupTable, true);
             break;
         }
 
         case Key_e :
-            commitText (new Text(Key_e));
+            commitText (new Text("commitText"));
             break;
 
         case Key_j :
@@ -184,16 +200,27 @@ DemoEngine::processKeyEvent (uint keyval, uint keycode, uint modifiers)
             updateLookupTable (m_lookupTable, true);
             break;
 
-        case Key_g :
-            hideLookupTable ();
-            break;
-
         case Key_s :
             showLookupTable ();
             break;
 
-        default:
+        case Key_g :
+            hideLookupTable ();
+            break;
+
+        case Key_i :
             hidePreeditText ();
+            break;
+
+        case Key_m :
+            hideAuxiliaryText ();
+            break;
+
+        case Key_n :
+            break;
+
+        default:
+            qDebug () << "Unknown key input!";
             return false;
     }
 

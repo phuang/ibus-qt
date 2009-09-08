@@ -1,5 +1,5 @@
-#ifndef _Q_IBUS_ENGINE_H_
-#define _Q_IBUS_ENGINE_H_
+#ifndef __Q_IBUS_ENGINE_H_
+#define __Q_IBUS_ENGINE_H_
 
 #include <QDBusVariant>
 #include "qibustypes.h"
@@ -72,7 +72,7 @@ public :
         PageUpLookupTable();
     }
 
-    void registerProperties (const PropertyPointer & props)
+    void registerProperties (const PropListPointer & props)
     {
         RegisterProperties(qDBusVariantFromSerializable(props));
     }

@@ -13,8 +13,9 @@ Attribute::serialize (QDBusArgument &argument)
 
     argument << m_type;
     argument << m_value;
-    argument << m_start_index;
-    argument << m_end_index;
+    argument << m_startIndex;
+    argument << m_endIndex;
+
     return true;
 }
 
@@ -27,8 +28,9 @@ Attribute::deserialize (const QDBusArgument &argument)
 
     argument >> m_type;
     argument >> m_value;
-    argument >> m_start_index;
-    argument >> m_end_index;
+    argument >> m_startIndex;
+    argument >> m_endIndex;
+
     return true;
 }
 

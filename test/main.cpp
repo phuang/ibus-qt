@@ -7,6 +7,10 @@ int main (int argc, char **argv)
 {
     QCoreApplication app (argc, argv);
  
+    ComponentPointer cmpt = new Component();
+    cmpt->newComponentFromFile("hangul.xml");
+
+#if 0
     ComponentPointer cmpt = new Component("org.freedesktop.IBus.Qt.DemoEngine",
                     "Qt Demo Engine",
                     "0.1.0",
@@ -26,6 +30,8 @@ int main (int argc, char **argv)
                     "us");
 
     cmpt->addEngine(engine);
+
+#endif
  
     Bus bus;
     if ( !bus.isConnected() ) {

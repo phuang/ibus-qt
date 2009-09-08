@@ -76,7 +76,8 @@ Component::output (QString & output) const
 
     stream.writeStartElement("component");
 
-    stream.writeTextElement("name", m_name); stream.writeTextElement("description", m_description);
+    stream.writeTextElement("name", m_name);
+    stream.writeTextElement("description", m_description);
     stream.writeTextElement("version", m_version);
     stream.writeTextElement("license", m_license);
     stream.writeTextElement("author", m_author);
@@ -295,6 +296,8 @@ const ComponentPointer Component::newComponentFromFile (const QString & filename
 const QDomDocument * 
 Component::parseXmlFile (const QString & filename) const
 {
+    // qDebug () << "filename = " << filename;
+
     QFile file(filename);
     if ( !file.open(QIODevice::ReadOnly) ) {
         qDebug() << "Component::parseXmlFile: open failed!";

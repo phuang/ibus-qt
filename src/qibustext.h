@@ -18,15 +18,17 @@ protected:
 
 public:
     Text () {}
-    Text (const QString &text) : m_text (text) {}
-    Text (const QChar &ch) : m_text (ch) {}
+    Text (const QString &text) : m_text (text), m_attrs(0) {}
+    Text (const QChar &ch) : m_text (ch), m_attrs(0) {}
 
 public:
     virtual bool serialize (QDBusArgument &argument);
     virtual bool deserialize (const QDBusArgument &argument);
 
-    const QString &text (void) { return m_text; }
-    const AttrListPointer &attrs (void) { return m_attrs; }
+    const QString &text (void) const            { return m_text; }
+    const AttrListPointer &attrs (void) const   { return m_attrs; }
+    const uint getLength (void) const           { return m_text.length(); }
+    void appendAttribute (uint type, uint value, uint startIndex, int endIndex);
 
 private:
     QString m_text;

@@ -10,10 +10,12 @@ class AttrList;
 typedef Pointer<AttrList> AttrListPointer;
 
 class AttrList : public Serializable {
-    Q_OBJECT;
-public:
+    Q_OBJECT
+public :
     AttrList (): m_attrs (0) {}
     virtual ~AttrList ();
+
+public :
     AttributePointer get(int index) const;
     void append (const AttributePointer &attr);
     void clear (void);
@@ -23,13 +25,13 @@ public:
 
     virtual bool serialize (QDBusArgument &argument);
     virtual bool deserialize (const QDBusArgument &argument);
-private:
+
+private :
     QVector<AttributePointer> m_attrs;
 
     IBUS_SERIALIZABLE
 };
 
 } /* IBUS */
-
 
 #endif

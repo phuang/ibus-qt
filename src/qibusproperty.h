@@ -39,17 +39,16 @@ class Property : public Serializable
 
 
 public:
-    Property ()
-    {}
+    Property () {}
     Property (const QString key,
               const QString icon,
-              TextPointer label,
-              TextPointer tooltip,
+              const TextPointer &label,
+              const TextPointer &tooltip,
               bool sensitive,
               bool visible,
               uint type,
               uint state,
-              PropListPointer subProps) :
+              const PropListPointer &subProps):
               m_key(key),
               m_icon(icon),
               m_label(label),
@@ -73,6 +72,7 @@ public:
     bool update (const PropertyPointer prop);
 
 private:
+
     QString m_key;
     QString m_icon;
     TextPointer m_label;
@@ -81,7 +81,6 @@ private:
     bool m_visible;
     uint m_type;
     uint m_state;
-
     PropListPointer m_subProps;
 
     IBUS_SERIALIZABLE
