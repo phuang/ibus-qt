@@ -39,7 +39,7 @@ bool AttrList::serialize (QDBusArgument &argument)
 
     argument.beginArray (qMetaTypeId<QDBusVariant>());
     for (int i = 0; i < m_attrs.size(); i++) {
-        argument << qDBusVariantFromSerializable (m_attrs[i]);
+        argument << m_attrs[i];
     }
     argument.endArray ();
 
