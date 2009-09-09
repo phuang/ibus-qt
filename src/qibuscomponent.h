@@ -29,8 +29,7 @@ public:
                const QString & auth,
                const QString & hmpg,
                const QString & exec,
-               const QString & textdomain
-               ):
+               const QString & textdomain):
                m_name(name),
                m_description(desc),
                m_version(vers),
@@ -38,24 +37,21 @@ public:
                m_author(auth),
                m_homepage(hmpg),
                m_exec(exec),
-               m_textdomain(textdomain)
-    {}
+               m_textdomain(textdomain) {}
 
-    virtual ~Component ()
-    {}
+    virtual ~Component () {}
 
 public:
     virtual bool serialize (QDBusArgument &argument);
     virtual bool deserialize (const QDBusArgument &argument);
 
-    void output (QString & output) const;
-    bool parseXmlNode (const QDomNode & node);
-    bool parseEngines (QDomNode node);
-    bool parseObservedPaths (const QDomNode & node);
+    void output (QString &output) const;
+    bool parseXmlNode (const QDomNode &node);
+    bool parseEnginesNode (QDomNode &node);
+    bool parseObservedPaths (const QDomNode &node);
 
     void addObservedPath (const QString & filename);
     void addEngine (const EngineDescPointer &edp);
-    const ComponentPointer newComponentFromFile (const QString & filename) const;
 
     QVector<ObservedPathPointer> getObservedPathVec () const;
     const QVector<EngineDescPointer> & getEnginesVec () const;
@@ -65,6 +61,9 @@ public:
     bool isRunning () const;
     bool isComponentModified () const;
     const ComponentPointer getComponentFromEngine (EngineDescPointer edp) const;
+
+    // const ComponentPointer newComponentFromFile (const QString & filename) const;
+    friend const ComponentPointer newComponentFromFile (Component &obj, const QString & filename);
 
 private:
     const QDomDocument * parseXmlFile (const QString & filename) const;

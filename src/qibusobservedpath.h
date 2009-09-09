@@ -18,10 +18,8 @@ class ObservedPath : public Serializable
     Q_OBJECT;
 
 public:
-    ObservedPath ()
-    {}
-    ObservedPath (QString path): m_path(path)
-    {}
+    ObservedPath () {}
+    ObservedPath (QString path): m_path(path) {}
 
     ~ObservedPath () {}
 

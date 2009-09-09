@@ -86,20 +86,23 @@ Component::output (QString & output) const
     stream.writeTextElement("textdomain", m_textdomain);
 
     // for observed-paths
-    stream.writeStartElement("observed-paths");
-    for ( int i = 0; i < m_observedPaths.size(); ++i ) {
-        stream.writeStartElement("path");
+    if ( m_observedPaths.size() > 0 ) {
+        stream.writeStartElement("observed-paths");
+        for ( int i = 0; i < m_observedPaths.size(); ++i ) {
+            stream.writeStartElement("path");
 
-        QString mtime;
-        mtime.number(m_observedPaths[i]->getMTime());
-        stream.writeAttribute("mtime", mtime);
-        stream.writeCharacters(m_observedPaths[i]->getPath());
+            QString mtime;
+            mtime.number(m_observedPaths[i]->getMTime());
+            stream.writeAttribute("mtime", mtime);
+            stream.writeCharacters(m_observedPaths[i]->getPath());
 
+            stream.writeEndElement();
+        }
         stream.writeEndElement();
     }
-    stream.writeEndElement();
 
     // for engines
+    // stream.writeComment("for static engines");
     stream.writeStartElement("engines");
     for ( int i = 0; i < m_engines.size(); ++i ) {
         // for one specfic engine
@@ -155,7 +158,7 @@ Component::parseXmlNode (const QDomNode & node)
             }
         }
         else if ( !child.nodeName().compare("engines") ) {
-            if ( !parseEngines(child) ) {
+            if ( !parseEnginesNode(child) ) {
                 return false;
             }
         }
@@ -202,7 +205,7 @@ bool Component::parseObservedPaths(const QDomNode & node)
     return true;
 }
 
-bool Component::parseEngines(QDomNode node)
+bool Component::parseEnginesNode(QDomNode &node)
 {
     if ( node.nodeName().compare("engines") ) {
         return false;
@@ -222,13 +225,14 @@ bool Component::parseEngines(QDomNode node)
     }
 
     if ( 0 != exec.size() ) {
+        qDebug () << "Component::parseEnginesNode::executing command!";
         QProcess * newProc = new QProcess;
         newProc->start(exec);
         if ( newProc->waitForFinished(3000) ) {}
         QByteArray output = newProc->readAllStandardOutput();
 
         if ( output.isEmpty() ) {
-            qDebug() << "Component::parseEngines: " << "empty engines!";
+            qDebug() << "Component::parseEnginesNode: " << "empty engines!";
             return false;
         }
 
@@ -244,12 +248,14 @@ bool Component::parseEngines(QDomNode node)
     int i = 0;
     QDomNode child = node.firstChild();
     for ( ; !child.isNull(); child = child.nextSibling(), ++i ) {
-        EngineDescPointer engiDesc = new EngineDesc;
-        if( !engiDesc->parseXmlNode(child) ) {
+        EngineDescPointer engDesc = new EngineDesc;
+        if( !engDesc->parseXmlNode(child) ) {
             return false;
         }
 
-        m_engines.push_back(engiDesc);
+        // m_engines.push_back(engDesc);
+        addEngine(engDesc);
+        qDebug () << "Component::parseEnginesNode: addEngine";
     }
 
     if ( !doc ) {
@@ -259,9 +265,9 @@ bool Component::parseEngines(QDomNode node)
     return true;
 }
 
-const ComponentPointer Component::newComponentFromFile (const QString & filename) const
+const ComponentPointer newComponentFromFile (Component &obj, const QString & filename)
 {
-    const QDomDocument * doc = parseXmlFile(filename);
+    const QDomDocument * doc = obj.parseXmlFile(filename);
     if ( !doc ) {
         return NULL;
     }
@@ -269,13 +275,10 @@ const ComponentPointer Component::newComponentFromFile (const QString & filename
     QDomElement docElem = doc->documentElement();
     QDomNode root = static_cast<QDomNode>(docElem);
 
-    ComponentPointer compnt = new Component;
-    if ( !compnt ) {
-        qDebug() << "Component::newComponentFromFile: new error!";
-        return NULL;
-    }
+    qDebug () << "root.nodeName() = " << root.nodeName();
+    qDebug () << "root.nodeValue() = " << root.nodeValue();
 
-    if( compnt->parseXmlNode(root) ) {
+    if( obj.parseXmlNode(root) ) {
         qDebug() << "Component::newComponentFromFile: parseXmlNode error!";
         return NULL;
     }
@@ -287,17 +290,15 @@ const ComponentPointer Component::newComponentFromFile (const QString & filename
         return NULL;
     }
     observedPathPtr->setObservedPathStat();
-    compnt->getObservedPathVec().push_back(observedPathPtr);
+    obj.getObservedPathVec().push_back(observedPathPtr);
 
     delete doc;
-    return compnt;
+    return NULL;
 }
 
 const QDomDocument * 
 Component::parseXmlFile (const QString & filename) const
 {
-    // qDebug () << "filename = " << filename;
-
     QFile file(filename);
     if ( !file.open(QIODevice::ReadOnly) ) {
         qDebug() << "Component::parseXmlFile: open failed!";

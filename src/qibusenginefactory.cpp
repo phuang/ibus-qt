@@ -40,28 +40,28 @@ EngineFactory::createEngine (const QString &engineName)
 {
     QString path = "/org/freedesktop/IBus/Engine/" + engineName + "/" + QString::number(++m_id);
 
-    qDebug () << "CreateEngine";
+    qDebug () << "createEngine";
     qDebug () << path;
 
     if ( !m_engineMap.contains(engineName) ) {
-        qDebug () << "EngineFactory::CreateEngine, can not create engine!";
+        qDebug () << "EngineFactory::createEngine, can not create engine!";
         return "";
     }
 
     const QMetaObject *mo = m_engineMap[engineName];
     if ( !mo ) {
-        qDebug () << "EngineFactory::CreateEngine, QMetaObject pointer in map is null!";
+        qDebug () << "EngineFactory::createEngine, QMetaObject pointer in map is null!";
         return "";
     }
 
     EnginePointer engine = qobject_cast<Engine *>(mo->newInstance (Q_ARG(QString, engineName)));
     if ( engine.isNull() ) {
-        qDebug () << "EngineFactory::CreateEngine, newInstance error!";
+        qDebug () << "EngineFactory::createEngine, newInstance error!";
         return "";
     }
 
     if ( !m_conn.registerObject (path, engine) ) {
-        qDebug () << "EngineFactory::CreateEngine, registerObject error!";
+        qDebug () << "EngineFactory::createEngine, registerObject error!";
         return "";
     }
 
