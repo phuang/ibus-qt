@@ -1,6 +1,7 @@
 #ifndef __Q_IBUS_SERIALIZABLE_H_
 #define __Q_IBUS_SERIALIZABLE_H_
 
+#include <QDebug>
 #include "qibusobject.h"
 #include <QDBusArgument>
 #include <QDBusVariant>
@@ -133,11 +134,10 @@ Pointer<T>
 qDBusVariantToSerializable (const QDBusVariant &variant)
 {
 
-    SerializablePointer p;
-    QDBusArgument argument;
+    Pointer<T> p;
     QString name;
     
-    argument = variant.variant().value<QDBusArgument> ();
+    const QDBusArgument argument = variant.variant().value<QDBusArgument> ();
     
     if (argument.currentType () != QDBusArgument::StructureType) {
         return p;
