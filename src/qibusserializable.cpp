@@ -7,9 +7,6 @@ QHash<QString, Serializable::NewInstanceFunc *> Serializable::type_table INIT_PR
 
 IBUS_DECLARE_SERIALIZABLE(Serializable, IBusSerializable);
 
-
-    SerializablePointer &removeAttachment (const QString &key);
-
 void
 Serializable::setAttachment (const QString &key, const SerializablePointer &value)
 {
@@ -133,25 +130,6 @@ operator>> (const QDBusArgument& argument, SerializablePointer &p)
 #endif
 
 
-QDBusVariant
-qDBusVariantFromSerializable (const SerializablePointer &p)
-{
-    QDBusArgument argument;
-    argument << p;
-    return QDBusVariant (qVariantFromValue (argument));
-}
 
-
-SerializablePointer
-qDBusVariantToSerializable (const QDBusVariant &variant)
-{
-    SerializablePointer p;
-    QDBusArgument argument;
-
-    argument = variant.variant().value<QDBusArgument> ();
-    argument >> p;
-
-    return p;
-}
 
 };

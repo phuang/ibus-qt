@@ -38,35 +38,35 @@ ObservedPath::parseXmlNode (const QDomNode & node)
     }
 
     // process path
-    int lstIdx = node.nodeValue().lastIndexOf('/');
-    QDir path(node.nodeValue().left(lstIdx));
+    int lstIdx = node.toElement().text().lastIndexOf('/');
+    QDir path(node.toElement().text().left(lstIdx));
 
     if ( !path.isReadable() ) {
         return false;
     }
 
     if ( path.isAbsolute() ) {
-        m_path = node.nodeValue();
+        m_path = node.toElement().text();
     }
     else if ( path.isRelative() ) {
-        if ( node.nodeValue()[0] == '~' ) {
+        if ( node.toElement().text()[0] == '~' ) {
             QString homePath = QDir::homePath();
             m_path += homePath;
-            m_path += node.nodeValue().right(node.nodeValue().size() - 2);
+            m_path += node.toElement().text().right(node.toElement().text().size() - 2);
         }
-        else if ( node.nodeValue()[0] == '.' && node.nodeValue()[1] == '/' ) {
+        else if ( node.toElement().text()[0] == '.' && node.toElement().text()[1] == '/' ) {
             QString curPath = QDir::currentPath();
             m_path += curPath;
-            m_path += node.nodeValue().right(node.nodeValue().size() - 2);
+            m_path += node.toElement().text().right(node.toElement().text().size() - 2);
         }
         else {
             QString curPath = QDir::currentPath();
             m_path += curPath;
-            m_path += node.nodeValue();
+            m_path += node.toElement().text();
         }
     }
     else {
-        qDebug() << "ObservedPath::parseXmlNode: invalid path! \"" << node.nodeValue() << "\"";
+        qDebug() << "ObservedPath::parseXmlNode: invalid path! \"" << node.toElement().text() << "\"";
         return false;
     }
 
@@ -76,7 +76,7 @@ ObservedPath::parseXmlNode (const QDomNode & node)
         for ( uint i = 0; i < nnMap.length(); ++i ) {
             QDomNode attrNode = nnMap.item(i);
             if ( !attrNode.nodeName().compare("mtime") ) {
-                m_mtime = attrNode.nodeValue().toInt();
+                m_mtime = attrNode.toElement().text().toInt();
             }
         }
     }
@@ -117,18 +117,21 @@ void
 ObservedPath::traverseObservedPath (QVector<ObservedPathPointer> & observedPathVec) const
 {
     QDir dir(m_path);
+    dir.setFilter(QDir::NoDotAndDotDot | QDir::Files | QDir::Dirs);
     QStringList files = dir.entryList();
 
     for ( int i = 0; i < files.size(); ++i ) {
         QString file = files.at(i);
-        ObservedPathPointer observedPathPtr = new ObservedPath(file);
-        observedPathPtr->setObservedPathStat();
-        observedPathVec.push_back(observedPathPtr);
+        // qDebug () << file;
+        ObservedPathPointer observedPath = new ObservedPath(file);
+        observedPath->setObservedPathStat();
+        observedPathVec.push_back(observedPath);
 
-        if ( observedPathPtr->isDirFile() ) {
-            observedPathPtr->traverseObservedPath(observedPathVec);
+        if ( observedPath->isDirFile() ) {
+            observedPath->traverseObservedPath(observedPathVec);
         }
     }
 }
 
 };
+

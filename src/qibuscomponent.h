@@ -50,11 +50,11 @@ public:
     bool parseEnginesNode (QDomNode &node);
     bool parseObservedPaths (const QDomNode &node);
 
-    void addObservedPath (const QString & filename);
+    void addObservedPath (const ObservedPathPointer &obsPath);
     void addEngine (const EngineDescPointer &edp);
 
-    QVector<ObservedPathPointer> getObservedPathVec () const;
-    const QVector<EngineDescPointer> & getEnginesVec () const;
+    QVector<ObservedPathPointer> observedPaths () const;
+    const QVector<EngineDescPointer> & engines () const;
 
     bool start (bool verbose) const;
     bool stop () const;
@@ -62,8 +62,7 @@ public:
     bool isComponentModified () const;
     const ComponentPointer getComponentFromEngine (EngineDescPointer edp) const;
 
-    // const ComponentPointer newComponentFromFile (const QString & filename) const;
-    friend const ComponentPointer newComponentFromFile (Component &obj, const QString & filename);
+    friend bool newComponentFromFile (Component &obj, const QString & filename);
 
 private:
     const QDomDocument * parseXmlFile (const QString & filename) const;

@@ -16,7 +16,7 @@ Text::serialize (QDBusArgument &argument)
         m_attrs = new AttrList ();
     }
 
-    argument << qDBusVariantFromSerializable(m_attrs);
+    argument << m_attrs;
     return true;
 }
 

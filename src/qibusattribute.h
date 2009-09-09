@@ -7,24 +7,6 @@ namespace IBus {
 
 class Attribute;
 typedef Pointer<Attribute> AttributePointer;
-/*
- * Type enumeration of IBusText attribute.
- */
-typedef enum {
-    TypeUnderline  = 1,
-    TypeForeground = 2,
-    TypeBackground = 3,
-} Type;
-
-/*
- * Type of IBusText attribute.
- */
-typedef enum {
-    UnderlineNone   = 0,
-    UnderlineSingle = 1,
-    UnderlineDouble = 2,
-    UnderlineLow    = 3,
-} Underline;
 
 
 class Attribute : public Serializable
@@ -32,24 +14,44 @@ class Attribute : public Serializable
     Q_OBJECT
 
 public:
+    /*
+     * Type enumeration of IBusText attribute.
+     */
+    typedef enum {
+        TypeUnderline  = 1,
+        TypeForeground = 2,
+        TypeBackground = 3,
+    } Type;
+    
+    /*
+     * Type of IBusText attribute.
+     */
+    typedef enum {
+        UnderlineNone   = 0,
+        UnderlineSingle = 1,
+        UnderlineDouble = 2,
+        UnderlineLow    = 3,
+    } Underline;
+
+public:
     Attribute (uint type = 0, uint value = 0, uint start = 0, uint end = 0) :
-    m_type (type), m_value (value),m_startIndex (start), m_endIndex (end) {}
+    m_type (type), m_value (value),m_start (start), m_end (end) {}
 
 public:
     virtual bool serialize (QDBusArgument &argument);
     virtual bool deserialize (const QDBusArgument &argument);
 
-    uint getType (void) const { return m_type; }
-    uint getValue (void) const { return m_value; }
-    uint getStartIndex (void) const { return m_startIndex; }
-    uint getEndIndex (void) const { return m_endIndex; }
-    uint getLength (void) const { return (m_endIndex - m_startIndex); }
+    uint type (void) const { return m_type; }
+    uint value (void) const { return m_value; }
+    uint start (void) const { return m_start; }
+    uint end (void) const { return m_end; }
+    uint length (void) const { return (m_end - m_start); }
 
 protected:
     uint    m_type;
     uint    m_value;
-    uint    m_startIndex;
-    uint    m_endIndex;
+    uint    m_start;
+    uint    m_end;
 
     IBUS_SERIALIZABLE
 };

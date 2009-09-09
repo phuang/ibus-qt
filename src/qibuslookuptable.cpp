@@ -18,13 +18,13 @@ LookupTable::serialize (QDBusArgument & argument)
 
     argument.beginArray (qMetaTypeId<QDBusVariant>());
     for ( int i = 0; i < m_candidates.size(); ++i ) {
-        argument << qDBusVariantFromSerializable(m_candidates[i]);
+        argument << m_candidates[i];
     }
     argument.endArray();
 
     argument.beginArray (qMetaTypeId<QDBusVariant>());
     for ( int i = 0; i < m_labels.size(); ++i ) {
-        argument << qDBusVariantFromSerializable(m_labels[i]);
+        argument << m_labels[i];
     }
     argument.endArray();
 
@@ -80,7 +80,7 @@ LookupTable::appendLabel(const TextPointer & e)
 }
 
 TextPointer
-LookupTable::getCandidate(const uint index) const
+LookupTable::candidate(const uint index) const
 {
     if ( index >= static_cast<uint>(m_candidates.size()) )
         return NULL;
@@ -89,7 +89,7 @@ LookupTable::getCandidate(const uint index) const
 }
 
 TextPointer
-LookupTable::getLabel(const uint index) const
+LookupTable::label(const uint index) const
 {
     if ( index >= static_cast<uint>(m_labels.size()) )
         return NULL;

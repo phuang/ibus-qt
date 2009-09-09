@@ -1,6 +1,7 @@
 #ifndef __Q_IBUS_SERIALIZABLE_H_
 #define __Q_IBUS_SERIALIZABLE_H_
 
+#include <QDebug>
 #include "qibusobject.h"
 #include <QDBusArgument>
 #include <QDBusVariant>
@@ -36,15 +37,13 @@ namespace IBus {
 class Serializable;
 typedef Pointer<Serializable> SerializablePointer;
 
-QDBusVariant qDBusVariantFromSerializable (const SerializablePointer &p);
-SerializablePointer qDBusVariantToSerializable (const QDBusVariant &variant);
-
 class Serializable : public Object
 {
     Q_OBJECT;
 
-    template<typename T> friend QDBusArgument& operator<< (QDBusArgument& argument, const Pointer<T> &p);
-    template<typename T> friend const QDBusArgument& operator>> (const QDBusArgument& argument, Pointer<T> &p);
+    template<typename T> friend QDBusVariant & qDBusVariantFromSerializable (const Pointer<T> &p, QDBusVariant & dbus_variant);
+    template<typename T> friend QDBusVariant qDBusVariantFromSerializable (const Pointer<T> &p);
+    template<typename T> friend Pointer<T> qDBusVariantToSerializable (const QDBusVariant &variant);
 
     typedef Serializable * (NewInstanceFunc) (void);
 
@@ -90,42 +89,88 @@ private:
     IBUS_SERIALIZABLE
 };
 
-
 template<typename T>
-QDBusArgument& operator<< (QDBusArgument& argument, const Pointer<T> &p)
+QVariant &
+qVariantFromSerializable (const Pointer<T> &p, QVariant & variant = QVariant ())
 {
+    QDBusArgument argument;
+
     argument.beginStructure ();
     argument << p->metaTypeInfo ()->className ();
     p->serialize (argument);
     argument.endStructure ();
 
+    variant.setValue (argument);
+    return variant;
+}
+
+template<typename T>
+QDBusVariant &
+qDBusVariantFromSerializable (const Pointer<T> &p, QDBusVariant &dbus_variant)
+{
+    QVariant variant;
+    QDBusArgument argument;
+
+    argument.beginStructure ();
+    argument << p->metaTypeInfo ()->className ();
+    p->serialize (argument);
+    argument.endStructure ();
+    variant.setValue (argument);
+    dbus_variant.setVariant (variant);
+
+    return dbus_variant;
+}
+
+template<typename T>
+QDBusVariant
+qDBusVariantFromSerializable (const Pointer<T> &p)
+{
+    QDBusVariant variant;
+    return qDBusVariantFromSerializable (p, variant);
+}
+
+template<typename T>
+Pointer<T>
+qDBusVariantToSerializable (const QDBusVariant &variant)
+{
+
+    Pointer<T> p;
+    QString name;
+    
+    const QDBusArgument argument = variant.variant().value<QDBusArgument> ();
+    
+    if (argument.currentType () != QDBusArgument::StructureType) {
+        return p;
+    }
+    
+    argument.beginStructure ();
+    argument >> name;
+    p = Serializable::createInstance (name);
+    if (!p.isNull () && !p->deserialize (argument)) {
+        p = NULL;
+    }
+    argument.endStructure ();
+    
+    return p;
+}
+
+template<typename T>
+QDBusArgument& operator<< (QDBusArgument& argument, const Pointer<T> &p)
+{
+    QDBusVariant variant;
+    argument << qDBusVariantFromSerializable<T> (p, variant);
     return argument;
 }
 
 template<typename T>
 const QDBusArgument& operator>> (const QDBusArgument& argument, Pointer<T> &p)
 {
-    Q_ASSERT ((argument.currentType () == QDBusArgument::VariantType) ||
-              (argument.currentType () == QDBusArgument::StructureType));
+    Q_ASSERT ((argument.currentType () == QDBusArgument::VariantType));
+    
+    QDBusVariant variant;
+    argument >> variant;
 
-    if (argument.currentType () == QDBusArgument::VariantType) {
-        QDBusVariant v;
-        argument >> v;
-        p = qDBusVariantToSerializable (v);
-        return argument;
-    }
-
-    if (argument.currentType () == QDBusArgument::StructureType) {
-        QString name;
-        argument.beginStructure ();
-        argument >> name;
-        p = Serializable::createInstance (name);
-        if (!p.isNull () && !p->deserialize (argument)) {
-            p = NULL;
-        }
-        argument.endStructure ();
-        return argument;
-    }
+    p = qDBusVariantToSerializable<T> (variant);
 
     return argument;
 }

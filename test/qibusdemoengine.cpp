@@ -78,7 +78,7 @@ DemoEngine::processKeyEvent (uint keyval, uint keycode, uint modifiers)
     }
     
     TextPointer tooltip = NULL;
-    TextPointer lable = NULL;
+    TextPointer label = NULL;
     PropListPointer props = NULL;
     PropertyPointer prop = NULL;
 
@@ -87,15 +87,15 @@ DemoEngine::processKeyEvent (uint keyval, uint keycode, uint modifiers)
     switch (keyval) {
         case Key_a :
             attributeText = new Text ("Apple");
-            attributeText->appendAttribute(TypeUnderline, UnderlineLow, 0, -1);
-            attributeText->appendAttribute(TypeForeground, 0xff0000, 0, -1);
+            attributeText->appendAttribute (Attribute::TypeUnderline, Attribute::UnderlineLow, 0, -1);
+            attributeText->appendAttribute (Attribute::TypeForeground, 0xff0000, 0, -1);
             updatePreeditText (attributeText, 0, TRUE);
             break;
 
         case Key_b :
             attributeText = new Text ("Banana");
-            attributeText->appendAttribute(TypeUnderline, UnderlineSingle, 0, -1);
-            attributeText->appendAttribute(TypeBackground, 0xff0000, 0, -1);
+            attributeText->appendAttribute (Attribute::TypeUnderline, Attribute::UnderlineSingle, 0, -1);
+            attributeText->appendAttribute (Attribute::TypeBackground, 0xff0000, 0, -1);
             updatePreeditText (attributeText, 0, TRUE);
             break;
 
@@ -105,11 +105,12 @@ DemoEngine::processKeyEvent (uint keyval, uint keycode, uint modifiers)
 
     // can't pass
         case Key_p :
-            lable = new Text ("setup");
+            qDebug () << "p";
+            label = new Text ("setup");
             tooltip = new Text ("configuration demo engine");
             prop = new Property ("setup",
-                                "gtk-preference",
-                                lable,
+                                "gtk-preferences",
+                                label,
                                 tooltip,
                                 true,
                                 true,
@@ -131,7 +132,7 @@ DemoEngine::processKeyEvent (uint keyval, uint keycode, uint modifiers)
             m_lookupTable->appendLabel (new Text ("4"));
             m_lookupTable->appendLabel (new Text ("5"));
             attributeText = new Text("ibus");
-            attributeText->appendAttribute(TypeForeground, 0xff0000, 0, -1);
+            attributeText->appendAttribute (Attribute::TypeForeground, 0xff0000, 0, -1);
             m_lookupTable->appendCandidate (attributeText);
             // m_lookupTable->appendCandidate (new Text ("ibus"));
             m_lookupTable->appendCandidate (new Text ("wubi"));

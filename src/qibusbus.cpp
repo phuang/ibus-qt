@@ -366,12 +366,14 @@ Bus::registerComponent (const ComponentPointer &component)
 {
     Q_ASSERT (!component.isNull ());
 
+    QDBusVariant variant;
+
     if (!isConnected ()) {
         qWarning () << "Bus::registerComponent:" << "IBus is not connected!";
         return false;
     }
 
-    QDBusPendingReply<> reply = m_ibus->RegisterComponent (qDBusVariantFromSerializable (component));
+    QDBusPendingReply<> reply = m_ibus->RegisterComponent (qDBusVariantFromSerializable (component, variant));
     reply.waitForFinished ();
 
     if (reply.isError ()) {
@@ -462,12 +464,14 @@ Bus::ping (const SerializablePointer &data)
 {
     Q_ASSERT (!data.isNull ());
 
+    QDBusVariant variant;
+
     if (!isConnected ()) {
         qWarning () << "Bus::ping:" <<  "IBus is not connected!";
         return NULL;
     }
 
-    QDBusPendingReply<QDBusVariant> reply = m_ibus->Ping (qDBusVariantFromSerializable (data));
+    QDBusPendingReply<QDBusVariant> reply = m_ibus->Ping (qDBusVariantFromSerializable (data, variant));
     reply.waitForFinished ();
 
     if (reply.isError ()) {
@@ -475,7 +479,7 @@ Bus::ping (const SerializablePointer &data)
         return NULL;
     }
 
-    return qDBusVariantToSerializable (reply.value ());
+    return qDBusVariantToSerializable<Serializable> (reply.value ());
 }
 
 void

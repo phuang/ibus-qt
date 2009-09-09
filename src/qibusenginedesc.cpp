@@ -87,36 +87,36 @@ EngineDesc::parseXmlNode (const QDomNode & node)
     QDomNode child = node.firstChild();
     for ( ; !child.isNull() ; child = child.nextSibling() ) {
         if ( !child.nodeName().compare("name") ) {
-            m_name = child.nodeValue();
+            m_name = child.toElement().text();
         }
         else if ( !child.nodeName().compare("longname") ) {
-            m_longname = child.nodeValue();
+            m_longname = child.toElement().text();
         }
         else if ( !child.nodeName().compare("description") ) {
-            m_description = child.nodeValue();
+            m_description = child.toElement().text();
         }
         else if ( !child.nodeName().compare("language") ) {
-            m_language = child.nodeValue();
+            m_language = child.toElement().text();
         }
         else if ( !child.nodeName().compare("license") ) {
-            m_license = child.nodeValue();
+            m_license = child.toElement().text();
         }
         else if ( !child.nodeName().compare("author") ) {
-            m_author = child.nodeValue();
+            m_author = child.toElement().text();
         }
         else if ( !child.nodeName().compare("icon") ) {
-            m_icon = child.nodeValue();
+            m_icon = child.toElement().text();
         }
         else if ( !child.nodeName().compare("layout") ) {
-            m_layout = child.nodeValue();
+            m_layout = child.toElement().text();
         }
         else if ( !child.nodeName().compare("rank") ) {
-            m_rank = child.nodeValue().toInt();
+            m_rank = child.toElement().text().toUInt();
         }
         else {
             QString s;
             QXmlStreamWriter stream(&s);
-            stream.writeTextElement(child.nodeName(), child.nodeValue());
+            stream.writeTextElement(child.nodeName(), child.toElement().text());
             qDebug() << "EngineDesc::parseXmlNode, Unknown element, \"<" << s << "\"";
 
             errFlag = true;
@@ -127,6 +127,12 @@ EngineDesc::parseXmlNode (const QDomNode & node)
     if ( errFlag ) {
         return false;
     }
+
+    /*
+    QString stream;
+    output(stream);
+    qDebug () << stream;
+    */
 
     return true;
 }

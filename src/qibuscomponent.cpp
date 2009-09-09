@@ -21,13 +21,13 @@ Component::serialize (QDBusArgument &argument)
 
     argument.beginArray(qMetaTypeId<QDBusVariant>());
     for ( int i = 0; i < m_observedPaths.size(); ++i ) {
-        argument << qDBusVariantFromSerializable(m_observedPaths[i]);
+        argument << m_observedPaths[i];
     }
     argument.endArray();
 
     argument.beginArray(qMetaTypeId<QDBusVariant>());
     for ( int i = 0; i < m_engines.size(); ++i ) {
-        argument << qDBusVariantFromSerializable(m_engines[i]);
+        argument << m_engines[i];
     }
     argument.endArray();
 
@@ -122,41 +122,44 @@ Component::output (QString & output) const
 bool
 Component::parseXmlNode (const QDomNode & node)
 {
-    if ( node.nodeName().compare("component") )
+    if ( node.isNull() || node.nodeName().compare("component") ) {
         return false;
+    }
 
     bool errFlag = false;
     QDomNode child = node.firstChild();
     for ( ; !child.isNull(); child = child.nextSibling() ) {
         if ( !child.nodeName().compare("name") ) {
-            m_name = child.nodeValue();
+            m_name = child.toElement().text();
         }
         else if ( !child.nodeName().compare("description") ) {
-            m_description = child.nodeValue();
+            m_description = child.toElement().text();
         }
         else if ( !child.nodeName().compare("version") ) {
-            m_version = child.nodeValue();
+            m_version = child.toElement().text();
         }
         else if ( !child.nodeName().compare("license") ) {
-            m_license = child.nodeValue();
+            m_license = child.toElement().text();
         }
         else if ( !child.nodeName().compare("author") ) {
-            m_author = child.nodeValue();
+            m_author = child.toElement().text();
         }
         else if ( !child.nodeName().compare("homepage") ) {
-            m_homepage = child.nodeValue();
+            m_homepage = child.toElement().text();
         }
         else if ( !child.nodeName().compare("exec") ) {
-            m_exec = child.nodeValue();
+            m_exec = child.toElement().text();
         }
         else if ( !child.nodeName().compare("textdomain") ) {
-            m_textdomain = child.nodeValue();
+            m_textdomain = child.toElement().text();
         }
+        /*
         else if ( !child.nodeName().compare("observed-paths") ) {
             if ( !parseObservedPaths(child) ) {
                 return false;
             }
         }
+        */
         else if ( !child.nodeName().compare("engines") ) {
             if ( !parseEnginesNode(child) ) {
                 return false;
@@ -165,11 +168,11 @@ Component::parseXmlNode (const QDomNode & node)
         else {
             QString s;
             QXmlStreamWriter stream(&s);
-            stream.writeTextElement(child.nodeName(), child.nodeValue());
-            qDebug() << "Component::parseXmlNode, Unknown element, \"<" << s << "\"";
+            stream.writeTextElement(child.nodeName(), child.toElement().text());
+            qDebug() << "Component::parseXmlNode, Unknown element, " << s;
 
-            errFlag = true;
-            break;
+            // errFlag = true;
+            continue;
         }
     }
 
@@ -180,34 +183,34 @@ Component::parseXmlNode (const QDomNode & node)
     return true;
 }
 
-bool Component::parseObservedPaths(const QDomNode & node)
+bool
+Component::parseObservedPaths(const QDomNode & node)
 {
-    if( node.nodeName().compare("observed-path") ) {
+    if( node.isNull() || node.nodeName().compare("observed-paths") ) {
         return false;
     }
+
+    qDebug () << "Component::parseObservedPaths";
 
     int i = 0;
     QDomNode child = node.firstChild();
     for ( ; !child.isNull(); child = child.nextSibling(), ++i ) {
-        ObservedPathPointer obsPath = new ObservedPath(child.nodeValue());
-        if ( obsPath->isRegularFile() ) {
-            if ( !obsPath->parseXmlNode (child) ) {
-                return false;
-            }
-        }
-        else if ( obsPath->isRegularFile() ) {
+        ObservedPathPointer obsPath = new ObservedPath(child.toElement().text());
+        addObservedPath(obsPath);
+
+        if ( obsPath->isDirFile() ) {
+            qDebug () << "It's dir file!";
             obsPath->traverseObservedPath(m_observedPaths);
         }
-
-        m_observedPaths.push_back(obsPath);
     }
 
     return true;
 }
 
-bool Component::parseEnginesNode(QDomNode &node)
+bool
+Component::parseEnginesNode(QDomNode &node)
 {
-    if ( node.nodeName().compare("engines") ) {
+    if ( node.isNull() || node.nodeName().compare("engines") ) {
         return false;
     }
 
@@ -225,14 +228,13 @@ bool Component::parseEnginesNode(QDomNode &node)
     }
 
     if ( 0 != exec.size() ) {
-        qDebug () << "Component::parseEnginesNode::executing command!";
         QProcess * newProc = new QProcess;
         newProc->start(exec);
         if ( newProc->waitForFinished(3000) ) {}
         QByteArray output = newProc->readAllStandardOutput();
 
         if ( output.isEmpty() ) {
-            qDebug() << "Component::parseEnginesNode: " << "empty engines!";
+            qDebug() << "Component::parseEnginesNode: " << "empty engines! invalid engines!!!";
             return false;
         }
 
@@ -253,9 +255,13 @@ bool Component::parseEnginesNode(QDomNode &node)
             return false;
         }
 
-        // m_engines.push_back(engDesc);
+        /*
+        QString stream;
+        engDesc->output(stream);
+        qDebug () << stream;
+        */
+
         addEngine(engDesc);
-        qDebug () << "Component::parseEnginesNode: addEngine";
     }
 
     if ( !doc ) {
@@ -265,35 +271,35 @@ bool Component::parseEnginesNode(QDomNode &node)
     return true;
 }
 
-const ComponentPointer newComponentFromFile (Component &obj, const QString & filename)
+bool
+newComponentFromFile (Component &obj, const QString & filename)
 {
     const QDomDocument * doc = obj.parseXmlFile(filename);
     if ( !doc ) {
-        return NULL;
+        return false;
     }
 
     QDomElement docElem = doc->documentElement();
     QDomNode root = static_cast<QDomNode>(docElem);
 
-    qDebug () << "root.nodeName() = " << root.nodeName();
-    qDebug () << "root.nodeValue() = " << root.nodeValue();
-
     if( obj.parseXmlNode(root) ) {
         qDebug() << "Component::newComponentFromFile: parseXmlNode error!";
-        return NULL;
+        delete doc;
+        return false;
     }
 
-    // append filename to m_observedPath in compnt
+    // append filename to m_observedPath in obj
     ObservedPathPointer observedPathPtr = new ObservedPath(filename);
     if ( !observedPathPtr ) {
         qDebug() << "Component::newComponentFromFile: new error!";
-        return NULL;
+        delete doc;
+        return false;
     }
     observedPathPtr->setObservedPathStat();
-    obj.getObservedPathVec().push_back(observedPathPtr);
+    obj.observedPaths().push_back(observedPathPtr);
 
     delete doc;
-    return NULL;
+    return true;
 }
 
 const QDomDocument * 
@@ -301,7 +307,7 @@ Component::parseXmlFile (const QString & filename) const
 {
     QFile file(filename);
     if ( !file.open(QIODevice::ReadOnly) ) {
-        qDebug() << "Component::parseXmlFile: open failed!";
+        qDebug() << "Component::parseXmlFile: open \"" << filename << "\" failed!";
         return NULL;
     }
 
@@ -346,17 +352,10 @@ Component::parseXmlBuffer (const QByteArray & buf)
 }
 
 void
-Component::addObservedPath (const QString &filename)
+Component::addObservedPath (const ObservedPathPointer &obsPath)
 {
-    ObservedPathPointer obsPathPtr = new ObservedPath(filename);
-
-    obsPathPtr->setObservedPathStat();
-
-    if ( obsPathPtr->isDirFile() ) {
-        obsPathPtr->traverseObservedPath(m_observedPaths);
-    }
-
-    m_observedPaths.push_back(obsPathPtr);
+    obsPath->setObservedPathStat();
+    m_observedPaths.push_back(obsPath);
 }
 
 void
@@ -366,13 +365,13 @@ Component::addEngine (const EngineDescPointer &edp)
 }
 
 QVector<ObservedPathPointer>
-Component::getObservedPathVec () const
+Component::observedPaths () const
 {
     return m_observedPaths;
 }
 
 const QVector<EngineDescPointer> &
-Component::getEnginesVec () const
+Component::engines () const
 {
     return m_engines;
 }

@@ -12,18 +12,18 @@ Property::serialize (QDBusArgument &argument)
     }
 
     argument << m_key;
+    argument << m_type;
+    argument << m_label;
     argument << m_icon;
-    argument << qDBusVariantFromSerializable (m_label);
-    argument << qDBusVariantFromSerializable (m_tooltip);
+    argument << m_tooltip;
     argument << m_sensitive;
     argument << m_visible;
-    argument << m_type;
     argument << m_state;
 
     if ( !m_subProps ) {
         m_subProps = new PropList();
     }
-    argument << qDBusVariantFromSerializable (m_subProps);
+    argument << m_subProps;
 
     return true;
 }
@@ -36,12 +36,12 @@ Property::deserialize (const QDBusArgument &argument)
     }
 
     argument >> m_key;
-    argument >> m_icon;
+    argument >> m_type;
     argument >> m_label;
+    argument >> m_icon;
     argument >> m_tooltip;
     argument >> m_sensitive;
     argument >> m_visible;
-    argument >> m_type;
     argument >> m_state;
     argument >> m_subProps;
 

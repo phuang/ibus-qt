@@ -26,7 +26,7 @@ typedef enum
     StateUnchecked = 0,
     StateChecked = 1,
     StateInconsistent = 2,
-}PropState;
+} PropState;
 
 class Property;
 class PropList;

@@ -38,10 +38,11 @@ EngineFactory *EngineFactory::getEngineFactory (const QDBusConnection &conn)
 QString
 EngineFactory::createEngine (const QString &engineName)
 {
-    QString path = "/org/freedesktop/IBus/Engine/" + engineName + "/" + QString::number(++m_id);
+    QString path = "/org/freedesktop/IBus/Engine/" + engineName + "-" + QString::number(++m_id);
 
     qDebug () << "createEngine";
     qDebug () << path;
+    qDebug () << "engineName = " << engineName;
 
     if ( !m_engineMap.contains(engineName) ) {
         qDebug () << "EngineFactory::createEngine, can not create engine!";
@@ -49,14 +50,14 @@ EngineFactory::createEngine (const QString &engineName)
     }
 
     const QMetaObject *mo = m_engineMap[engineName];
-    if ( !mo ) {
-        qDebug () << "EngineFactory::createEngine, QMetaObject pointer in map is null!";
-        return "";
-    }
-
     EnginePointer engine = qobject_cast<Engine *>(mo->newInstance (Q_ARG(QString, engineName)));
     if ( engine.isNull() ) {
         qDebug () << "EngineFactory::createEngine, newInstance error!";
+        return "";
+    }
+
+    if ( !m_conn.isConnected() ) {
+        qDebug () << "EngineFactory::createEngine, connection is not open";
         return "";
     }
 
@@ -86,7 +87,6 @@ void
 EngineFactory::addMetaObject(const QString &name, const QMetaObject *metaObject)
 {
     Q_ASSERT(metaObject);
-
     m_engineMap[name] = metaObject;
 }
 

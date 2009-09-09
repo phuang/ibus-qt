@@ -7,10 +7,76 @@ int main (int argc, char **argv)
 {
     QCoreApplication app (argc, argv);
  
-    ComponentPointer cmpt = new Component();
-    cmpt->newComponentFromFile("hangul.xml");
+#if 0
+
+    ComponentPointer cmpt = new Component;
+    if ( !newComponentFromFile(*cmpt, "component/m17n.xml") ) {
+        qDebug () << "main::newComponentFromFile error!";
+        return -1;
+    }
+
+    Bus bus;
+    if ( !bus.isConnected() ) {
+        qDebug () << "main::bus is not connected!";
+        return -1;
+    }
+ 
+    EngineFactory *engineFactory = EngineFactory::getEngineFactory(bus.getConnection());
+    engineFactory->addMetaObject("kn:inscript", &(DemoEngine::staticMetaObject));
+
+    if ( !bus.registerObject ("/org/freedesktop/IBus/Factory", engineFactory) ) {
+        qDebug () << "main::registerObject error!";
+        return -1;
+    }
+ 
+    if ( !bus.registerComponent(cmpt) ) {
+        qDebug () << "main::registerComponent error!";
+        return -1;
+    }
+
+#endif
 
 #if 0
+    ComponentPointer cmpt = new Component;
+    if ( !newComponentFromFile(*cmpt, "component/hangul.xml") ) {
+        qDebug () << "main::newComponentFromFile error!";
+        return -1;
+    }
+
+
+    /*
+    QString stream;
+    cmpt->output(stream);
+    qDebug () << stream;
+
+    EngineDescPointer engine = (cmpt->engines())[0];
+    QString str;
+    engine->output(str);
+    qDebug () << str;
+    */
+
+    Bus bus;
+    if ( !bus.isConnected() ) {
+        qDebug () << "main::bus is not connected!";
+        return -1;
+    }
+ 
+    EngineFactory *engineFactory = EngineFactory::getEngineFactory(bus.getConnection());
+    engineFactory->addMetaObject("hangul", &(DemoEngine::staticMetaObject));
+
+    if ( !bus.registerObject ("/org/freedesktop/IBus/Factory", engineFactory) ) {
+        qDebug () << "main::registerObject error!";
+        return -1;
+    }
+ 
+    if ( !bus.registerComponent(cmpt) ) {
+        qDebug () << "main::registerComponent error!";
+        return -1;
+    }
+
+#endif
+
+#if 1
     ComponentPointer cmpt = new Component("org.freedesktop.IBus.Qt.DemoEngine",
                     "Qt Demo Engine",
                     "0.1.0",
@@ -31,8 +97,17 @@ int main (int argc, char **argv)
 
     cmpt->addEngine(engine);
 
-#endif
- 
+/*
+    QString stream;
+    cmpt->output(stream);
+    qDebug () << stream;
+
+    EngineDescPointer eng = (cmpt->engines())[0];
+    QString str;
+    eng->output(str);
+    qDebug () << str;
+*/
+
     Bus bus;
     if ( !bus.isConnected() ) {
         qDebug () << "bus is not connected!";
@@ -48,6 +123,8 @@ int main (int argc, char **argv)
         qDebug () << "registerComponent error!";
         return -1;
     }
+
+#endif
     
     return QCoreApplication::exec ();
 }

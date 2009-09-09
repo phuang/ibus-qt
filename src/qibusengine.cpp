@@ -15,7 +15,7 @@ Engine::~Engine ()
 }
 
 const QString &
-Engine::getEngineName () const
+Engine::engineName () const
 {
     return m_engineName;
 }
@@ -23,21 +23,21 @@ Engine::getEngineName () const
 void
 Engine::updateLookupTableFast (const LookupTablePointer & lookupTablePtr, bool visible)
 {
-    if ( static_cast<uint>(lookupTablePtr->getCandidates().size()) <= (lookupTablePtr->getPageSize() << 2) ) {
+    if ( static_cast<uint>(lookupTablePtr->candidates().size()) <= (lookupTablePtr->pageSize() << 2) ) {
         updateLookupTable(lookupTablePtr, visible);
         return ;
     }
 
-    LookupTable newLookupTable(lookupTablePtr->getPageSize(), 0, lookupTablePtr->isCursorVisible(), lookupTablePtr->isRound());
-    uint pageNumBegin = lookupTablePtr->getCursorPos() / lookupTablePtr->getPageSize();
+    LookupTable newLookupTable(lookupTablePtr->pageSize(), 0, lookupTablePtr->isCursorVisible(), lookupTablePtr->isRound());
+    uint pageNumBegin = lookupTablePtr->cursorPos() / lookupTablePtr->pageSize();
 
-    for ( int i = 0; i < (lookupTablePtr->getCandidates().size()) \
-                    && i < static_cast<int>(pageNumBegin * lookupTablePtr->getPageSize() + lookupTablePtr->getPageSize()); ++i ) {
-        newLookupTable.appendCandidate(lookupTablePtr->getCandidate(i));
+    for ( int i = 0; i < (lookupTablePtr->candidates().size()) \
+                    && i < static_cast<int>(pageNumBegin * lookupTablePtr->pageSize() + lookupTablePtr->pageSize()); ++i ) {
+        newLookupTable.appendCandidate (lookupTablePtr->candidate (i));
     }
 
-    newLookupTable.setCursorPos(lookupTablePtr->getCursorPos());
-    updateLookupTable(static_cast<LookupTablePointer>(&newLookupTable), visible);
+    newLookupTable.setCursorPos (lookupTablePtr->cursorPos ());
+    updateLookupTable (static_cast<LookupTablePointer>(&newLookupTable), visible);
 }
 
 void
