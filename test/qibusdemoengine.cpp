@@ -78,7 +78,7 @@ DemoEngine::processKeyEvent (uint keyval, uint keycode, uint modifiers)
     }
     
     TextPointer tooltip = NULL;
-    TextPointer lable = NULL;
+    TextPointer label = NULL;
     PropListPointer props = NULL;
     PropertyPointer prop = NULL;
 
@@ -105,11 +105,12 @@ DemoEngine::processKeyEvent (uint keyval, uint keycode, uint modifiers)
 
     // can't pass
         case Key_p :
-            lable = new Text ("setup");
+            qDebug () << "p";
+            label = new Text ("setup");
             tooltip = new Text ("configuration demo engine");
             prop = new Property ("setup",
-                                "gtk-preference",
-                                lable,
+                                "gtk-preferences",
+                                label,
                                 tooltip,
                                 true,
                                 true,
