@@ -29,7 +29,8 @@ public :
 public :
     void commitText (const TextPointer & text)
     {
-        CommitText(qDBusVariantFromSerializable (text));
+        QDBusVariant variant;
+        CommitText (qDBusVariantFromSerializable (text, variant));
     }
 
     void cursorDownLookupTable ()
@@ -74,7 +75,8 @@ public :
 
     void registerProperties (const PropListPointer & props)
     {
-        RegisterProperties(qDBusVariantFromSerializable(props));
+        QDBusVariant variant;
+        RegisterProperties(qDBusVariantFromSerializable (props, variant));
     }
 
     void showAuxiliaryText ()
@@ -94,22 +96,26 @@ public :
 
     void updateAuxiliaryText (const TextPointer & text, bool visible)
     {
-        UpdateAuxiliaryText(qDBusVariantFromSerializable(text), visible);
+        QDBusVariant variant;
+        UpdateAuxiliaryText (qDBusVariantFromSerializable (text, variant), visible);
     }
 
     void updateLookupTable (const LookupTablePointer & lookupTable, bool visible)
     {
-        UpdateLookupTable(qDBusVariantFromSerializable(lookupTable), visible);
+        QDBusVariant variant;
+        UpdateLookupTable (qDBusVariantFromSerializable (lookupTable, variant), visible);
     }
 
     void updatePreeditText (const TextPointer & text, uint cursorPos, bool visible)
     {
-        UpdatePreeditText(qDBusVariantFromSerializable(text), cursorPos, visible);
+        QDBusVariant variant;
+        UpdatePreeditText (qDBusVariantFromSerializable (text, variant), cursorPos, visible);
     }
 
     void updateProperty (const PropertyPointer & prop)
     {
-        UpdateProperty(qDBusVariantFromSerializable(prop));
+        QDBusVariant variant;
+        UpdateProperty (qDBusVariantFromSerializable (prop, variant));
     }
 
 public :

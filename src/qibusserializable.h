@@ -40,6 +40,7 @@ class Serializable : public Object
 {
     Q_OBJECT;
 
+    template<typename T> friend QDBusVariant & qDBusVariantFromSerializable (const Pointer<T> &p, QDBusVariant & dbus_variant);
     template<typename T> friend QDBusVariant qDBusVariantFromSerializable (const Pointer<T> &p);
     template<typename T> friend Pointer<T> qDBusVariantToSerializable (const QDBusVariant &variant);
 
@@ -88,8 +89,8 @@ private:
 };
 
 template<typename T>
-QDBusVariant
-qDBusVariantFromSerializable (const Pointer<T> &p)
+QVariant &
+qVariantFromSerializable (const Pointer<T> &p, QVariant & variant = QVariant ())
 {
     QDBusArgument argument;
 
@@ -98,9 +99,34 @@ qDBusVariantFromSerializable (const Pointer<T> &p)
     p->serialize (argument);
     argument.endStructure ();
 
-    return QDBusVariant (qVariantFromValue (argument));
+    variant.setValue (argument);
+    return variant;
 }
 
+template<typename T>
+QDBusVariant &
+qDBusVariantFromSerializable (const Pointer<T> &p, QDBusVariant &dbus_variant)
+{
+    QVariant variant;
+    QDBusArgument argument;
+
+    argument.beginStructure ();
+    argument << p->metaTypeInfo ()->className ();
+    p->serialize (argument);
+    argument.endStructure ();
+    variant.setValue (argument);
+    dbus_variant.setVariant (variant);
+
+    return dbus_variant;
+}
+
+template<typename T>
+QDBusVariant
+qDBusVariantFromSerializable (const Pointer<T> &p)
+{
+    QDBusVariant variant;
+    return qDBusVariantFromSerializable (p, variant);
+}
 
 template<typename T>
 Pointer<T>
@@ -131,7 +157,8 @@ qDBusVariantToSerializable (const QDBusVariant &variant)
 template<typename T>
 QDBusArgument& operator<< (QDBusArgument& argument, const Pointer<T> &p)
 {
-    argument << qDBusVariantFromSerializable<T> (p);
+    QDBusVariant variant;
+    argument << qDBusVariantFromSerializable<T> (p, variant);
     return argument;
 }
 

@@ -35,7 +35,7 @@ public:
     TextPointer getCandidate (const uint index) const;
     TextPointer getLabel (const uint index) const;
     const QVector<TextPointer> & getCandidates () const { return m_candidates; }
-    const QVector<TextPointer> & getLables () const { return m_labels; }
+    const QVector<TextPointer> & getLabels () const { return m_labels; }
     uint getCursorPos () const { return m_cursorPos; }
     uint getPageSize () const {return m_pageSize; }
     bool isCursorVisible () const { return m_cursorVisible; }
