@@ -287,7 +287,7 @@ const ComponentPointer Component::newComponentFromFile (const QString & filename
         return NULL;
     }
     observedPathPtr->setObservedPathStat();
-    compnt->getObservedPathVec().push_back(observedPathPtr);
+    compnt->observedPaths().push_back(observedPathPtr);
 
     delete doc;
     return compnt;
@@ -365,13 +365,13 @@ Component::addEngine (const EngineDescPointer &edp)
 }
 
 QVector<ObservedPathPointer>
-Component::getObservedPathVec () const
+Component::observedPaths () const
 {
     return m_observedPaths;
 }
 
 const QVector<EngineDescPointer> &
-Component::getEnginesVec () const
+Component::engines () const
 {
     return m_engines;
 }

@@ -32,12 +32,12 @@ public:
     void appendCandidate (const TextPointer & e);
     void appendLabel (const TextPointer & e);
 
-    TextPointer getCandidate (const uint index) const;
-    TextPointer getLabel (const uint index) const;
-    const QVector<TextPointer> & getCandidates () const { return m_candidates; }
-    const QVector<TextPointer> & getLabels () const { return m_labels; }
-    uint getCursorPos () const { return m_cursorPos; }
-    uint getPageSize () const {return m_pageSize; }
+    TextPointer candidate (const uint index) const;
+    TextPointer label (const uint index) const;
+    const QVector<TextPointer> & candidates () const { return m_candidates; }
+    const QVector<TextPointer> & labels () const { return m_labels; }
+    uint cursorPos () const { return m_cursorPos; }
+    uint pageSize () const {return m_pageSize; }
     bool isCursorVisible () const { return m_cursorVisible; }
     bool isRound () const { return m_round; }
 

@@ -57,8 +57,8 @@ public:
     void addEngine (const EngineDescPointer &edp);
     const ComponentPointer newComponentFromFile (const QString & filename) const;
 
-    QVector<ObservedPathPointer> getObservedPathVec () const;
-    const QVector<EngineDescPointer> & getEnginesVec () const;
+    QVector<ObservedPathPointer> observedPaths () const;
+    const QVector<EngineDescPointer> & engines () const;
 
     bool start (bool verbose) const;
     bool stop () const;

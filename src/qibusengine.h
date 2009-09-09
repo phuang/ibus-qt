@@ -23,7 +23,7 @@ public :
     virtual ~Engine ();
 
 public :
-    const QString & getEngineName () const;
+    const QString & engineName () const;
     void updateLookupTableFast (const LookupTablePointer & lookupTablePtr, bool visible);
 
 public :

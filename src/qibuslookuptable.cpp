@@ -80,7 +80,7 @@ LookupTable::appendLabel(const TextPointer & e)
 }
 
 TextPointer
-LookupTable::getCandidate(const uint index) const
+LookupTable::candidate(const uint index) const
 {
     if ( index >= static_cast<uint>(m_candidates.size()) )
         return NULL;
@@ -89,7 +89,7 @@ LookupTable::getCandidate(const uint index) const
 }
 
 TextPointer
-LookupTable::getLabel(const uint index) const
+LookupTable::label(const uint index) const
 {
     if ( index >= static_cast<uint>(m_labels.size()) )
         return NULL;
