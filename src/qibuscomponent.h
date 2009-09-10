@@ -64,13 +64,14 @@ public:
     bool isComponentModified () const;
     const ComponentPointer getComponentFromEngine (EngineDescPointer edp) const;
 
-#endif
 
     friend bool newComponentFromFile (Component &obj, const QString & filename);
 
 private:
     const QDomDocument * parseXmlFile (const QString & filename) const;
     const QDomDocument * parseXmlBuffer (const QByteArray & buf);
+
+#endif
 
 private:
     QString m_name;

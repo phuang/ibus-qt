@@ -268,8 +268,6 @@ Component::parseEnginesNode(QDomNode &node)
     return true;
 }
 
-#endif
-
 bool
 newComponentFromFile (Component &obj, const QString & filename)
 {
@@ -349,6 +347,8 @@ Component::parseXmlBuffer (const QByteArray & buf)
 
     return doc;
 }
+
+#endif
 
 void
 Component::addObservedPath (const ObservedPathPointer &obsPath)
