@@ -29,12 +29,14 @@ public:
 
 public:
     bool parseXmlNode (const QDomNode & node);
+    const QString & path() const { return m_path; }
+    int mtime() const { return m_mtime; }
+
+#if 0
     bool isObservedPathModified () const;
     void setObservedPathStat ();
     void traverseObservedPath (QVector<ObservedPathPointer> & observedPathVec) const;
 
-    const QString & getPath() const { return m_path; }
-    int getMTime() const { return m_mtime; }
 
     bool isRegularFile() const
     {
@@ -47,6 +49,7 @@ public:
         QFileInfo fi(m_path);
         return fi.isDir();
     }
+#endif
 
 private:
     QString m_path;
