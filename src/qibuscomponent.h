@@ -47,8 +47,8 @@ public:
 
     void output (QString &output) const;
     bool parseXmlNode (const QDomNode &node);
-    bool parseEnginesNode (QDomNode &node);
-    bool parseObservedPaths (const QDomNode &node);
+    // bool parseEnginesNode (QDomNode &node);
+    // bool parseObservedPaths (const QDomNode &node);
 
     void addObservedPath (const ObservedPathPointer &obsPath);
     void addEngine (const EngineDescPointer &edp);
@@ -56,11 +56,15 @@ public:
     QVector<ObservedPathPointer> observedPaths () const;
     const QVector<EngineDescPointer> & engines () const;
 
+#if 0
+
     bool start (bool verbose) const;
     bool stop () const;
     bool isRunning () const;
     bool isComponentModified () const;
     const ComponentPointer getComponentFromEngine (EngineDescPointer edp) const;
+
+#endif
 
     friend bool newComponentFromFile (Component &obj, const QString & filename);
 
@@ -80,8 +84,6 @@ private:
 
     QVector<ObservedPathPointer>    m_observedPaths;
     QVector<EngineDescPointer>      m_engines;
-
-    uint    m_pid;
 
     IBUS_SERIALIZABLE
 };

@@ -37,16 +37,6 @@ EngineDesc::deserialize (const QDBusArgument &argument)
     argument >> m_icon;
     argument >> m_layout;
 
-    m_engineInfo.insert("name", m_name);
-    m_engineInfo.insert("longname", m_longname);
-    m_engineInfo.insert("description", m_description);
-    m_engineInfo.insert("language", m_language);
-    m_engineInfo.insert("license", m_license);
-    m_engineInfo.insert("author", m_author);
-    m_engineInfo.insert("icon", m_icon);
-    m_engineInfo.insert("layout", m_layout);
-    m_engineInfo.insert("rank", 0);
-
     return true;
 }
 
@@ -127,12 +117,6 @@ EngineDesc::parseXmlNode (const QDomNode & node)
     if ( errFlag ) {
         return false;
     }
-
-    /*
-    QString stream;
-    output(stream);
-    qDebug () << stream;
-    */
 
     return true;
 }

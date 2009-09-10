@@ -37,23 +37,12 @@ int main (int argc, char **argv)
 #endif
 
 #if 0
+
     ComponentPointer cmpt = new Component;
     if ( !newComponentFromFile(*cmpt, "component/hangul.xml") ) {
         qDebug () << "main::newComponentFromFile error!";
         return -1;
     }
-
-
-    /*
-    QString stream;
-    cmpt->output(stream);
-    qDebug () << stream;
-
-    EngineDescPointer engine = (cmpt->engines())[0];
-    QString str;
-    engine->output(str);
-    qDebug () << str;
-    */
 
     Bus bus;
     if ( !bus.isConnected() ) {
@@ -97,16 +86,9 @@ int main (int argc, char **argv)
 
     cmpt->addEngine(engine);
 
-/*
     QString stream;
     cmpt->output(stream);
     qDebug () << stream;
-
-    EngineDescPointer eng = (cmpt->engines())[0];
-    QString str;
-    eng->output(str);
-    qDebug () << str;
-*/
 
     Bus bus;
     if ( !bus.isConnected() ) {

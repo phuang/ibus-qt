@@ -84,6 +84,8 @@ ObservedPath::parseXmlNode (const QDomNode & node)
     return true;
 }
 
+#if 0
+
 bool
 ObservedPath::isObservedPathModified () const
 {
@@ -132,6 +134,8 @@ ObservedPath::traverseObservedPath (QVector<ObservedPathPointer> & observedPathV
         }
     }
 }
+
+#endif
 
 };
 

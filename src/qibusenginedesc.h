@@ -34,11 +34,21 @@ public:
                 m_author(auth),
                 m_icon(icon),
                 m_layout(layout)
-    {}
+    {    
+	    m_engineInfo.insert("name", m_name);
+	    m_engineInfo.insert("longname", m_longname);
+	    m_engineInfo.insert("description", m_description);
+        m_engineInfo.insert("language", m_language);
+        m_engineInfo.insert("license", m_license);
+        m_engineInfo.insert("author", m_author);
+        m_engineInfo.insert("icon", m_icon);
+        m_engineInfo.insert("layout", m_layout);
+        m_engineInfo.insert("rank", 0);
+    }
 
     virtual ~EngineDesc() {}
 
-public:
+public :
     virtual bool serialize (QDBusArgument &argument);
     virtual bool deserialize (const QDBusArgument &argument);
 
@@ -50,7 +60,7 @@ public:
         return m_engineInfo;
     }
 
-private:
+private :
     QString m_name;
     QString m_longname;
     QString m_description;

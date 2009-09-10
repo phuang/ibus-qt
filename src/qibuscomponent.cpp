@@ -92,9 +92,9 @@ Component::output (QString & output) const
             stream.writeStartElement("path");
 
             QString mtime;
-            mtime.number(m_observedPaths[i]->getMTime());
+            mtime.number(m_observedPaths[i]->mtime());
             stream.writeAttribute("mtime", mtime);
-            stream.writeCharacters(m_observedPaths[i]->getPath());
+            stream.writeCharacters(m_observedPaths[i]->path());
 
             stream.writeEndElement();
         }
@@ -159,12 +159,12 @@ Component::parseXmlNode (const QDomNode & node)
                 return false;
             }
         }
-        */
         else if ( !child.nodeName().compare("engines") ) {
             if ( !parseEnginesNode(child) ) {
                 return false;
             }
         }
+        */
         else {
             QString s;
             QXmlStreamWriter stream(&s);
@@ -182,6 +182,8 @@ Component::parseXmlNode (const QDomNode & node)
 
     return true;
 }
+
+#if 0
 
 bool
 Component::parseObservedPaths(const QDomNode & node)
@@ -206,6 +208,7 @@ Component::parseObservedPaths(const QDomNode & node)
 
     return true;
 }
+
 
 bool
 Component::parseEnginesNode(QDomNode &node)
@@ -255,12 +258,6 @@ Component::parseEnginesNode(QDomNode &node)
             return false;
         }
 
-        /*
-        QString stream;
-        engDesc->output(stream);
-        qDebug () << stream;
-        */
-
         addEngine(engDesc);
     }
 
@@ -270,6 +267,8 @@ Component::parseEnginesNode(QDomNode &node)
 
     return true;
 }
+
+#endif
 
 bool
 newComponentFromFile (Component &obj, const QString & filename)
@@ -295,7 +294,7 @@ newComponentFromFile (Component &obj, const QString & filename)
         delete doc;
         return false;
     }
-    observedPathPtr->setObservedPathStat();
+    // observedPathPtr->setObservedPathStat();
     obj.observedPaths().push_back(observedPathPtr);
 
     delete doc;
@@ -354,7 +353,7 @@ Component::parseXmlBuffer (const QByteArray & buf)
 void
 Component::addObservedPath (const ObservedPathPointer &obsPath)
 {
-    obsPath->setObservedPathStat();
+    // obsPath->setObservedPathStat();
     m_observedPaths.push_back(obsPath);
 }
 
@@ -375,6 +374,8 @@ Component::engines () const
 {
     return m_engines;
 }
+
+#if 0
 
 bool
 Component::start (bool verbose) const
@@ -405,5 +406,7 @@ Component::isComponentModified () const
 const ComponentPointer
 Component::getComponentFromEngine (EngineDescPointer edp) const
 { /* need to code */ }
+
+#endif
 
 };
