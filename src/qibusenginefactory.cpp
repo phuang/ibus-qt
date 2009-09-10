@@ -38,11 +38,7 @@ EngineFactory *EngineFactory::getEngineFactory (const QDBusConnection &conn)
 QString
 EngineFactory::createEngine (const QString &engineName)
 {
-    QString path = "/org/freedesktop/IBus/Engine/" + engineName + "-" + QString::number(++m_id);
-
-    qDebug () << "createEngine";
-    qDebug () << path;
-    qDebug () << "engineName = " << engineName;
+    QString path = "/org/freedesktop/IBus/Engine/" + engineName + "_" + QString::number(++m_id);
 
     if ( !m_engineMap.contains(engineName) ) {
         qDebug () << "EngineFactory::createEngine, can not create engine!";
