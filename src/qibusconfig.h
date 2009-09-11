@@ -21,17 +21,27 @@ public :
     Q_INVOKABLE Config (const QDBusConnection &conn);
     virtual ~Config ();
 
+private :
+
+    // developpers need to implement following functions
+    virtual const QDBusVariant &getValue (const QString &section, const QString &name)
+    {
+        QDBusVariant *retval = new QDBusVariant;
+        return *retval;
+    }
+    virtual void setValue (const QString &section, const QString &name, const QDBusVariant &value)      {}
+    virtual void destroy (void)     {}
+
 public :
 
-    virtual void Destroy (void);
-    virtual const QDBusVariant &GetValue (const QString &section, const QString &name);
-    virtual void SetValue (const QString &section, const QString &name, const QDBusVariant &value);
+    Q_INVOKABLE const QDBusVariant &GetValue (const QString &section, const QString &name);
+    Q_INVOKABLE void SetValue (const QString &section, const QString &name, const QDBusVariant &value);
+    Q_INVOKABLE void Destroy (void);
     
 private :
 
     QDBusConnection     m_conn;
     IBusConfigAdaptor   *m_config;
-
 };
 
 };

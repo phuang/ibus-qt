@@ -22,11 +22,17 @@ Config::~Config ()
 
 const QDBusVariant &Config::GetValue (const QString &section, const QString &name)
 {
-    QDBusVariant *retval = new QDBusVariant;
-    return *retval;
+    return getValue(section, name);
 }
 
-void Config::SetValue (const QString &section, const QString &name, const QDBusVariant &value) {}
-void Config::Destroy (void) {}
+void Config::SetValue (const QString &section, const QString &name, const QDBusVariant &value)
+{
+    setValue(section, name, value);
+}
+
+void Config::Destroy (void)
+{
+    destroy ();
+}
 
 };
