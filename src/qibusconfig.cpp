@@ -4,6 +4,25 @@
 
 namespace IBus {
 
+Config::Config (const QDBusConnection &conn): m_conn(conn)
+{
+    QString service = "org.freedesktop.IBus.Config";
+    QString path = "/org/freedesktop/IBus/Config";
+
+    m_config = new IBusConfigProxy(service, path, m_conn);
+    if ( !m_config ) {
+        qDebug () << "Config::Config, new IBusConfigAdaptor error!";
+    }
+}
+
+Config::~Config ()
+{
+    if ( m_config ) {
+        delete m_config;
+        m_config = NULL;
+    }
+}
+
 bool
 Config::getValue (const QString &section, const QString &name)
 {

@@ -14,8 +14,8 @@ class Config : public QObject
     Q_OBJECT
 
 public :
-    Config (const QDBusConnection &conn): m_conn(conn) {}
-    virtual ~Config () {}
+    Config (const QDBusConnection &conn);
+    virtual ~Config ();
 
 public :
 

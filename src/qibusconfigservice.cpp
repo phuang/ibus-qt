@@ -20,17 +20,20 @@ ConfigService::~ConfigService ()
     }
 }
 
-const QDBusVariant &ConfigService::GetValue (const QString &section, const QString &name)
+const QDBusVariant &
+ConfigService::GetValue (const QString &section, const QString &name)
 {
     return getValue(section, name);
 }
 
-void ConfigService::SetValue (const QString &section, const QString &name, const QDBusVariant &value)
+void
+ConfigService::SetValue (const QString &section, const QString &name, const QDBusVariant &value)
 {
     setValue(section, name, value);
 }
 
-void ConfigService::Destroy (void)
+void
+ConfigService::Destroy (void)
 {
     destroy ();
 }
