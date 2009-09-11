@@ -7,11 +7,17 @@ Engine::Engine (const QString &engineName)
     : m_engineName(engineName)
 {
     m_adaptor = new IBusEngineAdaptor (this);
+    if ( !m_adaptor ) {
+        qDebug () << "Engine::Engine, new IBusEngineAdaptor error!";
+    }
 }
 
 Engine::~Engine ()
 {
-    delete m_adaptor;
+    if( NULL != m_adaptor ) {
+        delete m_adaptor;
+        m_adaptor = NULL;
+    }
 }
 
 const QString &

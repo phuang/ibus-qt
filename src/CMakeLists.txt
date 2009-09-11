@@ -31,6 +31,9 @@ set(
     qibusservice.cpp
     qibusfactoryadaptor.cpp
     qibusenginefactory.cpp
+    qibusconfigadaptor.cpp
+    qibusconfigproxy.cpp
+    qibusconfig.cpp
 )
 
 set(
@@ -56,6 +59,9 @@ set(
     qibusservice.h
     qibusfactoryadaptor.h
     qibusenginefactory.h
+    qibusconfigadaptor.h
+    qibusconfigproxy.h
+    qibusconfig.h
 )
 
 # QT4_ADD_DBUS_INTERFACE(
