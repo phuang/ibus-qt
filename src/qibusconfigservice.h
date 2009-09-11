@@ -9,17 +9,17 @@ class IBusConfigAdaptor;
 
 namespace IBus {
 
-class Config;
-typedef Pointer<Config> ConfigPointer;
+class ConfigService;
+typedef Pointer<ConfigService> ConfigServicePointer;
 
-class Config : public QObject
+class ConfigService : public QObject
 {
     Q_OBJECT
 
 public :
 
-    Q_INVOKABLE Config (const QDBusConnection &conn);
-    virtual ~Config ();
+    Q_INVOKABLE ConfigService (const QDBusConnection &conn);
+    virtual ~ConfigService ();
 
 private :
 

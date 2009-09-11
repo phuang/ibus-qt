@@ -5,43 +5,28 @@
 #include <QDBusVariant>
 #include "qibusobject.h"
 
-class IBusConfigAdaptor;
+class IBusConfigProxy;
 
 namespace IBus {
-
-class Config;
-typedef Pointer<Config> ConfigPointer;
 
 class Config : public QObject
 {
     Q_OBJECT
 
 public :
-
-    Q_INVOKABLE Config (const QDBusConnection &conn);
-    virtual ~Config ();
-
-private :
-
-    // developpers need to implement following functions
-    virtual const QDBusVariant &getValue (const QString &section, const QString &name)
-    {
-        QDBusVariant *retval = new QDBusVariant;
-        return *retval;
-    }
-    virtual void setValue (const QString &section, const QString &name, const QDBusVariant &value)      {}
-    virtual void destroy (void)     {}
+    Config (const QDBusConnection &conn): m_conn(conn) {}
+    virtual ~Config () {}
 
 public :
 
-    Q_INVOKABLE const QDBusVariant &GetValue (const QString &section, const QString &name);
-    Q_INVOKABLE void SetValue (const QString &section, const QString &name, const QDBusVariant &value);
-    Q_INVOKABLE void Destroy (void);
-    
+    bool getValue (const QString &section, const QString &name);    // need to process return value;
+    bool setValue (const QString &section, const QString &name, const QDBusVariant &value);
+    void destroy (void);
+
 private :
 
-    QDBusConnection     m_conn;
-    IBusConfigAdaptor   *m_config;
+    QDBusConnection m_conn;
+    IBusConfigProxy *m_config;
 };
 
 };

@@ -33,6 +33,7 @@ set(
     qibusenginefactory.cpp
     qibusconfigadaptor.cpp
     qibusconfigproxy.cpp
+    qibusconfigservice.cpp
     qibusconfig.cpp
 )
 
@@ -61,6 +62,7 @@ set(
     qibusenginefactory.h
     qibusconfigadaptor.h
     qibusconfigproxy.h
+    qibusconfigservice.h
     qibusconfig.h
 )
 

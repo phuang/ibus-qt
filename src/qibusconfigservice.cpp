@@ -1,18 +1,18 @@
 #include <QDebug>
-#include "qibusconfig.h"
+#include "qibusconfigservice.h"
 #include "qibusconfigadaptor.h"
 
 namespace IBus {
 
-Config::Config (const QDBusConnection &conn) : m_conn(conn)
+ConfigService::ConfigService (const QDBusConnection &conn) : m_conn(conn)
 {
     m_config = new IBusConfigAdaptor(this);
     if ( !m_config ) {
-        qDebug () << "Config::Config, new IBusConfigAdaptor error!";
+        qDebug () << "ConfigService::ConfigService, new IBusConfigAdaptor error!";
     }
 }
 
-Config::~Config ()
+ConfigService::~ConfigService ()
 {
     if ( NULL != m_config ) {
         delete m_config;
@@ -20,17 +20,17 @@ Config::~Config ()
     }
 }
 
-const QDBusVariant &Config::GetValue (const QString &section, const QString &name)
+const QDBusVariant &ConfigService::GetValue (const QString &section, const QString &name)
 {
     return getValue(section, name);
 }
 
-void Config::SetValue (const QString &section, const QString &name, const QDBusVariant &value)
+void ConfigService::SetValue (const QString &section, const QString &name, const QDBusVariant &value)
 {
     setValue(section, name, value);
 }
 
-void Config::Destroy (void)
+void ConfigService::Destroy (void)
 {
     destroy ();
 }
