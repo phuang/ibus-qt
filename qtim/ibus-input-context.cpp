@@ -585,7 +585,20 @@ IBusInputContext::displayPreeditText (const TextPointer &text, uint cursor_pos, 
             AttributePointer attr = attrs->get (i);
             switch (attr->type ()) {
             case Attribute::TypeUnderline:
-                format.setUnderlineStyle (QTextCharFormat::SingleUnderline);
+                switch (attr->value ()) {
+                case Attribute::UnderlineNone:
+                    format.setUnderlineStyle (QTextCharFormat::NoUnderline);
+                    break;
+                case Attribute::UnderlineError:
+                    format.setUnderlineStyle (QTextCharFormat::WaveUnderline);
+                    break;
+                case Attribute::UnderlineSingle:
+                case Attribute::UnderlineLow:
+                case Attribute::UnderlineDouble:
+                default:
+                    format.setUnderlineStyle (QTextCharFormat::SingleUnderline);
+                    break;
+                }
                 break;
             case Attribute::TypeForeground:
                 format.setForeground (QBrush (QColor (attr->value ())));

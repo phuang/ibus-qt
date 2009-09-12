@@ -31,6 +31,7 @@ public:
         UnderlineSingle = 1,
         UnderlineDouble = 2,
         UnderlineLow    = 3,
+        UnderlineError  = 4,
     } Underline;
 
 public:
