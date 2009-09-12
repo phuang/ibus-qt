@@ -18,7 +18,7 @@ class ConfigService : public QObject
 
 public :
 
-    Q_INVOKABLE ConfigService (const QDBusConnection &conn);
+    ConfigService (const QDBusConnection &conn);
     virtual ~ConfigService ();
 
 private :
