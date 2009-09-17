@@ -7,3 +7,5 @@ qdbusxml2cpp -a qibusengineadaptor -c IBusEngineAdaptor -v org.freedesktop.IBus.
 
 qdbusxml2cpp -a qibusconfigadaptor -c IBusConfigAdaptor -v org.freedesktop.IBus.Config.xml org.freedesktop.IBus.Config
 qdbusxml2cpp -p qibusconfigproxy -c IBusConfigProxy -v org.freedesktop.IBus.Config.xml org.freedesktop.IBus.Config
+
+qdbusxml2cpp -a qibuspaneladaptor -c IBusPanelAdaptor -v org.freedesktop.IBus.Panel.xml org.freedesktop.IBus.Panel
