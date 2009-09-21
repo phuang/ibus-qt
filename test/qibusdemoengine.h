@@ -26,7 +26,9 @@ private :
     void UpdateLookupTable ();
     void CommitCurrentCandidate ();
 
-    void CloseLookupTable ();
+private :
+    void propertyActivate (const QString &prop_name, int prop_state);
+    void closeLookupTable ();
 
 private :
     // virtual function

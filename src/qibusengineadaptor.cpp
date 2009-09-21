@@ -104,6 +104,7 @@ bool IBusEngineAdaptor::ProcessKeyEvent(uint keyval, uint keycode, uint state)
 void IBusEngineAdaptor::PropertyActivate(const QString &prop_name, int prop_state)
 {
     // handle method call org.freedesktop.IBus.Engine.PropertyActivate
+    qDebug () << "Activate";
     QMetaObject::invokeMethod(parent(), "PropertyActivate", Q_ARG(QString, prop_name), Q_ARG(int, prop_state));
 }
 

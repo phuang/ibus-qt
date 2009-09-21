@@ -34,7 +34,7 @@ DemoEngine::initialize ()
 void
 DemoEngine::clearup () {}
 
-// call the corresponding function in base class--Engine
+// call the corresponding function in base-class Engine
 void
 DemoEngine::UpdatePreeditText ()
 {
@@ -55,7 +55,7 @@ DemoEngine::UpdateAuxiliaryText ()
 void
 DemoEngine::UpdateLookupTable ()
 {
-    updateLookupTable(m_lookupTable, true);
+    updateLookupTable (m_lookupTable, true);
 }
 
 void
@@ -63,13 +63,34 @@ DemoEngine::CommitCurrentCandidate ()
 {}
 
 void
-DemoEngine::CloseLookupTable ()
+DemoEngine::closeLookupTable ()
 {
-    hideLookupTable();
-    hideAuxiliaryText();
+    hidePreeditText ();
+    hideAuxiliaryText ();
+    hideLookupTable ();
 }
 
 // follows are virtual functions
+//
+void
+DemoEngine::propertyActivate (const QString &prop_name, int prop_state)
+{
+    qDebug () << "Activate";
+    TextPointer tooltip = new Text ("toggle to english");
+    TextPointer label = new Text ("setup");
+    PropertyPointer prop = new Property ("setup",
+                                "/home/doyle/IME/ibus-pinyin/icons/english.svg",
+                                label,
+                                tooltip,
+                                true,
+                                true,
+                                TypeNormal,
+                                0,
+                                NULL);
+
+    updateProperty (prop);
+}
+
 bool
 DemoEngine::processKeyEvent (uint keyval, uint keycode, uint modifiers)
 {
@@ -103,13 +124,11 @@ DemoEngine::processKeyEvent (uint keyval, uint keycode, uint modifiers)
             updateAuxiliaryText (new Text ("CCCCC"), TRUE);
             break;
 
-    // can't pass
         case Key_p :
-            qDebug () << "p";
             label = new Text ("setup");
-            tooltip = new Text ("configuration demo engine");
+            tooltip = new Text ("toggle to english");
             prop = new Property ("setup",
-                                "gtk-preferences",
+                                "/home/doyle/IME/ibus-pinyin/icons/chinese.svg",
                                 label,
                                 tooltip,
                                 true,
@@ -120,7 +139,6 @@ DemoEngine::processKeyEvent (uint keyval, uint keycode, uint modifiers)
             props = new PropList ();
             props->appendProperty (prop);
             registerProperties (props);
-            // updateProperty (prop);
             break;
 
         case Key_d :
@@ -134,7 +152,6 @@ DemoEngine::processKeyEvent (uint keyval, uint keycode, uint modifiers)
             attributeText = new Text("ibus");
             attributeText->appendAttribute (Attribute::TypeForeground, 0xff0000, 0, -1);
             m_lookupTable->appendCandidate (attributeText);
-            // m_lookupTable->appendCandidate (new Text ("ibus"));
             m_lookupTable->appendCandidate (new Text ("wubi"));
             m_lookupTable->appendCandidate (new Text ("chewing"));
             m_lookupTable->appendCandidate (new Text ("IBM"));
@@ -219,6 +236,9 @@ DemoEngine::processKeyEvent (uint keyval, uint keycode, uint modifiers)
 
         case Key_n :
             break;
+
+        case Key_Escape :
+            closeLookupTable ();
 
         default:
             qDebug () << "Unknown key input!";
