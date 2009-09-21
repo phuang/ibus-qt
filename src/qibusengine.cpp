@@ -115,6 +115,8 @@ Engine::ProcessKeyEvent(uint keyval, uint keycode, uint state)
 void
 Engine::PropertyActivate(const QString &prop_name, int prop_state)
 {
+    qDebug () << "Engine::PropertyActivate";
+
     propertyActivate(prop_name, prop_state);
 }
 
