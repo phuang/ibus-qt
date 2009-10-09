@@ -119,7 +119,8 @@ Bus::getSocketPath (void)
 
     QString path =
         QDir::homePath() +
-        QDir::separator() + ".ibus" +
+        QDir::separator() + ".config" +
+        QDir::separator() + "ibus" +
         QDir::separator() + "bus" +
         QDir::separator() +
         dbus_get_local_machine_id () +
