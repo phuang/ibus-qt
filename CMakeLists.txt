@@ -57,7 +57,7 @@ configure_file(ibus-qt.spec.in ibus-qt.spec)
 # ======
 # Requires
 # check qt
-find_package(Qt4 COMPONENTS QtCore QtGui QtDBus REQUIRED)
+find_package(Qt4 4.5 COMPONENTS QtCore QtGui QtDBus REQUIRED)
 include(${QT_USE_FILE})
 # check dbus
 find_package(PkgConfig REQUIRED)
