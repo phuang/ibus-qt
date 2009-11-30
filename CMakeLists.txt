@@ -56,9 +56,13 @@ configure_file(ibus-qt.spec.in ibus-qt.spec)
 
 # ======
 # Requires
+# check X11
+find_package(X11 REQUIRED)
+
 # check qt
 find_package(Qt4 4.5 COMPONENTS QtCore QtGui QtDBus REQUIRED)
 include(${QT_USE_FILE})
+
 # check dbus
 find_package(PkgConfig REQUIRED)
 find_package(ICU REQUIRED)

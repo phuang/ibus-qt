@@ -1,12 +1,14 @@
 include_directories(
     ${QT_QTCORE_INCLUDE_DIR}
     ${QT_QTDBUS_INCLUDE_DIR}
+    ${X11_INCLUDE_DIRS}
     ${DBUS_INCLUDE_DIRS}
     ${IBUS_INCLUDE_DIRS}
     ${CMAKE_CURRENT_SOURCE_DIR}/../src
 )
 
 link_directories(
+    ${X11_LIBRARY_DIRS}
     ${DBUS_LIBRARY_DIRS}
     ${ICU_LIBRARY_DIRS}
 )
