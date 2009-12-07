@@ -80,11 +80,14 @@ LookupTable::appendLabel(const TextPointer & e)
 }
 
 TextPointer
-LookupTable::candidate(const uint index) const
+LookupTable::candidate(uint index) const
 {
     if ( index >= static_cast<uint>(m_candidates.size()) )
         return NULL;
 
+    // pageNum: which page is cursor located in ?
+    uint pageNum = m_cursorPos / m_pageSize;
+    index = pageNum * m_pageSize + index;
     return m_candidates[index];
 }
 
@@ -119,6 +122,12 @@ void
 LookupTable::setPageSize(const uint pageSize)
 {
     m_pageSize = pageSize;
+}
+
+void
+LookupTable::clean (void)
+{
+    m_candidates.clear ();
 }
 
 bool

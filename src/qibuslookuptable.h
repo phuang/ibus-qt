@@ -17,7 +17,7 @@ public:
     LookupTable () {}
     LookupTable (bool round,
                  bool cursorVisible = true,
-                 uint pageSize = 6,
+                 uint pageSize = 5,
                  uint cursorPos = 0):
                  m_pageSize (pageSize),
                  m_cursorPos (cursorPos),
@@ -32,7 +32,7 @@ public:
     void appendCandidate (const TextPointer & e);
     void appendLabel (const TextPointer & e);
 
-    TextPointer candidate (const uint index) const;
+    TextPointer candidate (uint index) const;
     TextPointer label (const uint index) const;
     const QVector<TextPointer> & candidates () const { return m_candidates; }
     const QVector<TextPointer> & labels () const { return m_labels; }
@@ -45,6 +45,7 @@ public:
     void setCursorVisible (bool visible);
     void setPageSize (uint pageSize);
     uint cursorPosInPage () const;
+    void clean (void);
 
     bool pageUp();
     bool pageDown();

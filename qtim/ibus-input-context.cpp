@@ -604,7 +604,7 @@ IBusInputContext::displayPreeditText (const TextPointer &text, uint cursor_pos, 
                 format.setForeground (QBrush (QColor (attr->value ())));
                 break;
             case Attribute::TypeBackground:
-                format.setForeground (QBrush (QColor (attr->value ())));
+                format.setBackground (QBrush (QColor (attr->value ())));
                 break;
             default:
                 qWarning () << "IBusInputContext::displayPreeditText:"

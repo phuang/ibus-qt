@@ -1,6 +1,6 @@
+#include <QCoreApplication>
 #include "qibusinputcontext.h"
 #include "qibusinputcontextproxy.h"
-
 
 namespace IBus {
 
@@ -148,7 +148,10 @@ InputContext::processKeyEvent (uint keyval, uint keycode, uint state)
     Q_ASSERT (m_context);
 
     QDBusPendingReply<bool> reply = m_context->ProcessKeyEvent (keyval, keycode, state);
-    reply.waitForFinished ();
+
+    do {
+        QCoreApplication::processEvents (QEventLoop::WaitForMoreEvents);
+    } while (QCoreApplication::hasPendingEvents () || !reply.isFinished ());
 
     if (reply.isError ()) {
         qWarning () << "InputContext::processKeyEvent:" << reply.error ();

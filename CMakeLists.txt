@@ -12,7 +12,7 @@ set(MAINTAINER "Peng Huang <shawn.p.huang at gmail dot com>")
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "2")
 set(VERSION_PATCH "0")
-set(VERSION_SNAPDATE "20090822")
+set(VERSION_SNAPDATE "20091206")
 set(LIB_VERSION "1.2.0")
 set(LIB_SOVERSION "1")
 
@@ -56,9 +56,13 @@ configure_file(ibus-qt.spec.in ibus-qt.spec)
 
 # ======
 # Requires
+# check X11
+find_package(X11 REQUIRED)
+
 # check qt
-find_package(Qt4 COMPONENTS QtCore QtGui QtDBus REQUIRED)
+find_package(Qt4 4.5 COMPONENTS QtCore QtGui QtDBus REQUIRED)
 include(${QT_USE_FILE})
+
 # check dbus
 find_package(PkgConfig REQUIRED)
 find_package(ICU REQUIRED)

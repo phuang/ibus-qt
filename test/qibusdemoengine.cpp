@@ -5,73 +5,21 @@ DemoEngine::DemoEngine (const QString &name)
 : Engine(name)
 {
     m_lookupTable = NULL;
+    m_candicate = NULL;
 }
 
-DemoEngine::~DemoEngine ()
-{}
-
-void
-DemoEngine::initialize ()
-{
-    TextPointer lable = new Text("Setup");
-    TextPointer tooltip = new Text("configuration demo engine");
-
-    PropertyPointer prop = new Property("setup",
-                                        "gtk-preference",
-                                        lable,
-                                        tooltip,
-                                        true,
-                                        true,
-                                        TypeNormal,
-                                        0,
-                                        NULL);
-
-    m_lookupTable = new LookupTable(5, 0, true, false);
-    m_propList = new PropList();
-    m_propList->appendProperty(prop);
-}
-
-void
-DemoEngine::clearup () {}
-
-// call the corresponding function in base-class Engine
-void
-DemoEngine::UpdatePreeditText ()
-{
-    if ( m_context.size() > 0 ) {
-        TextPointer text = new Text(m_context);
-        updatePreeditText(text, m_context.size(), true);
-        return ;
-    }
-
-    TextPointer text = new Text();
-    updatePreeditText(text, 0, false);
-}
-
-void
-DemoEngine::UpdateAuxiliaryText ()
-{}
-
-void
-DemoEngine::UpdateLookupTable ()
-{
-    updateLookupTable (m_lookupTable, true);
-}
-
-void
-DemoEngine::CommitCurrentCandidate ()
-{}
+DemoEngine::~DemoEngine () {}
 
 void
 DemoEngine::closeLookupTable ()
 {
+    m_lookupTable->clean ();
     hidePreeditText ();
     hideAuxiliaryText ();
     hideLookupTable ();
 }
 
 // follows are virtual functions
-//
 void
 DemoEngine::propertyActivate (const QString &prop_name, int prop_state)
 {
@@ -97,6 +45,8 @@ DemoEngine::processKeyEvent (uint keyval, uint keycode, uint modifiers)
     if (modifiers & ReleaseMask) {
         return false;
     }
+
+    uint indexOfcandidate = 0;
     
     TextPointer tooltip = NULL;
     TextPointer label = NULL;
@@ -107,11 +57,13 @@ DemoEngine::processKeyEvent (uint keyval, uint keycode, uint modifiers)
 
     switch (keyval) {
         case Key_a :
+        /*
             attributeText = new Text ("Apple");
             attributeText->appendAttribute (Attribute::TypeUnderline, Attribute::UnderlineLow, 0, -1);
             attributeText->appendAttribute (Attribute::TypeForeground, 0xff0000, 0, -1);
             updatePreeditText (attributeText, 0, TRUE);
             break;
+        */
 
         case Key_b :
             attributeText = new Text ("Banana");
@@ -239,6 +191,28 @@ DemoEngine::processKeyEvent (uint keyval, uint keycode, uint modifiers)
 
         case Key_Escape :
             closeLookupTable ();
+
+        case Key_1 :
+        case Key_2 :
+        case Key_3 :
+        case Key_4 :
+        case Key_5 :
+        case Key_6 :
+        case Key_7 :
+        case Key_8 :
+        case Key_9 :
+            indexOfcandidate = keyval - 49;
+            if ( m_lookupTable->candidate(0) != NULL ) {
+                if ( (m_candicate = m_lookupTable->candidate(indexOfcandidate)) != NULL ) {
+                    commitText (m_candicate);
+                    closeLookupTable ();
+                }
+
+                break;
+            }
+
+            commitText (new Text (static_cast<QChar>(keyval)));
+            break;
 
         default:
             qDebug () << "Unknown key input!";
