@@ -48,6 +48,12 @@ typedef enum {
     CapProperty          = 1 << 4,
 } Capabilite;
 
+typedef enum {
+    OrientationHorizontal   = 0,
+    OrientationVertical     = 1,
+    OrientationSystem       = 2,
+} Orientation;
+
 typedef struct {
     uint x;
     uint y;

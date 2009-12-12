@@ -15,6 +15,7 @@ LookupTable::serialize (QDBusArgument & argument)
     argument << m_cursorPos;
     argument << m_cursorVisible;
     argument << m_round;
+    argument << m_orientation;
 
     argument.beginArray (qMetaTypeId<QDBusVariant>());
     for ( int i = 0; i < m_candidates.size(); ++i ) {
@@ -45,6 +46,7 @@ LookupTable::deserialize (const QDBusArgument & argument)
     argument >> m_cursorPos;
     argument >> m_cursorVisible;
     argument >> m_round;
+    argument >> m_orientation;
 
     argument.beginArray();
     while ( !argument.atEnd() );
@@ -122,6 +124,12 @@ void
 LookupTable::setPageSize(const uint pageSize)
 {
     m_pageSize = pageSize;
+}
+
+void
+LookupTable::setOrientation (int orientation)
+{
+    m_orientation = orientation;
 }
 
 void

@@ -3,6 +3,7 @@
 
 #include "qibusserializable.h"
 #include "qibustext.h"
+#include "qibustypes.h"
 
 namespace IBus {
 
@@ -14,15 +15,17 @@ class LookupTable: public Serializable
     Q_OBJECT;
 
 public:
-    LookupTable () {}
-    LookupTable (bool round,
+    LookupTable (uint pageSize = 5,
+                 uint cursorPos = 0,
                  bool cursorVisible = true,
-                 uint pageSize = 5,
-                 uint cursorPos = 0):
+                 bool round = true,
+                 int orientation = OrientationSystem
+                 ):
                  m_pageSize (pageSize),
                  m_cursorPos (cursorPos),
                  m_cursorVisible (cursorVisible),
-                 m_round (round) {}
+                 m_round (round),
+                 m_orientation (orientation) {}
 
     ~LookupTable() {}
 
@@ -40,10 +43,12 @@ public:
     uint pageSize () const {return m_pageSize; }
     bool isCursorVisible () const { return m_cursorVisible; }
     bool isRound () const { return m_round; }
+    int orientation () const { return m_orientation; }
 
     void setCursorPos (const uint cursorPos);
     void setCursorVisible (bool visible);
     void setPageSize (uint pageSize);
+    void setOrientation (int orientation);
     uint cursorPosInPage () const;
     void clean (void);
 
@@ -57,6 +62,7 @@ private:
     uint        m_cursorPos;
     bool        m_cursorVisible;
     bool        m_round;
+    int         m_orientation;
 
     QVector<TextPointer>    m_candidates;
     QVector<TextPointer>    m_labels;
