@@ -12,7 +12,7 @@ BuildRoot:  %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:  cmake
 BuildRequires:  qt-devel >= 4.5
 BuildRequires:  dbus-devel >= 1.2
-BuildRequires:  ibus-devel >= 1.2
+# BuildRequires:  ibus-devel >= 1.2
 BuildRequires:  libicu-devel >= 4.0
 Requires:   ibus >= 1.2
 
