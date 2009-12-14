@@ -50,6 +50,8 @@ set(CPACK_SOURCE_IGNORE_FILES
     "ibus-qt\\\\.spec$"
     "CPackSourceConfig\\\\.cmake$"
     "CPackConfig\\\\.cmake$"
+    "docs/man"
+    "docs/html"
 )
 include(CPack)
 configure_file(ibus-qt.spec.in ibus-qt.spec)
