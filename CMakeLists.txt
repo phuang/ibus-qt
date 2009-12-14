@@ -53,6 +53,7 @@ set(CPACK_SOURCE_IGNORE_FILES
 )
 include(CPack)
 configure_file(ibus-qt.spec.in ibus-qt.spec)
+configure_file(Doxyfile.in Doxyfile)
 
 # ======
 # Requires
@@ -68,6 +69,9 @@ find_package(PkgConfig REQUIRED)
 find_package(ICU REQUIRED)
 pkg_check_modules(DBUS REQUIRED dbus-1)
 # pkg_check_modules(IBUS REQUIRED ibus-1.0>=1.2.0)
+
+# check doxygen
+find_package(Doxygen REQUIRED)
 
 # =====
 # Define variables
@@ -122,4 +126,7 @@ add_custom_target(srpm
     --define "_rpmdir ${CMAKE_CURRENT_SOURCE_DIR}/rpm"
     --define "_specdir ${CMAKE_CURRENT_SOURCE_DIR}/rpm"
     ibus-qt.spec
+    )
+add_custom_target(docs
+    COMMAND ${DOXYGEN_EXECUTABLE}
     )
