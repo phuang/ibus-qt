@@ -28,7 +28,6 @@ set(
     qibusobservedpath.cpp
     qibusengineadaptor.cpp
     qibusengine.cpp
-    qibusservice.cpp
     qibusfactoryadaptor.cpp
     qibusenginefactory.cpp
     qibusconfigadaptor.cpp
@@ -57,7 +56,6 @@ set(
     qibusobservedpath.h
     qibusengineadaptor.h
     qibusengine.h
-    qibusservice.h
     qibusfactoryadaptor.h
     qibusenginefactory.h
     qibusconfigadaptor.h
