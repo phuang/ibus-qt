@@ -12,7 +12,7 @@ set(MAINTAINER "Peng Huang <shawn.p.huang at gmail dot com>")
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "2")
 set(VERSION_PATCH "0")
-set(VERSION_SNAPDATE "20091206")
+set(VERSION_SNAPDATE "20091213")
 set(LIB_VERSION "1.2.0")
 set(LIB_SOVERSION "1")
 
@@ -67,7 +67,7 @@ include(${QT_USE_FILE})
 find_package(PkgConfig REQUIRED)
 find_package(ICU REQUIRED)
 pkg_check_modules(DBUS REQUIRED dbus-1)
-pkg_check_modules(IBUS REQUIRED ibus-1.0)
+# pkg_check_modules(IBUS REQUIRED ibus-1.0>=1.2.0)
 
 # =====
 # Define variables

@@ -12,3 +12,4 @@ tags
 *.gz
 *.rpm
 ibus-qt.spec
+rpm
