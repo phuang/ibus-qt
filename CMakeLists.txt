@@ -53,7 +53,7 @@ set(CPACK_SOURCE_IGNORE_FILES
 )
 include(CPack)
 configure_file(ibus-qt.spec.in ibus-qt.spec)
-configure_file(Doxyfile.in Doxyfile)
+configure_file(docs/Doxyfile.in docs/Doxyfile)
 
 # ======
 # Requires
@@ -102,6 +102,7 @@ install(FILES ${MAIN_DOCS}
 add_subdirectory(src)
 add_subdirectory(qtim)
 add_subdirectory(test)
+add_subdirectory(docs)
 
 # ======
 # targets
@@ -126,7 +127,4 @@ add_custom_target(srpm
     --define "_rpmdir ${CMAKE_CURRENT_SOURCE_DIR}/rpm"
     --define "_specdir ${CMAKE_CURRENT_SOURCE_DIR}/rpm"
     ibus-qt.spec
-    )
-add_custom_target(docs
-    COMMAND ${DOXYGEN_EXECUTABLE}
     )
