@@ -158,6 +158,9 @@ private Q_SLOTS:
     Q_INVOKABLE void SetCursorLocation (int x, int y, int w, int h);
 
 Q_SIGNALS :
+    /**
+     * FIXME need hide signals in doxygen
+     */
     void CommitText (const QDBusVariant &text);
     void CursorDownLookupTable ();
     void CursorUpLookupTable ();
@@ -175,7 +178,6 @@ Q_SIGNALS :
     void UpdateLookupTable (const QDBusVariant &lookup_table, bool visible);
     void UpdatePreeditText (const QDBusVariant &text, uint cursor_pos, bool visible);
     void UpdateProperty (const QDBusVariant &prop);
-
 private :
     QString m_engineName;
     IBusEngineAdaptor *m_adaptor;

@@ -16,7 +16,9 @@
 
 namespace IBus {
 /**
- * @brief Connection with ibus daemon
+ * @brief Constructor of Bus object.
+ *
+ * @return
  */
 Bus::Bus (void)
 : m_connection (NULL),
@@ -39,7 +41,9 @@ Bus::Bus (void)
 }
 
 /**
- * @brief Destructor of Bus object
+ * @brief Destructor of Bus object.
+ *
+ * @return
  */
 Bus::~Bus (void)
 {
@@ -49,7 +53,7 @@ Bus::~Bus (void)
 /**
  * @brief Rest Bus object
  *
- * The Bus object will disconnect from ibus daemon
+ * @return
  */
 void
 Bus::reset (void)
@@ -228,6 +232,7 @@ Bus::hello (void)
  * @brief Adds a match rule to match message going through the bus
  *
  * @param[in] rule Match rule
+ * @return
  */
 void
 Bus::addMatch (const QString &rule)
@@ -250,6 +255,7 @@ Bus::addMatch (const QString &rule)
  * @brief Removes a match rule to match message going through the bus
  *
  * @param[in] rule Match rule
+ * @return
  */
 void
 Bus::removeMatch (const QString &rule)

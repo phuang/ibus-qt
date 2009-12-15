@@ -4,6 +4,8 @@
 namespace IBus {
 /**
  * @brief Destructor of Object
+ *
+ * @return
  */
 Object::~Object ()
 {
@@ -14,6 +16,8 @@ Object::~Object ()
 
 /**
  * @brief Destroy the object
+ *
+ * @return
  */
 void
 Object::destroy ()

@@ -199,26 +199,32 @@ Engine::processKeyEvent (uint keyval, uint keycode, uint state)
 
 void
 Engine::propertyActivate (const QString &prop_name, int prop_state)
-{}
+{
+}
 
 void
 Engine::propertyHide (const QString &prop_name)
-{}
+{
+}
 
 void
 Engine::propertyShow (const QString &prop_name)
-{}
+{
+}
 
 void
 Engine::reset ()
-{}
+{
+}
 
 void
 Engine::setCapabilities (uint cap)
-{}
+{
+}
 
 void
 Engine::setCursorLocation (int x, int y, int w, int h)
-{}
+{
+}
 
 };
