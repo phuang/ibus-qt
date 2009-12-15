@@ -149,9 +149,11 @@ InputContext::processKeyEvent (uint keyval, uint keycode, uint state)
 
     QDBusPendingReply<bool> reply = m_context->ProcessKeyEvent (keyval, keycode, state);
 
-    do {
-        QCoreApplication::processEvents (QEventLoop::WaitForMoreEvents);
-    } while (QCoreApplication::hasPendingEvents () || !reply.isFinished ());
+    QEventLoop loop;
+    QDBusPendingCallWatcher watcher (reply);
+
+    loop.connect (&watcher, SIGNAL(finished(QDBusPendingCallWatcher *)), SLOT(quit()));
+    loop.exec (QEventLoop::ExcludeUserInputEvents | QEventLoop::WaitForMoreEvents);
 
     if (reply.isError ()) {
         qWarning () << "InputContext::processKeyEvent:" << reply.error ();
