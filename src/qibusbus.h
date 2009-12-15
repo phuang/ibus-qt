@@ -28,7 +28,7 @@ public:
     Bus (void);
     ~Bus (void);
     bool isConnected (void);
-    const QDBusConnection &getConnection (void) { return *m_connection; }
+    const QDBusConnection &getConnection (void);
 
     /* org.freedesktop.DBus methods */
     QString hello (void);
@@ -58,7 +58,14 @@ private:
     QString getAddress (void);
 
 signals:
+    /**
+     * @brief Emited when bus is disconnected from ibus daemon.
+     */
     void disconnected (void);
+
+    /**
+     * @brief Emited when bus is connected to ibus daemon.
+     */
     void connected (void);
 
 private slots:

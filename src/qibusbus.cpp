@@ -190,6 +190,17 @@ Bus::isConnected (void)
 }
 
 /**
+ * @brief Gets the QDBusConnection object
+ *
+ * @return QDBusConnection object in Bus.
+ */
+const QDBusConnection &
+Bus::getConnection (void)
+{
+    return *m_connection;
+}
+
+/**
  * @brief Says hello to ibus daemon, and gets a unique name from the daemon
  *
  * @return unique name from ibus daemon
