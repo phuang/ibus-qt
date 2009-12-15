@@ -2,7 +2,9 @@
 #include "qibusobject.h"
 
 namespace IBus {
-
+/**
+ * @brief Destructor of Object
+ */
 Object::~Object ()
 {
     if (m_referenced && m_refcount != 0) {
@@ -10,6 +12,9 @@ Object::~Object ()
     }
 }
 
+/**
+ * @brief Destroy the object
+ */
 void
 Object::destroy ()
 {

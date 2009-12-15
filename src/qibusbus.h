@@ -44,12 +44,7 @@ public:
     /* org.freedesktop.IBus methods */
     QString createInputContext (const QString &name);
     bool registerComponent (const ComponentPointer &component);
-    bool registerObject (const QString &path, QObject *obj) {
-        if (m_connection == NULL)
-            return false;
-
-        return m_connection->registerObject (path, obj);
-    }
+    bool registerObject (const QString &path, QObject *obj);
 
     QList<EngineDescPointer> listEngines (void);
     QList<EngineDescPointer> listActiveEngines (void);

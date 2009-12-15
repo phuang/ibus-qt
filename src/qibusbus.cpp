@@ -15,7 +15,9 @@
 
 
 namespace IBus {
-
+/**
+ * @brief Connection with ibus daemon
+ */
 Bus::Bus (void)
 : m_connection (NULL),
   m_dbus (NULL),
@@ -36,11 +38,19 @@ Bus::Bus (void)
     open ();
 }
 
+/**
+ * @brief Destructor of Bus object
+ */
 Bus::~Bus (void)
 {
     reset ();
 }
 
+/**
+ * @brief Rest Bus object
+ *
+ * The Bus object will disconnect from ibus daemon
+ */
 void
 Bus::reset (void)
 {
@@ -168,12 +178,22 @@ Bus::getAddress (void)
     return address;
 }
 
+/**
+ * @brief Gets whether the bus is connected to ibus daemon.
+ *
+ * @return true if @object is connected to ibus daemon, otherwise false.
+ */
 bool
 Bus::isConnected (void)
 {
     return ((m_connection != NULL) && m_connection->isConnected ());
 }
 
+/**
+ * @brief Says hello to ibus daemon, and gets a unique name from the daemon
+ *
+ * @return unique name from ibus daemon
+ */
 QString
 Bus::hello (void)
 {
@@ -193,6 +213,11 @@ Bus::hello (void)
     return reply;
 }
 
+/**
+ * @brief Adds a match rule to match message going through the bus
+ *
+ * @param[in] rule Match rule
+ */
 void
 Bus::addMatch (const QString &rule)
 {
@@ -210,6 +235,11 @@ Bus::addMatch (const QString &rule)
     }
 }
 
+/**
+ * @brief Removes a match rule to match message going through the bus
+ *
+ * @param[in] rule Match rule
+ */
 void
 Bus::removeMatch (const QString &rule)
 {
@@ -227,6 +257,11 @@ Bus::removeMatch (const QString &rule)
     }
 }
 
+/**
+ * @brief Asks ibus daemon to return its globally unique ID.
+ *
+ * @return the bus ID or Null
+ */
 QString
 Bus::getId (void)
 {
@@ -246,6 +281,11 @@ Bus::getId (void)
     return reply;
 }
 
+/**
+ * @brief Asks ibus daemon to return the owner of a bus name
+ *
+ * @return name owner or Null
+ */
 QString
 Bus::getNameOwner (const QString &name)
 {
@@ -265,6 +305,11 @@ Bus::getNameOwner (const QString &name)
     return reply;
 }
 
+/**
+ * @brief Asks ibus daemon to return all client names
+ *
+ * @return List of names
+ */
 QStringList
 Bus::listNames (void)
 {
@@ -284,6 +329,12 @@ Bus::listNames (void)
     return reply;
 }
 
+/**
+ * @brief Gets whether name has an owner
+ *
+ * @param[in] name Bus name
+ * @return true if the name has owner, false otherwise.
+ */
 bool
 Bus::nameHasOwner (const QString &name)
 {
@@ -303,6 +354,12 @@ Bus::nameHasOwner (const QString &name)
     return reply;
 }
 
+/**
+ * @brief Asks ibus daemon to assign the given name to this connection
+ * @param[in] name Bus name
+ * @param[in] flag Unused
+ * @return 0 if error happens
+ */
 uint
 Bus::requestName (const QString &name, uint flag)
 {
@@ -322,6 +379,12 @@ Bus::requestName (const QString &name, uint flag)
     return reply;
 }
 
+/**
+ * @brief Asks ibus daemon to release the given name of this connection
+ *
+ * @param[in] name Bus name
+ * @return 0 if error happens
+ */
 uint
 Bus::releaseName (const QString &name)
 {
@@ -342,6 +405,12 @@ Bus::releaseName (const QString &name)
 }
 
 /* org.freedesktop.IBus methods */
+/**
+ * @brief Asks ibus daemon to create an input context
+ *
+ * @param[in] name Client name
+ * @return Object path of the input context
+ */
 QString
 Bus::createInputContext (const QString &name)
 {
@@ -361,6 +430,12 @@ Bus::createInputContext (const QString &name)
     return reply.value ().path ();
 }
 
+/**
+ * @brief Registers a components with ibus daemon.
+ *
+ * @param[in] component A Component
+ * @return true if suceeded, false otherwise.
+ */
 bool
 Bus::registerComponent (const ComponentPointer &component)
 {
@@ -384,6 +459,27 @@ Bus::registerComponent (const ComponentPointer &component)
     return true;
 }
 
+/**
+ * @brief Registers an object with the connection
+ *
+ * @param[in] path The object path.
+ * @param[in] obj The object pointer.
+ * @return true if suceeded, false otherwise.
+ */
+bool
+Bus::registerObject (const QString &path, QObject *obj)
+{
+        if (m_connection == NULL)
+            return false;
+
+        return m_connection->registerObject (path, obj);
+}
+
+/**
+ * @brief Asks ibus daemon to return a list of engines.
+ *
+ * @return A List of engines
+ */
 QList<EngineDescPointer>
 Bus::listEngines (void)
 {
@@ -412,6 +508,11 @@ Bus::listEngines (void)
     return engines;
 }
 
+/**
+ * @brief Asks ibus daemon to return a list of active engines.
+ *
+ * @return A List of active engines
+ */
 QList<EngineDescPointer>
 Bus::listActiveEngines (void)
 {
@@ -440,6 +541,12 @@ Bus::listActiveEngines (void)
     return engines;
 }
 
+/**
+ * @brief Asks ibus daemon to exit.
+ *
+ * @param[in] restart Whether restart ibus daemon after exiting
+ * @return true if suceeded, false otherwise.
+ */
 bool
 Bus::exit (bool restart)
 {
@@ -459,6 +566,12 @@ Bus::exit (bool restart)
     return true;
 }
 
+/**
+ * @brief Pings ibus daemon with a serializable object
+ *
+ * @param[in] data The data will be sent to ibus daemon.
+ * @return The data from ibus daemon.
+ */
 SerializablePointer
 Bus::ping (const SerializablePointer &data)
 {
