@@ -50,6 +50,7 @@ set(CPACK_SOURCE_IGNORE_FILES
     "ibus-qt\\\\.spec$"
     "CPackSourceConfig\\\\.cmake$"
     "CPackConfig\\\\.cmake$"
+    "docs/Doxyfile$"
     "docs/man"
     "docs/html"
 )
