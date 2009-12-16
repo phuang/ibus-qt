@@ -53,6 +53,8 @@ set(CPACK_SOURCE_IGNORE_FILES
     "docs/Doxyfile$"
     "docs/man"
     "docs/html"
+    "build/"
+    "install/"
 )
 include(CPack)
 configure_file(ibus-qt.spec.in ibus-qt.spec)
