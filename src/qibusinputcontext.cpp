@@ -1,4 +1,4 @@
-#include <QCoreApplication>
+#include <QEventLoop>
 #include "qibusinputcontext.h"
 #include "qibusinputcontextproxy.h"
 
