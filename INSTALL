@@ -1,4 +1,6 @@
 # how to build
-cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS="-Wall" # -DLIBDIR=lib64
+mkdir build
+cd build
+cmake .. -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS="-Wall" # -DLIBDIR=lib64
 make VERBOSE=1
 make install # DESTDIR=

@@ -76,7 +76,7 @@ rm -rf $RPM_BUILD_ROOT
 %files devel-docs
 %defattr(-,root,root,-)
 %{_datadir}/doc/ibus-qt-docs-@CPACK_PACKAGE_VERSION@/html
-%{_datadir}/man/man3/*.3.gz
+%{_datadir}/man/man3/*
 
 %changelog
 * Mon Jul 27 2009 Peng Huang <shawn.p.huang@gmail.com> - @CPACK_PACKAGE_VERSION@-1
