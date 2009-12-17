@@ -28,13 +28,13 @@ Requires:   %{name} = %{version}-%{release}
 %description devel
 The ibus-qt-devel package contains the header files for ibus qt library.
 
-%package devel-docs
+%package docs
 Summary:    Development documents for ibus qt
 Group:      Development/Libraries
 Requires:   %{name} = %{version}-%{release}
 
-%description devel-docs
-The ibus-qt-devel-docs package contains developer documentation for ibus qt library.
+%description docs
+The ibus-qt-docs package contains developer documentation for ibus qt library.
 
 %prep
 %setup -q -n %{name}-%{version}-Source
@@ -73,10 +73,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*
 %{_libdir}/libibus-qt.so
 
-%files devel-docs
+%files docs
 %defattr(-,root,root,-)
-%{_datadir}/doc/ibus-qt-docs-@CPACK_PACKAGE_VERSION@/html
-%{_datadir}/man/man3/*
+%doc docs/html
 
 %changelog
 * Mon Jul 27 2009 Peng Huang <shawn.p.huang@gmail.com> - @CPACK_PACKAGE_VERSION@-1

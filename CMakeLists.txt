@@ -56,6 +56,7 @@ set(CPACK_SOURCE_IGNORE_FILES
     "build/"
 )
 include(CPack)
+
 configure_file(ibus-qt.spec.in ibus-qt.spec)
 configure_file(docs/Doxyfile.in docs/Doxyfile)
 
@@ -86,9 +87,14 @@ if(NOT DEFINED LIBDIR)
         set(LIBDIR lib)
     endif()
 endif(NOT DEFINED LIBDIR)
+
 if(NOT DEFINED DOCDIR)
     set(DOCDIR "share/doc/ibus-qt-${CPACK_PACKAGE_VERSION}")
 endif(NOT DEFINED DOCDIR)
+
+if(NOT DEFINED MANDIR)
+    set(MANDIR "share/man")
+endif(NOT DEFINED MANDIR)
 
 # =====
 # install
@@ -115,20 +121,22 @@ add_custom_target(gitclean git clean -f -d -X)
 add_custom_target(rpm
     COMMAND make package_source
     COMMAND rpmbuild -bb
-    --define "_sourcedir ${CMAKE_CURRENT_BINARY_DIR}"
-    --define "_builddir ${CMAKE_CURRENT_BINARY_DIR}/rpm"
-    --define "_srcrpmdir ${CMAKE_CURRENT_BINARY_DIR}/rpm"
-    --define "_rpmdir ${CMAKE_CURRENT_BINARY_DIR}/rpm"
-    --define "_specdir ${CMAKE_CURRENT_BINARY_DIR}/rpm"
-    ibus-qt.spec
+        --define "_sourcedir ${CMAKE_CURRENT_BINARY_DIR}"
+        --define "_builddir ${CMAKE_CURRENT_BINARY_DIR}/rpm"
+        --define "_srcrpmdir ${CMAKE_CURRENT_BINARY_DIR}/rpm"
+        --define "_rpmdir ${CMAKE_CURRENT_BINARY_DIR}/rpm"
+        --define "_specdir ${CMAKE_CURRENT_BINARY_DIR}/rpm"
+        ibus-qt.spec
+    SOURCES ibus-qt.spec
     )
 add_custom_target(srpm
     COMMAND make package_source
     COMMAND rpmbuild -bs
-    --define "_sourcedir ${CMAKE_CURRENT_BINARY_DIR}"
-    --define "_builddir ${CMAKE_CURRENT_BINARY_DIR}/rpm"
-    --define "_srcrpmdir ${CMAKE_CURRENT_BINARY_DIR}/rpm"
-    --define "_rpmdir ${CMAKE_CURRENT_BINARY_DIR}/rpm"
-    --define "_specdir ${CMAKE_CURRENT_BINARY_DIR}/rpm"
-    ibus-qt.spec
+        --define "_sourcedir ${CMAKE_CURRENT_BINARY_DIR}"
+        --define "_builddir ${CMAKE_CURRENT_BINARY_DIR}/rpm"
+        --define "_srcrpmdir ${CMAKE_CURRENT_BINARY_DIR}/rpm"
+        --define "_rpmdir ${CMAKE_CURRENT_BINARY_DIR}/rpm"
+        --define "_specdir ${CMAKE_CURRENT_BINARY_DIR}/rpm"
+        ibus-qt.spec
+    SOURCES ibus-qt.spec
     )
