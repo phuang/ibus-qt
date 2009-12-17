@@ -48,6 +48,7 @@ make \
     C_DEFINES="$RPM_OPT_FLAGS" \
     CXX_DEFINES="$RPM_OPT_FLAGS" \
     %{?_smp_mflags}
+make docs
 
 %install
 rm -rf $RPM_BUILD_ROOT
