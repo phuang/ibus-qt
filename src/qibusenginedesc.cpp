@@ -37,7 +37,7 @@ EngineDesc::deserialize (const QDBusArgument &argument)
     argument >> m_author;
     argument >> m_icon;
     argument >> m_layout;
-    argument << m_rank;
+    argument >> m_rank;
 
     return true;
 }
