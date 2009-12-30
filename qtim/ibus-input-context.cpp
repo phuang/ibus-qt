@@ -44,7 +44,7 @@
 
 typedef struct _IBusComposeTableCompact IBusComposeTableCompact;
 struct _IBusComposeTableCompact {
-    const quint16 *data;
+    const quint32 *data;
     int max_seq_len;
     int n_index_size;
     int n_index_stride;
@@ -324,7 +324,7 @@ IBusInputContext::processCompose (uint keyval, uint state)
 static int
 compare_seq_index (const void *key, const void *value) {
     const uint *keysyms = (const uint *)key;
-    const quint16 *seq = (const quint16 *)value;
+    const quint32 *seq = (const quint32 *)value;
 
     if (keysyms[0] < seq[0])
         return -1;
@@ -337,7 +337,7 @@ static int
 compare_seq (const void *key, const void *value) {
     int i = 0;
     const uint *keysyms = (const uint *)key;
-    const quint16 *seq = (const quint16 *)value;
+    const quint32 *seq = (const quint32 *)value;
 
     while (keysyms[i]) {
         if (keysyms[i] < seq[i])
@@ -355,8 +355,8 @@ bool
 IBusInputContext::checkCompactTable (const IBusComposeTableCompact *table)
 {
     int row_stride;
-    const quint16 *seq_index;
-    const quint16 *seq;
+    const quint32 *seq_index;
+    const quint32 *seq;
     int i;
 
     /* Will never match, if the sequence in the compose buffer is longer
@@ -365,9 +365,9 @@ IBusInputContext::checkCompactTable (const IBusComposeTableCompact *table)
     if (m_n_compose > table->max_seq_len)
         return false;
 
-    seq_index = (const quint16 *)bsearch (m_compose_buffer,
+    seq_index = (const quint32 *)bsearch (m_compose_buffer,
                                           table->data, table->n_index_size,
-                                          sizeof (quint16) * table->n_index_stride,
+                                          sizeof (quint32) * table->n_index_stride,
                                           compare_seq_index);
 
     if (!seq_index) {
@@ -383,9 +383,9 @@ IBusInputContext::checkCompactTable (const IBusComposeTableCompact *table)
         row_stride = i + 1;
 
         if (seq_index[i+1] - seq_index[i] > 0) {
-            seq = (const quint16 *) bsearch (m_compose_buffer + 1,
+            seq = (const quint32 *) bsearch (m_compose_buffer + 1,
                                              table->data + seq_index[i], (seq_index[i+1] - seq_index[i]) / row_stride,
-                                             sizeof (quint16) *  row_stride,
+                                             sizeof (quint32) *  row_stride,
                                              compare_seq);
             if (seq) {
                 if (i == m_n_compose - 1)

@@ -22,7 +22,7 @@
 #ifndef __Key_COMPOSE_DATA_H_
 #define __Key_COMPOSE_DATA_H_
 
-static const quint16 ibus_compose_seqs_compact[] = {
+static const quint32 ibus_compose_seqs_compact[] = {
 Key_dead_stroke, 138, 226, 235, 235, 235,
 Key_Greek_accentdieresis, 235, 239, 239, 239, 239,
 Key_dead_grave, 239, 299, 386, 598, 598,
