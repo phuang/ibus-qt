@@ -21,6 +21,7 @@ public :
 
     bool getValue (const QString &section, const QString &name);    // need to process return value;
     bool setValue (const QString &section, const QString &name, const QDBusVariant &value);
+    bool unset (const QString &section, const QString &name);
     void destroy (void);
 
 private :

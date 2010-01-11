@@ -51,6 +51,20 @@ Config::setValue (const QString &section, const QString &name, const QDBusVarian
     return true;
 }
 
+bool
+Config::unset (const QString &section, const QString &name)
+{
+    QDBusPendingReply<> reply = m_config->Unset(section, name);
+    reply.waitForFinished ();
+
+    if (reply.isError ()) {
+        qDebug () << "Config::unset:" << reply.error ();
+        return false;
+    }
+
+    return true;
+}
+
 void
 Config::destroy (void)
 {

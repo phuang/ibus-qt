@@ -24,6 +24,10 @@
       <arg direction="in"  type="s" name="name" />
       <arg direction="out" type="v" />
     </method>
+    <method name="Unset">
+      <arg direction="in"  type="s" name="section" />
+      <arg direction="in"  type="s" name="name" />
+    </method>
   </interface>
 </node>
 

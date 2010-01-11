@@ -9,8 +9,8 @@
  * before re-generating it.
  */
 
-#ifndef QIBUSCONFIGADAPTOR_H_1252555094
-#define QIBUSCONFIGADAPTOR_H_1252555094
+#ifndef QIBUSCONFIGADAPTOR_H_1263201191
+#define QIBUSCONFIGADAPTOR_H_1263201191
 
 #include <QtCore/QObject>
 #include <QtDBus/QtDBus>
@@ -29,22 +29,26 @@ class IBusConfigAdaptor: public QDBusAbstractAdaptor
     Q_OBJECT
     Q_CLASSINFO("D-Bus Interface", "org.freedesktop.IBus.Config")
     Q_CLASSINFO("D-Bus Introspection", ""
-"  <interface name=\"org.freedesktop.IBus.Config\" >\n"
-"    <method name=\"Destroy\" />\n"
-"    <signal name=\"ValueChanged\" >\n"
-"      <arg type=\"s\" name=\"section\" />\n"
-"      <arg type=\"s\" name=\"name\" />\n"
-"      <arg type=\"v\" name=\"value\" />\n"
+"  <interface name=\"org.freedesktop.IBus.Config\">\n"
+"    <method name=\"Destroy\"/>\n"
+"    <signal name=\"ValueChanged\">\n"
+"      <arg type=\"s\" name=\"section\"/>\n"
+"      <arg type=\"s\" name=\"name\"/>\n"
+"      <arg type=\"v\" name=\"value\"/>\n"
 "    </signal>\n"
-"    <method name=\"SetValue\" >\n"
-"      <arg direction=\"in\" type=\"s\" name=\"section\" />\n"
-"      <arg direction=\"in\" type=\"s\" name=\"name\" />\n"
-"      <arg direction=\"in\" type=\"v\" name=\"value\" />\n"
+"    <method name=\"SetValue\">\n"
+"      <arg direction=\"in\" type=\"s\" name=\"section\"/>\n"
+"      <arg direction=\"in\" type=\"s\" name=\"name\"/>\n"
+"      <arg direction=\"in\" type=\"v\" name=\"value\"/>\n"
 "    </method>\n"
-"    <method name=\"GetValue\" >\n"
-"      <arg direction=\"in\" type=\"s\" name=\"section\" />\n"
-"      <arg direction=\"in\" type=\"s\" name=\"name\" />\n"
-"      <arg direction=\"out\" type=\"v\" />\n"
+"    <method name=\"GetValue\">\n"
+"      <arg direction=\"in\" type=\"s\" name=\"section\"/>\n"
+"      <arg direction=\"in\" type=\"s\" name=\"name\"/>\n"
+"      <arg direction=\"out\" type=\"v\"/>\n"
+"    </method>\n"
+"    <method name=\"Unset\">\n"
+"      <arg direction=\"in\" type=\"s\" name=\"section\"/>\n"
+"      <arg direction=\"in\" type=\"s\" name=\"name\"/>\n"
 "    </method>\n"
 "  </interface>\n"
         "")
@@ -57,6 +61,7 @@ public Q_SLOTS: // METHODS
     void Destroy();
     QDBusVariant GetValue(const QString &section, const QString &name);
     void SetValue(const QString &section, const QString &name, const QDBusVariant &value);
+    void Unset(const QString &section, const QString &name);
 Q_SIGNALS: // SIGNALS
     void ValueChanged(const QString &section, const QString &name, const QDBusVariant &value);
 };

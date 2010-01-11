@@ -53,3 +53,9 @@ void IBusConfigAdaptor::SetValue(const QString &section, const QString &name, co
     QMetaObject::invokeMethod(parent(), "SetValue", Q_ARG(QString, section), Q_ARG(QString, name), Q_ARG(QDBusVariant, value));
 }
 
+void IBusConfigAdaptor::Unset(const QString &section, const QString &name)
+{
+    // handle method call org.freedesktop.IBus.Config.Unset
+    QMetaObject::invokeMethod(parent(), "Unset", Q_ARG(QString, section), Q_ARG(QString, name));
+}
+

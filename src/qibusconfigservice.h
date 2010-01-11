@@ -24,18 +24,20 @@ public :
 private :
 
     // developpers need to implement following functions
-    virtual const QDBusVariant &getValue (const QString &section, const QString &name)
+    virtual const QDBusVariant getValue (const QString &section, const QString &name)
     {
-        QDBusVariant *retval = new QDBusVariant;
-        return *retval;
+        QDBusVariant variant;
+        return variant;
     }
-    virtual void setValue (const QString &section, const QString &name, const QDBusVariant &value)      {}
+    virtual void setValue (const QString &section, const QString &name, const QDBusVariant &value) {}
+    virtual void unset (const QString &section, const QString &name) {}
     virtual void destroy (void)     {}
 
 public :
 
-    Q_INVOKABLE const QDBusVariant &GetValue (const QString &section, const QString &name);
+    Q_INVOKABLE const QDBusVariant GetValue (const QString &section, const QString &name);
     Q_INVOKABLE void SetValue (const QString &section, const QString &name, const QDBusVariant &value);
+    Q_INVOKABLE void Unset (const QString &section, const QString &name);
     Q_INVOKABLE void Destroy (void);
     
 private :

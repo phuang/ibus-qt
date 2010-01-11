@@ -8,8 +8,8 @@
  * Do not edit! All changes made to it will be lost.
  */
 
-#ifndef QIBUSCONFIGPROXY_H_1252555139
-#define QIBUSCONFIGPROXY_H_1252555139
+#ifndef QIBUSCONFIGPROXY_H_1263201191
+#define QIBUSCONFIGPROXY_H_1263201191
 
 #include <QtCore/QObject>
 #include <QtCore/QByteArray>
@@ -54,6 +54,13 @@ public Q_SLOTS: // METHODS
         QList<QVariant> argumentList;
         argumentList << qVariantFromValue(section) << qVariantFromValue(name) << qVariantFromValue(value);
         return asyncCallWithArgumentList(QLatin1String("SetValue"), argumentList);
+    }
+
+    inline QDBusPendingReply<> Unset(const QString &section, const QString &name)
+    {
+        QList<QVariant> argumentList;
+        argumentList << qVariantFromValue(section) << qVariantFromValue(name);
+        return asyncCallWithArgumentList(QLatin1String("Unset"), argumentList);
     }
 
 Q_SIGNALS: // SIGNALS
