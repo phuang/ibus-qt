@@ -7,7 +7,7 @@
 #include "qibusproplist.h"
 #include "qibuslookuptable.h"
 
-class InputContextProxy;
+class IBusInputContextProxy;
 
 namespace IBus {
 
@@ -106,7 +106,7 @@ private slots:
 */
 private:
     BusPointer m_bus;
-    InputContextProxy *m_context;
+    IBusInputContextProxy *m_context;
 };
 
 };

@@ -54,6 +54,11 @@ typedef enum {
     OrientationSystem       = 2,
 } Orientation;
 
+typedef enum {
+    EnginePreeditClear      = 0,
+    EnginePreeditCommit     = 1,
+} PreeditFocusMode;
+
 typedef struct {
     uint x;
     uint y;

@@ -73,6 +73,7 @@
       <arg type="v" name="text" />
       <arg type="u" name="cursor_pos" />
       <arg type="b" name="visible" />
+      <arg type="u" name="mode" />
     </signal>
     <signal name="RegisterProperties">
       <arg type="v" name="props" />

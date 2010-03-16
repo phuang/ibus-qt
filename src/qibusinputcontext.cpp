@@ -7,9 +7,9 @@ namespace IBus {
 InputContext::InputContext (const BusPointer &bus, const QString &path)
  : m_bus (bus)
 {
-    m_context = new InputContextProxy ("org.freedesktop.IBus",
-                                       path,
-                                       m_bus->getConnection ());
+    m_context = new IBusInputContextProxy ("org.freedesktop.IBus",
+                                           path,
+                                           m_bus->getConnection ());
 
     /* commit text */
     QObject::connect (m_context, SIGNAL (CommitText (const QDBusVariant &)),

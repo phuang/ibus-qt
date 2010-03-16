@@ -220,12 +220,13 @@ public :
      * @param[in] text A text object.
      * @param[in] cursorPos The cursor position in the given text.
      * @param[in] visible Whether the preedit text is visible.
+     * @param[in] mode preedit focus mode.
      * @return
      */
-    void updatePreeditText (const TextPointer & text, uint cursorPos, bool visible)
+    void updatePreeditText (const TextPointer & text, uint cursorPos, bool visible, uint mode = EnginePreeditClear)
     {
         QDBusVariant variant;
-        UpdatePreeditText (qDBusVariantFromSerializable (text, variant), cursorPos, visible);
+        UpdatePreeditText (qDBusVariantFromSerializable (text, variant), cursorPos, visible, mode);
     }
 
     /**
@@ -409,7 +410,7 @@ Q_SIGNALS :
     void ShowPreeditText ();
     void UpdateAuxiliaryText (const QDBusVariant &text, bool visible);
     void UpdateLookupTable (const QDBusVariant &lookup_table, bool visible);
-    void UpdatePreeditText (const QDBusVariant &text, uint cursor_pos, bool visible);
+    void UpdatePreeditText (const QDBusVariant &text, uint cursor_pos, bool visible, uint mode);
     void UpdateProperty (const QDBusVariant &prop);
 private :
     QString m_engineName;

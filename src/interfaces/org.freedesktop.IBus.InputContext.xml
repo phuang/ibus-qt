@@ -24,11 +24,15 @@
     <method name="Reset"/>
     <method name="Enable"/>
     <method name="Disable"/>
-    <method name="IsEnable">
+    <method name="IsEnabled">
       <arg name="enable" direction="out" type="b"/>
     </method>
     <method name="SetCapabilities">
       <arg name="caps" direction="in" type="u"/>
+    </method>
+    <method name="PropertyActivate">
+      <arg name="name" direction="in" type="s"/>
+      <arg name="state" direction="in" type="i"/>
     </method>
     <method name="SetEngine">
       <arg name="name" direction="in" type="s"/>
