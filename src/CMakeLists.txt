@@ -93,8 +93,10 @@ target_link_libraries(
     ibus-qt
     debug ${QT_QTCORE_LIBRARY_DEBUG}
     debug ${QT_QTDBUS_LIBRARY_DEBUG}
+    debug ${QT_QTXML_LIBRARY_DEBUG}
     optimized ${QT_QTCORE_LIBRARY_RELEASE}
     optimized ${QT_QTDBUS_LIBRARY_RELEASE}
+    optimized ${QT_QTXML_LIBRARY_RELEASE}
     ${DBUS_LIBRARIES}
 )
 

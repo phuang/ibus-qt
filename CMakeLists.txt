@@ -67,7 +67,7 @@ configure_file(docs/Doxyfile.in docs/Doxyfile)
 find_package(X11 REQUIRED)
 
 # check qt
-find_package(Qt4 4.5 COMPONENTS QtCore QtGui QtDBus REQUIRED)
+find_package(Qt4 4.5 COMPONENTS QtCore QtGui QtDBus QtXml REQUIRED)
 include(${QT_USE_FILE})
 
 # check dbus
