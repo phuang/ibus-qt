@@ -1,0 +1,45 @@
+Source: ibus-qt
+Section: utils
+Priority: optional
+Maintainer: LI Daobing <lidaobing@debian.org>
+Uploaders: Asias He <asias.hejun@gmail.com>
+Build-Depends: debhelper (>= 7), cmake, pkg-config, libqt4-dev,
+ libdbus-1-dev, libx11-dev, libicu-dev, libibus-dev, doxygen
+Standards-Version: 3.8.4
+Homepage: http://code.google.com/p/ibus
+Vcs-Bzr: lp:~lidaobing/ibus/ibus-qt
+Vcs-Browser: https://code.launchpad.net/~lidaobing/ibus/ibus-qt
+
+Package: ibus-qt4
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: qt-immodule for ibus (QT4)
+ IBus is an Intelligent Input Bus. It is a new input framework for Linux
+ OS. It provides full featured and user friendly input method user interface.
+ It also may help developers to develop input method easily.
+ .
+ ibus-qt4 is the QT4 client of ibus, it provide a qt-immodule for ibus.
+
+Package: libibus-qt1
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: qt-immodule for ibus (QT4)
+ IBus is an Intelligent Input Bus. It is a new input framework for Linux
+ OS. It provides full featured and user friendly input method user interface.
+ It also may help developers to develop input method easily.
+ .
+ libibus-qt1 is the library of ibus-qt.
+
+Package: libibus-qt-dev
+Section: libdevel
+Architecture: any
+Depends: libibus-qt1 (= ${binary:Version}), libqt4-dev, libibus-dev, libdbus-1-dev, ${shlibs:Depends}, ${misc:Depends}
+Description: qt-immodule for ibus (QT4)
+ IBus is an Intelligent Input Bus. It is a new input framework for Linux
+ OS. It provides full featured and user friendly input method user interface.
+ It also may help developers to develop input method easily.
+ .
+ This package contains the header files which is needed for 
+ developing the ibus-qt applications.
+

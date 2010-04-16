@@ -1,0 +1,59 @@
+#!/usr/bin/make -f
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+# This has to be exported to make some magic below work.
+export DH_OPTIONS
+
+build: build-stamp
+build-stamp: 
+	dh_testdir
+	cmake -DCMAKE_SKIP_RPATH=ON -DCMAKE_VERBOSE_MAKEFILE=ON -DCMAKE_INSTALL_PREFIX="/usr" .
+	dh_auto_configure
+	$(MAKE)
+	touch $@
+
+clean:
+	dh_testdir
+	dh_testroot
+	dh_auto_clean
+	dh_clean
+	rm -f build-stamp 
+	[ ! -f Makefile ] || make clean || true
+	rm -rf CMakeFiles/ src/CMakeFiles/ qtim/CMakeFiles/ test/CMakeFiles docs/CMakeFiles
+	rm -f Makefile test/Makefile test/cmake_install.cmake
+	rm -rf obj-*-linux-gnu
+
+install: build
+	dh_testdir
+	dh_testroot
+	dh_prep
+	dh_installdirs
+	$(MAKE) DESTDIR=$(CURDIR)/debian/tmp install
+	dh_install --list-missing --fail-missing
+
+binary-indep: install
+
+# Build architecture independant packages using the common target.
+binary-arch: install
+	dh_testdir -s
+	dh_testroot -s
+	dh_installchangelogs -s
+	dh_installdocs -s
+	dh_installman -s
+	dh_link -s
+	dh_strip -s
+	dh_compress -s
+	dh_fixperms -s
+	dh_makeshlibs -Nibus-qt4 -s 
+	dh_installdeb -s
+	dh_shlibdeps -s 
+	dh_gencontrol -s 
+	dh_md5sums -s
+	dh_builddeb -s
+
+binary: binary-indep binary-arch
+
+.PHONY: build clean binary-indep binary-arch binary install	\
+	install-indep install-arch

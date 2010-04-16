@@ -1,0 +1,16 @@
+src/libibus-qt.so
+qtim/libqtim-ibus.so
+CMakeCache.txt
+CPackConfig.cmake
+CPackSourceConfig.cmake
+Makefile
+cmake_install.cmake
+ibus-qt.spec
+install_manifest.txt
+qtim/Makefile
+qtim/cmake_install.cmake
+src/Makefile
+src/cmake_install.cmake
+docs/Doxyfile
+docs/Makefile
+docs/cmake_install.cmake
