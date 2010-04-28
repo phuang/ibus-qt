@@ -38,6 +38,7 @@
 #endif
 
 #include <stdlib.h>
+#include <string.h>
 #include <unicode/unorm.h>
 
 #include "ibus-compose-data.h"
@@ -91,14 +92,7 @@ IBusInputContext::IBusInputContext (const BusPointer &bus)
 {
     Q_ASSERT (!m_bus.isNull ());
 
-    m_compose_buffer[0] =
-    m_compose_buffer[1] =
-    m_compose_buffer[2] =
-    m_compose_buffer[3] =
-    m_compose_buffer[4] =
-    m_compose_buffer[5] =
-    m_compose_buffer[6] =
-    m_compose_buffer[7] = 0;
+    memset (m_compose_buffer, 0, sizeof (m_compose_buffer));
 
     createInputContext ();
 
