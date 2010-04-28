@@ -81,21 +81,21 @@ find_package(Doxygen REQUIRED)
 
 # =====
 # Define variables
-if(NOT DEFINED LIBDIR)
+if(NOT LIBDIR)
     if( $ENV{MACHTYPE} MATCHES "64")
         set(LIBDIR lib64)
     else()
         set(LIBDIR lib)
     endif()
-endif(NOT DEFINED LIBDIR)
+endif(NOT LIBDIR)
 
-if(NOT DEFINED DOCDIR)
+if(NOT DOCDIR)
     set(DOCDIR "share/doc/ibus-qt-${CPACK_PACKAGE_VERSION}")
-endif(NOT DEFINED DOCDIR)
+endif(NOT DOCDIR)
 
-if(NOT DEFINED MANDIR)
+if(NOT MANDIR)
     set(MANDIR "share/man")
-endif(NOT DEFINED MANDIR)
+endif(NOT MANDIR)
 
 # =====
 # install
