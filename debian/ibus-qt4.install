@@ -1,0 +1,2 @@
+debian/tmp/usr/lib/qt4/*
+debian/tmp/usr/share/*

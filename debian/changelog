@@ -1,0 +1,63 @@
+ibus-qt (1.3.0-1) unstable; urgency=low
+
+  * build for lucid.
+
+ -- Peng Huang <shawn.p.huang@gmail.com>  Fri, 16 Apr 2010 14:45:00 +0800
+
+ibus-qt (1.3.0-1) unstable; urgency=low
+
+  * New upstream release.
+  * debian/control: bump standards version to 3.8.4.
+  * debian/source/format: 3.0.
+  * Fix "FTBFS with binutils-gold" (Closes: #554862)
+    - debian/patches/binutils-gold: added.
+
+ -- LI Daobing <lidaobing@debian.org>  Sat, 10 Apr 2010 16:25:47 +0800
+
+ibus-qt (1.2.0.20091217-1) unstable; urgency=low
+
+  * New upstream release.
+  * debian/control:
+    - build depends on doxygen.
+  * debian/clean: updated
+  * debian/rules: update clean section.
+
+ -- LI Daobing <lidaobing@debian.org>  Thu, 17 Dec 2009 20:37:40 +0800
+
+ibus-qt (1.2.0.20091206-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- LI Daobing <lidaobing@debian.org>  Thu, 10 Dec 2009 19:28:40 +0800
+
+ibus-qt (1.2.0.20091014-1) unstable; urgency=low
+
+  * new upstream release.
+  * debian/rules: updated. 
+
+ -- LI Daobing <lidaobing@debian.org>  Wed, 14 Oct 2009 18:48:52 +0800
+
+ibus-qt (1.2.0.20090822-2) unstable; urgency=low
+
+  * split ibus-qt to libibus-qt, libibus-qt-dev, ibus-qt4 
+
+ -- Asias He <asias.hejun@gmail.com>  Fri, 28 Aug 2009 16:21:31 +0800
+
+ibus-qt (1.2.0.20090822-1) unstable; urgency=low
+
+  * new upstream release.
+    - Fix "Composite key stops working" (Closes: #541784)
+  * debian/control: 
+    - bump standards version to 3.8.3. 
+    - add libicu-dev, libibus-dev to build-depends.
+    - change version of debhelper from 7.0.50 to 7 
+  * debian/rules:
+    - use debhelper 7.
+
+ -- LI Daobing <lidaobing@debian.org>  Mon, 24 Aug 2009 22:30:28 +0800
+
+ibus-qt (1.2.0.20090728-1) unstable; urgency=low
+
+  * Initial release (Closes: #539022)
+
+ -- LI Daobing <lidaobing@debian.org>  Tue, 28 Jul 2009 22:32:34 +0800

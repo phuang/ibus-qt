@@ -1,0 +1,30 @@
+Description: fix FTBFS with binutils-gold
+Author: LI Daobing <lidaobing@debian.org>
+Bug-Debian: http://bugs.debian.org/554862
+Forwarded: http://code.google.com/p/ibus/issues/detail?id=853
+Last-Update: 2010-04-10
+
+--- ibus-qt-1.3.0.orig/CMakeLists.txt
++++ ibus-qt-1.3.0/CMakeLists.txt
+@@ -67,7 +67,7 @@ configure_file(docs/Doxyfile.in docs/Dox
+ find_package(X11 REQUIRED)
+ 
+ # check qt
+-find_package(Qt4 4.5 COMPONENTS QtCore QtGui QtDBus REQUIRED)
++find_package(Qt4 4.5 COMPONENTS QtCore QtGui QtDBus QtXml REQUIRED)
+ include(${QT_USE_FILE})
+ 
+ # check dbus
+--- ibus-qt-1.3.0.orig/src/CMakeLists.txt
++++ ibus-qt-1.3.0/src/CMakeLists.txt
+@@ -93,8 +93,10 @@ target_link_libraries(
+     ibus-qt
+     debug ${QT_QTCORE_LIBRARY_DEBUG}
+     debug ${QT_QTDBUS_LIBRARY_DEBUG}
++    debug ${QT_QTXML_LIBRARY_DEBUG}
+     optimized ${QT_QTCORE_LIBRARY_RELEASE}
+     optimized ${QT_QTDBUS_LIBRARY_RELEASE}
++    optimized ${QT_QTXML_LIBRARY_RELEASE}
+     ${DBUS_LIBRARIES}
+ )
+ 
