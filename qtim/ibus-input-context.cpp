@@ -563,9 +563,82 @@ IBusInputContext::slotCommitText (const TextPointer &text)
     update ();
 }
 
+static bool
+sortSegments (const AttributePointer &attr_a, const AttributePointer &attr_b)
+{
+    return attr_a->start () < attr_b->start ();
+}
+
+/*
+ * KateViewInternal::inputMethodEvent() in kdelibs doesn't support the
+ * duplicated format ranges.
+ * This function separates each AttributePointer with the minimum size.
+ * E.g.
+ * attrs[i = 0]: [0            8]
+ * attrs[j = 1]:           [6          10]
+ * attrs[j = 2]:      [4       8]
+ * If i == 0, the default min_end == 8 == attr_i->start () + attr_i->length ()
+ * If j == 1, the min_end becomes 6 == attr_j->start ()
+ * but it's not the minimum min_end yet.
+ * If j == 2, the min_end becomes 4 == attr_j->start ()
+ * Now min_end gets the minimum min_end.
+ * After checks the min_end between j = 0 to attrs.size(),
+ * attr_i gets the minimum min_end.
+ * Let's split attr_i's range [0 8] with [0 4] and [4 8]
+ * and then
+ * attrs[i = 0]: [0   4]
+ * attrs[i = 1]:      [4       8]
+ * attrs[j = 2]:           [6          10]
+ * attrs[j = 3]:      [4       8]
+ * increment i = i + 1 == 1 and apply the same split.
+ * after split all attrs with the minimum rages, sort the attrs with
+ * the attr->start() so that same range formats can be consolidated into
+ * one format in IBusInputContext::displayPreeditText().
+ */
+static inline void
+sortAttrs (QList <AttributePointer> &attrs)
+{
+    for (int i = 0; i < attrs.size (); i++) {
+        AttributePointer attr_i = attrs[i];
+        uint min_end = attr_i->start () + attr_i->length ();
+        for (int j = 0; j < attrs.size (); j++) {
+            if (i == j) {
+                continue;
+            }
+            AttributePointer attr_j = attrs[j];
+            if (attr_i->start () < attr_j->start () &&
+                attr_j->start () < min_end) {
+                min_end = attr_j->start ();
+            }
+            if (attr_i->start () < attr_j->start () + attr_j->length () &&
+                attr_j->start () + attr_j->length () < min_end) {
+                min_end = attr_j->start () + attr_j->length ();
+            }
+        }
+        if (min_end == attr_i->start () + attr_i->length ()) {
+            continue;
+        }
+        attrs.removeAt (i);
+        int n = i;
+        AttributePointer attr1 = new Attribute (attr_i->type (),
+                                                attr_i->value (),
+                                                attr_i->start (),
+                                                min_end);
+        attrs.insert (n++, attr1);
+        AttributePointer attr2 = new Attribute (attr_i->type (),
+                                                attr_i->value (),
+                                                min_end,
+                                                attr_i->end ());
+        attrs.insert (n++, attr2);
+    }
+
+    qSort (attrs.begin (), attrs.end (), sortSegments);
+}
+
 void
 IBusInputContext::displayPreeditText (const TextPointer &text, uint cursor_pos, bool visible)
 {
+    QList <AttributePointer> attrs_sortable;
     QList <QAttribute> qattrs;
     QString string;
 
@@ -575,8 +648,26 @@ IBusInputContext::displayPreeditText (const TextPointer &text, uint cursor_pos, 
 
         AttrListPointer attrs = text->attrs ();
         for (uint i = 0; i < attrs->size (); i++) {
-            QTextCharFormat format;
             AttributePointer attr = attrs->get (i);
+            attrs_sortable.append (attr);
+        }
+        sortAttrs (attrs_sortable);
+
+        for (int i = 0; i < attrs_sortable.size (); i++) {
+            QTextCharFormat format;
+            AttributePointer attr = attrs_sortable[i];
+            int size = qattrs.size ();
+            // The first index 0 is used by QInputMethodEvent::Cursor above.
+            const int first_index = 1;
+
+            if (size > first_index) {
+                QAttribute qattr = qattrs[size - 1];
+                if(qattr.start == (int) attr->start () &&
+                   qattr.length == (int) attr->length ()) {
+                    format = qvariant_cast<QTextFormat> (qattr.value).toCharFormat ();
+                }
+            }
+
             switch (attr->type ()) {
             case Attribute::TypeUnderline:
                 switch (attr->value ()) {
@@ -605,6 +696,15 @@ IBusInputContext::displayPreeditText (const TextPointer &text, uint cursor_pos, 
                             << "unknow Attribute type" << attr->type ();
                 continue;
             }
+
+            if (size > first_index) {
+                QAttribute qattr = qattrs[size - 1];
+                if(qattr.start == (int) attr->start () &&
+                   qattr.length == (int) attr->length()) {
+                    qattrs.removeAt (size - 1);
+                }
+            }
+
             qattrs.append (QAttribute (QInputMethodEvent::TextFormat,
                                        attr->start (), attr->length (), QVariant (format)));
         }
