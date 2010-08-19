@@ -18,6 +18,7 @@ EngineDesc::serialize (QDBusArgument &argument)
     argument << m_author;
     argument << m_icon;
     argument << m_layout;
+    argument << m_hotkeys;
     argument << m_rank;
 
     return true;
@@ -37,6 +38,7 @@ EngineDesc::deserialize (const QDBusArgument &argument)
     argument >> m_author;
     argument >> m_icon;
     argument >> m_layout;
+    argument >> m_hotkeys;
     argument >> m_rank;
 
     return true;
@@ -59,6 +61,7 @@ EngineDesc::output (QString & output) const
     stream.writeTextElement("author", m_author);
     stream.writeTextElement("icon", m_icon);
     stream.writeTextElement("layout", m_layout);
+    stream.writeTextElement("hotkeys", m_hotkeys);
 
     QString stringRank;
     stringRank = stringRank.number(m_rank);
@@ -101,6 +104,9 @@ EngineDesc::parseXmlNode (const QDomNode & node)
         }
         else if ( !child.nodeName().compare("layout") ) {
             m_layout = child.toElement().text();
+        }
+        else if ( !child.nodeName().compare("hotkeys") ) {
+            m_hotkeys = child.toElement().text();
         }
         else if ( !child.nodeName().compare("rank") ) {
             m_rank = child.toElement().text().toUInt();

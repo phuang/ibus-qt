@@ -25,7 +25,9 @@ public:
                 QString lics,
                 QString auth,
                 QString icon,
-                QString layout):
+                QString layout,
+                QString hotkeys = "",
+                uint rank = 0):
                 m_name(name),
                 m_longname(lname),
                 m_description(desc),
@@ -33,7 +35,9 @@ public:
                 m_license(lics),
                 m_author(auth),
                 m_icon(icon),
-                m_layout(layout)
+                m_layout(layout),
+                m_hotkeys(hotkeys),
+                m_rank(rank)
     {    
 	    m_engineInfo.insert("name", m_name);
 	    m_engineInfo.insert("longname", m_longname);
@@ -43,7 +47,11 @@ public:
         m_engineInfo.insert("author", m_author);
         m_engineInfo.insert("icon", m_icon);
         m_engineInfo.insert("layout", m_layout);
-        m_engineInfo.insert("rank", 0);
+        m_engineInfo.insert("hotkeys", m_hotkeys);
+
+        QString stringRank;
+        stringRank = stringRank.number(m_rank);
+        m_engineInfo.insert("rank", stringRank);
     }
 
     virtual ~EngineDesc() {}
@@ -69,6 +77,7 @@ private :
     QString m_author;
     QString m_icon;
     QString m_layout;
+    QString m_hotkeys;
     uint    m_rank;
 
     QMap<QString, QString> m_engineInfo;

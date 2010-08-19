@@ -74,7 +74,7 @@ include(${QT_USE_FILE})
 find_package(PkgConfig REQUIRED)
 find_package(ICU REQUIRED)
 pkg_check_modules(DBUS REQUIRED dbus-1)
-# pkg_check_modules(IBUS REQUIRED ibus-1.0>=1.2.0)
+pkg_check_modules(IBUS REQUIRED ibus-1.0>=1.3.7)
 
 # check doxygen
 find_package(Doxygen REQUIRED)
